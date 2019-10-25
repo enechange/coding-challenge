@@ -1,0 +1,32 @@
+{
+    "root": true,
+    "parserOptions": {
+        "parser": "babel-eslint",
+        "ecmaVersion": 2017,
+        "sourceType": "module"
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jquery": true
+    },
+    "extends": [
+        "semistandard",
+        "prettier"
+    ],
+    "plugins": [
+        "import",
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "printWidth": 120,
+                "singleQuote": true,
+                "trailingComma": "es5"
+            }
+        ],
+        "no-mixed-operators": 0
+    }
+}
