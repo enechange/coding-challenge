@@ -19,7 +19,7 @@ gulp.task('imgmin', () => {
     .pipe(plumber({errorHandler:notify.onError('Error: <%= error.message %>')}))
     .pipe(imagemin([
       pngquant({ // PNGの最適化
-        quality: '100-100',
+        quality: [.8, 1],
         speed: 1,
         floyd: 0
       }),
