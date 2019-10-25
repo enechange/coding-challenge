@@ -25,8 +25,7 @@ gulp.task('stylelintScss', () => {
       })
     }))
     .pipe(postcss([
-      stylelint({ fix: true }),
+      stylelint({ fix: false }),
       reporter({ clearMessages: true, throwError: false })
-    ], {syntax: postcssScss}))
-    .pipe(gulp.dest(config.path.lint.scss.dest));
+    ], {syntax: postcssScss}));
 });

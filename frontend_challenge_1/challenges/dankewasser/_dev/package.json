@@ -67,8 +67,9 @@
     "prettier-webpack-plugin": "^1.2.0",
     "require-dir": "^1.2.0",
     "stylelint": "9.10.1",
-    "stylelint-config-standard": "^18.2.0",
+    "stylelint-config-standard": "^18.3.0",
     "stylelint-order": "^2.1.0",
+    "stylelint-scss": "^3.12.0",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.2.3",
     "webpack-stream": "^5.2.1"
