@@ -1,0 +1,102 @@
+section.p-KV
+  .p-KV_Inner
+    .p-KV_TtlArea
+      h2.p-KV_Ttl
+        img.p-KV_TtlImg(alt="法人の電気料金を無料一括見積り 一番安い電力会社が見つかる！ お見積りを出した電力会社を比較し、その中から一番安い電力会社をお選びいただけます")
+    .p-KV_FormArea
+      form.p-Form
+        h2.p-Form_Ttl
+          | 電気代一括見積もりフォーム
+        p.p-Form_Desc
+          | 全国15社以上の電力会社の見積りから
+          br
+          | 自社に合うものを選ぶだけ！
+        p.p-Form_RequiredSP
+          | すべて入力必須
+
+        .p-Form_Body
+          .p-FormRowGroup
+            .p-FormRow.t-Error
+              p.p-FormRow_ErrorMsg
+                | 選択してください
+            .p-FormRow
+              p.p-Form_NameCol.t-Small
+                span.c-Required 必須
+                | ご契約中の
+                br.u-SP
+                | 電力会社
+              .p-Form_InputCol
+                select(name="provider")
+                  option(value="tepco") 東京電力
+                  option(value="hepco") 北海道電力
+                  option(value="tohoku-epco") 東北電力
+                  option(value="chuden") 中部電力
+                  option(value="rikuden") 北陸電力
+                  option(value="kepco") 関西電力
+                  option(value="energia") 中国電力
+                  option(value="yonden") 四国電力
+                  option(value="kyuden") 九州電力
+                  option(value="okiden") 沖縄電力
+                  option(value="other") その他
+
+          .p-FormRowGroup
+            .p-FormRow.t-Error
+              p.p-FormRow_ErrorMsg
+                | 選択してください
+            .p-FormRow
+              p.p-Form_NameCol
+                span.c-Required 必須
+                | 都道府県
+              .p-Form_InputCol
+                select(name="pref")
+                  option(value="") お選びください
+
+          .p-FormRowGroup
+            .p-FormRow.t-Error
+              p.p-FormRow_ErrorMsg
+                | 正しく入力して下さい
+            .p-FormRow
+              p.p-Form_NameCol
+                span.c-Required 必須
+                | 都道府県
+              .p-Form_InputCol
+                input(placeholder="○○株式会社")
+
+          .p-FormRowGroup
+            .p-FormRow.t-Error
+              p.p-FormRow_ErrorMsg
+                | 正しく入力して下さい
+            .p-FormRow
+              p.p-Form_NameCol
+                span.c-Required 必須
+                | ご担当者
+              .p-Form_InputCol
+                input(placeholder="ご入力ください")
+
+          .p-FormRowGroup
+            .p-FormRow.t-Error
+              p.p-FormRow_ErrorMsg
+                | 正しく入力して下さい
+            .p-FormRow
+              p.p-Form_NameCol
+                span.c-Required 必須
+                | 電話番号
+              .p-Form_InputCol
+                input(placeholder="03-1234-5678")
+
+          .p-FormRowGroup
+            .p-FormRow.t-Error
+              p.p-FormRow_ErrorMsg
+                | 正しく入力して下さい
+            .p-FormRow
+              p.p-Form_NameCol
+                span.c-Required 必須
+                | メールアドレス
+              .p-Form_InputCol
+                input(placeholder="メールアドレス")
+
+        .p-FormBtn
+          button.c-SubmitBtn 一括見積もりしてみる
+
+        p.p-FormNotice
+          | 利用規約・個人情報に同意の上送信ください
