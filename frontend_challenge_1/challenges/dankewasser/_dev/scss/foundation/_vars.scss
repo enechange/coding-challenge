@@ -7,7 +7,7 @@ $z-notification: 103;
 $imgPath-pc: '../images/';
 $imgPath-sp: '../images/sp/';
 $breakpoints: (
-  'sp': 'screen and (max-width: 768px)',
+  'sp': 'screen and (max-width: 767px)',
   'pc': 'screen and (min-width: 768px)',
 ) !default;
 $ctsWidth-pc: 1024px;

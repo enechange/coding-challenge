@@ -19,4 +19,9 @@
   margin: 0 auto;
   width: 700px;
   height: 390px;
+
+  @include mq() {
+    width: 100vw;
+    height: 55.714vw;
+  }
 }

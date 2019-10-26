@@ -34,6 +34,11 @@
   flex: 1 1 auto;
   display: block;
   margin-left: 40px;
+
+  @include mq() {
+    display: none;
+  }
+
 }
 
 .l-Header_NavList {

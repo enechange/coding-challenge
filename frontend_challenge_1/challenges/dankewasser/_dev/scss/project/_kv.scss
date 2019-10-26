@@ -11,6 +11,10 @@
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
+
+  @include mq() {
+    display: block;
+  }
 }
 
 .p-KV_TtlArea {
@@ -18,6 +22,10 @@
   width: 535px;
   padding-top: 139px;
   padding-left: 40px;
+
+  @include mq() {
+    width: auto;
+  }
 }
 
 .p-KV_FormArea {

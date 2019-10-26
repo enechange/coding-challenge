@@ -6,6 +6,10 @@
   background: #e7f4db;
   border-radius: 6px;
   box-shadow: 2px 2px 7px 0 rgba(#636363, 0.5);
+
+  @include mq() {
+    width: auto;
+  }
 }
 
 .c-Form_Ttl {
@@ -21,6 +25,10 @@
   font-size: 2.5rem;
   line-height: 50px;
   color: #fff;
+
+  @include mq() {
+    width: auto;
+  }
 }
 
 .c-Form_Desc {

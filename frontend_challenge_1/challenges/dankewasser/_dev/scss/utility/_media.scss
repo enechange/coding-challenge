@@ -5,8 +5,6 @@
 }
 
 .u-SP {
-  display: none;
-
   @include mq(pc) {
     display: none;
   }

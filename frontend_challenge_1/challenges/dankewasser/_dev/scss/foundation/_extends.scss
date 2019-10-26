@@ -5,6 +5,10 @@
 %CommonSection_Inner {
   margin: 0 auto;
   width: $ctsWidth-pc;
+
+  @include mq() {
+    width: auto;
+  }
 }
 
 %CommonInput {

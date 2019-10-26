@@ -5,6 +5,11 @@
   margin: 0 auto;
   width: 858px;
 
+  @include mq() {
+    display: block;
+    width: auto;
+  }
+
   & + & {
     margin-top: 60px;
   }
@@ -17,6 +22,10 @@
 .c-Consultants_NameCol {
   flex: 0 0 auto;
   width: 389px;
+
+  @include mq() {
+    width: auto;
+  }
 }
 
 .c-Consultants_Image {
@@ -36,6 +45,10 @@
 .c-Consultants_TxtCol {
   flex: 0 0 auto;
   width: 442px;
+
+  @include mq() {
+    width: auto;
+  }
 }
 
 .c-Consultants_Lead {
