@@ -28,11 +28,16 @@ p {
 input[type="submit"] {
   border-radius: 0;
   -webkit-box-sizing: content-box;
-  -webkit-appearance: button;
-  appearance: button;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  //appearance: button;
   border: none;
   box-sizing: border-box;
   cursor: pointer;
+  appearance: none;
+  padding: 0;
+  outline: none;
+  background: transparent;
 }
 
 input[type="submit"]::-webkit-search-decoration,
@@ -40,8 +45,8 @@ input[type="button"]::-webkit-search-decoration {
   display: none;
 }
 
-input[type="submit"]::focus,
-input[type="button"]::focus {
+input[type="submit"]:focus,
+input[type="button"]:focus {
   outline-offset: -2px;
 }
 
@@ -54,8 +59,7 @@ select {
   background: transparent;
 }
 
-button,
-input[type="submit"] {
+button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
