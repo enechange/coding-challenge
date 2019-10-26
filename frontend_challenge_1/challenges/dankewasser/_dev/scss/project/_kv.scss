@@ -1,0 +1,26 @@
+.p-KV {
+  @extend %CommonSection;
+
+  background: rgba(#e0f7fd, 0.93) url(#{$imgPath-pc}kv_bg.jpg) center no-repeat;
+  background-size: cover;
+}
+
+.p-KV_Inner {
+  @extend %CommonSection_Inner;
+
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.p-KV_TtlArea {
+  flex: 0 0 auto;
+  width: 535px;
+  padding-top: 139px;
+  padding-left: 40px;
+}
+
+.p-KV_FormArea {
+  flex: 0 0 auto;
+  padding: 65px 0 39px;
+}

@@ -1,0 +1,9 @@
+.l-Wrapper {
+  width: 100%;
+  min-width: $ctsWidth-pc;
+
+  @include mq() {
+    width: 100%;
+    min-width: inherit;
+  }
+}

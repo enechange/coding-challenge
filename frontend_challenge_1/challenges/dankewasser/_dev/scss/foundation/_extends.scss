@@ -1,0 +1,28 @@
+%CommonSection {
+  display: block;
+}
+
+%CommonSection_Inner {
+  margin: 0 auto;
+  width: $ctsWidth-pc;
+}
+
+%CommonInput {
+  padding: 5px 13px;
+  width: 190px;
+  border: 2px solid #3b9e77;
+  border-radius: 2px;
+  background: #fff;
+  font-size: 1.4rem;
+  color: #414141;
+
+  &::placeholder {
+    color: #d2d2d2;
+  }
+}
+
+%CommonSelect {
+  @extend %CommonInput;
+
+  padding-left: 25px;
+}

@@ -1,0 +1,13 @@
+.u-PC {
+  @include mq() {
+    display: none;
+  }
+}
+
+.u-SP {
+  display: none;
+
+  @include mq(pc) {
+    display: none;
+  }
+}

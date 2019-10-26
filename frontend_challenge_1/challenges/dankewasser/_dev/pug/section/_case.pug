@@ -3,11 +3,7 @@ section.p-Case
     h2.c-Heading 電気代削減事例
     p.p-Case_Desc
       | 切り替え実績は
-      span.p-Case_DescStrong 3000件
-      | 以上
-    p.p-Case_Desc
-      | 切り替え実績は
-      span.p-Case_DescStrong 3000件
+      span.p-Case_Desc_Strong 3000件
       | 以上
     p.p-Case_Desc
       | ご紹介している事例のほか、
@@ -17,50 +13,48 @@ section.p-Case
       | ぜひお気軽にお問い合わせくだい。
 
     .p-Case_Slider
-      .c-Slider
-        -
-          const cases = [
-            {
-              place: '埼玉県上尾市',
-              type: '製本工場',
-              image: '',
-              reducePrice: '437',
-              reducePercent: '6.43',
-              before: '6,791',
-              after: '6,354',
-              link: ''
-            },
-            {
-              place: '静岡県掛川市',
-              type: '製本工場',
-              image: '',
-              reducePrice: '367',
-              reducePercent: '8.75',
-              before: '4.197',
-              after: '3.830',
-              link: ''
-            },
-            {
-              place: '神奈川県横須賀市',
-              type: 'マリーナ',
-              image: '',
-              reducePrice: '280',
-              reducePercent: '8.36',
-              before: '3,350',
-              after: '3,070',
-              link: ''
-            },
-            {
-              place: '福岡県糸島市',
-              type: '温泉旅館',
-              image: '',
-              reducePrice: '40',
-              reducePercent: '12.62',
-              before: '317',
-              after: '277',
-              link: ''
-            }
-          ]
+      -
+        const cases = [
+          {
+            place: '埼玉県上尾市',
+            type: '製本工場',
+            image: `${$imgPath}case_01.jpg`,
+            reducePrice: '437',
+            reducePercent: '6.43',
+            before: '6,791',
+            after: '6,354',
+            link: '#'
+          },
+          {
+            place: '静岡県掛川市',
+            type: '製本工場',
+            image: `${$imgPath}case_02.jpg`,
+            reducePrice: '367',
+            reducePercent: '8.75',
+            before: '4.197',
+            after: '3.830',
+            link: '#'
+          },
+          {
+            place: '神奈川県横須賀市',
+            type: 'マリーナ',
+            image: `${$imgPath}case_03.jpg`,
+            reducePrice: '280',
+            reducePercent: '8.36',
+            before: '3,350',
+            after: '3,070',
+            link: '#'
+          },
+          {
+            place: '福岡県糸島市',
+            type: '温泉旅館',
+            image: `${$imgPath}case_04.jpg`,
+            reducePrice: '40',
+            reducePercent: '12.62',
+            before: '317',
+            after: '277',
+            link: '#'
+          }
+        ]
 
-        each item in cases
-          include ../component/slider/_slider_item.pug
+      include ../component/slider/_slider.pug

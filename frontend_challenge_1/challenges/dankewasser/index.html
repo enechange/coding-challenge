@@ -48,22 +48,22 @@
         <section class="p-KV">
           <div class="p-KV_Inner">
             <div class="p-KV_TtlArea">
-              <h2 class="p-KV_Ttl"><img class="p-KV_TtlImg" alt="法人の電気料金を無料一括見積り 一番安い電力会社が見つかる！ お見積りを出した電力会社を比較し、その中から一番安い電力会社をお選びいただけます"></h2>
+              <h2 class="p-KV_Ttl"><img class="p-KV_TtlImg" src="./assets/images/kv.png" alt="法人の電気料金を無料一括見積り 一番安い電力会社が見つかる！ お見積りを出した電力会社を比較し、その中から一番安い電力会社をお選びいただけます"></h2>
             </div>
             <div class="p-KV_FormArea">
-              <form class="p-Form">
-                <h2 class="p-Form_Ttl">電気代一括見積もりフォーム</h2>
-                <p class="p-Form_Desc">全国15社以上の電力会社の見積りから<br>自社に合うものを選ぶだけ！</p>
-                <p class="p-Form_RequiredSP">すべて入力必須</p>
-                <div class="p-Form_Body">
-                  <div class="p-FormRowGroup">
-                    <div class="p-FormRow t-Error">
-                      <p class="p-FormRow_ErrorMsg">選択してください</p>
+              <form class="c-Form">
+                <h2 class="c-Form_Ttl">電気代一括見積りフォーム</h2>
+                <p class="c-Form_Desc">全国15社以上の電力会社の見積りから<br>自社に合うものを選ぶだけ！</p>
+                <p class="c-Form_RequiredSP">すべて入力必須</p>
+                <div class="c-Form_Body">
+                  <div class="c-Form_RowGroup">
+                    <div class="c-Form_Row t-Error">
+                      <p class="c-Form_Row_ErrorMsg">選択してください</p>
                     </div>
-                    <div class="p-FormRow">
-                      <p class="p-Form_NameCol t-Small"><span class="c-Required">必須</span>ご契約中の<br class="u-SP">電力会社</p>
-                      <div class="p-Form_InputCol">
-                        <select name="provider">
+                    <div class="c-Form_Row">
+                      <p class="c-Form_NameCol t-Small"><span class="c-Form_Required">必須</span>ご契約中の<br class="u-SP">電力会社</p>
+                      <div class="c-Form_InputCol">
+                        <select class="c-Form_Select" name="provider">
                           <option value="tepco">東京電力</option>
                           <option value="hepco">北海道電力</option>
                           <option value="tohoku-epco">東北電力</option>
@@ -75,72 +75,72 @@
                           <option value="kyuden">九州電力</option>
                           <option value="okiden">沖縄電力</option>
                           <option value="other">その他</option>
-                        </select>
+                        </select><i class="c-Form_Arrow"></i>
                       </div>
                     </div>
                   </div>
-                  <div class="p-FormRowGroup">
-                    <div class="p-FormRow t-Error">
-                      <p class="p-FormRow_ErrorMsg">選択してください</p>
+                  <div class="c-Form_RowGroup">
+                    <div class="c-Form_Row t-Error">
+                      <p class="c-Form_Row_ErrorMsg">選択してください</p>
                     </div>
-                    <div class="p-FormRow">
-                      <p class="p-Form_NameCol"><span class="c-Required">必須</span>都道府県</p>
-                      <div class="p-Form_InputCol">
-                        <select name="pref">
+                    <div class="c-Form_Row">
+                      <p class="c-Form_NameCol"><span class="c-Form_Required">必須</span>都道府県</p>
+                      <div class="c-Form_InputCol">
+                        <select class="c-Form_Select" name="pref">
                           <option value="">お選びください</option>
-                        </select>
+                        </select><i class="c-Form_Arrow"></i>
                       </div>
                     </div>
                   </div>
-                  <div class="p-FormRowGroup">
-                    <div class="p-FormRow t-Error">
-                      <p class="p-FormRow_ErrorMsg">正しく入力して下さい</p>
+                  <div class="c-Form_RowGroup">
+                    <div class="c-Form_Row t-Error">
+                      <p class="c-Form_Row_ErrorMsg">正しく入力してください</p>
                     </div>
-                    <div class="p-FormRow">
-                      <p class="p-Form_NameCol"><span class="c-Required">必須</span>都道府県</p>
-                      <div class="p-Form_InputCol">
-                        <input placeholder="○○株式会社">
+                    <div class="c-Form_Row">
+                      <p class="c-Form_NameCol"><span class="c-Form_Required">必須</span>都道府県</p>
+                      <div class="c-Form_InputCol">
+                        <input class="c-Form_Input" placeholder="○○株式会社">
                       </div>
                     </div>
                   </div>
-                  <div class="p-FormRowGroup">
-                    <div class="p-FormRow t-Error">
-                      <p class="p-FormRow_ErrorMsg">正しく入力して下さい</p>
+                  <div class="c-Form_RowGroup">
+                    <div class="c-Form_Row t-Error">
+                      <p class="c-Form_Row_ErrorMsg">正しく入力してください</p>
                     </div>
-                    <div class="p-FormRow">
-                      <p class="p-Form_NameCol"><span class="c-Required">必須</span>ご担当者</p>
-                      <div class="p-Form_InputCol">
-                        <input placeholder="ご入力ください">
+                    <div class="c-Form_Row">
+                      <p class="c-Form_NameCol"><span class="c-Form_Required">必須</span>ご担当者</p>
+                      <div class="c-Form_InputCol">
+                        <input class="c-Form_Input" placeholder="ご入力ください">
                       </div>
                     </div>
                   </div>
-                  <div class="p-FormRowGroup">
-                    <div class="p-FormRow t-Error">
-                      <p class="p-FormRow_ErrorMsg">正しく入力して下さい</p>
+                  <div class="c-Form_RowGroup">
+                    <div class="c-Form_Row t-Error">
+                      <p class="c-Form_Row_ErrorMsg">正しく入力してください</p>
                     </div>
-                    <div class="p-FormRow">
-                      <p class="p-Form_NameCol"><span class="c-Required">必須</span>電話番号</p>
-                      <div class="p-Form_InputCol">
-                        <input placeholder="03-1234-5678">
+                    <div class="c-Form_Row">
+                      <p class="c-Form_NameCol"><span class="c-Form_Required">必須</span>電話番号</p>
+                      <div class="c-Form_InputCol">
+                        <input class="c-Form_Input" placeholder="03-1234-5678">
                       </div>
                     </div>
                   </div>
-                  <div class="p-FormRowGroup">
-                    <div class="p-FormRow t-Error">
-                      <p class="p-FormRow_ErrorMsg">正しく入力して下さい</p>
+                  <div class="c-Form_RowGroup">
+                    <div class="c-Form_Row t-Error">
+                      <p class="c-Form_Row_ErrorMsg">正しく入力してください</p>
                     </div>
-                    <div class="p-FormRow">
-                      <p class="p-Form_NameCol"><span class="c-Required">必須</span>メールアドレス</p>
-                      <div class="p-Form_InputCol">
-                        <input placeholder="メールアドレス">
+                    <div class="c-Form_Row">
+                      <p class="c-Form_NameCol"><span class="c-Form_Required">必須</span>メールアドレス</p>
+                      <div class="c-Form_InputCol">
+                        <input class="c-Form_Input" placeholder="メールアドレス">
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="p-FormBtn">
-                  <button class="c-SubmitBtn">一括見積もりしてみる</button>
+                <div class="c-Form_BtnArea">
+                  <button class="c-Form_Btn">一括見積もりしてみる</button>
                 </div>
-                <p class="p-FormNotice">利用規約・個人情報に同意の上送信ください</p>
+                <p class="c-Form_Notice">利用規約・個人情報に同意の上送信ください</p>
               </form>
             </div>
           </div>
@@ -148,8 +148,7 @@
         <section class="p-Case">
           <div class="p-Case_Inner">
             <h2 class="c-Heading">電気代削減事例</h2>
-            <p class="p-Case_Desc">切り替え実績は<span class="p-Case_DescStrong">3000件</span>以上</p>
-            <p class="p-Case_Desc">切り替え実績は<span class="p-Case_DescStrong">3000件</span>以上</p>
+            <p class="p-Case_Desc">切り替え実績は<span class="p-Case_Desc_Strong">3000件</span>以上</p>
             <p class="p-Case_Desc">ご紹介している事例のほか、<br class="u-SP">貴社と似ている条件での電気代削減事例もご紹介できます。<br>ぜひお気軽にお問い合わせくだい。</p>
             <div class="p-Case_Slider">
               <div class="c-Slider">
@@ -158,15 +157,15 @@
                     <p class="c-Slider_Place">埼玉県上尾市</p>
                     <p class="c-Slider_Type">製本工場</p>
                   </div>
-                  <div class="c-Slider_Image" style="background-image:url(#{item.image})"></div>
+                  <div class="c-Slider_Image" style="background-image:url(./assets/images/case_01.jpg);"></div>
                   <div class="c-Slider_Body">
                     <p class="c-Slider_Plan">年間<span class="c-Slider_Plan_Strong">437</span>万円削減予定(6.43%↓)</p>
                     <div class="c-Slider_ChangeArea">
-                      <p class="c-Slider_ChangeCol">現在<br><span>6,791</span>万円</p>
+                      <p class="c-Slider_ChangeCol">現在<br><span class="c-Slider_ChangeCol_Strong">6,791</span>万円</p>
                       <div class="c-Slider_ChangeArrow"></div>
-                      <p class="c-Slider_ChangeCol">削除後(予定)<br><span>6,354</span>万円</p>
+                      <p class="c-Slider_ChangeCol">削除後(予定)<br><span class="c-Slider_ChangeCol_Strong">6,354</span>万円</p>
                     </div>
-                    <div class="c-Slider_BtnArea"><a class="c-Slider_Btn" href="#{item.link}">事例詳細を見る</a></div>
+                    <div class="c-Slider_BtnArea"><a class="c-Slider_Btn" href="#{item.link}"><span class="c-Slider_Btn_Txt">事例詳細を見る</span></a></div>
                   </div>
                 </div>
                 <div class="c-Slider_Item">
@@ -174,15 +173,15 @@
                     <p class="c-Slider_Place">静岡県掛川市</p>
                     <p class="c-Slider_Type">製本工場</p>
                   </div>
-                  <div class="c-Slider_Image" style="background-image:url(#{item.image})"></div>
+                  <div class="c-Slider_Image" style="background-image:url(./assets/images/case_02.jpg);"></div>
                   <div class="c-Slider_Body">
                     <p class="c-Slider_Plan">年間<span class="c-Slider_Plan_Strong">367</span>万円削減予定(8.75%↓)</p>
                     <div class="c-Slider_ChangeArea">
-                      <p class="c-Slider_ChangeCol">現在<br><span>4.197</span>万円</p>
+                      <p class="c-Slider_ChangeCol">現在<br><span class="c-Slider_ChangeCol_Strong">4.197</span>万円</p>
                       <div class="c-Slider_ChangeArrow"></div>
-                      <p class="c-Slider_ChangeCol">削除後(予定)<br><span>3.830</span>万円</p>
+                      <p class="c-Slider_ChangeCol">削除後(予定)<br><span class="c-Slider_ChangeCol_Strong">3.830</span>万円</p>
                     </div>
-                    <div class="c-Slider_BtnArea"><a class="c-Slider_Btn" href="#{item.link}">事例詳細を見る</a></div>
+                    <div class="c-Slider_BtnArea"><a class="c-Slider_Btn" href="#{item.link}"><span class="c-Slider_Btn_Txt">事例詳細を見る</span></a></div>
                   </div>
                 </div>
                 <div class="c-Slider_Item">
@@ -190,15 +189,15 @@
                     <p class="c-Slider_Place">神奈川県横須賀市</p>
                     <p class="c-Slider_Type">マリーナ</p>
                   </div>
-                  <div class="c-Slider_Image" style="background-image:url(#{item.image})"></div>
+                  <div class="c-Slider_Image" style="background-image:url(./assets/images/case_03.jpg);"></div>
                   <div class="c-Slider_Body">
                     <p class="c-Slider_Plan">年間<span class="c-Slider_Plan_Strong">280</span>万円削減予定(8.36%↓)</p>
                     <div class="c-Slider_ChangeArea">
-                      <p class="c-Slider_ChangeCol">現在<br><span>3,350</span>万円</p>
+                      <p class="c-Slider_ChangeCol">現在<br><span class="c-Slider_ChangeCol_Strong">3,350</span>万円</p>
                       <div class="c-Slider_ChangeArrow"></div>
-                      <p class="c-Slider_ChangeCol">削除後(予定)<br><span>3,070</span>万円</p>
+                      <p class="c-Slider_ChangeCol">削除後(予定)<br><span class="c-Slider_ChangeCol_Strong">3,070</span>万円</p>
                     </div>
-                    <div class="c-Slider_BtnArea"><a class="c-Slider_Btn" href="#{item.link}">事例詳細を見る</a></div>
+                    <div class="c-Slider_BtnArea"><a class="c-Slider_Btn" href="#{item.link}"><span class="c-Slider_Btn_Txt">事例詳細を見る</span></a></div>
                   </div>
                 </div>
                 <div class="c-Slider_Item">
@@ -206,15 +205,15 @@
                     <p class="c-Slider_Place">福岡県糸島市</p>
                     <p class="c-Slider_Type">温泉旅館</p>
                   </div>
-                  <div class="c-Slider_Image" style="background-image:url(#{item.image})"></div>
+                  <div class="c-Slider_Image" style="background-image:url(./assets/images/case_04.jpg);"></div>
                   <div class="c-Slider_Body">
                     <p class="c-Slider_Plan">年間<span class="c-Slider_Plan_Strong">40</span>万円削減予定(12.62%↓)</p>
                     <div class="c-Slider_ChangeArea">
-                      <p class="c-Slider_ChangeCol">現在<br><span>317</span>万円</p>
+                      <p class="c-Slider_ChangeCol">現在<br><span class="c-Slider_ChangeCol_Strong">317</span>万円</p>
                       <div class="c-Slider_ChangeArrow"></div>
-                      <p class="c-Slider_ChangeCol">削除後(予定)<br><span>277</span>万円</p>
+                      <p class="c-Slider_ChangeCol">削除後(予定)<br><span class="c-Slider_ChangeCol_Strong">277</span>万円</p>
                     </div>
-                    <div class="c-Slider_BtnArea"><a class="c-Slider_Btn" href="#{item.link}">事例詳細を見る</a></div>
+                    <div class="c-Slider_BtnArea"><a class="c-Slider_Btn" href="#{item.link}"><span class="c-Slider_Btn_Txt">事例詳細を見る</span></a></div>
                   </div>
                 </div>
               </div>
