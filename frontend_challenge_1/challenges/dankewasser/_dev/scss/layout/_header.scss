@@ -2,6 +2,10 @@
   @extend %CommonSection;
 
   border-bottom: 4px solid #fb8c00;
+
+  @include mq() {
+    border-bottom-width: 3px;
+  }
 }
 
 .l-Header_Inner {
@@ -12,11 +16,19 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px 10px 12px;
+
+  @include mq() {
+    padding: 6px 8px;
+  }
 }
 
 .l-Header_Logo {
   flex: 0 0 auto;
   width: 170px;
+
+  @include mq() {
+    width: 120px;
+  }
 }
 
 .l-Header_Desc {
@@ -24,10 +36,19 @@
   color: #fb8c00;
   font-size: 1.3rem;
   line-height: 1.2;
+
+  @include mq() {
+    margin-left: auto;
+    font-size: 1rem;
+  }
 }
 
 .l-Header_Desc_Strong {
   font-size: 1.8rem;
+
+  @include mq() {
+    font-size: 1.4rem;
+  }
 }
 
 .l-Header_Nav {
