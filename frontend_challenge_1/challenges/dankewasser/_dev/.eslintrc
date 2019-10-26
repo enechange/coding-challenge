@@ -12,6 +12,8 @@
     },
     "extends": [
         "semistandard",
+        "vue",
+        "plugin:vue/recommended",
         "prettier"
     ],
     "plugins": [

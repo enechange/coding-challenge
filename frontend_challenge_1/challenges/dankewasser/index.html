@@ -41,9 +41,9 @@
           <p class="l-Header_Desc">連携電力会社数、切り替え実績豊富<br><span class="l-Header_Desc_Strong">電気代見直しサイトNo.1</span></p>
           <nav class="l-Header_Nav">
             <ul class="l-Header_NavList">
-              <li class="l-Header_NavItem"><a class="l-Header_Link" href="#">電気代削減事例</a></li>
-              <li class="l-Header_NavItem"><a class="l-Header_Link" href="#">エネチェンジBizとは</a></li>
-              <li class="l-Header_NavItem"><a class="l-Header_Link t-Small" href="#">電気代削減<br>コンサルタント紹介</a></li>
+              <li class="l-Header_NavItem"><a class="l-Header_Link js-Scroller" href="#case">電気代削減事例</a></li>
+              <li class="l-Header_NavItem"><a class="l-Header_Link t-Small js-Scroller" href="#video">動画でわかる<br>エネチェンジ</a></li>
+              <li class="l-Header_NavItem"><a class="l-Header_Link t-Small js-Scroller" href="#intro">電気代削減<br>コンサルタント紹介</a></li>
             </ul>
           </nav>
         </div>
@@ -55,107 +55,18 @@
               <h2 class="p-KV_Ttl"><img class="p-KV_TtlImg u-PC" src="./assets/images/kv.png" alt="法人の電気料金を無料一括見積り 一番安い電力会社が見つかる！ お見積りを出した電力会社を比較し、その中から一番安い電力会社をお選びいただけます"><img class="p-KV_TtlImg u-SP" src="./assets/images//sp/kv.png" alt="法人の電気料金を無料一括見積り 一番安い電力会社が見つかる！ お見積りを出した電力会社を比較し、その中から一番安い電力会社をお選びいただけます"></h2>
             </div>
             <div class="p-KV_FormArea">
-              <form class="c-Form">
-                <h2 class="c-Form_Ttl">電気代一括見積りフォーム</h2>
-                <p class="c-Form_Desc">全国15社以上の電力会社の見積りから<br>自社に合うものを選ぶだけ！</p>
-                <p class="c-Form_RequiredSP">すべて入力必須</p>
-                <div class="c-Form_Body">
-                  <div class="c-Form_RowGroup">
-                    <div class="c-Form_Row t-Error">
-                      <p class="c-Form_Row_ErrorMsg">選択してください</p>
-                    </div>
-                    <div class="c-Form_Row">
-                      <p class="c-Form_NameCol t-Small"><span class="c-Form_Required">必須</span>ご契約中の<br class="u-SP">電力会社</p>
-                      <div class="c-Form_InputCol">
-                        <select class="c-Form_Select" name="provider">
-                          <option value="tepco">東京電力</option>
-                          <option value="hepco">北海道電力</option>
-                          <option value="tohoku-epco">東北電力</option>
-                          <option value="chuden">中部電力</option>
-                          <option value="rikuden">北陸電力</option>
-                          <option value="kepco">関西電力</option>
-                          <option value="energia">中国電力</option>
-                          <option value="yonden">四国電力</option>
-                          <option value="kyuden">九州電力</option>
-                          <option value="okiden">沖縄電力</option>
-                          <option value="other">その他</option>
-                        </select><i class="c-Form_Arrow"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="c-Form_RowGroup">
-                    <div class="c-Form_Row t-Error">
-                      <p class="c-Form_Row_ErrorMsg">選択してください</p>
-                    </div>
-                    <div class="c-Form_Row">
-                      <p class="c-Form_NameCol"><span class="c-Form_Required">必須</span>都道府県</p>
-                      <div class="c-Form_InputCol">
-                        <select class="c-Form_Select" name="pref">
-                          <option value="">お選びください</option>
-                        </select><i class="c-Form_Arrow"></i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="c-Form_RowGroup">
-                    <div class="c-Form_Row t-Error">
-                      <p class="c-Form_Row_ErrorMsg">正しく入力してください</p>
-                    </div>
-                    <div class="c-Form_Row">
-                      <p class="c-Form_NameCol"><span class="c-Form_Required">必須</span>都道府県</p>
-                      <div class="c-Form_InputCol">
-                        <input class="c-Form_Input" placeholder="○○株式会社">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="c-Form_RowGroup">
-                    <div class="c-Form_Row t-Error">
-                      <p class="c-Form_Row_ErrorMsg">正しく入力してください</p>
-                    </div>
-                    <div class="c-Form_Row">
-                      <p class="c-Form_NameCol"><span class="c-Form_Required">必須</span>ご担当者</p>
-                      <div class="c-Form_InputCol">
-                        <input class="c-Form_Input" placeholder="ご入力ください">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="c-Form_RowGroup">
-                    <div class="c-Form_Row t-Error">
-                      <p class="c-Form_Row_ErrorMsg">正しく入力してください</p>
-                    </div>
-                    <div class="c-Form_Row">
-                      <p class="c-Form_NameCol"><span class="c-Form_Required">必須</span>電話番号</p>
-                      <div class="c-Form_InputCol">
-                        <input class="c-Form_Input" placeholder="03-1234-5678">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="c-Form_RowGroup">
-                    <div class="c-Form_Row t-Error">
-                      <p class="c-Form_Row_ErrorMsg">正しく入力してください</p>
-                    </div>
-                    <div class="c-Form_Row">
-                      <p class="c-Form_NameCol t-Small"><span class="c-Form_Required">必須</span>メールアドレス</p>
-                      <div class="c-Form_InputCol">
-                        <input class="c-Form_Input" placeholder="メールアドレス">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="c-Form_BtnArea">
-                  <button class="c-Form_Btn">一括見積もりしてみる</button>
-                </div>
-                <p class="c-Form_Notice">利用規約・個人情報に同意の上送信ください</p>
-              </form>
+              <div class="js-FormController" id="js-FormController"></div>
+              <!--include ../component/form/_form.pug-->
             </div>
           </div>
         </section>
-        <section class="p-Case">
+        <section class="p-Case" id="case">
           <div class="p-Case_Inner">
             <h2 class="c-Heading">電気代削減事例</h2>
             <p class="p-Case_Desc">切り替え実績は<span class="p-Case_Desc_Strong">3000件</span>以上</p>
             <p class="p-Case_Desc">ご紹介している事例のほか、<br class="u-SP">貴社と似ている条件での電気代削減事例もご紹介できます。<br>ぜひお気軽にお問い合わせくだい。</p>
             <div class="p-Case_Slider">
-              <div class="c-Slider">
+              <div class="c-Slider js-Slider">
                 <div class="c-Slider_Item">
                   <div class="c-Slider_Head">
                     <p class="c-Slider_Place">埼玉県上尾市</p>
@@ -224,7 +135,7 @@
             </div>
           </div>
         </section>
-        <section class="p-Video">
+        <section class="p-Video" id="video">
           <div class="p-Video_Inner">
             <h2 class="c-Heading t-ML">動画でわかる<br class="u-SP">エネチェンジ</h2>
             <div class="p-Video_Body">
@@ -232,7 +143,7 @@
             </div>
           </div>
         </section>
-        <section class="p-Intro">
+        <section class="p-Intro" id="intro">
           <div class="p-Intro_Inner">
             <h2 class="c-Heading t-ML">電気代削減<br class="u-SP">コンサルタントのご紹介</h2>
             <div class="p-Intro_Body">
@@ -266,6 +177,6 @@
         <p class="l-Footer_LogoCol"><img class="l-Footer_Logo u-PC" src="./assets/images/footer_logo.png" alt="エネチェンジBiz 法人向け電気代見直しサイトNo.1"><img class="l-Footer_Logo u-SP" src="./assets/images/sp/footer_logo.png" alt="エネチェンジBiz 法人向け電気代見直しサイトNo.1"></p>
         <p class="l-Footer_CopyCol">Copyright &copy; ENECHANGE Ltd.<br class="u-SP">All Rights Reserved.</p>
       </div>
-    </footer>
+    </footer><a class="c-ScrollTop js-Scroller" href="#"></a>
   </body>
 </html>

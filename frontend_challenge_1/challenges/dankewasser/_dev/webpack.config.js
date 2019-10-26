@@ -1,6 +1,6 @@
 const webpack = require("webpack");
 const path = require("path");
-// const PrettierPlugin = require('prettier-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const config = require("./gulp/config.js");
 
 module.exports = {
@@ -30,15 +30,28 @@ module.exports = {
         }
       },
       {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+      },
+      {
+        test: /\.pug$/,
+        loader: 'pug-plain-loader',
+      },
+      {
         test: /\.(js|jsx)$/,
         exclude: path.resolve(__dirname, "node_modules"),
         use: {
-          loader: "babel-loader"
+          loader: 'babel-loader',
+          options: {
+            presets: [['@babel/preset-env', { useBuiltIns: 'usage' }]],
+          },
         }
       }
     ]
   },
-  // plugins: [new PrettierPlugin()],
+  plugins: [
+    new VueLoaderPlugin()
+  ],
   optimization: {
     minimize: true
   }

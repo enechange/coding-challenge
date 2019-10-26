@@ -1,0 +1,15 @@
+.c-Form_RowGroup
+  .c-Form_Row.t-Error(v-if="!isValid")
+    p.c-Form_Row_ErrorMsg
+      | {{ errorMessage }}
+  .c-Form_Row
+    p.c-Form_NameCol.t-Small
+      span.c-Form_Required 必須
+      | {{ heading }}
+    .c-Form_InputCol
+      input.c-Form_Input(
+        :name="name",
+        :type="type",
+        :placeholder="placeholder",
+        v-model="inputted",
+      )
