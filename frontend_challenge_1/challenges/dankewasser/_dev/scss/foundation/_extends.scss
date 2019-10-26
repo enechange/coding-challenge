@@ -37,6 +37,10 @@
   @include mq() {
     padding-left: 19px;
   }
+
+  &::-ms-expand {
+    display: none;
+  }
 }
 
 %CommonSelect_Arrow {
