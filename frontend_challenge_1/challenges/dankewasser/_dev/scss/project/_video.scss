@@ -1,0 +1,22 @@
+.p-Video {
+ @extend %CommonSection;
+
+  background-color: #f7f7f7;
+}
+
+.p-Video_Inner {
+  @extend %CommonSection_Inner;
+
+  padding: 36px 0 50px;
+}
+
+.p-Video_Body {
+  margin-top: 20px;
+}
+
+.p-Video_Player {
+  display: block;
+  margin: 0 auto;
+  width: 700px;
+  height: 390px;
+}

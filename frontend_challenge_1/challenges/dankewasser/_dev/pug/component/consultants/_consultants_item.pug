@@ -1,7 +1,6 @@
 .c-Consultants_Item
   .c-Consultants_NameCol
-    img(src="#{item.image}")
-    br
+    img.c-Consultants_Image(src=`${item.image}`, alt=`${item.name}`)
     h3.c-Consultants_Name #{item.name}
   .c-Consultants_TxtCol
     p.c-Consultants_Lead #{item.lead}

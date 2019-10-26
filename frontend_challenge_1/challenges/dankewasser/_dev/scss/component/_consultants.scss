@@ -1,0 +1,50 @@
+.c-Consultants_Item {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 858px;
+
+  & + & {
+    margin-top: 60px;
+  }
+
+  &:nth-child(2n) {
+    flex-direction: row-reverse;
+  }
+}
+
+.c-Consultants_NameCol {
+  flex: 0 0 auto;
+  width: 389px;
+}
+
+.c-Consultants_Image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.c-Consultants_Name {
+  padding: 8px;
+  color: #692b00;
+  font-size: 2.4rem;
+  background: #fef4d5;
+  text-align: center;
+}
+
+.c-Consultants_TxtCol {
+  flex: 0 0 auto;
+  width: 442px;
+}
+
+.c-Consultants_Lead {
+  color: #692b00;
+  font-size: 2.2rem;
+}
+
+.c-Consultants_Txt {
+  margin-top: 20px;
+  color: #000;
+  font-size: 1.6rem;
+}

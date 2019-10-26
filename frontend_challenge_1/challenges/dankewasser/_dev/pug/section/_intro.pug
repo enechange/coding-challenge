@@ -5,22 +5,20 @@ section.p-Intro
       br.u-SP
       | コンサルタントのご紹介
     .p-Intro_Body
-      .c-Consultants
-        -
-          const consultants = [
-            {
-              name: '神島 健太',
-              image: '',
-              lead: '切り替え済みでも、見直す価値あり！',
-              text: '電気料金の単価は、時間の経過とともに変動するものでもあります。すでに電力会社の切り替え経験のあるお客さまも、まだまだ安くなる可能性があります。どうぞお気軽にご相談ください。'
-            },
-            {
-              name: '市原 弘規',
-              image: '',
-              lead: '固定費の削減、おまかせください！',
-              text: '切り替えされたほとんどのお客様がこんなに簡単なら、もっと早くから取り組めばよかったという感想を述べられます。エネチェンジへの相談やお見積もりは無料、電力会社の切り替えに費用は一切かかりません。どうぞお気軽にエネチェンジBizをおためしください。'
-            }
-          ]
+      -
+        const consultants = [
+          {
+            name: '神島 健太',
+            image: `${$imgPath}consultant_kamijima.jpg`,
+            lead: '切り替え済みでも、見直す価値あり！',
+            text: '電気料金の単価は、時間の経過とともに変動するものでもあります。すでに電力会社の切り替え経験のあるお客さまも、まだまだ安くなる可能性があります。どうぞお気軽にご相談ください。'
+          },
+          {
+            name: '市原 弘規',
+            image: `${$imgPath}consultant_ichihara.jpg`,
+            lead: '固定費の削減、おまかせください！',
+            text: '切り替えされたほとんどのお客様がこんなに簡単なら、もっと早くから取り組めばよかったという感想を述べられます。エネチェンジへの相談やお見積もりは無料、電力会社の切り替えに費用は一切かかりません。どうぞお気軽にエネチェンジBizをおためしください。'
+          }
+        ]
 
-      each item in consultants
-        include ../component/consultants/_consultants_item.pug
+      include ../component/consultants/_consultants.pug

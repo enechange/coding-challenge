@@ -1,0 +1,13 @@
+.p-Intro {
+ @extend %CommonSection;
+}
+
+.p-Intro_Inner {
+  @extend %CommonSection_Inner;
+
+  padding: 36px 0 60px;
+}
+
+.p-Intro_Body {
+  margin-top: 36px;
+}
