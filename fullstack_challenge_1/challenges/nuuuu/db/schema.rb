@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(version: 2021_04_05_215151) do
 
   create_table "energy_histories", charset: "utf8mb4", collation: "utf8mb4_general_ci", force: :cascade do |t|
     t.bigint "house_user_id"
+    t.integer "label"
     t.integer "year"
     t.integer "month"
     t.float "temperature"
