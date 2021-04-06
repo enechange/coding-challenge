@@ -3,7 +3,7 @@
     <%= message %>
   <% end %>
 
-  <%= form_tag '/house_users/import', method: 'post', multipart: true do %>
+  <%= form_with url: '/house_users/import', method: 'post', multipart: true do %>
   	  <label>Inport House User file</label>
   	  <%= file_field :house_user_file, :file %>
       <br />
