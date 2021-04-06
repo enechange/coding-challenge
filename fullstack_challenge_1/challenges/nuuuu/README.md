@@ -24,14 +24,14 @@ rails s
 
 * データインポート
     * CSVファイルをもとにinsertするロジック
-        * [x] 家庭情報
-        * [x] 発電状況
+        * [x] 家庭情報 `HouseUsers::ImportService`
+        * [x] 発電状況 `EnergyHistories::ImportService`
     * ファイルをuploadしてinsertする画面 (insertするロジックを呼ぶ)
-        * [ ] 家庭情報
-        * [ ] 発電状況
+        * [ ] 家庭情報  `GET /house_users/import`
+        * [ ] 発電状況  `GET /energy_histories/import`
 * 可視化
-    * [x] 家庭一覧
-    * [x] 特定家庭の発電状況グラフ
+    * [x] 家庭一覧 `GET /house_users`
+    * [x] 特定家庭の発電状況グラフ  `GET /house_users/:house_user_id`
 * その他
     * [ ] 見栄えを整える
     * [ ] rails app部分のdocker化
