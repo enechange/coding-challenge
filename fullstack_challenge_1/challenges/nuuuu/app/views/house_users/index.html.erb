@@ -1,6 +1,28 @@
 <main>
-  index!!
-
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>City</th>
+      <th>num_of_people</th>
+      <th>has_child</th>
+    </tr>
+    </thead>
+    <tbody>
+      <% @house_users.each do |house_user| %>
+        <tr>
+          <td><%= link_to house_user.id, house_user_url(house_user.id) %></td>
+          <td><%= house_user.first_name %></td>
+          <td><%= house_user.last_name %></td>
+          <td><%= house_user.city %></td>
+          <td><%= house_user.num_of_people %></td>
+          <td><%= house_user.has_child %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
 
 </main>

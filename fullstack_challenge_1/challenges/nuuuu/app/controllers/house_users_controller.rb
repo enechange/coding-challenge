@@ -4,6 +4,7 @@ class HouseUsersController < ApplicationController
   end
 
   def index
+    @house_users = HouseUser.all
 
   end
 end
