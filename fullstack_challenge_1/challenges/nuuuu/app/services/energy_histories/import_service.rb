@@ -20,8 +20,8 @@ module EnergyHistories
       end
 
       def validate!(params)
-        raise InvalidCsvRecordError, "labelが不正です [line:#{line_number}][value:#{label}]" unless label.is_a?(Integer)
-        raise InvalidCsvRecordError, "house_user_idが不正です [line:#{line_number}][value:#{house_user_id}]" unless params[:house_user_ids].include?(house_user_id)
+        raise InvalidCsvRecordError, "labelが不正です [line:#{line_number}]" unless label.is_a?(Integer)
+        raise InvalidCsvRecordError, "house_user_idが不正です [line:#{line_number}]" unless params[:house_user_ids].include?(house_user_id)
 
         # TODO: その他カラムもバリデーション入れる
         # valid.
