@@ -1,5 +1,6 @@
 class HouseUsersController < ApplicationController
   def show
+    @house_user = HouseUser.find(params[:house_user_id])
 
   end
 
