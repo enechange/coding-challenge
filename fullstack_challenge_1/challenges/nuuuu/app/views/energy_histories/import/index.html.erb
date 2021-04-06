@@ -1,0 +1,13 @@
+<main>
+  <% flash.each do |message_type, message| %>
+    <%= message %>
+  <% end %>
+
+  <%= form_with url: '/energy_histories/import', method: 'post', multipart: true do %>
+    <label>Inport Energy History file</label>
+    <%= file_field :energy_history_file, :file %>
+    <br />
+    <br />
+    <%= submit_tag 'Import file' %>
+  <% end %>
+</main>

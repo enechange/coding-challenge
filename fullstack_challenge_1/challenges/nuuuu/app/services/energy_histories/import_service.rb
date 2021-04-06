@@ -59,6 +59,8 @@ module EnergyHistories
 
       # bulkでgo
       EnergyHistory.insert_all!(energy_histories)
+
+      energy_histories.size
     end
   end
 end

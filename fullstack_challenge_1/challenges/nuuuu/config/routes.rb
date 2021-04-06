@@ -5,4 +5,8 @@ Rails.application.routes.draw do
       resources :import , only: %i[index create], controller: 'house_users/import'
     end
   end
+
+  namespace :energy_histories do
+    resources :import , only: %i[index create]
+  end
 end
