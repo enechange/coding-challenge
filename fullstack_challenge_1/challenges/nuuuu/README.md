@@ -2,14 +2,17 @@
 
 ## 開発マシンの要件
 
-* OS: Ubuntu Linux 20.04 
+* 動作確認ずみOS: Ubuntu Linux 20.04 
 * docker, docker-composeをインストールしておくこと
+* yarnをインストールしておくこと  
 * mysqlクライアントライブラリをインストールしておくこと(see https://github.com/brianmario/mysql2 )
 
 ## 起動方法
 
 ```
 docker-compose -d # mysql 起動
+
+yarn install
 
 rails db:craete
 rails db:migrate
@@ -28,6 +31,7 @@ rails s
         * [ ] 発電状況
 * 可視化
     * [x] 家庭一覧
-    * [ ] 特定家庭の発電状況グラフ
+    * [x] 特定家庭の発電状況グラフ
 * その他
+    * [ ] 見栄えを整える
     * [ ] rails app部分のdocker化

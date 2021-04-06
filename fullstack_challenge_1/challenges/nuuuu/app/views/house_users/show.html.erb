@@ -1,17 +1,16 @@
 <main>
   <h1>House User and Energy Histories</h1>
-
-  <h2>House User</h2>
-  <ul>
-    <li>ID: <%= @house_user.id %></li>
-    <li>Lastname: <%= @house_user.last_name %></li>
-    <li>Firstname: <%= @house_user.first_name %></li>
-    <li>City: <%= @house_user.city %></li>
-    <li>Num of people: <%= @house_user.num_of_people %></li>
-    <li>Has child: <%= @house_user.has_child %></li>
-  </ul>
-
-  <h2>Energy Histories</h2>
-
-
+    <h2>House User</h2>
+      <ul>
+        <li>ID: <%= @house_user.id %></li>
+        <li>Lastname: <%= @house_user.last_name %></li>
+        <li>Firstname: <%= @house_user.first_name %></li>
+        <li>City: <%= @house_user.city %></li>
+        <li>Num of people: <%= @house_user.num_of_people %></li>
+        <li>Has child: <%= @house_user.has_child %></li>
+      </ul>
+    <h2>Energy Histories</h2>
+      <%= line_chart [ { name: 'temperature', data: @energy_histories_temperature  } ], colors: ["red", "#666"] %>
+      <%= line_chart [ { name: 'daylight', data: @energy_histories_daylight } ], colors: ["green", "#666"]  %>
+      <%= line_chart [ { name: 'energy production', data: @energy_histories_energy_production } ], colors: ["blue", "#666"]  %>
 </main>
