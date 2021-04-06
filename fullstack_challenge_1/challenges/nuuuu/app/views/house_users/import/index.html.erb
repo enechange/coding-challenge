@@ -1,0 +1,13 @@
+<main>
+  <% flash.each do |message_type, message| %>
+    <%= message %>
+  <% end %>
+
+  <%= form_tag '/house_users/import', method: 'post', multipart: true do %>
+  	  <label>Inport House User file</label>
+  	  <%= file_field :house_user_file, :file %>
+      <br />
+      <br />
+      <%= submit_tag 'Import file' %>
+ 	<% end %>
+</main>

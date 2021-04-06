@@ -58,6 +58,7 @@ module HouseUsers
 
       # bulkでgo
       HouseUser.insert_all!(house_users)
+      house_users.size
     end
   end
 end
