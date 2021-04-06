@@ -1,45 +1,45 @@
 <main>
-  <section class="hero is-dark">
-    <div class="hero-body">
+  <section class="section">
       <div class="container">
         <h1 class="title"> House Users</h1>
       </div>
-    </div>
   </section>
 
-  <div class="p-pagenation">
-    <%== pagy_info(@pagy) %>
-    <%== pagy_nav(@pagy) %>
-  </div>
-
-  <table class="table">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Firstname</th>
-      <th>Lastname</th>
-      <th>City</th>
-      <th>num_of_people</th>
-      <th>has_child</th>
-    </tr>
-    </thead>
-    <tbody>
-      <% @house_users.each do |house_user| %>
+  <section class="section has-background-grey-lighter">
+    <div class="container">
+      <%== pagy_info(@pagy) %>
+      <%== pagy_bulma_nav(@pagy) %>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
         <tr>
-          <td><%= link_to house_user.id, house_user_url(house_user.id) %></td>
-          <td><%= house_user.first_name %></td>
-          <td><%= house_user.last_name %></td>
-          <td><%= house_user.city %></td>
-          <td><%= house_user.num_of_people %></td>
-          <td><%= house_user.has_child %></td>
+          <th>ID</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>City</th>
+          <th>num_of_people</th>
+          <th>has_child</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+        <% @house_users.each do |house_user| %>
+          <tr>
+            <td><%= link_to house_user.id, house_user_url(house_user.id) %></td>
+            <td><%= house_user.first_name %></td>
+            <td><%= house_user.last_name %></td>
+            <td><%= house_user.city %></td>
+            <td><%= house_user.num_of_people %></td>
+            <td><%= house_user.has_child %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="p-pagenation">
-    <%== pagy_info(@pagy) %>
-    <%== pagy_nav(@pagy) %>
-  </div>
-
+    <div class="container">
+      <%== pagy_info(@pagy) %>
+      <%== pagy_bulma_nav(@pagy) %>
+    </div>
+  </section>
 </main>
