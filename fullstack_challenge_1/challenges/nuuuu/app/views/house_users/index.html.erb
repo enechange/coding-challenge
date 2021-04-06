@@ -1,4 +1,11 @@
 <main>
+  <h1> House Users</h1>
+
+  <div class="p-pagenation">
+    <%== pagy_info(@pagy) %>
+    <%== pagy_nav(@pagy) %>
+  </div>
+
   <table class="table">
     <thead>
     <tr>
@@ -24,5 +31,9 @@
     </tbody>
   </table>
 
+  <div class="p-pagenation">
+    <%== pagy_info(@pagy) %>
+    <%== pagy_nav(@pagy) %>
+  </div>
 
 </main>
