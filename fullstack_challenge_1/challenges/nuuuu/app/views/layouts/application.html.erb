@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Nuuuu</title>
+    <title>nuuuu test app</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -11,6 +11,20 @@
   </head>
 
   <body>
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+          <h1 class="title is-2">nuuuu test app</h1>
+        </div>
+        <div class="navbar-menu">
+          <div class="navbar-start">
+            <a class="navbar-item" href="/house_users">House Users</a>
+            <a class="navbar-item" href="/house_users/import">Data Import (House Users)</a>
+            <a class="navbar-item" href="/energy_histories/import">Data Import (Energy Histories)</a>
+          </div>
+        </div>
+      </nav>
+
+    </nav>
     <%= yield %>
   </body>
 </html>
