@@ -33,5 +33,5 @@ rails s
     * [x] 家庭一覧 `GET /house_users`
     * [x] 特定家庭の発電状況グラフ  `GET /house_users/:house_user_id`
 * その他
-    * [ ] 見栄えを整える
     * [ ] rails app部分のdocker化
+    * [ ] test code
