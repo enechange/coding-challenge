@@ -6,13 +6,23 @@
   </section>
 
   <% flash.each do |message_type, message| %>
-    <section class="section">
-      <div class="container">
-        <div class="notification is-primary">
-          <%= message %>
+    <% if message_type == "alert" %>
+      <section class="section">
+        <div class="container">
+          <div class="notification is-danger">
+            <%= message %>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    <% else %>
+      <section class="section">
+        <div class="container">
+          <div class="notification is-success">
+            <%= message %>
+          </div>
+        </div>
+      </section>
+    <% end %>
   <% end %>
 
   <section class="section">

@@ -6,24 +6,39 @@
   </section>
 
   <% flash.each do |message_type, message| %>
-    <section class="section">
-      <div class="container">
-        <div class="notification is-primary">
-          <%= message %>
+    <% if message_type == "alert" %>
+      <section class="section">
+        <div class="container">
+          <div class="notification is-danger">
+            <%= message %>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    <% else %>
+      <section class="section">
+        <div class="container">
+          <div class="notification is-success">
+            <%= message %>
+          </div>
+        </div>
+      </section>
+    <% end %>
   <% end %>
 
   <section class="section">
     <%= form_with url: '/energy_histories/import', method: 'post', multipart: true do %>
       <div class="container">
-        <label>発電状況データファイル(CSV)を参照</label>
-        <%= file_field :energy_history_file, :file %>
+        <div class="box">
+          <label>発電状況データファイル(CSV)を参照</label>
+          <%= file_field :energy_history_file, :file %>
+        </div>
       </div>
       <div class="container">
-        <label>データインポート</label>
-        <%= submit_tag '実行' %>
+        <div class="box">
+          <label>データインポート</label>
+          <%= submit_tag '実行' %>
+        </div>
+      </div>
       </div>
     <% end %>
   </section>
