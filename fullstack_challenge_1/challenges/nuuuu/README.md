@@ -11,9 +11,10 @@
 ## 起動方法
 
 ```
-docker-compose -d # mysql 起動
-
+bundle install
 yarn install
+
+docker-compose -d # mysql 起動
 
 rails db:craete
 rails db:migrate
