@@ -18,7 +18,7 @@ yarn install
 rails db:craete
 rails db:migrate
 
-rails s
+rails s # => loalhost:3000 で画面表示
 ```
 
 ## 機能と開発状況
