@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>nuuuu test app</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a href="/" class="title is-2">test app</a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/house_users">家庭一覧</a>
+      <a class="navbar-item" href="/house_users/import">データインポート (家庭)</a>
+      <a class="navbar-item" href="/energy_histories/import">データインポート(発電状況)</a>
+    </div>
+  </div>
+</nav>
+<%= yield %>
+</body>
+</html>
