@@ -26,15 +26,19 @@
   <% end %>
 
   <section class="section">
-      <%= form_with url: '/house_users/import', method: 'post', multipart: true do %>
+    <%= form_with url: '/house_users/import', method: 'post', multipart: true do %>
       <div class="container">
-        <label>家庭データファイル(CSV)を参照</label>
-        <%= file_field :house_user_file, :file %>
+        <div class="box">
+          <label class="label">家庭データファイル(CSV)を参照</label>
+          <%= file_field :house_user_file, :file, class: 'file' %>
+        </div>
       </div>
       <div class="container">
-        <label>データインポート</label>
-        <%= submit_tag '実行' %>
+        <div class="box">
+          <label class="label">データインポート</label>
+          <%= submit_tag '実行', class: 'button' %>
+        </div>
       </div>
-      <% end %>
+    <% end %>
   </section>
 </main>

@@ -29,14 +29,14 @@
     <%= form_with url: '/energy_histories/import', method: 'post', multipart: true do %>
       <div class="container">
         <div class="box">
-          <label>発電状況データファイル(CSV)を参照</label>
-          <%= file_field :energy_history_file, :file %>
+          <label class="label">発電状況データファイル(CSV)を参照</label>
+          <%= file_field :energy_history_file, :file, class: 'file' %>
         </div>
       </div>
       <div class="container">
         <div class="box">
-          <label>データインポート</label>
-          <%= submit_tag '実行' %>
+          <label class="label">データインポート</label>
+          <%= submit_tag '実行', class: 'button' %>
         </div>
       </div>
       </div>
