@@ -11,7 +11,12 @@ module HouseUsers
         return redirect_to action: 'index'
       end
 
-      imported_lines = HouseUsers::ImportService.new.run(uploaded_file)
+      begin
+        imported_lines = HouseUsers::ImportService.new.run(uploaded_file)
+      rescue HouseUsers::ImportService::ImportError => e
+        flash[:alert] = "インポートできませんでした。[#{e.message}]"
+        return redirect_to action: 'index'
+      end
 
       flash[:result] = "#{imported_lines}行のデータをインポートしました。"
       redirect_to action: 'index'

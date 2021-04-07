@@ -2,7 +2,7 @@ require 'csv'
 
 module EnergyHistories
   class ImportService
-    class InvalidCsvRecordError < StandardError
+    class ImportError < StandardError
     end
 
     EnergyHistoryUnit = Struct.new(:line_number, :label, :house_user_id, :year, :month, :temperature, :daylight, :energy_production, :now) do
@@ -20,8 +20,8 @@ module EnergyHistories
       end
 
       def validate!(params)
-        raise InvalidCsvRecordError, "labelが不正です [line:#{line_number}]" unless label.is_a?(Integer)
-        raise InvalidCsvRecordError, "house_user_idが不正です [line:#{line_number}]" unless params[:house_user_ids].include?(house_user_id)
+        raise ImportError, "labelが不正です [line:#{line_number}]" unless label.is_a?(Integer)
+        raise ImportError, "house_user_idが不正です [line:#{line_number}]" unless params[:house_user_ids].include?(house_user_id)
 
         # TODO: その他カラムもバリデーション入れる
         # valid.
@@ -58,7 +58,12 @@ module EnergyHistories
       end
 
       # bulkでgo
-      EnergyHistory.insert_all!(energy_histories)
+      begin
+        EnergyHistory.insert_all!(energy_histories)
+      rescue => e
+        # todo: システムの生情報がe.messageに入っているので、システムユーザーに必要なものだけ実際には出す
+        raise ImportError, e.message
+      end
 
       energy_histories.size
     end

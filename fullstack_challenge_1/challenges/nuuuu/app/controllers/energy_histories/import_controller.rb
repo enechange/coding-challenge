@@ -10,7 +10,13 @@ module EnergyHistories
         return redirect_to action: 'index'
       end
 
-      imported_lines = EnergyHistories::ImportService.new.run(uploaded_file)
+      begin
+        imported_lines = EnergyHistories::ImportService.new.run(uploaded_file)
+      rescue EnergyHistories::ImportService::ImportError => e
+        flash[:alert] = "インポートできませんでした。[#{e.message}]"
+        return redirect_to action: 'index'
+      end
+
 
       flash[:info] = "#{imported_lines}行のデータをインポートしました。"
       redirect_to action: 'index'

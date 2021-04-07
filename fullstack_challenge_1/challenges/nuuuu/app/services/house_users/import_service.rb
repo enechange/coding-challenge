@@ -2,7 +2,7 @@ require 'csv'
 
 module HouseUsers
   class ImportService
-    class InvalidCsvRecordError < StandardError
+    class ImportError < StandardError
     end
 
     HouseUserUnit = Struct.new(:line_number, :first_name, :last_name, :city, :num_of_people, :has_child, :now) do
@@ -23,8 +23,8 @@ module HouseUsers
       end
 
       def validate!
-        raise InvalidCsvRecordError, "num_of_peopleが不正です [line:#{line_number}]" unless num_of_people.is_a?(Integer)
-        raise InvalidCsvRecordError, "has_childが不正です [line:#{line_number}]" if has_child.nil?
+        raise ImportError, "num_of_peopleが不正です [line:#{line_number}]" unless num_of_people.is_a?(Integer)
+        raise ImportError, "has_childが不正です [line:#{line_number}]" if has_child.nil?
 
         # TODO: その他カラムもバリデーション入れる
         # valid.
@@ -57,7 +57,13 @@ module HouseUsers
       end
 
       # bulkでgo
-      HouseUser.insert_all!(house_users)
+      begin
+        HouseUser.insert_all!(house_users)
+      rescue => e
+        # todo: システムの生情報がe.messageに入っているので、システムユーザーに必要なものだけ実際には出す
+        raise ImportError, e.message
+      end
+
       house_users.size
     end
   end
