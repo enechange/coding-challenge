@@ -4,7 +4,8 @@
 
 * 動作確認ずみOS: Ubuntu Linux 20.04 
 * docker, docker-composeをインストールしておくこと
-* yarnをインストールしておくこと  
+* ruby 3.0.0をインストールしておくこと  
+* yarnをインストールしておくこと(動作確認済みver 1.22.5)  
 * mysqlクライアントライブラリをインストールしておくこと(see https://github.com/brianmario/mysql2 )
 
 ## 起動方法
@@ -35,3 +36,4 @@ rails s
 * その他
     * [ ] rails app部分のdocker化
     * [ ] test code
+    * [ ] 発電状況テーブルに対する、用途に応じたインデックス設計
