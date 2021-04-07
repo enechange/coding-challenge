@@ -8,15 +8,35 @@
   <section class="section">
     <div class="container">
       <h2 class="title">詳細</h2>
-      <ul>
-        <li>ID: <%= @house_user.id %></li>
-        <li>Name: <%= "#{@house_user.first_name} #{@house_user.last_name}" %></li>
-        <li>City: <%= @house_user.city %></li>
-        <li>Num of people: <%= @house_user.num_of_people %></li>
-        <li>Has child: <%= @house_user.has_child %></li>
-      </ul>
+      <div class="box">
+        <article class="media">
+          <div class="media-content">
+            <div class="content">
+              <p class="title"><strong> <%= "#{@house_user.first_name} #{@house_user.last_name}" %></strong></p>
+              <ul>
+                <nav class="level">
+                  <div class="level-item has-text-centered">
+                    <p class="heading">在住都市</p>
+                    <p class="title"><%= @house_user.city %></p>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <p class="heading">家庭の人数</p>
+                    <p class="title"><%= @house_user.num_of_people %></p>
+                  </div>
+                  <div class="level-item has-text-centered">
+                    <p class="heading">子供</p>
+                    <p class="title"><%= exist_or_not(@house_user.has_child)  %></p>
+                  </div>
+                </nav>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
+  </section>
 
+  <section class="section">
     <div class="container">
       <h2 class="title">発電状況</h2>
       <%= line_chart [ { name: 'temperature', data: @energy_histories_temperature  } ], colors: ["red", "#666"] %>

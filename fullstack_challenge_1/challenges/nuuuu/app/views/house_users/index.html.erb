@@ -17,10 +17,10 @@
         <thead>
         <tr>
           <th>ID</th>
-          <th>Name</th>
-          <th>City</th>
-          <th>num_of_people</th>
-          <th>has_child</th>
+          <th>名前</th>
+          <th>在住都市</th>
+          <th>家庭の人数</th>
+          <th>子供の有無</th>
         </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
             <td><%= link_to "#{house_user.first_name} #{house_user.last_name}", house_user_url(house_user.id) %></td>
             <td><%= house_user.city %></td>
             <td><%= house_user.num_of_people %></td>
-            <td><%= house_user.has_child %></td>
+            <td><%= exist_or_not(house_user.has_child) %></td>
           </tr>
         <% end %>
         </tbody>
