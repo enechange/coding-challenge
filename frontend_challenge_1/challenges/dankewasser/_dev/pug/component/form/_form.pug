@@ -1,0 +1,98 @@
+form.c-Form.js-FormController_Main
+  h2.c-Form_Ttl
+    | 電気代一括見積りフォーム
+  p.c-Form_Desc
+    | 全国15社以上の電力会社の見積りから
+    br
+    | 自社に合うものを選ぶだけ！
+  p.c-Form_RequiredSP
+    | すべて入力必須
+
+  .c-Form_Body
+    .c-Form_RowGroup
+      .c-Form_Row.t-Error.js-FormController_ErrorMessage(data-validate-name="provider")
+        p.c-Form_Row_ErrorMsg
+          | 選択してください
+      .c-Form_Row
+        p.c-Form_NameCol.t-Small
+          span.c-Form_Required 必須
+          | ご契約中の
+          br.u-SP
+          | 電力会社
+        .c-Form_InputCol
+          select.c-Form_Select.js-FormController_ChangeOptions.js-FormController_Validate(name="provider", data-validate-type="")
+            option(value="tepco") 東京電力
+            option(value="hepco") 北海道電力
+            option(value="tohoku-epco") 東北電力
+            option(value="chuden") 中部電力
+            option(value="rikuden") 北陸電力
+            option(value="kepco") 関西電力
+            option(value="energia") 中国電力
+            option(value="yonden") 四国電力
+            option(value="kyuden") 九州電力
+            option(value="okiden") 沖縄電力
+            option(value="other") その他
+          i.c-Form_Arrow
+
+    .c-Form_RowGroup
+      .c-Form_Row.t-Error.js-FormController_ErrorMessage(data-validate-name="pref")
+        p.c-Form_Row_ErrorMsg
+          | 選択してください
+      .c-Form_Row
+        p.c-Form_NameCol
+          span.c-Form_Required 必須
+          | 都道府県
+        .c-Form_InputCol
+          select.c-Form_Select.js-FormController_ChangeOptionsTarget.js-FormController_Validate(name="pref", data-validate-type="")
+            option(value="")
+          i.c-Form_Arrow
+
+    .c-Form_RowGroup
+      .c-Form_Row.t-Error.js-FormController_ErrorMessage(data-validate-name="company_name")
+        p.c-Form_Row_ErrorMsg
+          | 正しく入力してください
+      .c-Form_Row
+        p.c-Form_NameCol
+          span.c-Form_Required 必須
+          | 貴社名
+        .c-Form_InputCol
+          input.c-Form_Input.js-FormController_Validate(name="company_name", type="text", placeholder="○○株式会社", data-validate-type="")
+
+    .c-Form_RowGroup
+      .c-Form_Row.t-Error.js-FormController_ErrorMessage(data-validate-name="name")
+        p.c-Form_Row_ErrorMsg
+          | 正しく入力してください
+      .c-Form_Row
+        p.c-Form_NameCol
+          span.c-Form_Required 必須
+          | ご担当者
+        .c-Form_InputCol
+          input.c-Form_Input.js-FormController_Validate(name="name", type="text", placeholder="ご入力ください", data-validate-type="")
+
+    .c-Form_RowGroup
+      .c-Form_Row.t-Error.js-FormController_ErrorMessage(data-validate-name="phone_number")
+        p.c-Form_Row_ErrorMsg
+          | 正しく入力してください
+      .c-Form_Row
+        p.c-Form_NameCol
+          span.c-Form_Required 必須
+          | 電話番号
+        .c-Form_InputCol
+          input.c-Form_Input.js-FormController_Validate(name="phone_number", type="tel", placeholder="03-1234-5678", data-validate-type="")
+
+    .c-Form_RowGroup
+      .c-Form_Row.t-Error.js-FormController_ErrorMessage(data-validate-name="email")
+        p.c-Form_Row_ErrorMsg
+          | 正しいメールアドレスの形式で入力してください
+      .c-Form_Row
+        p.c-Form_NameCol.t-Small
+          span.c-Form_Required 必須
+          | メールアドレス
+        .c-Form_InputCol
+          input.c-Form_Input.js-FormController_Validate(name="email", type="email", placeholder="メールアドレス", data-validate-type="email")
+
+  .c-Form_BtnArea
+    button.c-Form_Btn 一括見積もりしてみる
+
+  p.c-Form_Notice
+    | 利用規約・個人情報に同意の上送信ください

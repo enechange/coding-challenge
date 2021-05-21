@@ -1,0 +1,43 @@
+.p-Case {
+  @extend %CommonSection;
+}
+
+.p-Case_Inner {
+  @extend %CommonSection_Inner;
+
+  padding: 36px 0 90px;
+
+  @include mq() {
+    padding-bottom: 64px;
+  }
+}
+
+.p-Case_Desc {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 2rem;
+  color: #4e4e4e;
+
+  @include mq() {
+    padding: 0 10px;
+    font-size: 1.6rem;
+  }
+
+  & + & {
+    margin-top: 0.5em;
+  }
+}
+
+.p-Case_Desc_Strong {
+  padding: 0 0.2em;
+  color: #fc8c00;
+  font-size: 4rem;
+
+  @include mq() {
+    font-size: 3rem;
+  }
+}
+
+.p-Case_Slider {
+  margin-top: 54px;
+}
