@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Hello from "./Hello";
+import Simulation from "./pages/Simulation";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Hello />
+    <Simulation />
   </React.StrictMode>,
   document.getElementById("app")
 );
