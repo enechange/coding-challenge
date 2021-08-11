@@ -6,7 +6,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import { Colors } from '../assets/Colors'
 
 const Wrapper = styled.div`
-  width: 90%;
+  width: 92%;
   margin: 48px auto 12px;
 `;
 
@@ -14,7 +14,6 @@ const InputWrapper = styled.div`
   pointer-events: ${(props) => props.isActive ? "auto" : "none"};
   opacity: ${(props) => props.isActive ? "1" : "0.5"};
   > div {
-    width: 100%;
     margin: 12px 0;
     padding: 8px;
     background: ${Colors.gray};
@@ -28,8 +27,8 @@ const InputWrapper = styled.div`
 `;
 
 const StyledInput = styled(Input)`
-  width: calc(100% - 31px);
-  height: 60px;
+  width: calc(100% - 32px);
+  height: 80px;
   border: none;
   font-size: 30px;
   letter-spacing: 1px;
@@ -45,9 +44,6 @@ const InputEmailAddress = props => {
         <div>
           <StyledInput handleInput={inputElectricBill} />
         </div>
-        {/* <div>
-          <StyledInput handleInput={inputElectricBill} />
-        </div> */}
       </InputWrapper>
       {isInvalidEmailAddress && <ErrorMessage innerText="メールアドレスを正しく入力してください。" />}
     </Wrapper>

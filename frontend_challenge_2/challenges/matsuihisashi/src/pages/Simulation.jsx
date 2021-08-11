@@ -27,7 +27,7 @@ const Content = styled.div`
 `;
 
 const ButtonWrapper = styled.div`
-  width: 90%;
+  width: 92%;
   margin: 0 auto 50px;
 `;
 
@@ -47,11 +47,11 @@ const Simulation = () => {
   const [selectedPlan, setSelectedPlan] = useState("default");
   const [selectedPlanDescription, setSelectedPlanDescription] = useState("");
   //契約容量
-  const [capacity, setCapacity] = useState([]);
+  const [capacityList, setCapacityList] = useState([]);
+  const [selectedCapacity, setSelectedCapacity] = useState("default");
   //電気代金
   const [electricBill, setElectricBill] = useState("");
   const [isInvalidElectricBill, setIsInvalidElectricBill] = useState(false);
-  
   //メールアドレス
   const [emailAddress, setEmailAddress] = useState("");
   const [isInvalidEmailAddress, setIsInvalidEmailAddress] = useState(false);
@@ -81,6 +81,7 @@ const Simulation = () => {
       if (postalAreaCode[0] === areaCodesArr[i]) {
         setIsOutOfArea(false);
         handleSetElectricPowerCompaniesList();
+        resetAllData();
         break;
       } else {
         setIsOutOfArea(true);
@@ -136,8 +137,15 @@ const Simulation = () => {
 
   //契約容量
   const handleSetCapacity = (type, capacity) => {
-    if (type === '従量電灯A') return;
-    setCapacity(capacity);
+    if (type === '従量電灯A') {
+      setSelectedCapacity("default");
+    } else {
+      setCapacityList(capacity);
+    }
+  }
+
+  const onSelectCapacity= e => {
+    setSelectedCapacity(e.target.value);
   }
 
   //電気代
@@ -150,10 +158,6 @@ const Simulation = () => {
     setIsInvalidElectricBill(Number(bill) < 1000);
   }
 
-  const handleClickSeeResult = () => {
-    //アラートで設定値を全て表示させる
-  }
-
   //メールアドレス
   const handleInputEmailAddress = e => {
     setEmailAddress(e.target.value);
@@ -161,7 +165,21 @@ const Simulation = () => {
     setIsInvalidEmailAddress(!result);
   }
 
+  //結果を見る
+  const handleClickSeeResult = () => {
+    alert("complete");
+  }
+  
   //設定を全てリセットする
+  const resetAllData = () => {
+    //プラン
+    setPlanList([]);
+    setSelectedPlan("default");
+    setSelectedPlanDescription("");
+    //契約容量
+    setCapacityList([]);
+    setSelectedCapacity("default");
+  }
 
   return (
     <Wrapper>
@@ -186,18 +204,15 @@ const Simulation = () => {
         <SelectPlan
           onSelect={onSelectPlan}
           planList={planList}
-          isUnsimulatable={isUnsimulatable}
           isActive={selectedCompany !== "default" && selectedCompany !== "その他"}
           selectedPlan={selectedPlan}
           selectedPlanDescription={selectedPlanDescription}
         />
         <SelectCapacity
-          onSelect={onSelectPlan}
-          planList={capacity}
-          isUnsimulatable={isUnsimulatable}
-          isActive={selectedCompany !== "default" && selectedCompany !== "その他" && selectedPlan !== "従量電灯A"}
-          selectedPlan={selectedPlan}
-          selectedPlanDescription={selectedPlanDescription}
+          onSelect={onSelectCapacity}
+          capacityList={capacityList}
+          isActive={selectedPlan !== "default" && selectedPlan !== "従量電灯A"}
+          selectedCapacity={selectedCapacity}
         />
       </Content>
       <Content>
@@ -205,7 +220,7 @@ const Simulation = () => {
         <InputElectricBill
           inputElectricBill={handleInputElectricBill}
           isInvalidElectricBill={isInvalidElectricBill}
-          isActive={true}
+          isActive={selectedPlan === "従量電灯A" || selectedCapacity !== "default"}
         />
       </Content>
       <Content>
@@ -213,11 +228,11 @@ const Simulation = () => {
         <InputEmailAddress
           inputElectricBill={handleInputEmailAddress}
           isInvalidEmailAddress={isInvalidEmailAddress}
-          isActive={true}
+          isActive={Number(electricBill) >= 1000}
         />
       </Content>
       <ButtonWrapper>
-        <Button innertext="結果を見る" onClick={handleClickSeeResult} />
+        <Button innertext="結果を見る" onClick={handleClickSeeResult} isActive={validateEmailAddress(emailAddress)} />
       </ButtonWrapper>
     </Wrapper>
   );

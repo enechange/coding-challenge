@@ -6,7 +6,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import { Colors } from '../assets/Colors'
 
 const Wrapper = styled.div`
-  width: 90%;
+  width: 92%;
   margin: 48px auto 12px;
 `;
 
@@ -17,15 +17,15 @@ const InputWrapper = styled.div`
   border-radius: 4px;
   display: flex;
   > p {
-    font-size: 25px;
-    line-height: 60px;
+    font-size: 30px;
+    line-height: 80px;
     margin: 0 20px;
   }
 `;
 
 const StyledInput = styled(Input)`
   width: 50%;
-  height: 60px;
+  height: 80px;
   border: none;
   font-size: 30px;
   letter-spacing: 1px;

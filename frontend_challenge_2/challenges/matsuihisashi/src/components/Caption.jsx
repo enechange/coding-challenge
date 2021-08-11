@@ -8,7 +8,7 @@ const Wrapper = styled.div`
 `;
 
 const StyledTextL = styled(TextL)`
-  margin-left: 16px;
+  margin-left: 4%;
   padding: 16px 0;
   margin-top: 20px;
 `;

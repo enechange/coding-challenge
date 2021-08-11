@@ -7,8 +7,8 @@ const CommonCss = css`
 `;
 
 export const TextL = styled.p`
-  font-size: 35px;
-  line-height: 45px;
+  font-size: 37px;
+  line-height: 50px;
   font-weight: bold;
   letter-spacing: 2px;
   ${CommonCss}

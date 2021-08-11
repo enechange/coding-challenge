@@ -11,12 +11,14 @@ const Wrapper = styled.button`
   border-radius: 4px;
   color: ${Colors.white};
   background: ${(props) => props.color ?? Colors.blue};
+  pointer-events: ${(props) => props.isActive ? "auto" : "none"};
+  opacity: ${(props) => props.isActive ? "1" : "0.5"};
 `;
 
 const Button = props => {
-  const { innertext, color, onClick } = props;
+  const { innertext, color, onClick, isActive } = props;
   return (
-    <Wrapper color={color} onClick={onClick}>
+    <Wrapper color={color} onClick={onClick} isActive={isActive}>
       {innertext}
     </Wrapper>
   );

@@ -3,10 +3,9 @@ import styled from 'styled-components'
 import SubCaption from '../components/SubCaption';
 import Description from "../components/Description";
 import SelectBox from "../components/SelectBox";
-import { Colors } from '../assets/Colors'
 
 const Wrapper = styled.div`
-  width: 90%;
+  width: 92%;
   margin: 48px auto 12px;
 `;
 

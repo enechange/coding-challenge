@@ -1,12 +1,10 @@
 import React from "react";
 import styled from 'styled-components'
 import SubCaption from '../components/SubCaption';
-import ErrorMessage from "../components/ErrorMessage";
 import SelectBox from "../components/SelectBox";
-import { Colors } from '../assets/Colors'
 
 const Wrapper = styled.div`
-  width: 90%;
+  width: 92%;
   margin: 48px auto 12px;
 `;
 
@@ -15,13 +13,12 @@ const StyledSelectBox = styled(SelectBox)`
 `;
 
 const SelectCapacity = props => {
-  const { onSelect, planList, isActive, selectedPlan, selectedPlanDescription } = props;
+  const { onSelect, capacityList, isActive, selectedCapacity } = props;
 
   return (
     <Wrapper>
       <SubCaption labelText="必 須" captionText="契約容量" />
-      <StyledSelectBox items={planList} isActive={isActive} onSelect={onSelect} selectedValue={selectedPlan} />
-      {selectedPlanDescription !== "" && <ErrorMessage innerText={selectedPlanDescription} />}
+      <StyledSelectBox items={capacityList} isActive={isActive} onSelect={onSelect} selectedValue={selectedCapacity} />
     </Wrapper>
   );
 }

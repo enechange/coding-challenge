@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   display: flex;
   position: relative;
   box-sizing: border-box;
-  height: 80px;
+  height: 110px;
   overflow: hidden;
   border: ${Colors.gray} 8px solid;
   border-radius: 4px;
@@ -50,8 +50,7 @@ const SelectBox = props => {
       <PullDownSelect onChange={onSelect} value={selectedValue}>
         <option value="default">選んでください</option>
         {items.map((item, index) => {
-          const name = item.name ? item.name : item;
-        //   const name = item.name ?? item;
+          const name = item.name ?? item;
           return (
             <option key={index} value={name}>
               {name}
