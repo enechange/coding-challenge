@@ -28,7 +28,7 @@ const InputWrapper = styled.div`
 `;
 
 const StyledInput = styled(Input)`
-  width: calc(100% - 32px);
+  width: 96%;
   padding-left: 30px;
 `;
 
