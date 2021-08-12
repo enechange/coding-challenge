@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components'
-import { Colors } from '../../assets/Colors'
+import styled, { css } from 'styled-components';
+import { Colors } from '../../assets/Colors';
 
 const CommonCss = css`
   margin: 0;

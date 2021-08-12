@@ -1,6 +1,6 @@
 import React from "react";
-import styled from 'styled-components'
-import { Colors } from '../../assets/Colors'
+import styled from 'styled-components';
+import { Colors } from '../../assets/Colors';
 
 const Wrapper = styled.p`
   padding: 2px 8px;
@@ -15,5 +15,6 @@ const Label = props => {
   return (
     <Wrapper>{innertext}</Wrapper>
   );
-}
+};
+
 export default Label;

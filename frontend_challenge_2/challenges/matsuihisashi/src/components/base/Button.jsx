@@ -1,7 +1,6 @@
 import React from "react";
 import styled from 'styled-components'
 import { Colors } from '../../assets/Colors'
-// import Icon from '../../assets/svgIcons';
 
 const Wrapper = styled.button`
   width: 100%;
@@ -22,5 +21,6 @@ const Button = props => {
       {innertext}
     </Wrapper>
   );
-}
+};
+
 export default Button;

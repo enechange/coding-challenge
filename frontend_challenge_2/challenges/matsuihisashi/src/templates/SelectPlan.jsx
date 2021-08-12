@@ -1,5 +1,5 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 import SubCaption from '../components/SubCaption';
 import Description from "../components/Description";
 import SelectBox from "../components/SelectBox";
@@ -23,5 +23,6 @@ const SelectPlan = props => {
       {selectedPlanDescription !== "" && <Description innerText={selectedPlanDescription} />}
     </Wrapper>
   );
-}
+};
+
 export default SelectPlan;

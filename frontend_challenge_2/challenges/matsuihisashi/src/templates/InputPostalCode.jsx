@@ -1,9 +1,9 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 import Input from "../components/base/Input";
 import SubCaption from '../components/SubCaption';
 import ErrorMessage from "../components/ErrorMessage";
-import { Colors } from '../assets/Colors'
+import { Colors } from '../assets/Colors';
 
 const Wrapper = styled.div`
   width: 92%;
@@ -25,10 +25,6 @@ const InputWrapper = styled.div`
 
 const StyledInput = styled(Input)`
   width: 50%;
-  height: 80px;
-  border: none;
-  font-size: 30px;
-  letter-spacing: 1px;
   text-align: center;
 `;
 
@@ -45,5 +41,6 @@ const InputPostalCode = props => {
       {isOutOfArea && <ErrorMessage innerText="サービスエリア対象外です。" />}
     </Wrapper>
   );
-}
+};
+
 export default InputPostalCode;

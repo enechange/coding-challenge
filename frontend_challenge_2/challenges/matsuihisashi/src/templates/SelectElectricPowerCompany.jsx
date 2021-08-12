@@ -1,5 +1,5 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 import SubCaption from '../components/SubCaption';
 import ErrorMessage from "../components/ErrorMessage";
 import SelectBox from "../components/SelectBox";
@@ -22,5 +22,6 @@ const SelectElectricPowerCompany = props => {
       {isUnsimulatable && <ErrorMessage innerText="シミュレーション対象外です。" />}
     </Wrapper>
   );
-}
+};
+
 export default SelectElectricPowerCompany;

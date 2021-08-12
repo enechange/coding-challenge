@@ -1,10 +1,10 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { TextL, TextM } from './base/Text';
 
 const Wrapper = styled.div`
   text-align: center;
-  padding: 40px 0 60px
+  padding: 40px 0 60px;
 `;
 
 const StyledTextM = styled(TextM)`
@@ -18,5 +18,6 @@ const Headline = () => {
       <StyledTextM>検針票を用意しなくてもOK<br/>いくらおトクになるか今すぐわかります！</StyledTextM>
     </Wrapper>
   );
-}
+};
+
 export default Headline;

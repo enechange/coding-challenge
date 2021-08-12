@@ -1,8 +1,8 @@
 import React from "react";
-import styled from 'styled-components'
-import { Colors } from '../assets/Colors'
+import styled from 'styled-components';
+import { Colors } from '../assets/Colors';
 import { TextS } from './base/Text';
-import Icon from '../assets/svgIcons'
+import Icon from '../assets/svgIcons';
 
 const Wrapper = styled.div`
   padding: 12px 20px;
@@ -25,5 +25,6 @@ const ErrorMessage = props => {
       <StyledTextS>{innerText}</StyledTextS>
     </Wrapper>
   );
-}
+};
+
 export default ErrorMessage;

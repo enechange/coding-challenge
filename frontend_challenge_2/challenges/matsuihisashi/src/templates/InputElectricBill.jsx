@@ -1,9 +1,9 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 import Input from "../components/base/Input";
 import SubCaption from '../components/SubCaption';
 import ErrorMessage from "../components/ErrorMessage";
-import { Colors } from '../assets/Colors'
+import { Colors } from '../assets/Colors';
 
 const Wrapper = styled.div`
   width: 92%;
@@ -16,7 +16,7 @@ const InputWrapper = styled.div`
   pointer-events: ${(props) => props.isActive ? "auto" : "none"};
   opacity: ${(props) => props.isActive ? "1" : "0.5"};
   > div {
-    width: 100%;
+    width: calc(100% - 16px);
     margin: 12px 0;
     padding: 8px;
     background: ${Colors.gray};
@@ -30,11 +30,7 @@ const InputWrapper = styled.div`
 `;
 
 const StyledInput = styled(Input)`
-  width: calc(100% - 31px);
-  height: 80px;
-  border: none;
-  font-size: 30px;
-  letter-spacing: 1px;
+  width: calc(100% - 32px);
   padding-left: 30px;
 `;
 
@@ -52,5 +48,6 @@ const InputElectricBill = props => {
       {isInvalidElectricBill && <ErrorMessage innerText="電気代を正しく入力してください。最低料金は1000円です。" />}
     </Wrapper>
   );
-}
+};
+
 export default InputElectricBill;

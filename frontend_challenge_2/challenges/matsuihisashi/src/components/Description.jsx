@@ -1,6 +1,6 @@
 import React from "react";
-import styled from 'styled-components'
-import { Colors } from '../assets/Colors'
+import styled from 'styled-components';
+import { Colors } from '../assets/Colors';
 import { TextS } from './base/Text';
 
 const Wrapper = styled.div`
@@ -23,5 +23,6 @@ const Description = props => {
       <StyledTextS>{innerText}</StyledTextS>
     </Wrapper>
   );
-}
+};
+
 export default Description;

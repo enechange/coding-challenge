@@ -21,5 +21,6 @@ const SubCaption = props => {
       <StyledTextM>{captionText}</StyledTextM>
     </Wrapper>
   );
-}
+};
+
 export default SubCaption;

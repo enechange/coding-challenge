@@ -56,13 +56,11 @@ const Simulation = () => {
   const [emailAddress, setEmailAddress] = useState("");
   const [isInvalidEmailAddress, setIsInvalidEmailAddress] = useState(false);
 
-
-
   useEffect(() =>{
     if (postalAreaCode === "") {
       setIsOutOfArea(false);
     }
-  },[postalAreaCode])
+  },[postalAreaCode]);
 
   useEffect(() =>{
     if (!isOutOfArea && postalAreaCode.length === 3 && localAreaCode.length === 4) {
@@ -70,7 +68,7 @@ const Simulation = () => {
     } else {
       setIsPostalCodeValid(false);
     }
-  },[isOutOfArea, postalAreaCode, localAreaCode])
+  },[isOutOfArea, postalAreaCode, localAreaCode]);
 
   //郵便番号
   const inputPostalAreaCode = e => {
@@ -87,11 +85,11 @@ const Simulation = () => {
         setIsOutOfArea(true);
       }
     }
-  }
+  };
 
   const inputLocalAreaCode = e => {
     setLocalAreaCode(e.target.value);
-  }
+  };
 
   //電力会社
   const handleSetElectricPowerCompaniesList = () => {
@@ -101,7 +99,7 @@ const Simulation = () => {
     const result = COMPANIES_BY_AREA[area];
     setSelectedCompany("default");
     setElectricPowerCompaniesList(result);
-  }
+  };
 
   const onSelectElectricPowerCompany = e => {
     setSelectedCompany(e.target.value);
@@ -111,7 +109,7 @@ const Simulation = () => {
       setIsUnsimulatable(false);
       handleSetPlanList(e.target.value);
     }
-  }
+  };
 
   //プラン
   const handleSetPlanList = company => {
@@ -123,7 +121,7 @@ const Simulation = () => {
       })
     })
     setPlanList(arr);
-  }
+  };
 
   const onSelectPlan= e => {
     setSelectedPlan(e.target.value);
@@ -133,7 +131,7 @@ const Simulation = () => {
         handleSetCapacity(plan.name, plan.capacity)
       }
     })
-  }
+  };
 
   //契約容量
   const handleSetCapacity = (type, capacity) => {
@@ -142,33 +140,33 @@ const Simulation = () => {
     } else {
       setCapacityList(capacity);
     }
-  }
+  };
 
   const onSelectCapacity= e => {
     setSelectedCapacity(e.target.value);
-  }
+  };
 
   //電気代
   const handleInputElectricBill = e => {
     setElectricBill(e.target.value);
     validateElectricBill(e.target.value);
-  }
+  };
 
   const validateElectricBill = bill => {
     setIsInvalidElectricBill(Number(bill) < 1000);
-  }
+  };
 
   //メールアドレス
   const handleInputEmailAddress = e => {
     setEmailAddress(e.target.value);
     const result = validateEmailAddress(emailAddress);
     setIsInvalidEmailAddress(!result);
-  }
+  };
 
   //結果を見る
   const handleClickSeeResult = () => {
     alert("complete");
-  }
+  };
   
   //設定を全てリセットする
   const resetAllData = () => {
@@ -179,7 +177,7 @@ const Simulation = () => {
     //契約容量
     setCapacityList([]);
     setSelectedCapacity("default");
-  }
+  };
 
   return (
     <Wrapper>
@@ -236,5 +234,6 @@ const Simulation = () => {
       </ButtonWrapper>
     </Wrapper>
   );
-}
+};
+
 export default Simulation;

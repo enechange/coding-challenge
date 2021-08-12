@@ -1,5 +1,5 @@
 import React from 'react';
-import { Colors } from '../Colors'
+import { Colors } from '../Colors';
 
 const Warning = props => {
   const { width, height, color } = props;

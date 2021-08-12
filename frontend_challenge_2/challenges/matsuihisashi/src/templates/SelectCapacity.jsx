@@ -1,5 +1,5 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 import SubCaption from '../components/SubCaption';
 import SelectBox from "../components/SelectBox";
 
@@ -21,5 +21,6 @@ const SelectCapacity = props => {
       <StyledSelectBox items={capacityList} isActive={isActive} onSelect={onSelect} selectedValue={selectedCapacity} />
     </Wrapper>
   );
-}
+};
+
 export default SelectCapacity;

@@ -1,7 +1,7 @@
 import React from "react";
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { TextL } from './base/Text';
-import { Colors } from '../assets/Colors'
+import { Colors } from '../assets/Colors';
 
 const Wrapper = styled.div`
   border-left: 6px solid ${Colors.orange};
@@ -20,5 +20,6 @@ const Caption = props => {
       <StyledTextL>{innerText}</StyledTextL>
     </Wrapper>
   );
-}
+};
+
 export default Caption;
