@@ -4,7 +4,7 @@ import { Colors } from '../../assets/Colors'
 
 const Wrapper = styled.button`
   width: 100%;
-  padding: 24px 0;
+  padding: 30px 0;
   font-size: 30px;
   border: none;
   border-radius: 4px;

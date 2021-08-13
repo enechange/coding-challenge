@@ -59,6 +59,7 @@ const Simulation = () => {
   useEffect(() =>{
     if (postalAreaCode === "") {
       setIsOutOfArea(false);
+      resetAllData();
     }
   },[postalAreaCode]);
 
@@ -72,18 +73,20 @@ const Simulation = () => {
 
   //郵便番号
   const inputPostalAreaCode = e => {
+    if (isNaN(e.target.value)) return;
     setPostalAreaCode(e.target.value);
-    if (postalAreaCode[0] === undefined) return;
-    const areaCodesArr = Object.keys(POSTAL_CODES_BY_AREA);
-    for (let i = 0; i < areaCodesArr.length; i++) {
-      if (postalAreaCode[0] === areaCodesArr[i]) {
-        setIsOutOfArea(false);
-        handleSetElectricPowerCompaniesList();
-        resetAllData();
-        break;
-      } else {
-        setIsOutOfArea(true);
+    const userInputArea = postalAreaCode[0] || e.target.value;
+
+    const validAreas = Object.keys(POSTAL_CODES_BY_AREA);
+    const isValidArea = validAreas.includes(userInputArea);
+
+    if (isValidArea) {
+      setIsOutOfArea(false);
+      if (postalAreaCode[0] === undefined) {
+        initializeElectricPowerCompaniesList(userInputArea);
       }
+    } else {
+      setIsOutOfArea(true);
     }
   };
 
@@ -92,10 +95,8 @@ const Simulation = () => {
   };
 
   //電力会社
-  const handleSetElectricPowerCompaniesList = () => {
-    // stateで持って、グローバルで使えるようにする
-    const userInputPostalAreaCode = postalAreaCode[0];
-    const area = POSTAL_CODES_BY_AREA[userInputPostalAreaCode];
+  const initializeElectricPowerCompaniesList = userInputArea => {
+    const area = POSTAL_CODES_BY_AREA[userInputArea];
     const result = COMPANIES_BY_AREA[area];
     setSelectedCompany("default");
     setElectricPowerCompaniesList(result);
@@ -107,12 +108,12 @@ const Simulation = () => {
       setIsUnsimulatable(true);
     } else {
       setIsUnsimulatable(false);
-      handleSetPlanList(e.target.value);
+      initializePlanList(e.target.value);
     }
   };
 
   //プラン
-  const handleSetPlanList = company => {
+  const initializePlanList = company => {
     if (company === "default" || company === "その他") return;
     let arr = [];
     electricPowerCompaniesList.map(company => {
@@ -128,13 +129,13 @@ const Simulation = () => {
     planList.map(plan => {
       if (plan.name === e.target.value) {
         setSelectedPlanDescription(plan.description);
-        handleSetCapacity(plan.name, plan.capacity)
+        initializeCapacity(plan.name, plan.capacity)
       }
     })
   };
 
   //契約容量
-  const handleSetCapacity = (type, capacity) => {
+  const initializeCapacity = (type, capacity) => {
     if (type === '従量電灯A') {
       setSelectedCapacity("default");
     } else {
@@ -170,6 +171,9 @@ const Simulation = () => {
   
   //設定を全てリセットする
   const resetAllData = () => {
+    //電力会社
+    setElectricPowerCompaniesList([]);
+    setIsUnsimulatable(false);
     //プラン
     setPlanList([]);
     setSelectedPlan("default");
@@ -178,6 +182,12 @@ const Simulation = () => {
     setCapacityList([]);
     setSelectedCapacity("default");
   };
+
+  const isSelectedCompanyValid = selectedCompany !== "default" && selectedCompany !== "その他";
+  const isSelectedPlanValid = selectedPlan !== "default" && selectedPlan !== "従量電灯A";
+  const isSelectedCapacityValid = selectedPlan === "従量電灯A" || selectedCapacity !== "default";
+  const isInputElectricBillValid = Number(electricBill) >= 1000;
+  const isAllSet = isSelectedCompanyValid && isSelectedCapacityValid && isInputElectricBillValid && validateEmailAddress(emailAddress);
 
   return (
     <Wrapper>
@@ -202,14 +212,14 @@ const Simulation = () => {
         <SelectPlan
           onSelect={onSelectPlan}
           planList={planList}
-          isActive={selectedCompany !== "default" && selectedCompany !== "その他"}
+          isActive={isPostalCodeValid && isSelectedCompanyValid}
           selectedPlan={selectedPlan}
           selectedPlanDescription={selectedPlanDescription}
         />
         <SelectCapacity
           onSelect={onSelectCapacity}
           capacityList={capacityList}
-          isActive={selectedPlan !== "default" && selectedPlan !== "従量電灯A"}
+          isActive={isPostalCodeValid && isSelectedPlanValid}
           selectedCapacity={selectedCapacity}
         />
       </Content>
@@ -218,7 +228,7 @@ const Simulation = () => {
         <InputElectricBill
           inputElectricBill={handleInputElectricBill}
           isInvalidElectricBill={isInvalidElectricBill}
-          isActive={selectedPlan === "従量電灯A" || selectedCapacity !== "default"}
+          isActive={isSelectedCapacityValid}
         />
       </Content>
       <Content>
@@ -226,11 +236,15 @@ const Simulation = () => {
         <InputEmailAddress
           inputElectricBill={handleInputEmailAddress}
           isInvalidEmailAddress={isInvalidEmailAddress}
-          isActive={Number(electricBill) >= 1000}
+          isActive={isInputElectricBillValid}
         />
       </Content>
       <ButtonWrapper>
-        <Button innertext="結果を見る" onClick={handleClickSeeResult} isActive={validateEmailAddress(emailAddress)} />
+        <Button
+          innertext="結果を見る"
+          onClick={handleClickSeeResult}
+          isActive={isPostalCodeValid && isAllSet}
+        />
       </ButtonWrapper>
     </Wrapper>
   );

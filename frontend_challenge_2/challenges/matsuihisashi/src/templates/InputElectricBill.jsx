@@ -41,11 +41,11 @@ const InputElectricBill = props => {
       <SubCaption labelText="必 須" captionText="先月の電気代は？" />
       <InputWrapper isActive={isActive}>
         <div>
-          <StyledInput handleInput={inputElectricBill} />
+          <StyledInput handleInput={inputElectricBill} type="number" />
         </div>
         <p>円</p>
       </InputWrapper>
-      {isInvalidElectricBill && <ErrorMessage innerText="電気代を正しく入力してください。最低料金は1000円です。" />}
+      {isInvalidElectricBill && <ErrorMessage innerText="電気代を正しく入力してください。最低料金は1,000円です。" />}
     </Wrapper>
   );
 };

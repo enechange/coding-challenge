@@ -9,10 +9,10 @@ const InputBox = styled.input`
 `;
 
 const Input = props => {
-  const { maxlength, handleInput, className } = props;
+  const { maxlength, handleInput, type, className } = props;
   return (
     <>
-      <InputBox maxLength={maxlength} className={className} type="text" onChange={handleInput} />
+      <InputBox maxLength={maxlength} className={className} type={type ?? "text"} onChange={handleInput} />
     </>
   );
 };
