@@ -52,7 +52,7 @@ const SelectBox = props => {
         {items.map((item, index) => {
           const name = item.name ?? item;
           return (
-            <option key={index} value={name}>
+            <option key={index} value={item.id}>
               {name}
             </option>
           )

@@ -14,7 +14,7 @@ const InputWrapper = styled.div`
   pointer-events: ${(props) => props.isActive ? "auto" : "none"};
   opacity: ${(props) => props.isActive ? "1" : "0.5"};
   > div {
-    width: calc(100% - 16px);
+    width: calc(100% - 20px);
     margin: 12px 0;
     padding: 8px;
     background: ${Colors.gray};
@@ -28,7 +28,7 @@ const InputWrapper = styled.div`
 `;
 
 const StyledInput = styled(Input)`
-  width: 96%;
+  width: calc(100% - 34px);
   padding-left: 30px;
 `;
 

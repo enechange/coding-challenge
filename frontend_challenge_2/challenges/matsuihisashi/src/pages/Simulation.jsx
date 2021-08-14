@@ -71,8 +71,14 @@ const Simulation = () => {
     }
   },[isOutOfArea, postalAreaCode, localAreaCode]);
 
+  useEffect(() =>{
+    if (emailAddress === "") {
+      setIsInvalidEmailAddress(false);
+    }
+  },[emailAddress]);
+
   //郵便番号
-  const inputPostalAreaCode = e => {
+  const handleInputPostalAreaCode = e => {
     if (isNaN(e.target.value)) return;
     setPostalAreaCode(e.target.value);
     const userInputArea = postalAreaCode[0] || e.target.value;
@@ -90,7 +96,7 @@ const Simulation = () => {
     }
   };
 
-  const inputLocalAreaCode = e => {
+  const handleInputLocalAreaCode = e => {
     setLocalAreaCode(e.target.value);
   };
 
@@ -104,7 +110,7 @@ const Simulation = () => {
 
   const onSelectElectricPowerCompany = e => {
     setSelectedCompany(e.target.value);
-    if (e.target.value === "その他") {
+    if (e.target.value === "other") {
       setIsUnsimulatable(true);
     } else {
       setIsUnsimulatable(false);
@@ -114,7 +120,7 @@ const Simulation = () => {
 
   //プラン
   const initializePlanList = company => {
-    if (company === "default" || company === "その他") return;
+    if (company === "default" || company === "other") return;
     let arr = [];
     electricPowerCompaniesList.map(company => {
       company.plans?.map(plan => {
@@ -127,16 +133,16 @@ const Simulation = () => {
   const onSelectPlan= e => {
     setSelectedPlan(e.target.value);
     planList.map(plan => {
-      if (plan.name === e.target.value) {
+      if (plan.id === e.target.value) {
         setSelectedPlanDescription(plan.description);
-        initializeCapacity(plan.name, plan.capacity)
+        initializeCapacityList(plan.id, plan.capacity)
       }
     })
   };
 
   //契約容量
-  const initializeCapacity = (type, capacity) => {
-    if (type === '従量電灯A') {
+  const initializeCapacityList = (type, capacity) => {
+    if (type === 'kepco-plan-1') {
       setSelectedCapacity("default");
     } else {
       setCapacityList(capacity);
@@ -183,9 +189,9 @@ const Simulation = () => {
     setSelectedCapacity("default");
   };
 
-  const isSelectedCompanyValid = selectedCompany !== "default" && selectedCompany !== "その他";
-  const isSelectedPlanValid = selectedPlan !== "default" && selectedPlan !== "従量電灯A";
-  const isSelectedCapacityValid = selectedPlan === "従量電灯A" || selectedCapacity !== "default";
+  const isSelectedCompanyValid = selectedCompany !== "default" && selectedCompany !== "other";
+  const isSelectedPlanValid = selectedPlan !== "default" && selectedPlan !== "kepco-plan-1";
+  const isSelectedCapacityValid = selectedPlan === "kepco-plan-1" || selectedCapacity !== "default";
   const isInputElectricBillValid = Number(electricBill) >= 1000;
   const isAllSet = isSelectedCompanyValid && isSelectedCapacityValid && isInputElectricBillValid && validateEmailAddress(emailAddress);
 
@@ -195,8 +201,8 @@ const Simulation = () => {
       <Content>
         <Caption innerText="郵便番号をご入力ください" />
         <InputPostalCode
-          inputPostalAreaCode={inputPostalAreaCode}
-          inputLocalAreaCode={inputLocalAreaCode}
+          inputPostalAreaCode={handleInputPostalAreaCode}
+          inputLocalAreaCode={handleInputLocalAreaCode}
           isOutOfArea={isOutOfArea}
         />
       </Content>
