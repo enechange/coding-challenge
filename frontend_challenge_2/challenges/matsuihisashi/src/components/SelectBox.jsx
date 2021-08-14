@@ -50,9 +50,10 @@ const SelectBox = props => {
       <PullDownSelect onChange={onSelect} value={selectedValue}>
         <option value="default">選んでください</option>
         {items.map((item, index) => {
+          const value = item.id ?? item;
           const name = item.name ?? item;
           return (
-            <option key={index} value={item.id}>
+            <option key={index} value={value}>
               {name}
             </option>
           )

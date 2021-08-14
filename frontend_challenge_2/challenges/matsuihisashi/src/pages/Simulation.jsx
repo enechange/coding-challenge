@@ -112,6 +112,9 @@ const Simulation = () => {
     setSelectedCompany(e.target.value);
     if (e.target.value === "other") {
       setIsUnsimulatable(true);
+      setSelectedPlan("default");
+      setSelectedPlanDescription("");
+      setSelectedCapacity("default");
     } else {
       setIsUnsimulatable(false);
       initializePlanList(e.target.value);
@@ -172,9 +175,19 @@ const Simulation = () => {
 
   //結果を見る
   const handleClickSeeResult = () => {
-    alert("complete");
+    const company = electricPowerCompaniesList.find(company => company.id === selectedCompany);
+    const plan = planList.find(plan => plan.id === selectedPlan);
+    alert(`
+      入力内容確認\n
+      郵便番号：${postalAreaCode}-${localAreaCode}\n
+      電力会社：${company.name}\n
+      プラン：${plan.name}\n
+      契約容量：${selectedCapacity}\n
+      電気代：${electricBill}円\n
+      メールアドレス：${emailAddress}\n
+    `);
   };
-  
+
   //設定を全てリセットする
   const resetAllData = () => {
     //電力会社
