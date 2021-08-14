@@ -16,9 +16,9 @@ const InputWrapper = styled.div`
   background: ${Colors.gray};
   border-radius: 4px;
   display: flex;
+  align-items: center;
   > p {
     font-size: 30px;
-    line-height: 80px;
     margin: 0 20px;
   }
 `;

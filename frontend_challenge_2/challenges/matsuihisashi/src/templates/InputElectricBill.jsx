@@ -10,24 +10,23 @@ const Wrapper = styled.div`
   margin: 48px auto 12px;
 `;
 
-const InputWrapper = styled.div`
+const Container = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  pointer-events: ${(props) => props.isActive ? "auto" : "none"};
-  opacity: ${(props) => props.isActive ? "1" : "0.5"};
-  > div {
-    width: 100%;
-    margin: 12px 0;
-    padding: 8px;
-    background: ${Colors.gray};
-    border-radius: 4px;
-  }
   > p {
     font-size: 25px;
-    line-height: 60px;
-    margin: 0 16px;
+    margin-left: 16px;
   }
+`;
+
+const InputWrapper = styled.div`
+  width: 100%;
+  pointer-events: ${(props) => props.isActive ? "auto" : "none"};
+  opacity: ${(props) => props.isActive ? "1" : "0.5"};
+  margin: 12px 0;
+  padding: 8px;
+  background: ${Colors.gray};
+  border-radius: 4px;
 `;
 
 const StyledInput = styled(Input)`
@@ -40,12 +39,12 @@ const InputElectricBill = props => {
   return (
     <Wrapper>
       <SubCaption labelText="必 須" captionText="先月の電気代は？" />
-      <InputWrapper isActive={isActive}>
-        <div>
+      <Container>
+        <InputWrapper isActive={isActive}>
           <StyledInput handleInput={inputElectricBill} type="number" />
-        </div>
+        </InputWrapper>
         <p>円</p>
-      </InputWrapper>
+      </Container>
       {isInvalidElectricBill && <ErrorMessage innerText="電気代を正しく入力してください。最低料金は1,000円です。" />}
     </Wrapper>
   );

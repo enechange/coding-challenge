@@ -5,7 +5,7 @@ import { TextS } from './base/Text';
 import Icon from '../assets/svgIcons';
 
 const Wrapper = styled.div`
-  padding: 12px 20px;
+  padding: 20px;
   border-radius: 4px;
   display: flex;
   align-items: center;

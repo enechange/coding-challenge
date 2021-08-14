@@ -13,18 +13,10 @@ const Wrapper = styled.div`
 const InputWrapper = styled.div`
   pointer-events: ${(props) => props.isActive ? "auto" : "none"};
   opacity: ${(props) => props.isActive ? "1" : "0.5"};
-  > div {
-    width: calc(100% - 20px);
-    margin: 12px 0;
-    padding: 8px;
-    background: ${Colors.gray};
-    border-radius: 4px;
-  }
-  > p {
-    font-size: 25px;
-    line-height: 60px;
-    margin: 0 16px;
-  }
+  margin: 12px 0;
+  padding: 8px;
+  background: ${Colors.gray};
+  border-radius: 4px;
 `;
 
 const StyledInput = styled(Input)`
@@ -38,9 +30,7 @@ const InputEmailAddress = props => {
     <Wrapper>
       <SubCaption labelText="必 須" captionText="" />
       <InputWrapper isActive={isActive}>
-        <div>
-          <StyledInput handleInput={inputElectricBill} />
-        </div>
+        <StyledInput handleInput={inputElectricBill} />
       </InputWrapper>
       {isInvalidEmailAddress && <ErrorMessage innerText="メールアドレスを正しく入力してください。" />}
     </Wrapper>

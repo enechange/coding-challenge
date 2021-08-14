@@ -4,7 +4,7 @@ import { TextL } from './base/Text';
 import { Colors } from '../assets/Colors';
 
 const Wrapper = styled.div`
-  border-left: 6px solid ${Colors.orange};
+  border-left: 8px solid ${Colors.orange};
 `;
 
 const StyledTextL = styled(TextL)`
