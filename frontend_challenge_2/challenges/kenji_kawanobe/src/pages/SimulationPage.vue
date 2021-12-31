@@ -6,17 +6,22 @@
     <div class="simulation-box">
       <zip-code-box :simulationData="simulationData"></zip-code-box>
     </div>
+
+    <!-- フッター -->
+    <the-footer :send="send" :disabled="false"></the-footer>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import { companyTypes, planTypes, ISimulation } from "@/types";
+import { sendSimulationData } from "@/server/api";
 
 @Component({
   components: {
     TheHeader: () => import("@/components/parts/TheHeader.vue"),
     ZipCodeBox: () => import("@/components/organisms/ZipCodeBox.vue"),
+    TheFooter: () => import("@/components/parts/TheFooter.vue"),
   },
 })
 export default class SimulationPage extends Vue {
@@ -29,6 +34,10 @@ export default class SimulationPage extends Vue {
     pay: "",
     email: "",
   };
+
+  send(): void {
+    sendSimulationData(this.simulationData);
+  }
 }
 </script>
 <style scoped lang="scss">
