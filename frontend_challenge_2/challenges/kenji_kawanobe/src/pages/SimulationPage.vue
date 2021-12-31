@@ -6,7 +6,10 @@
     <div class="simulation-box">
       <zip-code-box :simulationData="simulationData"></zip-code-box>
     </div>
-
+    <!-- 使用状況 -->
+    <div class="simulation-box">
+      <status-box :simulationData="simulationData"></status-box>
+    </div>
     <!-- フッター -->
     <the-footer :send="send" :disabled="false"></the-footer>
   </div>
@@ -21,6 +24,7 @@ import { sendSimulationData } from "@/server/api";
   components: {
     TheHeader: () => import("@/components/parts/TheHeader.vue"),
     ZipCodeBox: () => import("@/components/organisms/ZipCodeBox.vue"),
+    StatusBox: () => import("@/components/organisms/StatusBox.vue"),
     TheFooter: () => import("@/components/parts/TheFooter.vue"),
   },
 })
