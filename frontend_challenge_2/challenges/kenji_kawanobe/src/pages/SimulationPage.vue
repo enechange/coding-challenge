@@ -19,7 +19,7 @@
       <email-box :simulationData="simulationData"></email-box>
     </div>
     <!-- フッター -->
-    <the-footer :send="send" :disabled="false"></the-footer>
+    <the-footer :send="send" :disabled="!isEnabledSendButton"></the-footer>
   </div>
 </template>
 
@@ -27,6 +27,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import { companyTypes, planTypes, ISimulation } from "@/types";
 import { sendSimulationData } from "@/server/api";
+import { isEnabledSendButton as isEnabledSendButtonUtil } from "@/util/enabledUtil";
 
 @Component({
   components: {
@@ -48,6 +49,10 @@ export default class SimulationPage extends Vue {
     pay: "",
     email: "",
   };
+
+  get isEnabledSendButton(): boolean {
+    return isEnabledSendButtonUtil(this.simulationData);
+  }
 
   send(): void {
     sendSimulationData(this.simulationData);
