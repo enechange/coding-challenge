@@ -38,7 +38,7 @@ export default class PayForm extends Vue {
   isError = false;
 
   setPayValue(value: string): void {
-    this.simulationData.pay = halfWidthNumber(value);
+    this.simulationData.pay = halfWidthNumber(value).replace(/^0+/, "");
   }
 
   @Watch("simulationData.pay")
