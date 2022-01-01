@@ -30,7 +30,7 @@ https://kenji7157.github.io/coding-challenge/
 
 ## ディレクト構成
 
-- WIP
+- `/documents/01_ディレクトリ構成.md` に記載
 
 ## データ(入出力)設計
 
