@@ -14,6 +14,10 @@
     <div class="simulation-box">
       <pay-box :simulationData="simulationData"></pay-box>
     </div>
+    <!-- メールアドレス -->
+    <div class="simulation-box">
+      <email-box :simulationData="simulationData"></email-box>
+    </div>
     <!-- フッター -->
     <the-footer :send="send" :disabled="false"></the-footer>
   </div>
@@ -30,6 +34,7 @@ import { sendSimulationData } from "@/server/api";
     ZipCodeBox: () => import("@/components/organisms/ZipCodeBox.vue"),
     StatusBox: () => import("@/components/organisms/StatusBox.vue"),
     PayBox: () => import("@/components/organisms/PayBox.vue"),
+    EmailBox: () => import("@/components/organisms/EmailBox.vue"),
     TheFooter: () => import("@/components/parts/TheFooter.vue"),
   },
 })

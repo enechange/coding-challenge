@@ -4,6 +4,7 @@ import {
   isValidCompany,
   isValidPlan,
   isValidAmps,
+  isValidPay,
 } from "@/util/validationUtil";
 
 // ** 各入力フォームの活性状態を判定する関数 **//
@@ -16,4 +17,9 @@ export function isEnabledPayInput(simulationData: ISimulation): boolean {
     isValidPlan(simulationData.plan) &&
     isValidAmps(simulationData)
   );
+}
+
+// メールアドレス
+export function isEnabledEmailInput(simulationData: ISimulation): boolean {
+  return isEnabledPayInput(simulationData) && isValidPay(simulationData.pay);
 }
