@@ -1,29 +1,40 @@
-# kenji_kawanobe
+## 使用技術
 
-## Project setup
+- Vue.js/TypeScript/scss
+- @fortawesome/fontawesome-free
+  - アイコン表示のため使用
+
+## ローカル環境での起動
+
+- `coding-challenge/frontend_challenge_2/challenges/kenji_kawanobe` 配下で以下のコマンドを実行（node_modulesのインポート）
+
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+- 開発サーバーの起動
+
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+- 以下のURLにアクセス
 ```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
+http://localhost:8081/coding-challenge/
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## デプロイ先
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- 以下のgithub-pagesから参照可能
+https://kenji7157.github.io/coding-challenge/
+
+## ディレクト構成
+
+- WIP
+
+## データ(入出力)設計
+
+- WIP
+## コンポーネント設計
+
+- WIP
