@@ -38,4 +38,4 @@ https://kenji7157.github.io/coding-challenge/
 
 ## コンポーネント設計
 
-- WIP
+- `/documents/03_コンポーネント設計.md` に記載
