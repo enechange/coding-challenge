@@ -2,7 +2,7 @@
   <div class="base-zipcode atom-input">
     <input maxlength="3" v-model="inputFirstZipCode" />
     <div class="base-zipcode_hyphen">-</div>
-    <input maxlength="4" v-model="inputSecondZipCode" />
+    <input ref="secondZipCode" maxlength="4" v-model="inputSecondZipCode" />
   </div>
 </template>
 
@@ -19,7 +19,11 @@ export default class BZipCodeInput extends Vue {
     return this.firstZipCode;
   }
   set inputFirstZipCode(v: string) {
-    this.$emit("update:firstZipCode", halfWidthNumber(v));
+    const convertedValue = halfWidthNumber(v);
+    if (!isNaN(Number(convertedValue)) && convertedValue.length === 3) {
+      (this.$refs.secondZipCode as HTMLInputElement).focus();
+    }
+    this.$emit("update:firstZipCode", convertedValue);
   }
 
   get inputSecondZipCode(): string {
