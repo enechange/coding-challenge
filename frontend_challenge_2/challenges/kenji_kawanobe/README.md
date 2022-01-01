@@ -32,9 +32,10 @@ https://kenji7157.github.io/coding-challenge/
 
 - `/documents/01_ディレクトリ構成.md` に記載
 
-## データ(入出力)設計
+## データ設計
 
-- WIP
+- `/documents/02_データ設計.md` に記載
+
 ## コンポーネント設計
 
 - WIP
