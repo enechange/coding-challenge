@@ -1,5 +1,6 @@
 import { ISimulation, companyTypes, planTypes } from "@/types";
 
+// 郵便番号のバリデーション
 export function isValidZipCode(
   firstZipCode: string,
   secondZipCode: string
@@ -13,6 +14,7 @@ export function isValidZipCode(
   );
 }
 
+// 会社のバリデーション
 export function isValidCompany(company: companyTypes): boolean {
   return (
     company !== companyTypes.UNSELECTED &&
@@ -21,12 +23,14 @@ export function isValidCompany(company: companyTypes): boolean {
   );
 }
 
+// プランのバリデーション
 export function isValidPlan(plan: planTypes): boolean {
   return (
     plan !== planTypes.UNSELECTED && Object.values(planTypes).includes(plan)
   );
 }
 
+// 契約容量のバリデーション
 export function isValidAmps(simulationData: ISimulation): boolean {
   // NOTE: 関西電力 かつ 従量電灯A の場合は契約容量を聴取しない
   if (
@@ -38,6 +42,7 @@ export function isValidAmps(simulationData: ISimulation): boolean {
   return !!simulationData.amps;
 }
 
+// 支払金額のバリデーション
 const MIN_PAY = 1000;
 export function isValidPay(pay: string | number): boolean {
   return (
@@ -48,11 +53,10 @@ export function isValidPay(pay: string | number): boolean {
   );
 }
 
-// メールアドレス  http://emailregex.com/
+// メールアドレスのバリデーション
 const emailRegex =
   // eslint-disable-next-line no-useless-escape
-  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
-
+  /^([*+!.&#$|\'%/0-9a-zA-Z^_{}=?~:-]+)@(([0-9a-zA-Z-]+\.)+[0-9a-zA-Z]{2,})$/i;
 export function isValidEmail(email: string): boolean {
   return !!email.match(emailRegex);
 }
