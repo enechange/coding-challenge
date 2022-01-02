@@ -6,60 +6,73 @@ import {
   SelectOption,
 } from "@/types";
 
+// 電力会社の選択肢を生成
 export function getCompanyOptions(area: areaTypes): SelectOption[] {
-  const options: SelectOption[] = [];
-  if (area === areaTypes.OTHER) {
-    return options;
-  }
+  const otherOption: SelectOption = {
+    value: companyTypes.OTHER,
+    label: companyTypes.OTHER,
+  };
   if (area === areaTypes.TOKYO) {
-    options.push({
-      value: companyTypes.TOKYO_DENRYOKU,
-      label: companyTypes.TOKYO_DENRYOKU,
-      selected: true,
-    });
+    return [
+      {
+        value: companyTypes.TOKYO_DENRYOKU,
+        label: companyTypes.TOKYO_DENRYOKU,
+        selected: true,
+      },
+      otherOption,
+    ];
   } else if (area === areaTypes.KANSAI) {
-    options.push({
-      value: companyTypes.KANSAI_DENRYOKU,
-      label: companyTypes.KANSAI_DENRYOKU,
-      selected: true,
-    });
+    return [
+      {
+        value: companyTypes.KANSAI_DENRYOKU,
+        label: companyTypes.KANSAI_DENRYOKU,
+        selected: true,
+      },
+      otherOption,
+    ];
+  } else {
+    return [];
   }
-  options.push({ value: companyTypes.OTHER, label: companyTypes.OTHER });
-  return options;
 }
 
+// プランの選択肢を生成
 export function getPlanOptions(
   company?: companyTypes
 ): (SelectOption & { explain: string })[] {
-  const options: (SelectOption & { explain: string })[] = [];
   if (company === companyTypes.TOKYO_DENRYOKU) {
-    options.push({
-      value: planTypes.PLAN_B,
-      label: planTypes.PLAN_B,
-      explain: `${planTypes.PLAN_B}の説明`,
-      selected: true,
-    });
-    options.push({
-      value: planTypes.PLAN_C,
-      label: planTypes.PLAN_C,
-      explain: `${planTypes.PLAN_C}の説明`,
-    });
+    return [
+      {
+        value: planTypes.PLAN_B,
+        label: planTypes.PLAN_B,
+        explain: `${planTypes.PLAN_B}の説明`,
+        selected: true,
+      },
+      {
+        value: planTypes.PLAN_C,
+        label: planTypes.PLAN_C,
+        explain: `${planTypes.PLAN_C}の説明`,
+      },
+    ];
   } else if (company === companyTypes.KANSAI_DENRYOKU) {
-    options.push({
-      value: planTypes.PLAN_A,
-      label: planTypes.PLAN_A,
-      explain: `${planTypes.PLAN_A}の説明`,
-      selected: true,
-    });
-    options.push({
-      value: planTypes.PLAN_B,
-      label: planTypes.PLAN_B,
-      explain: `${planTypes.PLAN_B}の説明`,
-    });
+    return [
+      {
+        value: planTypes.PLAN_A,
+        label: planTypes.PLAN_A,
+        explain: `${planTypes.PLAN_A}の説明`,
+        selected: true,
+      },
+      {
+        value: planTypes.PLAN_B,
+        label: planTypes.PLAN_B,
+        explain: `${planTypes.PLAN_B}の説明`,
+      },
+    ];
+  } else {
+    return [];
   }
-  return options;
 }
 
+// 契約容量の選択肢を生成
 export function getAmpsOption(simulationData: ISimulation): SelectOption[] {
   if (simulationData.company === companyTypes.TOKYO_DENRYOKU) {
     if (simulationData.plan === planTypes.PLAN_B) {
@@ -73,10 +86,10 @@ export function getAmpsOption(simulationData: ISimulation): SelectOption[] {
         }
       );
     } else if (simulationData.plan === planTypes.PLAN_C) {
-      return Array(40).map((_, index) => {
+      return [...Array(44)].map((_, index) => {
         return {
-          value: index + 6 + "kVA",
-          label: index + 6 + "kVA",
+          value: `${index + 6}kVA`,
+          label: `${index + 6}kVA`,
           selected: index === 0,
         };
       });
@@ -85,10 +98,10 @@ export function getAmpsOption(simulationData: ISimulation): SelectOption[] {
     simulationData.company === companyTypes.KANSAI_DENRYOKU &&
     simulationData.plan === planTypes.PLAN_B
   ) {
-    return Array(40).map((_, index) => {
+    return [...Array(44)].map((_, index) => {
       return {
-        value: index + 6 + "kVA",
-        label: index + 6 + "kVA",
+        value: `${index + 6}kVA`,
+        label: `${index + 6}kVA`,
         selected: index === 0,
       };
     });
