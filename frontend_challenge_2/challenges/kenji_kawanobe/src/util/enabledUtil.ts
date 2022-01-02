@@ -10,7 +10,7 @@ import {
 
 // ** 各入力フォームの活性状態を判定する関数 **//
 
-// 支払い金額
+// 支払金額
 export function isEnabledPayInput(simulationData: ISimulation): boolean {
   return (
     isValidZipCode(simulationData.firstZipCode, simulationData.secondZipCode) &&
