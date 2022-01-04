@@ -1,6 +1,8 @@
 ## 使用技術
 
-- Vue.js/TypeScript/scss
+- node: 12.20.0
+- npm: 7.5.4
+- Vue.js(2)/TypeScript/scss
 - @fortawesome/fontawesome-free
   - アイコン表示のため使用
 
