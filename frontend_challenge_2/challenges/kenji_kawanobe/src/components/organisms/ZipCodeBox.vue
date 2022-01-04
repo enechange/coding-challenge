@@ -3,7 +3,7 @@
     <b-heading>
       <template v-slot:heading>郵便番号をご入力ください</template>
     </b-heading>
-    <div class="box-form">
+    <div class="o_box-form">
       <zip-code-form :simulationData="simulationData"></zip-code-form>
     </div>
   </div>

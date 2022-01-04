@@ -3,7 +3,6 @@
     <b-label :is-required="true">
       <template v-slot:label>電気を使用する場所の郵便番号</template>
     </b-label>
-
     <b-zip-code-input
       :firstZipCode.sync="simulationData.firstZipCode"
       :secondZipCode.sync="simulationData.secondZipCode"

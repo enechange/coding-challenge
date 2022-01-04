@@ -1,8 +1,17 @@
 <template>
-  <div class="base-zipcode atom-input">
-    <input maxlength="3" v-model="inputFirstZipCode" />
-    <div class="base-zipcode_hyphen">-</div>
-    <input ref="secondZipCode" maxlength="4" v-model="inputSecondZipCode" />
+  <div class="a_input-box">
+    <input
+      class="a_zipcode-input_input a_input-box_input"
+      maxlength="3"
+      v-model="inputFirstZipCode"
+    />
+    <div class="a_zipcode-input_hyphen">-</div>
+    <input
+      ref="secondZipCode"
+      class="a_zipcode-input_input a_input-box_input"
+      maxlength="4"
+      v-model="inputSecondZipCode"
+    />
   </div>
 </template>
 
@@ -36,8 +45,8 @@ export default class BZipCodeInput extends Vue {
 </script>
 
 <style scoped lang="scss">
-.base-zipcode {
-  > input {
+.a_zipcode-input {
+  &_input {
     text-align: center;
   }
   &_hyphen {

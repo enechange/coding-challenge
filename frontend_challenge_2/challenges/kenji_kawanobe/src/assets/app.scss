@@ -1,32 +1,5 @@
 @import 'variables';
+@import 'organisms';
+@import 'atoms';
+@import 'util';
 
-//** organisms */
-.box-form {
-  padding: 2.4rem 1.6rem 0 1.6rem;
-}
-
-//** atoms */
-.atom-input {
-  display: flex;
-  border: 0.4rem solid $border;
-  border-radius: 0.4rem;
-  flex-basis: 95%;
-
-
-  > input {
-    width: 100%;
-    border: none;
-    outline: none;
-    background: $white;
-    padding: 1rem 1.5rem;
-
-    &:focus {
-      box-shadow: $box-shadow-focus;
-    }
-  }
-}
-
-//** 共通 */
-.disabled {
-  opacity: 0.4;
-}

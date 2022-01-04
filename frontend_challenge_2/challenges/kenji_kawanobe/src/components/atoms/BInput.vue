@@ -1,6 +1,10 @@
 <template>
-  <div class="atom-input" :class="{ disabled: disabled }">
-    <input :disabled="disabled" v-model="inputValue" />
+  <div class="a_input-box" :class="{ disabled: disabled }">
+    <input
+      class="a_input-box_input"
+      :disabled="disabled"
+      v-model="inputValue"
+    />
   </div>
 </template>
 

@@ -1,13 +1,9 @@
 <template>
-  <div
-    class="base-select"
-    :class="{ disabled: disabled }"
-    :style="styleVariables"
-  >
-    <div class="base-select_icon">
+  <div class="a_select" :class="{ disabled: disabled }" :style="styleVariables">
+    <div class="a_select_icon">
       <i class="fas fa-chevron-down fa-2x"></i>
     </div>
-    <select :disabled="disabled" v-model="selectValue">
+    <select class="a_select_select" :disabled="disabled" v-model="selectValue">
       <option
         v-for="(option, index) in options"
         :value="option.value"
@@ -61,7 +57,7 @@ export default class BSelect extends Vue {
 
 <style scoped lang="scss">
 $--border-radius: 0.4rem;
-.base-select {
+.a_select {
   display: flex;
   border: 0.4rem solid $border;
   border-radius: var(--border-radius);
@@ -74,7 +70,7 @@ $--border-radius: 0.4rem;
     color: $orange;
   }
 
-  > select {
+  &_select {
     width: 100%;
     border: none;
     outline: none;

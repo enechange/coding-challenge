@@ -1,5 +1,5 @@
 <template>
-  <div class="base-info">
+  <div class="a_info-message">
     <p><slot name="message"></slot></p>
   </div>
 </template>
@@ -12,7 +12,7 @@ export default class BInfoMessage extends Vue {}
 </script>
 
 <style scoped lang="scss">
-.base-info {
+.a_info-message {
   display: flex;
   border-radius: 0 0 0.4rem 0.4rem;
   background: $border;

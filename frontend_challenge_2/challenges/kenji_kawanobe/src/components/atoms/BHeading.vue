@@ -1,5 +1,5 @@
 <template>
-  <span class="heading">
+  <span class="a_heading">
     <slot name="heading"></slot>
   </span>
 </template>
@@ -12,7 +12,7 @@ export default class BHeading extends Vue {}
 </script>
 
 <style scoped lang="scss">
-.heading {
+.a_heading {
   display: flex;
   font-weight: bold;
   border-left: 0.4rem solid $orange;

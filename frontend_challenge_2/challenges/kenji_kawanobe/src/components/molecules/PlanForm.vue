@@ -6,8 +6,8 @@
     <b-select
       :disabled="planOptions.length === 0"
       :options="planOptions"
-      v-model="simulationData.plan"
       :explain="explain"
+      v-model="simulationData.plan"
     ></b-select>
     <b-info-message v-if="explain">
       <template v-slot:message>{{ explain }}</template>

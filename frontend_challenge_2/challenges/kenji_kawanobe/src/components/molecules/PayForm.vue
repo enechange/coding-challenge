@@ -3,14 +3,14 @@
     <b-label :is-required="true">
       <template v-slot:label>先月の電気代は？</template>
     </b-label>
-    <div class="pay-input">
+    <div class="m_pay-form_input">
       <b-input
         :value="simulationData.pay"
-        @input="setPayValue"
         :disabled="disabled"
+        @input="setPayValue"
       >
       </b-input>
-      <span class="pay-input_unit">円</span>
+      <span class="m_pay-form_unit">円</span>
     </div>
     <b-error-message v-if="isError">
       <template v-slot:message>電気代を正しく入力してください。</template>
@@ -48,9 +48,11 @@ export default class PayForm extends Vue {
 }
 </script>
 <style scoped lang="scss">
-.pay-input {
-  display: flex;
-  align-items: center;
+.m_pay-form {
+  &_input {
+    display: flex;
+    align-items: center;
+  }
 
   &_unit {
     font-size: 1.2rem;

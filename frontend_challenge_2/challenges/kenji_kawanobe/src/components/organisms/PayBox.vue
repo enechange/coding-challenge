@@ -5,7 +5,7 @@
         >現在の電気の使用状況について教えてください</template
       >
     </b-heading>
-    <div class="box-form">
+    <div class="o_box-form">
       <pay-form
         :simulationData="simulationData"
         :disabled="!isEnabledPayInput"

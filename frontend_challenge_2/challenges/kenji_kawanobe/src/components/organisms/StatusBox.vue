@@ -4,13 +4,13 @@
       <template v-slot:heading>電気のご使用状況について教えてください</template>
     </b-heading>
 
-    <div class="box-form">
+    <div class="o_box-form">
       <company-form :simulationData="simulationData"></company-form>
     </div>
-    <div class="box-form">
+    <div class="o_box-form">
       <plan-form :simulationData="simulationData"></plan-form>
     </div>
-    <div class="box-form">
+    <div class="o_box-form">
       <amps-form :simulationData="simulationData"></amps-form>
     </div>
   </div>

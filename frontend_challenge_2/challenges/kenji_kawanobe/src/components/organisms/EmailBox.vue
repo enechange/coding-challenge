@@ -3,7 +3,7 @@
     <b-heading>
       <template v-slot:heading>メールアドレスをご入力ください</template>
     </b-heading>
-    <div class="box-form">
+    <div class="o_box-form">
       <email-form
         :simulationData="simulationData"
         :disabled="!isEnabledEmailInput"

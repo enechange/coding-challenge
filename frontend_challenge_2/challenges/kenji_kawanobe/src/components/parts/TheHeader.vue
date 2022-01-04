@@ -1,6 +1,6 @@
 <template>
-  <div class="header">
-    <div class="header_top">
+  <div class="p_header">
+    <div class="p_header_top">
       <div>電気代から<br />かんたんシミュレーション</div>
     </div>
     <div>
@@ -17,7 +17,7 @@ export default class TheHeader extends Vue {}
 </script>
 
 <style scoped lang="scss">
-.header {
+.p_header {
   padding: 2rem 0 2.6rem 0;
   text-align: center;
   font-size: 1.2rem;

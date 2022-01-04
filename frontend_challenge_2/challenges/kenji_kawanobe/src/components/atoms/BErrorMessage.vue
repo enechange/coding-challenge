@@ -1,6 +1,6 @@
 <template>
-  <div class="error_message">
-    <div class="error_message_icon">
+  <div class="a_error-message">
+    <div class="a_error-message_icon">
       <i class="fas fa-exclamation-triangle"></i>
     </div>
     <p><slot name="message"></slot></p>
@@ -17,7 +17,7 @@ export default class BErrorMessage extends Vue {
 </script>
 
 <style scoped lang="scss">
-.error_message {
+.a_error-message {
   display: flex;
   border-radius: 0.4rem;
   background: $required;

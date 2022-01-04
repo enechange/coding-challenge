@@ -1,13 +1,13 @@
 <template>
-  <div class="footer">
+  <div class="p_footer">
     <button
-      class="footer_button"
+      class="p_footer_button"
       :class="{ disabled: disabled }"
-      @click="send"
       :disabled="disabled"
+      @click="send"
     >
       結果を見る
-      <div class="footer_button_icon">
+      <div class="p_footer_icon">
         <i class="fas fa-chevron-circle-right"></i>
       </div>
     </button>
@@ -25,7 +25,7 @@ export default class TheFooter extends Vue {
 </script>
 
 <style scoped lang="scss">
-.footer {
+.p_footer {
   padding: 1rem 2rem 3rem 2rem;
   text-align: center;
 
@@ -39,12 +39,12 @@ export default class TheFooter extends Vue {
     outline: none;
     background-color: #445a93;
     border-radius: 0.4rem;
+  }
 
-    &_icon {
-      position: absolute;
-      top: 1.2rem;
-      right: 1.2rem;
-    }
+  &_icon {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
   }
 }
 </style>
