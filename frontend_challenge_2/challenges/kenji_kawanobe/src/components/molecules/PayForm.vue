@@ -20,15 +20,18 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import BLabel from "@/components/atoms/BLabel.vue";
+import BInput from "@/components/atoms/BInput.vue";
+import BErrorMessage from "@/components/atoms/BErrorMessage.vue";
 import { ISimulation } from "@/types";
 import { isValidPay } from "@/util/validationUtil";
 import { halfWidthNumber } from "@/util/stringUtil";
 
 @Component({
   components: {
-    BLabel: () => import("@/components/atoms/BLabel.vue"),
-    BInput: () => import("@/components/atoms/BInput.vue"),
-    BErrorMessage: () => import("@/components/atoms/BErrorMessage.vue"),
+    BLabel,
+    BInput,
+    BErrorMessage,
   },
 })
 export default class PayForm extends Vue {

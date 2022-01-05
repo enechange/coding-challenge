@@ -18,14 +18,18 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import BHeading from "@/components/atoms/BHeading.vue";
+import CompanyForm from "@/components/molecules/CompanyForm.vue";
+import PlanForm from "@/components/molecules/PlanForm.vue";
+import AmpsForm from "@/components/molecules/AmpsForm.vue";
 import { ISimulation } from "@/types";
 
 @Component({
   components: {
-    BHeading: () => import("@/components/atoms/BHeading.vue"),
-    CompanyForm: () => import("@/components/molecules/CompanyForm.vue"),
-    PlanForm: () => import("@/components/molecules/PlanForm.vue"),
-    AmpsForm: () => import("@/components/molecules/AmpsForm.vue"),
+    BHeading,
+    CompanyForm,
+    PlanForm,
+    AmpsForm,
   },
 })
 export default class StatusBox extends Vue {

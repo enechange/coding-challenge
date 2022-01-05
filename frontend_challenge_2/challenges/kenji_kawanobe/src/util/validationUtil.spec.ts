@@ -1,4 +1,4 @@
-import { areaTypes, companyTypes, planTypes, ISimulation } from "@/types";
+import { companyTypes, planTypes, ISimulation } from "@/types";
 import {
   isValidZipCode,
   isValidCompany,
@@ -151,6 +151,11 @@ describe("validationUtil", () => {
 
   describe("isValidEmail", () => {
     describe("TRUE となるケース", () => {
+      it("test@enechange.jp TRUE", () => {
+        const result = isValidEmail("test@enechange.jp");
+        expect(result).toBeTruthy();
+      });
+
       it("test@enechange.co.jp TRUE", () => {
         const result = isValidEmail("test@enechange.co.jp");
         expect(result).toBeTruthy();
@@ -173,7 +178,7 @@ describe("validationUtil", () => {
         expect(result).toBeFalsy();
       });
 
-      it("test.ut@enechange FALSE", () => {
+      it("test@enechange FALSE", () => {
         const result = isValidEmail("test@enechange");
         expect(result).toBeFalsy();
       });
@@ -184,7 +189,7 @@ describe("validationUtil", () => {
       });
 
       it("test,ut@enechange,co.jp FALSE", () => {
-        const result = isValidEmail("test.ut@enechange");
+        const result = isValidEmail("test,ut@enechange,co.jp");
         expect(result).toBeFalsy();
       });
 

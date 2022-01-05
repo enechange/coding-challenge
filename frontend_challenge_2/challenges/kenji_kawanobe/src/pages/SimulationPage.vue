@@ -25,18 +25,24 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import TheHeader from "@/components/parts/TheHeader.vue";
+import ZipCodeBox from "@/components/organisms/ZipCodeBox.vue";
+import StatusBox from "@/components/organisms/StatusBox.vue";
+import PayBox from "@/components/organisms/PayBox.vue";
+import EmailBox from "@/components/organisms/EmailBox.vue";
+import TheFooter from "@/components/parts/TheFooter.vue";
 import { companyTypes, planTypes, ISimulation } from "@/types";
 import { sendSimulationData } from "@/server/api";
 import { isEnabledSendButton as isEnabledSendButtonUtil } from "@/util/enabledUtil";
 
 @Component({
   components: {
-    TheHeader: () => import("@/components/parts/TheHeader.vue"),
-    ZipCodeBox: () => import("@/components/organisms/ZipCodeBox.vue"),
-    StatusBox: () => import("@/components/organisms/StatusBox.vue"),
-    PayBox: () => import("@/components/organisms/PayBox.vue"),
-    EmailBox: () => import("@/components/organisms/EmailBox.vue"),
-    TheFooter: () => import("@/components/parts/TheFooter.vue"),
+    TheHeader,
+    ZipCodeBox,
+    StatusBox,
+    PayBox,
+    EmailBox,
+    TheFooter,
   },
 })
 export default class SimulationPage extends Vue {

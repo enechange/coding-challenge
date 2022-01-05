@@ -16,13 +16,15 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import BHeading from "@/components/atoms/BHeading.vue";
+import PayForm from "@/components/molecules/PayForm.vue";
 import { isEnabledPayInput as isEnabledPayInputUtil } from "@/util/enabledUtil";
 import { ISimulation } from "@/types";
 
 @Component({
   components: {
-    BHeading: () => import("@/components/atoms/BHeading.vue"),
-    PayForm: () => import("@/components/molecules/PayForm.vue"),
+    BHeading,
+    PayForm,
   },
 })
 export default class PayBox extends Vue {

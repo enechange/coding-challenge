@@ -15,14 +15,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import BLabel from "@/components/atoms/BLabel.vue";
+import BZipCodeInput from "@/components/atoms/BZipCodeInput.vue";
+import BErrorMessage from "@/components/atoms/BErrorMessage.vue";
 import { isValidZipCode } from "@/util/validationUtil";
 import { ISimulation } from "@/types";
 
 @Component({
   components: {
-    BLabel: () => import("@/components/atoms/BLabel.vue"),
-    BZipCodeInput: () => import("@/components/atoms/BZipCodeInput.vue"),
-    BErrorMessage: () => import("@/components/atoms/BErrorMessage.vue"),
+    BLabel,
+    BZipCodeInput,
+    BErrorMessage,
   },
 })
 export default class ZipCodeForm extends Vue {

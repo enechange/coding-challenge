@@ -11,12 +11,14 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import BHeading from "@/components/atoms/BHeading.vue";
+import ZipCodeForm from "@/components/molecules/ZipCodeForm.vue";
 import { ISimulation } from "@/types";
 
 @Component({
   components: {
-    BHeading: () => import("@/components/atoms/BHeading.vue"),
-    ZipCodeForm: () => import("@/components/molecules/ZipCodeForm.vue"),
+    BHeading,
+    ZipCodeForm,
   },
 })
 export default class ZipCodeBox extends Vue {

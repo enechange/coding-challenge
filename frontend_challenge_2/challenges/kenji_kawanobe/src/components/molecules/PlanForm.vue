@@ -17,14 +17,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import BLabel from "@/components/atoms/BLabel.vue";
+import BSelect from "@/components/atoms/BSelect.vue";
+import BInfoMessage from "@/components/atoms/BInfoMessage.vue";
 import { ISimulation, SelectOption } from "@/types";
 import { getPlanOptions } from "@/util/optionsUtil";
 
 @Component({
   components: {
-    BLabel: () => import("@/components/atoms/BLabel.vue"),
-    BSelect: () => import("@/components/atoms/BSelect.vue"),
-    BInfoMessage: () => import("@/components/atoms/BInfoMessage.vue"),
+    BLabel,
+    BSelect,
+    BInfoMessage,
   },
 })
 export default class PlanForm extends Vue {

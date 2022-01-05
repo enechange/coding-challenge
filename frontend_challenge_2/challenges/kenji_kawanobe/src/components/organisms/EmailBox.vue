@@ -14,13 +14,15 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import BHeading from "@/components/atoms/BHeading.vue";
+import EmailForm from "@/components/molecules/EmailForm.vue";
 import { isEnabledEmailInput as isEnabledEmailInputUtil } from "@/util/enabledUtil";
 import { ISimulation } from "@/types";
 
 @Component({
   components: {
-    BHeading: () => import("@/components/atoms/BHeading.vue"),
-    EmailForm: () => import("@/components/molecules/EmailForm.vue"),
+    BHeading,
+    EmailForm,
   },
 })
 export default class EmailBox extends Vue {

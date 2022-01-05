@@ -12,15 +12,17 @@
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from "vue-property-decorator";
+import BLabel from "@/components/atoms/BLabel.vue";
+import BInput from "@/components/atoms/BInput.vue";
+import BErrorMessage from "@/components/atoms/BErrorMessage.vue";
 import { isValidEmail as isValidEmailUtil } from "@/util/validationUtil";
 import { ISimulation } from "@/types";
 
 @Component({
   components: {
-    BHeading: () => import("@/components/atoms/BHeading.vue"),
-    BLabel: () => import("@/components/atoms/BLabel.vue"),
-    BInput: () => import("@/components/atoms/BInput.vue"),
-    BErrorMessage: () => import("@/components/atoms/BErrorMessage.vue"),
+    BLabel,
+    BInput,
+    BErrorMessage,
   },
 })
 export default class EmailForm extends Vue {
