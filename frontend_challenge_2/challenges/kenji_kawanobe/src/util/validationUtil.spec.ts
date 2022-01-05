@@ -33,6 +33,11 @@ describe("validationUtil", () => {
         expect(result).toBeFalsy();
       });
 
+      it("eを用いた数字の場合は FALSE", () => {
+        const result = isValidZipCode("1e1", "4567");
+        expect(result).toBeFalsy();
+      });
+
       it("数字が7桁入力されていない場合は FALSE", () => {
         const result = isValidZipCode("111", "456");
         expect(result).toBeFalsy();
@@ -137,8 +142,13 @@ describe("validationUtil", () => {
     });
 
     describe("FALSE となるケース", () => {
-      it("最低料金未満の場合 TRUE", () => {
+      it("最低料金未満の場合 FALSE", () => {
         const result = isValidPay("999");
+        expect(result).toBeFalsy();
+      });
+
+      it("eを用いた数字の場合 FALSE", () => {
+        const result = isValidPay("1e11");
         expect(result).toBeFalsy();
       });
 

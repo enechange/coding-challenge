@@ -29,7 +29,7 @@ export default class BZipCodeInput extends Vue {
   }
   set inputFirstZipCode(v: string) {
     const convertedValue = halfWidthNumber(v);
-    if (!isNaN(Number(convertedValue)) && convertedValue.length === 3) {
+    if (/^[0-9]{3}$/.test(convertedValue)) {
       (this.$refs.secondZipCode as HTMLInputElement).focus();
     }
     this.$emit("update:firstZipCode", convertedValue);

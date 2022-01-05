@@ -6,11 +6,9 @@ export function isValidZipCode(
   secondZipCode: string
 ): boolean {
   return (
-    !isNaN(Number(firstZipCode)) &&
-    !isNaN(Number(secondZipCode)) &&
-    firstZipCode.length === 3 &&
-    (firstZipCode.slice(0, 1) === "1" || firstZipCode.slice(0, 1) === "5") &&
-    secondZipCode.length === 4
+    /^[0-9]{3}$/.test(firstZipCode) &&
+    /^[0-9]{4}$/.test(secondZipCode) &&
+    (firstZipCode.slice(0, 1) === "1" || firstZipCode.slice(0, 1) === "5")
   );
 }
 
@@ -47,7 +45,7 @@ const MIN_PAY = 1000;
 export function isValidPay(pay: string | number): boolean {
   return (
     (typeof pay === "string" &&
-      !isNaN(Number(pay)) &&
+      /^[0-9]+$/.test(pay) &&
       Number(pay) >= MIN_PAY) ||
     (typeof pay === "number" && pay >= MIN_PAY)
   );
