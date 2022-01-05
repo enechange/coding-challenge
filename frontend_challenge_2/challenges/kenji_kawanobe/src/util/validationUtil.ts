@@ -52,9 +52,12 @@ export function isValidPay(pay: string | number): boolean {
 }
 
 // メールアドレスのバリデーション
+// 出典
+// https://emailregex.com/
+// http://doshiroutonike.com/web/javascript-web/3222
 const emailRegex =
-  // eslint-disable-next-line no-useless-escape
-  /^([*+!.&#$|\'%/0-9a-zA-Z^_{}=?~:-]+)@(([0-9a-zA-Z-]+\.)+[0-9a-zA-Z]{2,})$/i;
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i;
 export function isValidEmail(email: string): boolean {
-  return !!email.match(emailRegex);
+  // NOTE: 英数記号以外の文字（全角文字）をふくまない かつ RFC規定のメールアドレス
+  return !/[^!-~]/g.test(email) && emailRegex.test(email);
 }

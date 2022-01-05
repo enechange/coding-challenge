@@ -175,11 +175,6 @@ describe("validationUtil", () => {
         const result = isValidEmail("test.ut@enechange.co.jp");
         expect(result).toBeTruthy();
       });
-
-      it("1test.1ut@1enechange.1co.jp TRUE", () => {
-        const result = isValidEmail("1test.1ut@1enechange.1co.1jp");
-        expect(result).toBeTruthy();
-      });
     });
 
     describe("FALSE となるケース", () => {
@@ -198,8 +193,18 @@ describe("validationUtil", () => {
         expect(result).toBeFalsy();
       });
 
+      it("test..ut@enechange FALSE", () => {
+        const result = isValidEmail("test..ut@enechange");
+        expect(result).toBeFalsy();
+      });
+
       it("test,ut@enechange,co.jp FALSE", () => {
         const result = isValidEmail("test,ut@enechange,co.jp");
+        expect(result).toBeFalsy();
+      });
+
+      it("1test.1ut@1enechange.1co.jp FALSE", () => {
+        const result = isValidEmail("1test.1ut@1enechange.1co.1jp");
         expect(result).toBeFalsy();
       });
 
@@ -209,7 +214,7 @@ describe("validationUtil", () => {
       });
 
       it("test.ut@enechange.テスト.jp FALSE", () => {
-        const result = isValidEmail("テスト.ut@enechange.co.jp");
+        const result = isValidEmail("test.ut@enechange.テスト.jp");
         expect(result).toBeFalsy();
       });
     });
