@@ -3,6 +3,7 @@ export enum areaTypes {
   TOKYO = "東京エリア",
   KANSAI = "関西エリア",
   OTHER = "対象外エリア",
+  UNSELECTED = "",
 }
 
 /** 会社 */
@@ -27,6 +28,8 @@ export interface ISimulation {
   firstZipCode: string;
   /** 郵便番号(後半) */
   secondZipCode: string;
+  /** エリア */
+  area: areaTypes;
   /** 会社 */
   company: companyTypes;
   /** プラン */
@@ -43,6 +46,8 @@ export interface ISimulation {
 export interface Simulation {
   /** 郵便番号 */
   zipCode: string;
+  /** エリア */
+  area: areaTypes;
   /** 会社 */
   company: companyTypes;
   /** プラン */
