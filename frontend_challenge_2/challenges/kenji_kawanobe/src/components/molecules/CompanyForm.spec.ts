@@ -16,7 +16,7 @@ describe("CompanyForm.vue", () => {
       expect(wrapper.findComponent(BErrorMessage).exists()).toBeTruthy();
     });
 
-    it("「その他以外」を選択した場合 エラーメッセージが表示されない", () => {
+    it("「その他以外」を選択した場合は表示されない", () => {
       simulationData.company = companyTypes.TOKYO_DENRYOKU;
       const wrapperTokyo = shallowMount(CompanyForm, {
         propsData: { simulationData },

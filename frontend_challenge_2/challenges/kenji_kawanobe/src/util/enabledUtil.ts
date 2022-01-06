@@ -1,6 +1,6 @@
 import { ISimulation } from "@/types";
 import {
-  isValidZipCode,
+  isValidArea,
   isValidCompany,
   isValidPlan,
   isValidAmps,
@@ -13,7 +13,7 @@ import {
 // 支払金額
 export function isEnabledPayInput(simulationData: ISimulation): boolean {
   return (
-    isValidZipCode(simulationData.firstZipCode, simulationData.secondZipCode) &&
+    isValidArea(simulationData.area) &&
     isValidCompany(simulationData.company) &&
     isValidPlan(simulationData.plan) &&
     isValidAmps(simulationData)

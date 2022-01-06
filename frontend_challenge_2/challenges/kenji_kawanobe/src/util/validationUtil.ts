@@ -1,15 +1,15 @@
-import { ISimulation, companyTypes, planTypes } from "@/types";
+import { ISimulation, areaTypes, companyTypes, planTypes } from "@/types";
 
 // 郵便番号のバリデーション
 export function isValidZipCode(
   firstZipCode: string,
   secondZipCode: string
 ): boolean {
-  return (
-    /^[0-9]{3}$/.test(firstZipCode) &&
-    /^[0-9]{4}$/.test(secondZipCode) &&
-    (firstZipCode.slice(0, 1) === "1" || firstZipCode.slice(0, 1) === "5")
-  );
+  return /^[0-9]{3}$/.test(firstZipCode) && /^[0-9]{4}$/.test(secondZipCode);
+}
+
+export function isValidArea(area: areaTypes): boolean {
+  return area !== areaTypes.OTHER && area !== areaTypes.UNSELECTED;
 }
 
 // 会社のバリデーション

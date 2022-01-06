@@ -19,7 +19,6 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import BLabel from "@/components/atoms/BLabel.vue";
 import BSelect from "@/components/atoms/BSelect.vue";
 import BErrorMessage from "@/components/atoms/BErrorMessage.vue";
-import { areaCheck } from "@/server/api";
 import { SelectOption, ISimulation, companyTypes } from "@/types";
 import { getCompanyOptions } from "@/util/optionsUtil";
 
@@ -39,15 +38,9 @@ export default class CompanyForm extends Vue {
     return this.simulationData.company === companyTypes.OTHER;
   }
 
-  @Watch("simulationData.firstZipCode")
-  @Watch("simulationData.secondZipCode")
+  @Watch("simulationData.area")
   setCompanyOption(): void {
-    const area = areaCheck(
-      this.simulationData.firstZipCode,
-      this.simulationData.secondZipCode
-    );
-
-    this.companyOptions = getCompanyOptions(area);
+    this.companyOptions = getCompanyOptions(this.simulationData.area);
   }
 }
 </script>

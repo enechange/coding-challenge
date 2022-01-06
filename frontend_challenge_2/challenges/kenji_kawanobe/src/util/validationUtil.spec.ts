@@ -1,6 +1,7 @@
-import { companyTypes, planTypes, ISimulation } from "@/types";
+import { areaTypes, companyTypes, planTypes, ISimulation } from "@/types";
 import {
   isValidZipCode,
+  isValidArea,
   isValidCompany,
   isValidPlan,
   isValidAmps,
@@ -11,23 +12,13 @@ import {
 describe("validationUtil", () => {
   describe("isValidZipCode", () => {
     describe("TRUE となるケース", () => {
-      it("数字7桁 かつ 先頭1桁が「1」の場合 TRUE(東京電力エリア)", () => {
+      it("数字7桁 の場合 TRUE", () => {
         const result = isValidZipCode("111", "1234");
-        expect(result).toBeTruthy();
-      });
-
-      it("数字7桁 かつ 先頭1桁が「5」の場合 TRUE(関西電力エリア)", () => {
-        const result = isValidZipCode("555", "1234");
         expect(result).toBeTruthy();
       });
     });
 
     describe("FALSE となるケース", () => {
-      it("先頭1桁が「1 or 5」でない場合 FALSE", () => {
-        const result = isValidZipCode("222", "1234");
-        expect(result).toBeFalsy();
-      });
-
       it("数字以外の文字列が含まれている場合は FALSE", () => {
         const result = isValidZipCode("1aa", "4567");
         expect(result).toBeFalsy();
@@ -40,6 +31,32 @@ describe("validationUtil", () => {
 
       it("数字が7桁入力されていない場合は FALSE", () => {
         const result = isValidZipCode("111", "456");
+        expect(result).toBeFalsy();
+      });
+    });
+  });
+
+  describe("isValidArea", () => {
+    describe("TRUE となるケース", () => {
+      it("東京エリア の場合 TRUE", () => {
+        const result = isValidArea(areaTypes.TOKYO);
+        expect(result).toBeTruthy();
+      });
+
+      it("関西エリア の場合 TRUE", () => {
+        const result = isValidArea(areaTypes.KANSAI);
+        expect(result).toBeTruthy();
+      });
+    });
+
+    describe("FALSE となるケース", () => {
+      it("対象外エリア の場合 FALSE", () => {
+        const result = isValidArea(areaTypes.OTHER);
+        expect(result).toBeFalsy();
+      });
+
+      it("未選択 の場合 FALSE", () => {
+        const result = isValidArea(areaTypes.UNSELECTED);
         expect(result).toBeFalsy();
       });
     });

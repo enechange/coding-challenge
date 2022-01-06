@@ -18,8 +18,8 @@ import { Component, Vue, Prop, Watch } from "vue-property-decorator";
 import BLabel from "@/components/atoms/BLabel.vue";
 import BZipCodeInput from "@/components/atoms/BZipCodeInput.vue";
 import BErrorMessage from "@/components/atoms/BErrorMessage.vue";
-import { isValidZipCode } from "@/util/validationUtil";
-import { ISimulation } from "@/types";
+import { areaTypes, ISimulation } from "@/types";
+import { areaCheck } from "@/server/api";
 
 @Component({
   components: {
@@ -36,10 +36,11 @@ export default class ZipCodeForm extends Vue {
   @Watch("simulationData.firstZipCode")
   @Watch("simulationData.secondZipCode")
   check(): void {
-    this.isError = !isValidZipCode(
+    this.simulationData.area = areaCheck(
       this.simulationData.firstZipCode,
       this.simulationData.secondZipCode
     );
+    this.isError = this.simulationData.area === areaTypes.OTHER;
   }
 }
 </script>

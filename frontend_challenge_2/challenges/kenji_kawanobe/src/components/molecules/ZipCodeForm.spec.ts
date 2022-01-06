@@ -4,7 +4,7 @@ import BErrorMessage from "@/components/atoms/BErrorMessage.vue";
 import { ISimulation } from "@/types";
 
 describe("ZipCodeForm.vue", () => {
-  describe("補足メッセージの表示確認", () => {
+  describe("エラーメッセージの表示確認", () => {
     const simulationData = {
       firstZipCode: "",
       secondZipCode: "",

@@ -31,7 +31,7 @@ import StatusBox from "@/components/organisms/StatusBox.vue";
 import PayBox from "@/components/organisms/PayBox.vue";
 import EmailBox from "@/components/organisms/EmailBox.vue";
 import TheFooter from "@/components/parts/TheFooter.vue";
-import { companyTypes, planTypes, ISimulation } from "@/types";
+import { companyTypes, planTypes, ISimulation, areaTypes } from "@/types";
 import { sendSimulationData } from "@/server/api";
 import { isEnabledSendButton as isEnabledSendButtonUtil } from "@/util/enabledUtil";
 
@@ -49,6 +49,7 @@ export default class SimulationPage extends Vue {
   simulationData: ISimulation = {
     firstZipCode: "",
     secondZipCode: "",
+    area: areaTypes.UNSELECTED,
     company: companyTypes.UNSELECTED,
     plan: planTypes.UNSELECTED,
     amps: "",

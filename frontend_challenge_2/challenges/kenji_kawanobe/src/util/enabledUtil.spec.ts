@@ -1,4 +1,4 @@
-import { companyTypes, planTypes, ISimulation } from "@/types";
+import { companyTypes, planTypes, ISimulation, areaTypes } from "@/types";
 import {
   isEnabledPayInput,
   isEnabledEmailInput,
@@ -12,6 +12,7 @@ describe("enabledUtil", () => {
         const simulationData = {
           firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: planTypes.PLAN_B,
           amps: "10A",
@@ -24,6 +25,7 @@ describe("enabledUtil", () => {
         const simulationData = {
           firstZipCode: "523",
           secondZipCode: "4567",
+          area: areaTypes.KANSAI,
           company: companyTypes.KANSAI_DENRYOKU,
           plan: planTypes.PLAN_A,
           amps: "",
@@ -34,10 +36,11 @@ describe("enabledUtil", () => {
     });
 
     describe("FALSE となるケース", () => {
-      it("郵便番号が対象外エリア  の場合 FALSE", () => {
+      it("エリアが対象外エリア  の場合 FALSE", () => {
         const simulationData = {
           firstZipCode: "223",
           secondZipCode: "4567",
+          area: areaTypes.OTHER,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: planTypes.PLAN_B,
           amps: "10A",
@@ -50,6 +53,7 @@ describe("enabledUtil", () => {
         const simulationData = {
           firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: "",
           plan: planTypes.PLAN_B,
           amps: "10A",
@@ -62,6 +66,7 @@ describe("enabledUtil", () => {
         const simulationData = {
           firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: "",
           amps: "10A",
@@ -74,6 +79,7 @@ describe("enabledUtil", () => {
         const simulationData = {
           firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: planTypes.PLAN_B,
           amps: "",
@@ -90,6 +96,7 @@ describe("enabledUtil", () => {
         const simulationData = {
           firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: planTypes.PLAN_B,
           amps: "10A",
@@ -103,8 +110,9 @@ describe("enabledUtil", () => {
     describe("FALSE となるケース", () => {
       it("支払金額まで入力されていない場合 FALSE", () => {
         const simulationData = {
-          firstZipCode: "223",
+          firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: planTypes.PLAN_B,
           amps: "10A",
@@ -115,8 +123,9 @@ describe("enabledUtil", () => {
 
       it("支払金額まで入力されている かつ 最低料金未満 の場合 FALSE", () => {
         const simulationData = {
-          firstZipCode: "223",
+          firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: planTypes.PLAN_B,
           amps: "10A",
@@ -134,6 +143,7 @@ describe("enabledUtil", () => {
         const simulationData = {
           firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: planTypes.PLAN_B,
           amps: "10A",
@@ -148,8 +158,9 @@ describe("enabledUtil", () => {
     describe("FALSE となるケース", () => {
       it("メールアドレスまで入力されていない場合 FALSE", () => {
         const simulationData = {
-          firstZipCode: "223",
+          firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: planTypes.PLAN_B,
           amps: "10A",
@@ -162,6 +173,7 @@ describe("enabledUtil", () => {
         const simulationData = {
           firstZipCode: "123",
           secondZipCode: "4567",
+          area: areaTypes.TOKYO,
           company: companyTypes.TOKYO_DENRYOKU,
           plan: planTypes.PLAN_B,
           amps: "10A",
