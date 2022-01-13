@@ -1,19 +1,18 @@
 .a_input-box {
-	display: flex;
-	border: 0.4rem solid $border;
-	border-radius: 0.4rem;
-	flex-basis: 95%;
+  display: flex;
+  border: 0.4rem solid $border;
+  border-radius: 0.4rem;
+  flex-basis: 95%;
 
+  &_input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: $white;
+    padding: 1rem 1.5rem;
 
-	&_input {
-	  width: 100%;
-	  border: none;
-	  outline: none;
-	  background: $white;
-	  padding: 1rem 1.5rem;
-
-	  &:focus {
-		box-shadow: $box-shadow-focus;
-	  }
-	}
+    &:focus {
+      box-shadow: $box-shadow-focus;
+    }
   }
+}
