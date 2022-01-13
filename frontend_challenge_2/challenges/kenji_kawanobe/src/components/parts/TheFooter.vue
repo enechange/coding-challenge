@@ -30,6 +30,7 @@ export default class TheFooter extends Vue {
   text-align: center;
 
   &_button {
+    cursor: pointer;
     position: relative;
     font-size: 1.6rem;
     height: 4rem;
@@ -39,6 +40,10 @@ export default class TheFooter extends Vue {
     outline: none;
     background-color: #445a93;
     border-radius: 0.4rem;
+
+    &:disabled {
+      cursor: default;
+    }
   }
 
   &_icon {

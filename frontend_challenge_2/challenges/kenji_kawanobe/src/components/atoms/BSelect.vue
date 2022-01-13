@@ -58,6 +58,7 @@ export default class BSelect extends Vue {
 <style scoped lang="scss">
 $--border-radius: 0.4rem;
 .a_select {
+  cursor: pointer;
   display: flex;
   border: 0.4rem solid $border;
   border-radius: var(--border-radius);
@@ -71,6 +72,7 @@ $--border-radius: 0.4rem;
   }
 
   &_select {
+    cursor: pointer;
     width: 100%;
     border: none;
     outline: none;
@@ -85,6 +87,10 @@ $--border-radius: 0.4rem;
     &:focus {
       // https://ics.media/entry/200406/
       box-shadow: $box-shadow-focus;
+    }
+
+    &:disabled {
+      cursor: default;
     }
   }
 }
