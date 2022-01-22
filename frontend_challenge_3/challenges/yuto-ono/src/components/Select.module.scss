@@ -1,0 +1,23 @@
+.wrapper {
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #dddddd;
+}
+
+.select {
+  display: block;
+  padding: 16px 8px 16px 44px;
+  border-style: none;
+  width: 100%;
+  margin: 0;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20491.996%20491.996%22%3E%3Cpath%20fill%3D%22%23ed9b38%22%20d%3D%22M484.132%2C124.986l-16.116-16.228c-5.072-5.068-11.82-7.86-19.032-7.86c-7.208%2C0-13.964%2C2.792-19.036%2C7.86l-183.84%2C183.848%20L62.056%2C108.554c-5.064-5.068-11.82-7.856-19.028-7.856s-13.968%2C2.788-19.036%2C7.856l-16.12%2C16.128%20c-10.496%2C10.488-10.496%2C27.572%2C0%2C38.06l219.136%2C219.924c5.064%2C5.064%2C11.812%2C8.632%2C19.084%2C8.632h0.084%20c7.212%2C0%2C13.96-3.572%2C19.024-8.632l218.932-219.328c5.072-5.064%2C7.856-12.016%2C7.864-19.224%20C491.996%2C136.902%2C489.204%2C130.046%2C484.132%2C124.986z%22%2F%3E%3C%2Fsvg%3E');
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-position: left 10px top 50%;
+  font-size: 18px;
+font-family: inherit;
+}
