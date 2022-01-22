@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px;
+  border-radius: 4px;
+  background-color: #dddddd;
+}
+
+.input {
+  padding: 8px 4px;
+  width: calc(50% - 16px);
+  border-style: none;
+  text-align: center;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.hyphen {
+
+}
