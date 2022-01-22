@@ -1,5 +1,5 @@
-import Header from "./components/Header"
-import ZipSection from "./components/ZipSection"
+import Header from "./partials/Header"
+import ZipSection from "./partials/ZipSection"
 
 function App() {
   return (

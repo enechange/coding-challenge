@@ -1,6 +1,6 @@
-import Heading from "./Heading"
-import Section from "./Section"
-import ZipComponent from "./ZipComponent"
+import Heading from "../components/Heading"
+import Section from "../components/Section"
+import ZipComponent from "../components/ZipComponent"
 
 const ZipSection: React.FC = () => {
   return (
