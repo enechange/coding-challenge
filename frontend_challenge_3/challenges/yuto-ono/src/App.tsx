@@ -3,6 +3,7 @@ import Header from "./partials/Header"
 import ZipSection from "./partials/ZipSection"
 import Status1 from "./partials/Status1"
 import Status2 from "./partials/Status2"
+import EmailSection from "./partials/EmailSection"
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
       <Status1 />
       <Separator />
       <Status2 />
+      <Separator />
+      <EmailSection />
     </div>
   )
 }
