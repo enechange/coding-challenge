@@ -1,6 +1,6 @@
 import styles from './Header.module.scss'
 
-function Header() {
+const Header: React.FC = () => {
   return (
     <header className={styles.section}>
       <h1 className={styles.title}>
