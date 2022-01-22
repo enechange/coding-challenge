@@ -14,7 +14,7 @@ const ZipInput: React.FC<Props> = ({ name1, name2 }) => {
         name={name1}
         className={styles.input}
       />
-      <span className={styles.hyphen}>-</span>
+      <span>-</span>
       <input
         type="text"
         id={name2}
