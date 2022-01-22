@@ -1,0 +1,16 @@
+.heading {
+  position: relative;
+  padding: 8px 0;
+  font-size: 20px;
+  font-weight: bold;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -20px;
+    width: 5px;
+    background-color: #ed9b38;
+  }
+}
