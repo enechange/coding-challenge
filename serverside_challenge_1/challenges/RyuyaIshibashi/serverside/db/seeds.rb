@@ -7,6 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 companies = ['東京電力エナジーパートナー', 'Loopでんき', '東京ガス', 'JXTGでんき']
-companies.each do |company|
-    Company.create!(name: company)
+plans = ['従量電灯B', 'おうちプラン', 'ずっとも電気1', '従量電灯Bたっぷりプラン']
+companies.each_with_index do |name, i|
+    company = Company.create!(name: name)
+    Plan.create!(company: company, name: plans[i])
 end
