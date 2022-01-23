@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+companies = ['東京電力エナジーパートナー', 'Loopでんき', '東京ガス', 'JXTGでんき']
+companies.each do |company|
+    Company.create!(name: company)
+end
