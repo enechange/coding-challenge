@@ -6,7 +6,7 @@ import Status2 from "./partials/Status2"
 import EmailSection from "./partials/EmailSection"
 import SubmitSection from "./partials/SubmitSection"
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
       <Header />
