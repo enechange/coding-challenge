@@ -1,0 +1,34 @@
+.btn {
+  position: relative;
+  width: 100%;
+  padding: 16px 12px;
+  border-radius: 4px;
+  border-style: none;
+  background-color: #3d5b97;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-family: inherit;
+  user-select: none;
+  cursor: pointer;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20492.004%20492.004%22%3E%3Cpath%20fill%3D%22%233d5b97%22%20d%3D%22M382.678%2C226.804L163.73%2C7.86C158.666%2C2.792%2C151.906%2C0%2C144.698%2C0s-13.968%2C2.792-19.032%2C7.86l-16.124%2C16.12%20c-10.492%2C10.504-10.492%2C27.576%2C0%2C38.064L293.398%2C245.9l-184.06%2C184.06c-5.064%2C5.068-7.86%2C11.824-7.86%2C19.028%20c0%2C7.212%2C2.796%2C13.968%2C7.86%2C19.04l16.124%2C16.116c5.068%2C5.068%2C11.824%2C7.86%2C19.032%2C7.86s13.968-2.792%2C19.032-7.86L382.678%2C265%20c5.076-5.084%2C7.864-11.872%2C7.848-19.088C390.542%2C238.668%2C387.754%2C231.884%2C382.678%2C226.804z%22%2F%3E%3C%2Fsvg%3E');
+    background-size: 10px;
+    background-position: 60% 50%;
+    background-repeat: no-repeat;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
