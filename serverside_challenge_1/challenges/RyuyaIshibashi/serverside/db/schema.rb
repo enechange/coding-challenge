@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_23_050459) do
+ActiveRecord::Schema.define(version: 2022_01_23_060115) do
+
+  create_table "basic_fees", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.decimal "ampare", precision: 10, null: false
+    t.decimal "fee", precision: 10, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id", "ampare"], name: "index_basic_fees_on_plan_id_and_ampare"
+    t.index ["plan_id"], name: "index_basic_fees_on_plan_id"
+  end
 
   create_table "companies", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
@@ -26,5 +36,6 @@ ActiveRecord::Schema.define(version: 2022_01_23_050459) do
     t.index ["company_id"], name: "index_plans_on_company_id"
   end
 
+  add_foreign_key "basic_fees", "plans"
   add_foreign_key "plans", "companies"
 end
