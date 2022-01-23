@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2022_01_23_070616) do
     t.decimal "fee", precision: 10, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["plan_id", "ampare"], name: "index_basic_fees_on_plan_id_and_ampare"
+    t.index ["ampare"], name: "index_basic_fees_on_ampare"
     t.index ["plan_id"], name: "index_basic_fees_on_plan_id"
   end
 

@@ -7,6 +7,6 @@ class CreateBasicFees < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_index :basic_fees, [:plan_id, :ampare]
+    add_index :basic_fees, :ampare
   end
 end
