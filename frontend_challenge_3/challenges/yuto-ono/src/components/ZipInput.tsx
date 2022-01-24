@@ -21,7 +21,7 @@ const ZipInput: React.FC<Props> = ({ name1, name2 }) => {
         {...register(name1, {
           required: MESSAGE_REQUIRED,
           pattern: {
-            value: /^\d{3}/,
+            value: /^\d{3}$/,
             message: MESSAGE_INVALID,
           },
         })}
@@ -34,7 +34,7 @@ const ZipInput: React.FC<Props> = ({ name1, name2 }) => {
         {...register(name2, {
           required: MESSAGE_REQUIRED,
           pattern: {
-            value: /^\d{4}/,
+            value: /^\d{4}$/,
             message: MESSAGE_INVALID,
           },
         })}
