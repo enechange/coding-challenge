@@ -4,4 +4,10 @@ class BasicFee < ApplicationRecord
     validates :ampare
     validates :fee
   end
+
+  class << self
+    def getAmpareFees (ampare)
+      BasicFee.where(ampare: ampare)
+    end
+  end
 end
