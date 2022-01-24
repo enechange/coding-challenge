@@ -64,4 +64,4 @@ ENECHANGEでは各電力会社向けに、電気料金のシミュレーショ�
   - フロントエンドの技術選定はお任せいたします。
     - 弊社はVue.jsを利用しています。 
   - デザインやUI/UXは凝らなくて構いません。
-  - サンプルデザインが必要な方は、 [frontend_challenge_2のデザインファイル](https://github.com/enechange/coding-challenge/blob/feature/serverside_challenge_1/frontend_challenge_2/files/design.png)を参考にしてください。
+  - サンプルデザインが必要な方は、 [frontend_challenge_2のデザインファイル](https://github.com/enechange/coding-challenge/blob/master/frontend_challenge_2/files/design.png)を参考にしてください。
