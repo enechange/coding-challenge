@@ -1,7 +1,15 @@
 import styles from "./Submit.module.scss"
 
-const Submit: React.FC = ({ children }) => {
-  return <button type="submit" className={styles.btn}>{children}</button>
+type Props = {
+  disabled?: boolean
+}
+
+const Submit: React.FC<Props> = ({ children, disabled = false }) => {
+  return (
+    <button type="submit" className={styles.btn} disabled={disabled}>
+      {children}
+    </button>
+  )
 }
 
 export default Submit
