@@ -21,8 +21,8 @@ const ZipSection: React.FC = () => {
   const zipError = errors.zip1 ?? errors.zip2 ?? errors.area
 
   // 仮想的に郵便番号からサービスエリアを取得するinputを作る
-  const zip1 = (useWatch({ name: "zip1" }) ?? "") as string
-  const zip2 = (useWatch({ name: "zip2" }) ?? "") as string
+  const zip1 = useWatch({ name: "zip1", defaultValue: "" }) as string
+  const zip2 = useWatch({ name: "zip2", defaultValue: "" }) as string
 
   useEffect(() => {
     register("area")

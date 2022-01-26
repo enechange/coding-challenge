@@ -10,7 +10,10 @@ import {
 
 const CapacitySelect: React.FC = () => {
   const { register, setValue } = useFormContext()
-  const plan = (useWatch({ name: "plan" }) ?? "") as string
+  const plan = useWatch({
+    name: "plan",
+    defaultValue: "東京電力従量電灯B"
+  }) as string
   const [capacityOptions, setCapacityOptions] = useState(capacityOptions1)
 
   // プランによって契約容量の選択肢を切り替え
@@ -22,7 +25,7 @@ const CapacitySelect: React.FC = () => {
       "関西電力従量電灯B" === plan
     ) {
       setCapacityOptions(capacityOptions2)
-    } else if ("" !== plan) {
+    } else {
       setCapacityOptions([])
     }
   }, [plan])
@@ -30,6 +33,8 @@ const CapacitySelect: React.FC = () => {
   useEffect(() => {
     if (capacityOptions.length) {
       setValue("capacity", capacityOptions[0].value)
+    } else {
+      setValue("capacity", "")
     }
   }, [capacityOptions])
 

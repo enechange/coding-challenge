@@ -10,21 +10,30 @@ import {
 
 const PlanSelect: React.FC = () => {
   const { register, setValue } = useFormContext()
-  const area = (useWatch({ name: "area" }) ?? "") as string
+  const company = useWatch({
+    name: "company",
+    defaultValue: "東京電力"
+  }) as string
   const [plans, setPlans] = useState(tokyoPlans)
 
   // エリアによってプランの選択肢を切り替え
   useLayoutEffect(() => {
-    if ("関西電力エリア" === area) {
+    if ("東京電力" === company) {
+      setPlans(tokyoPlans)
+    } else if ("関西電力" === company) {
       setPlans(kansaiPlans)
     } else {
-      setPlans(tokyoPlans)
+      setPlans([])
     }
-  }, [area])
+  }, [company])
 
   useEffect(() => {
-    setValue("plan", plans[0].value)
+    setValue("plan", plans.length ? plans[0].value : "")
   }, [plans])
+
+  if (0 === plans.length) {
+    return null
+  }
 
   return (
     <Field>
