@@ -1,4 +1,4 @@
-import { useFormContext, UseFormRegisterReturn } from "react-hook-form"
+import { UseFormRegisterReturn } from "react-hook-form"
 import styles from "./Select.module.scss"
 import { SelectOptions } from "../utilities/SelectOptions"
 
@@ -9,8 +9,6 @@ type Props = {
 }
 
 const Select: React.FC<Props> = ({ name, options, registerReturn }) => {
-  const { register } = useFormContext()
-
   return (
     <div className={styles.wrapper}>
       <select
