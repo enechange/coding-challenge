@@ -1,13 +1,57 @@
-import { useFormContext } from "react-hook-form"
+import { useFormContext, useWatch } from "react-hook-form"
 import Heading from "../components/Heading"
 import Section from "../components/Section"
 import Label from "../components/Label"
 import ZipInput from "../components/ZipInput"
 import ErrorMessage from "../components/ErrorMessage"
+import { useEffect } from "react"
+import Api from "../utilities/Api"
+
+const api = new Api()
 
 const ZipSection: React.FC = () => {
-  const { formState: { errors } } = useFormContext()
-  const zipError = errors.zip1 || errors.zip2
+  const {
+    register,
+    setValue,
+    setError,
+    clearErrors,
+    formState: { errors }
+  } = useFormContext()
+
+  const zipError = errors.area ?? errors.zip1 ?? errors.zip2
+
+  // 仮想的に郵便番号からサービスエリアを取得するinputを作る
+  const zip1 = (useWatch({ name: "zip1" }) ?? "") as string
+  const zip2 = (useWatch({ name: "zip2" }) ?? "") as string
+
+  useEffect(() => {
+    register("area")
+  }, [register])
+
+  useEffect(() => {
+    const zip = zip1 + zip2
+
+    if ("" === zip) {
+      clearErrors("area")
+      return
+    }
+
+    // APIで郵便番号からサービスエリアを取得
+    api
+      .getAreaByZipCode(zip)
+      .then(value => {
+        clearErrors("area")
+        setValue("area", value)
+      })
+      .catch(reason => {
+        console.error(reason)
+        setError("area", {
+          type: "manual",
+          message: reason,
+        })
+      })
+  }, [zip1, zip2])
+
 
   return (
     <Section>

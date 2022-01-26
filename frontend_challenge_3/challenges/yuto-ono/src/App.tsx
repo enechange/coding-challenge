@@ -10,6 +10,7 @@ import SubmitSection from "./partials/SubmitSection"
 type Inputs = {
   zip1: string
   zip2: string
+  area: string
 }
 
 const App: React.FC = () => {
