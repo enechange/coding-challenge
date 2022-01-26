@@ -18,7 +18,7 @@ const ZipSection: React.FC = () => {
     formState: { errors }
   } = useFormContext()
 
-  const zipError = errors.area ?? errors.zip1 ?? errors.zip2
+  const zipError = errors.zip1 ?? errors.zip2 ?? errors.area
 
   // 仮想的に郵便番号からサービスエリアを取得するinputを作る
   const zip1 = (useWatch({ name: "zip1" }) ?? "") as string
@@ -44,7 +44,6 @@ const ZipSection: React.FC = () => {
         setValue("area", value)
       })
       .catch(reason => {
-        console.error(reason)
         setError("area", {
           type: "manual",
           message: reason,
