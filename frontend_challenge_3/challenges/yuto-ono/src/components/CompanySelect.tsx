@@ -5,7 +5,6 @@ import Label from "../components/Label"
 import Select from "../components/Select"
 import {
   kansaiOptions,
-  SelectOptions,
   tokyoOptions
 } from "../utilities/SelectOptions"
 import ErrorMessage from "./ErrorMessage"
