@@ -30,7 +30,7 @@ const PlanSelect: React.FC = () => {
     <Field>
       <Label htmlFor="company" required={true}>プラン</Label>
       <Select
-        name="company"
+        name="plan"
         options={plans}
         registerReturn={register("plan")}
       />
