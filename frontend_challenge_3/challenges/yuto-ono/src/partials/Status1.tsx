@@ -1,3 +1,4 @@
+import CapacitySelect from "../components/CapacitySelect"
 import CompanySelect from "../components/CompanySelect"
 import Heading from "../components/Heading"
 import PlanSelect from "../components/PlanSelect"
@@ -9,6 +10,7 @@ const Status1: React.FC = () => {
       <Heading>電気のご使用状況について教えてください</Heading>
       <CompanySelect />
       <PlanSelect />
+      <CapacitySelect />
     </Section>
   )
 }

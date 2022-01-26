@@ -13,6 +13,7 @@ type Inputs = {
   area: string
   company: string
   plan: string
+  capacity: string
 }
 
 const App: React.FC = () => {

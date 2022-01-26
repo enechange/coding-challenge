@@ -20,18 +20,30 @@ export const kansaiOptions: SelectOptions = [
 
 // 東京電力プラン
 export const tokyoPlans: SelectOptions = [
-  { value: "従量電灯B" },
-  { value: "従量電灯C" },
+  {
+    value: "東京電力従量電灯B",
+    text:  "従量電灯B"
+  },
+  {
+    value: "東京電力従量電灯C",
+    text:  "従量電灯C"
+  },
 ]
 
 // 関西電力プラン
 export const kansaiPlans: SelectOptions = [
-  { value: "従量電灯A" },
-  { value: "従量電灯B" },
+  {
+    value: "関西電力従量電灯A",
+    text:  "従量電灯A"
+  },
+  {
+    value: "関西電力従量電灯B",
+    text:  "従量電灯B"
+  },
 ]
 
 // 契約容量1
-export const capacityOptions1 = [
+export const capacityOptions1: SelectOptions = [
   { value: "10A" },
   { value: "15A" },
   { value: "20A" },
@@ -40,3 +52,14 @@ export const capacityOptions1 = [
   { value: "50A" },
   { value: "60A" },
 ]
+
+// 契約容量2 ( 6kVAから49kVAまで1kVA刻み )
+export const capacityOptions2: SelectOptions = (() => {
+  const result: SelectOptions = []
+
+  for (let i = 6; i <= 49; i++) {
+    result.push({ value: i + "kVa" })
+  }
+
+  return result
+})()
