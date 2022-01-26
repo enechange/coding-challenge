@@ -7,7 +7,7 @@ type Props = {
 }
 
 const MESSAGE_REQUIRED = "郵便番号を入力してください。"
-const MESSAGE_INVALID  = "郵便番号の形式が正しくありません。"
+const MESSAGE_INVALID  = "郵便番号を正しく入力してください。"
 
 const ZipInput: React.FC<Props> = ({ name1, name2 }) => {
   const { register } = useFormContext()

@@ -14,6 +14,8 @@ type Inputs = {
   company: string
   plan: string
   capacity: string
+  bill: number
+  email: string
 }
 
 const App: React.FC = () => {
