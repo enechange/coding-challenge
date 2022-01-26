@@ -1,11 +1,11 @@
 /**
  * 郵便番号の最初の1桁とエリアのマッピング
  */
-type zipAreaMagginType = {
+type zipAreaMappingType = {
   [key: string]: string
 }
 
-const zipAreaMapping: zipAreaMagginType = {
+const zipAreaMapping: zipAreaMappingType = {
   "1": "東京電力エリア",
   "5": "関西電力エリア",
 }
