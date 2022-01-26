@@ -3,6 +3,6 @@ FactoryBot.define do
     after(:build) do |plan|
       plan.company = FactoryBot.create(:company)
     end
-    name { "foobar" }
+    name { "foobar_plan" }
   end
 end

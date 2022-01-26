@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :company do
-    name { 'foobar' }
+    name { 'foobar_company' }
   end
 end

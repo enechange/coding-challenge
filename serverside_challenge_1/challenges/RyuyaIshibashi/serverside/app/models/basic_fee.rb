@@ -6,7 +6,7 @@ class BasicFee < ApplicationRecord
   end
 
   class << self
-    def getAmpareFees (ampare)
+    def getAmpareBasicFees (ampare)
       BasicFee.where(ampare: ampare)
     end
   end
