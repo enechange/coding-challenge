@@ -19,6 +19,22 @@ RSpec.describe BasicFee, type: :model do
     expect(FactoryBot.build(:basic_fee, fee: nil)).to_not be_valid 
   end
 
+  describe "#getCompanyName" do
+    it "紐づく会社名が取得できること" do
+      basic_fee = FactoryBot.create(:basic_fee)
+      company = FactoryBot.create(:company)
+      expect(basic_fee.getCompanyName).to eq company.name
+    end
+  end
+
+  describe "#getCompanyName" do
+    it "紐づくプラン名が取得できること" do
+      basic_fee = FactoryBot.create(:basic_fee)
+      plan = FactoryBot.create(:plan)
+      expect(basic_fee.getPlanName).to eq plan.name
+    end
+  end
+
   describe ".getAmpareBasicFees" do
     before do
       FactoryBot.create_list(:basic_fee, 2, ampare: '10.00')

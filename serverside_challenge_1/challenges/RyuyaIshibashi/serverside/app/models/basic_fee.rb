@@ -5,6 +5,14 @@ class BasicFee < ApplicationRecord
     validates :fee
   end
 
+  def getCompanyName
+    self.plan.company.name
+  end
+
+  def getPlanName
+    self.plan.name
+  end
+
   class << self
     def getAmpareBasicFees (ampare)
       BasicFee.where(ampare: ampare)
