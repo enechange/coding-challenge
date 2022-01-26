@@ -9,7 +9,7 @@ import {
 } from "../utilities/SelectOptions"
 
 const PlanSelect: React.FC = () => {
-  const { register, setValue, clearErrors } = useFormContext()
+  const { register, setValue } = useFormContext()
   const area = (useWatch({ name: "area" }) ?? "") as string
   const [plans, setPlans] = useState(tokyoPlans)
 
