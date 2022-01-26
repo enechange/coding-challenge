@@ -11,6 +11,7 @@ type Inputs = {
   zip1: string
   zip2: string
   area: string
+  company: string
 }
 
 const App: React.FC = () => {

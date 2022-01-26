@@ -1,13 +1,14 @@
-import { useFormContext } from "react-hook-form"
+import { useFormContext, UseFormRegisterReturn } from "react-hook-form"
 import styles from "./Select.module.scss"
 import { SelectOptions } from "../utilities/SelectOptions"
 
 type Props = {
   name: string
   options: SelectOptions
+  registerReturn: UseFormRegisterReturn
 }
 
-const Select: React.FC<Props> = ({ name, options }) => {
+const Select: React.FC<Props> = ({ name, options, registerReturn }) => {
   const { register } = useFormContext()
 
   return (
@@ -15,7 +16,7 @@ const Select: React.FC<Props> = ({ name, options }) => {
       <select
         id={name}
         className={styles.select}
-        {...register(name)}
+        {...registerReturn}
       >
         {options.map(option => (
           <option key={option.value} value={option.value}>
