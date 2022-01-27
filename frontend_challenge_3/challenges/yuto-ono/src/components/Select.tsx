@@ -5,10 +5,11 @@ import { SelectOptions } from "../utilities/SelectOptions"
 type Props = {
   name: string
   options: SelectOptions
+  desc?: string
   registerReturn: UseFormRegisterReturn
 }
 
-const Select: React.FC<Props> = ({ name, options, registerReturn }) => {
+const Select: React.FC<Props> = ({ name, options, desc, registerReturn }) => {
   return (
     <div className={styles.wrapper}>
       <select
@@ -22,6 +23,7 @@ const Select: React.FC<Props> = ({ name, options, registerReturn }) => {
           </option>
         ))}
       </select>
+      {desc && <div className={styles.desc}>{desc}</div>}
     </div>
   )
 }

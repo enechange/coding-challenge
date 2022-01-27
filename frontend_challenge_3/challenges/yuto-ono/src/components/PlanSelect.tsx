@@ -41,6 +41,7 @@ const PlanSelect: React.FC = () => {
       <Select
         name="plan"
         options={plans}
+        desc="現在ご利用中の電気料金プラン"
         registerReturn={register("plan")}
       />
     </Field>
