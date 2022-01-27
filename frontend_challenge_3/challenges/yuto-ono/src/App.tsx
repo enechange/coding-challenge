@@ -21,7 +21,9 @@ type Inputs = {
 const App: React.FC = () => {
   const methods = useForm<Inputs>({ mode: "onChange" })
   const { handleSubmit } = methods
-  const onSubmit: SubmitHandler<Inputs> = () => {
+  const onSubmit: SubmitHandler<Inputs> = data => {
+    console.log(data)
+
     alert([
       "採用ご担当者様",
       "",
