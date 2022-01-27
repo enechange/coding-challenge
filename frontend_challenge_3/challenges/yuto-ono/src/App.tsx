@@ -21,7 +21,18 @@ type Inputs = {
 const App: React.FC = () => {
   const methods = useForm<Inputs>({ mode: "onChange" })
   const { handleSubmit } = methods
-  const onSubmit: SubmitHandler<Inputs> = data => console.log(data)
+  const onSubmit: SubmitHandler<Inputs> = () => {
+    alert([
+      "採用ご担当者様",
+      "",
+      "このたびは、このページをご覧いただき、ありがとうございます。",
+      "このアプリはReactで作られています。",
+      "このアプリが良いと思われましたら、",
+      "フロントエンドエンジニアとしての採用をぜひ前向きにご検討くださいませ！",
+      "",
+      "小野",
+    ].join("\n"))
+  }
 
   return (
     <div className="App">
