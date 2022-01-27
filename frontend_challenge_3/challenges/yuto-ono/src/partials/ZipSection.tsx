@@ -31,6 +31,8 @@ const ZipSection: React.FC = () => {
   useEffect(() => {
     const zip = zip1 + zip2
 
+    setValue("area", "")
+
     if ("" === zip) {
       clearErrors("area")
       return
