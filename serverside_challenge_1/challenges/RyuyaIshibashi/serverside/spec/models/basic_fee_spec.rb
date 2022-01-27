@@ -35,22 +35,23 @@ RSpec.describe BasicFee, type: :model do
     end
   end
 
-  describe ".getAmpareBasicFees" do
-    before do
-      FactoryBot.create_list(:basic_fee, 2, ampare: '10.00')
-      FactoryBot.create_list(:basic_fee, 3, ampare: '15.00')
-      FactoryBot.create_list(:basic_fee, 4, ampare: '20.00')
-    end
-
-    it "パラメーターで指定されたアンペアのデータのみを返す" do 
-      expect(BasicFee.getAmpareBasicFees('10.00').count).to eq 2
-      expect(BasicFee.getAmpareBasicFees('15.00').count).to eq 3
-      expect(BasicFee.getAmpareBasicFees('20.00').count).to eq 4
-    end
-
-    it "該当データがなければ、カウント0件となる" do 
-      expect(BasicFee.getAmpareBasicFees('30.00').count).to eq 0
-      expect(BasicFee.getAmpareBasicFees('aaa').count).to eq 0
+  describe "scope" do
+    describe "search_with_ampare" do
+      before do
+        FactoryBot.create_list(:basic_fee, 2, ampare: '10.00')
+        FactoryBot.create_list(:basic_fee, 3, ampare: '15.00')
+        FactoryBot.create_list(:basic_fee, 4, ampare: '20.00')
+      end
+  
+      it "パラメーターで指定されたアンペアのデータのみを返す" do 
+        expect(BasicFee.search_with_ampare('10.00').count).to eq 2
+        expect(BasicFee.search_with_ampare('15.00').count).to eq 3
+        expect(BasicFee.search_with_ampare('20.00').count).to eq 4
+      end
+  
+      it "該当データがなければ、カウント0件となる" do 
+        expect(BasicFee.search_with_ampare('30.00').count).to eq 0
+      end        
     end
   end
 end

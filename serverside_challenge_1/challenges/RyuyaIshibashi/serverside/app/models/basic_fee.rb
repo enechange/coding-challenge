@@ -4,6 +4,7 @@ class BasicFee < ApplicationRecord
     validates :ampare
     validates :fee
   end
+  scope :search_with_ampare, -> (ampare) { where(ampare: ampare) }
 
   def getCompanyName
     self.plan.company.name
@@ -11,11 +12,5 @@ class BasicFee < ApplicationRecord
 
   def getPlanName
     self.plan.name
-  end
-
-  class << self
-    def getAmpareBasicFees (ampare)
-      BasicFee.where(ampare: ampare)
-    end
   end
 end
