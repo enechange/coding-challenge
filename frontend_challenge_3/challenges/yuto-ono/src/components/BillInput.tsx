@@ -17,10 +17,7 @@ const BillInput: React.FC = () => {
               value: 1000,
               message: "電気代を正しく入力してください。",
             },
-            pattern: {
-              value: /^\d+$/,
-              message: "電気代を正しく入力してください。",
-            },
+            validate: value => !isNaN(value) || "電気代を正しく入力してください。"
           })}
         />
       </div>
