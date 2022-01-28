@@ -14,8 +14,8 @@ ActiveRecord::Schema.define(version: 2022_01_23_070616) do
 
   create_table "basic_fees", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "plan_id", null: false
-    t.decimal "ampare", precision: 10, null: false
-    t.decimal "fee", precision: 10, null: false
+    t.decimal "ampare", precision: 12, scale: 2, null: false
+    t.decimal "fee", precision: 12, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["ampare"], name: "index_basic_fees_on_ampare"
@@ -38,9 +38,9 @@ ActiveRecord::Schema.define(version: 2022_01_23_070616) do
 
   create_table "usage_charges", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "plan_id", null: false
-    t.decimal "from", precision: 10, null: false
-    t.decimal "to", precision: 10
-    t.decimal "unit_price", precision: 10, null: false
+    t.decimal "from", precision: 12, scale: 2, null: false
+    t.decimal "to", precision: 12, scale: 2
+    t.decimal "unit_price", precision: 12, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["plan_id", "from", "to"], name: "index_usage_charges_on_plan_id_and_from_and_to"

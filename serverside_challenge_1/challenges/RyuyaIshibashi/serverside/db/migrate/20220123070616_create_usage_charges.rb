@@ -2,9 +2,9 @@ class CreateUsageCharges < ActiveRecord::Migration[6.1]
   def change
     create_table :usage_charges do |t|
       t.references :plan, null: false, foreign_key: true
-      t.decimal :from, null: false
-      t.decimal :to
-      t.decimal :unit_price, null: false
+      t.decimal :from, null: false, precision:12, scale:2
+      t.decimal :to, precision:12, scale:2
+      t.decimal :unit_price, null: false, precision:12, scale:2
 
       t.timestamps
     end
