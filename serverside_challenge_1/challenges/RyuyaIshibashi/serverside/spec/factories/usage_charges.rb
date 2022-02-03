@@ -8,7 +8,7 @@ FactoryBot.define do
     unit_price { "9.99" }
   end
 
-  factory :usage_charge_2, :class => 'UsageCharge'  do
+  factory :usage_charge_itself, :class => 'UsageCharge'  do
     from { "9.99" }
     to { "9.99" }
     unit_price { "9.99" }    

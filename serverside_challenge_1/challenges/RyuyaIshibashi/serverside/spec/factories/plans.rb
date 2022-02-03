@@ -5,4 +5,8 @@ FactoryBot.define do
     end
     name { "foobar_plan" }
   end
+
+  factory :plan_itself, :class => 'Plan'  do
+    name { "foobar_plan" }
+  end
 end
