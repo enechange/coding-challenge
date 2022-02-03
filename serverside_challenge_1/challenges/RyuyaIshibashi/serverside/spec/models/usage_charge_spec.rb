@@ -72,7 +72,7 @@ RSpec.describe UsageCharge, type: :model do
     context "通常想定されないが、使用料下限と使用料上限に重なりがあるレコードがある場合" do
       before do
         FactoryBot.create(:usage_charge, from: "10.99", to: "20.99", unit_price: "100.99")
-        FactoryBot.create(:usage_charge_2, plan_id: plan_id, from: "15.99", to: nil, unit_price: "200.99")
+        FactoryBot.create(:usage_charge_itself, plan_id: plan_id, from: "15.99", to: nil, unit_price: "200.99")
       end
       it "複数件マッチしてもアンマッチと同じ扱いとする" do
         expect(UsageCharge.getUnitPrice(1, 17.99)).to eq nil
