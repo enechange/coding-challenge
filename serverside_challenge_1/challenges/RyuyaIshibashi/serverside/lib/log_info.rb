@@ -43,7 +43,7 @@ class LogInfo
 
   class << self
     def getText(msg_id, args = [])
-      "code=#{self.getCode(msg_id)}; message='#{self.getMessage(msg_id, args)}'"
+      "code=#{getCode(msg_id)}; message='#{getMessage(msg_id, args)}'"
     end
   
     def getHash(msg_id, args = [])
