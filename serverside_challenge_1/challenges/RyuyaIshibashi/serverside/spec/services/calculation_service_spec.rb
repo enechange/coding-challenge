@@ -93,13 +93,15 @@ describe CalculationService do
         let! (:company_2) { FactoryBot.create(:company, name: "会社_2") }
         let! (:company_3) { FactoryBot.create(:company, name: "会社_3") }
   
-        let! (:plan_1) { FactoryBot.create(:plan_itself, name: "プラン_1", company: company_1) }
-        let! (:plan_2) { FactoryBot.create(:plan_itself, name: "プラン_2", company: company_2) }
-        let! (:plan_3) { FactoryBot.create(:plan_itself, name: "プラン_3", company: company_3) }
+        let! (:plan_1) { FactoryBot.create(:plan_itself, company: company_1, name: "プラン_1") }
+        let! (:plan_2) { FactoryBot.create(:plan_itself, company: company_2, name: "プラン_2") }
+        let! (:plan_3) { FactoryBot.create(:plan_itself, company: company_3, name: "プラン_3") }
 
-        let! (:basic_fee_1) { FactoryBot.create(:basic_fee_itself, fee: BigDecimal("12.34"), plan: plan_1) }
-        let! (:basic_fee_2) { FactoryBot.create(:basic_fee_itself, fee: BigDecimal("56.78"), plan: plan_2) }
-        let! (:basic_fee_3) { FactoryBot.create(:basic_fee_itself, fee: BigDecimal("90.12"), plan: plan_3) }
+        before do
+          FactoryBot.create(:basic_fee_itself, plan: plan_1, fee: BigDecimal("12.34"))
+          FactoryBot.create(:basic_fee_itself, plan: plan_2, fee: BigDecimal("56.78"))
+          FactoryBot.create(:basic_fee_itself, plan: plan_3, fee: BigDecimal("90.12"))
+        end
         
         let (:basic_fees) { BasicFee.all }
 

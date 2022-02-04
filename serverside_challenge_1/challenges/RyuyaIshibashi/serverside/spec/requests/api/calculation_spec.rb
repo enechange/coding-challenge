@@ -47,27 +47,33 @@ RSpec.describe "Calculations", type: :request do
         let! (:company_2) { FactoryBot.create(:company, name: "会社_2") }  
         let! (:company_3) { FactoryBot.create(:company, name: "会社_3") }  
 
-        let! (:plan_1) { FactoryBot.create(:plan_itself, name: "プラン_1", company: company_1) }
-        let! (:plan_2) { FactoryBot.create(:plan_itself, name: "プラン_2", company: company_2) }
-        let! (:plan_3) { FactoryBot.create(:plan_itself, name: "プラン_3", company: company_3) }
-
-        let! (:basic_fee_1_1) { FactoryBot.create(:basic_fee_itself, ampare: BigDecimal("10.00"), fee: BigDecimal("1234.56"), plan: plan_1) }
-        let! (:basic_fee_1_2) { FactoryBot.create(:basic_fee_itself, ampare: BigDecimal("20.00"), fee: BigDecimal("7890.12"), plan: plan_1) }
-
-        let! (:basic_fee_2_1) { FactoryBot.create(:basic_fee_itself, ampare: BigDecimal("10.00"), fee: BigDecimal("3456.78"), plan: plan_2) }
-        let! (:basic_fee_2_2) { FactoryBot.create(:basic_fee_itself, ampare: BigDecimal("20.00"), fee: BigDecimal("9012.34"), plan: plan_2) }
-
-        let! (:basic_fee_3_1) { FactoryBot.create(:basic_fee_itself, ampare: BigDecimal("10.00"), fee: BigDecimal("5678.90"), plan: plan_3) }
-        let! (:basic_fee_3_2) { FactoryBot.create(:basic_fee_itself, ampare: BigDecimal("20.00"), fee: BigDecimal("1234.56"), plan: plan_3) }
-
-        let! (:usage_charge_1_1) { FactoryBot.create(:usage_charge_itself, from: "12.34", to: "56.78", unit_price: "1234.56", plan: plan_1) }
-        let! (:usage_charge_1_2) { FactoryBot.create(:usage_charge_itself, from: "56.78", to: "90.12", unit_price: "7890.12", plan: plan_1) }
-
-        let! (:usage_charge_2) { FactoryBot.create(:usage_charge_itself, from: "90.12", to: "3405.67", unit_price: "3456.78", plan: plan_2) }
-
-        let! (:usage_charge_3) { FactoryBot.create(:usage_charge_itself, from: "0.00", to: nil, unit_price: "9012.34", plan: plan_3) }
+        let! (:plan_1) { FactoryBot.create(:plan_itself, company: company_1, name: "プラン_1") }
+        let! (:plan_2) { FactoryBot.create(:plan_itself, company: company_2, name: "プラン_2") }
+        let! (:plan_3) { FactoryBot.create(:plan_itself, company: company_3, name: "プラン_3") }
 
         before do
+          # プラン_1 基本料金
+          FactoryBot.create(:basic_fee_itself, plan: plan_1, ampare: BigDecimal("10.00"), fee: BigDecimal("1234.56"))
+          FactoryBot.create(:basic_fee_itself, plan: plan_1, ampare: BigDecimal("20.00"), fee: BigDecimal("7890.12"))
+  
+          # プラン_2 基本料金
+          FactoryBot.create(:basic_fee_itself, plan: plan_2, ampare: BigDecimal("10.00"), fee: BigDecimal("3456.78"))
+          FactoryBot.create(:basic_fee_itself, plan: plan_2, ampare: BigDecimal("20.00"), fee: BigDecimal("9012.34"))
+  
+          # プラン_3 基本料金
+          FactoryBot.create(:basic_fee_itself, plan: plan_3, ampare: BigDecimal("10.00"), fee: BigDecimal("5678.90"))
+          FactoryBot.create(:basic_fee_itself, plan: plan_3, ampare: BigDecimal("20.00"), fee: BigDecimal("1234.56"))
+  
+          # プラン_1 従量料金
+          FactoryBot.create(:usage_charge_itself, plan: plan_1, from: "12.34", to: "56.78", unit_price: "1234.56")
+          FactoryBot.create(:usage_charge_itself, plan: plan_1, from: "56.78", to: "90.12", unit_price: "7890.12")
+  
+          # プラン_2 従量料金
+          FactoryBot.create(:usage_charge_itself, plan: plan_2, from: "90.12", to: "3405.67", unit_price: "3456.78")
+  
+          # プラン_3 従量料金
+          FactoryBot.create(:usage_charge_itself, plan: plan_3, from: "0.00", to: nil, unit_price: "9012.34")
+
           get '/api/calculation?ampare=10&amount=80'
         end
         
