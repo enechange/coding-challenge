@@ -11,7 +11,7 @@ RSpec.describe BasicFee, type: :model do
     expect(basic_fee).to_not be_valid
   end 
 
-  it "アンペアがなければ登録できない" do 
+  it "契約アンペア数がなければ登録できない" do 
     expect(FactoryBot.build(:basic_fee, ampare: nil)).to_not be_valid 
   end
 
@@ -43,7 +43,7 @@ RSpec.describe BasicFee, type: :model do
         FactoryBot.create_list(:basic_fee, 4, ampare: '20.00')
       end
   
-      it "パラメーターで指定されたアンペアのデータのみを返す" do 
+      it "パラメーターで指定された契約アンペア数のデータのみを返す" do 
         expect(BasicFee.search_with_ampare('10.00').count).to eq 2
         expect(BasicFee.search_with_ampare('15.00').count).to eq 3
         expect(BasicFee.search_with_ampare('20.00').count).to eq 4

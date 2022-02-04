@@ -17,11 +17,11 @@ describe LogInfo do
 
   context "入力チェックの" do
     it "テキストが正しく返却されること" do
-      expect(LogInfo.getText('INPUT_CHECK', ['アンペア'])).to eq "code=02001; message='不正なリクエストです。項目=アンペア'"
+      expect(LogInfo.getText('INPUT_CHECK', ['契約アンペア数'])).to eq "code=02001; message='不正なリクエストです。項目=契約アンペア数'"
     end
 
     it "ハッシュが正しく返却されること" do
-      expect(LogInfo.getHash('INPUT_CHECK', ['アンペア'])).to eq ({ code: '02001', message: "不正なリクエストです。項目=アンペア" })
+      expect(LogInfo.getHash('INPUT_CHECK', ['契約アンペア数'])).to eq ({ code: '02001', message: "不正なリクエストです。項目=契約アンペア数" })
     end
   end
 

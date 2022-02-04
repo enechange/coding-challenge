@@ -93,13 +93,13 @@ RSpec.describe "Calculations", type: :request do
 
     context "異常系" do
       context "BadRequest" do
-        context 'アンペアが不正の場合' do
+        context '契約アンペア数が不正の場合' do
           before do
             get '/api/calculation?ampare=&amount=10'
           end
           
           it "正しいレスポンスボディを返却すること" do
-            bad_body = bad_parameter_body('アンペア')
+            bad_body = bad_parameter_body('契約アンペア数')
             expect(response_body).to eq(bad_body)
           end
   

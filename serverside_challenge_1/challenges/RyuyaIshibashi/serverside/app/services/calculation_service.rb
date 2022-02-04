@@ -1,6 +1,6 @@
 class CalculationService
 
-  AMPARE = { name: :ampare, japanese: 'アンペア', array: ['10', '15', '20', '30', '40', '50', '60'] }
+  AMPARE = { name: :ampare, japanese: '契約アンペア数', array: ['10', '15', '20', '30', '40', '50', '60'] }
   AMOUNT = { name: :amount, japanese: '使用料' }
 
   class << self
@@ -72,9 +72,9 @@ class CalculationService
   
       def getAmpare(ampare, item_name, ampare_array)
         if (
-        # アンペアの存在、数値チェック
+        # 契約アンペア数の存在、数値チェック
         !isExistingAndInt(ampare) || 
-        # アンペアが有効な値かチェック
+        # 契約アンペア数が有効な値かチェック
         !isValidAmpare(ampare, ampare_array))
           raiseBadParameter(item_name)
         end

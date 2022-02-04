@@ -53,18 +53,18 @@ describe CalculationService do
       let (:some_array) { ["1", "5", "10"]}
       it "存在、数値チェックでエラーの場合、BadParameter Exceptionを発生させる" do
         expect do
-          CalculationService.send(:getAmpare, nil, "アンペア", some_array)
-        end.to raise_error(CustomExceptions::BadParameter, "アンペア")
+          CalculationService.send(:getAmpare, nil, "契約アンペア数", some_array)
+        end.to raise_error(CustomExceptions::BadParameter, "契約アンペア数")
       end
   
       it "有効な値かチェックでエラーの場合、BadParameter Exceptionを発生させる" do
         expect do
-          CalculationService.send(:getAmpare, "2", "アンペア", some_array)
-        end.to raise_error(CustomExceptions::BadParameter, "アンペア")
+          CalculationService.send(:getAmpare, "2", "契約アンペア数", some_array)
+        end.to raise_error(CustomExceptions::BadParameter, "契約アンペア数")
       end
   
-      it "アンペアが有効な値の場合、intに変換して返却" do
-        expect(CalculationService.send(:getAmpare, "5", "アンペア", some_array)).to eq 5
+      it "契約アンペア数が有効な値の場合、intに変換して返却" do
+        expect(CalculationService.send(:getAmpare, "5", "契約アンペア数", some_array)).to eq 5
       end
     end
   
@@ -76,19 +76,19 @@ describe CalculationService do
       end
   
       it "使用料が有効な値の場合、intに変換して返却" do
-        expect(CalculationService.send(:getAmount, "3", "アンペア")).to eq 3
+        expect(CalculationService.send(:getAmount, "3", "契約アンペア数")).to eq 3
       end
     end
 
     describe ".getSimulations" do
 
-      context "アンペアに該当する基本料金が0件の場合" do
+      context "契約アンペア数に該当する基本料金が0件の場合" do
         it "空の配列を返す" do
           expect(CalculationService.send(:getSimulations, BasicFee.none, 10)).to eq []          
         end
       end
 
-      context "アンペアに該当する基本料金がある場合" do
+      context "契約アンペア数に該当する基本料金がある場合" do
         let! (:company_1) { FactoryBot.create(:company, name: "会社_1") }
         let! (:company_2) { FactoryBot.create(:company, name: "会社_2") }
         let! (:company_3) { FactoryBot.create(:company, name: "会社_3") }
@@ -158,28 +158,28 @@ describe CalculationService do
           expect(Rails.logger).to receive(:info).with("code=01003; message='処理を終了します。'")
         end
   
-        context "アンペアのパラメータが不正な場合" do
+        context "契約アンペア数のパラメータが不正な場合" do
           subject { CalculationService.execute({}) }
           it "エラー時のログが適切に出力されること (Bad Parameter)" do
-            bad_parameter_logs("アンペア")
+            bad_parameter_logs("契約アンペア数")
             subject
           end
     
           it "エラー時の戻り値が返ること (Bad Parameter)" do
-            expect(subject).to eq bad_parameter_response("アンペア")
+            expect(subject).to eq bad_parameter_response("契約アンペア数")
           end
         end
   
-        # 正常系：アンペアのパラメータが取りうる値の対として念のためテスト
-        context "アンペアのパラメータが取りうる値でない場合" do
+        # 正常系：契約アンペア数のパラメータが取りうる値の対として念のためテスト
+        context "契約アンペア数のパラメータが取りうる値でない場合" do
           subject { CalculationService.execute({ ampare: "11" }) }
           it "エラー時のログが適切に出力されること (Bad Parameter)" do
-            bad_parameter_logs("アンペア")
+            bad_parameter_logs("契約アンペア数")
             subject
           end
     
           it "エラー時の戻り値が返ること (Bad Parameter)" do
-            expect(subject).to eq bad_parameter_response("アンペア")
+            expect(subject).to eq bad_parameter_response("契約アンペア数")
           end
         end
 
@@ -230,10 +230,10 @@ describe CalculationService do
 
       subject { CalculationService.execute({ ampare: "10", amount: "10" }) }
   
-      context "アンペアのパラメータが取りうる値の場合 -" do
+      context "契約アンペア数のパラメータが取りうる値の場合 -" do
         ampares = ['10', '15', '20', '30', '40', '50', '60']
         ampares.each do |ampare|
-          context "アンペアが#{ampare}Aの場合" do
+          context "契約アンペア数が#{ampare}Aの場合" do
             subject { CalculationService.execute({ ampare: ampare, amount: "10" }) }
             it "正常時のログが適切に出力されること" do
               ok_logs(0)
