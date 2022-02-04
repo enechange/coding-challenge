@@ -3,14 +3,6 @@ require 'bigdecimal'
 
 describe CalculationService do
 
-  def simulation_result (provider_name, plan_name, price)
-    {
-      provider_name: provider_name,
-      plan_name: plan_name,
-      price: price
-    }
- end
-
   describe "Private methods" do
     describe ".isExistingAndInt" do
       it "paramが存在しない場合falseを返す" do
@@ -164,10 +156,6 @@ describe CalculationService do
           expect(Rails.logger).to receive(:info).with("code=01003; message='処理を終了します。'")
         end
   
-        def bad_parameter_response (item_name)
-          [{ result: 1, error: { code: "02001", message: "不正なリクエストです。項目=#{item_name}" } }, :bad_request]
-        end
-  
         context "アンペアのパラメータが不正な場合" do
           subject { CalculationService.execute({}) }
           it "エラー時のログが適切に出力されること (Bad Parameter)" do
@@ -214,10 +202,6 @@ describe CalculationService do
           expect(Rails.logger).to receive(:error).with(/code=03003; message='スタックトレース=".*'/)
           expect(Rails.logger).to receive(:info).with("code=01003; message='処理を終了します。'")
         end
-  
-        def exception_response
-          [{ result: 1, error: { code: "03001", message: "想定外のエラーが発生しました。" } }, :internal_server_error]
-        end
 
         before do
           # 内部のメソッドで例外を発生
@@ -240,10 +224,6 @@ describe CalculationService do
         expect(Rails.logger).to receive(:info).with("code=01001; message='処理を開始します。'")
         expect(Rails.logger).to receive(:info).with("code=01002; message='データ取得件数＝#{item_count}件'")
         expect(Rails.logger).to receive(:info).with("code=01003; message='処理を終了します。'")
-      end
-
-      def ok_response (simulations)
-        [{ result: 0, simulations: simulations }, :ok]
       end
 
       subject { CalculationService.execute({ ampare: "10", amount: "10" }) }
