@@ -94,6 +94,14 @@ GEM
     minitest (5.15.0)
     msgpack (1.4.4)
     mysql2 (0.5.3)
+    net-imap (0.2.3)
+      digest
+      net-protocol
+      strscan
+    net-pop (0.1.1)
+      digest
+      net-protocol
+      timeout
     net-protocol (0.1.2)
       io-wait
       timeout
@@ -165,6 +173,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
     tzinfo (2.0.4)
@@ -183,6 +192,8 @@ DEPENDENCIES
   factory_bot_rails
   listen (~> 3.3)
   mysql2 (~> 0.5)
+  net-imap
+  net-pop
   net-smtp
   puma (~> 5.0)
   rails (~> 6.1.4, >= 6.1.4.4)
