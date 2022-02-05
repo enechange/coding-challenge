@@ -1,24 +1,14 @@
-# frontend
+# README
 
-## Project setup
-```
-yarn install
-```
+## Environment
+* Node.js version  
+3.1.0
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+* Vue.js version
+2.6.11
 
-### Compiles and minifies for production
-```
-yarn build
-```
+## Usage
+* URL  
+http://ryuya-frontend.s3-website-ap-northeast-1.amazonaws.com/
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+* 上記URLにてSPAの動作をご確認いただけます。
