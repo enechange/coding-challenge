@@ -51,5 +51,6 @@ test:
 production:
   <<: *default
   database: serverside_production
-  username: serverside
-  password: <%= ENV['SERVERSIDE_DATABASE_PASSWORD'] %>
+  username: root
+  password:
+  socket: /var/lib/mysql/mysql.sock
