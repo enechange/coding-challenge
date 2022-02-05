@@ -6,17 +6,20 @@ class CalculationService
   class << self
     def execute (params)
       begin
+        # [1] 初期処理
         Rails.logger.info LogInfo.getText('PROCESS_START')
   
+        # [2] 入力チェック処理
         ampare = getAmpare(params[AMPARE[:name]], AMPARE[:japanese], AMPARE[:array])
         amount = getAmount(params[AMOUNT[:name]], AMOUNT[:japanese])
         
+        # [3] 検索処理
         basic_fees = BasicFee.search_with_ampare(ampare)
-
         simulations = getSimulations(basic_fees, amount)
   
         Rails.logger.info LogInfo.getText('PROCESS_SEARCH', [simulations.count])     
   
+        # [4] 編集返却処理 (入力チェックOK)
         result = {
           result: 0,
           simulations: simulations
@@ -24,29 +27,35 @@ class CalculationService
         return result, :ok
   
              
-      rescue CustomExceptions::BadParameter =>  e
-        Rails.logger.warn LogInfo.getText('INPUT_CHECK', [e.message])
-  
+      rescue CustomExceptions::BadParameter =>  e  
+        # [4] 編集返却処理 (入力チェックNG)
         result = { 
           result: 1,
           error: LogInfo.getHash('INPUT_CHECK', [e.message])
         }
+
+        Rails.logger.warn LogInfo.getText('INPUT_CHECK', [e.message])
+
         return result, :bad_request
-      
+
+
   
-      rescue => e
-        Rails.logger.error LogInfo.getText('EXCEPTION')
-        Rails.logger.error LogInfo.getText('EXCEPTION_MESSAGE', [e.message])
-        Rails.logger.error LogInfo.getText('EXCEPTION_TRACE', [e.backtrace.join("\n")])
-  
+      rescue => e  
+        # [4] 編集返却処理 (Exception発生)
         result = { 
           result: 1,
           error: LogInfo.getHash('EXCEPTION')
         }
+
+        Rails.logger.error LogInfo.getText('EXCEPTION')
+        Rails.logger.error LogInfo.getText('EXCEPTION_MESSAGE', [e.message])
+        Rails.logger.error LogInfo.getText('EXCEPTION_TRACE', [e.backtrace.join("\n")])
+
         return result, :internal_server_error
-  
+        
   
       ensure
+        # [5] 終了処理
         Rails.logger.info LogInfo.getText('PROCESS_END')
       end
     end
