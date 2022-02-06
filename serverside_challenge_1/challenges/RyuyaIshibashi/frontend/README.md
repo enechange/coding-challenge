@@ -4,7 +4,7 @@
 * Node.js version  
 16.13.1
 
-* Vue.js version
+* Vue.js version  
 2.6.14
 
 ## Usage
