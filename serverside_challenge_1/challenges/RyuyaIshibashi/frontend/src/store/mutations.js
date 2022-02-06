@@ -7,6 +7,5 @@ export default {
   },
   [types.UPDATE_ERROR_DIALOG](state, payload) {
     Vue.set(state.root.app, 'errorDialog', payload);
-    console.log(state.root.app.errorDialog);
   },
 };

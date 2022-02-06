@@ -19,6 +19,7 @@ export default {
       throw e;
     }
   },
+
   async systemErrorDialog(ctx, err) {
     const payload = {
       isShow: true,
@@ -30,9 +31,11 @@ export default {
     }
     ctx.dispatch('updateErrorDialog', payload);
   },
+
   async updateErrorDialog(ctx, payload) {
     ctx.commit(types.UPDATE_ERROR_DIALOG, payload);
   },
+
   async callCalculation(ctx, payload) {
     const params = [];
     params.push(`ampare=${payload.ampare}`);

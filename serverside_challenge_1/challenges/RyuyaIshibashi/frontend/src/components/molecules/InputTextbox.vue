@@ -1,6 +1,6 @@
 <template>
   <v-container class="input-textbox">
-    <v-row class="margin-label-input-component">
+    <v-row>
       <v-col>
         <v-text-field
           v-model.trim="inputText"
