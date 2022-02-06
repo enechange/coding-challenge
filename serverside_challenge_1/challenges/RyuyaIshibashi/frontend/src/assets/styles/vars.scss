@@ -1,0 +1,40 @@
+// color
+$color-red-01: #DF1F00;
+$color-red-02: #F56B62;
+$color-red-03: #FF8A80;
+$color-red-04: #FFF0F0;
+
+$color-black: #000000;
+$color-white: #FFFFFF;
+
+$color-grey-01: #333333;
+$color-grey-02: #777777;
+$color-grey-03: #999999;
+$color-grey-04: #CCCCCC;
+$color-grey-05: #EEEEEE;
+$color-grey-06: #FBFBFB;
+
+$color-error: #E21B00;
+
+// typography
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+$body-font-family: 'Noto Sans JP';
+
+:export {
+  red01: $color-red-01;
+  red02: $color-red-02;
+  red03: $color-red-03;
+  red04: $color-red-04;
+
+  black: $color-black;
+  white01: $color-white;
+  
+  grey01: $color-grey-01;
+  grey02: $color-grey-02;
+  grey03: $color-grey-03;
+  grey04: $color-grey-04;
+  grey05: $color-grey-05;
+
+  error: $color-red-01;
+
+}
