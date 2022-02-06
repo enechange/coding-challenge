@@ -11,7 +11,7 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "axios": "^0.18.0",
     "core-js": "^3.6.5",
-    "vue": "^2.6.11",
+    "vue": "2.6.14",
     "vue-router": "^3.2.0",
     "vuetify": "^2.4.0",
     "vuex": "^3.4.0"
@@ -30,7 +30,7 @@
     "sass": "~1.32.0",
     "sass-loader": "^10.0.0",
     "vue-cli-plugin-vuetify": "~2.4.5",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "2.6.14",
     "vuetify-loader": "^1.7.0"
   },
   "eslintConfig": {
