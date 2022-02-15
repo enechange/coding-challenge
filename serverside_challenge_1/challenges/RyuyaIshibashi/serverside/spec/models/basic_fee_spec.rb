@@ -12,7 +12,7 @@ RSpec.describe BasicFee, type: :model do
   end 
 
   it "契約アンペア数がなければ登録できない" do 
-    expect(FactoryBot.build(:basic_fee, ampare: nil)).to_not be_valid 
+    expect(FactoryBot.build(:basic_fee, ampere: nil)).to_not be_valid 
   end
 
   it "料金がなければ登録できない" do 
@@ -36,21 +36,21 @@ RSpec.describe BasicFee, type: :model do
   end
 
   describe "scope" do
-    describe "search_with_ampare" do
+    describe "search_with_ampere" do
       before do
-        FactoryBot.create_list(:basic_fee, 2, ampare: '10.00')
-        FactoryBot.create_list(:basic_fee, 3, ampare: '15.00')
-        FactoryBot.create_list(:basic_fee, 4, ampare: '20.00')
+        FactoryBot.create_list(:basic_fee, 2, ampere: '10.00')
+        FactoryBot.create_list(:basic_fee, 3, ampere: '15.00')
+        FactoryBot.create_list(:basic_fee, 4, ampere: '20.00')
       end
   
       it "パラメーターで指定された契約アンペア数のデータのみを返す" do 
-        expect(BasicFee.search_with_ampare('10.00').count).to eq 2
-        expect(BasicFee.search_with_ampare('15.00').count).to eq 3
-        expect(BasicFee.search_with_ampare('20.00').count).to eq 4
+        expect(BasicFee.search_with_ampere('10.00').count).to eq 2
+        expect(BasicFee.search_with_ampere('15.00').count).to eq 3
+        expect(BasicFee.search_with_ampere('20.00').count).to eq 4
       end
   
       it "該当データがなければ、カウント0件となる" do 
-        expect(BasicFee.search_with_ampare('30.00').count).to eq 0
+        expect(BasicFee.search_with_ampere('30.00').count).to eq 0
       end        
     end
   end

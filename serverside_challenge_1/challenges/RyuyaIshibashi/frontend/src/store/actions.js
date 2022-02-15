@@ -38,7 +38,7 @@ export default {
 
   async callCalculation(ctx, payload) {
     const params = [];
-    params.push(`ampare=${payload.ampare}`);
+    params.push(`ampere=${payload.ampere}`);
     params.push(`amount=${payload.amount}`);
     return ctx.dispatch('callClientGet', {
       api: API.CALCULATION,

@@ -1,6 +1,6 @@
 class CalculationService
 
-  AMPARE = { name: :ampare, japanese: '契約アンペア数', array: ['10', '15', '20', '30', '40', '50', '60'] }
+  AMPARE = { name: :ampere, japanese: '契約アンペア数', array: ['10', '15', '20', '30', '40', '50', '60'] }
   AMOUNT = { name: :amount, japanese: '使用料' }
 
   class << self
@@ -10,11 +10,11 @@ class CalculationService
         Rails.logger.info LogInfo.getText('PROCESS_START')
   
         # [2] 入力チェック処理
-        ampare = getAmpare(params[AMPARE[:name]], AMPARE[:japanese], AMPARE[:array])
+        ampere = getAmpere(params[AMPARE[:name]], AMPARE[:japanese], AMPARE[:array])
         amount = getAmount(params[AMOUNT[:name]], AMOUNT[:japanese])
         
         # [3] 検索処理
-        basic_fees = BasicFee.search_with_ampare(ampare)
+        basic_fees = BasicFee.search_with_ampere(ampere)
         simulations = getSimulations(basic_fees, amount)
   
         Rails.logger.info LogInfo.getText('PROCESS_SEARCH', [simulations.count])     
@@ -68,8 +68,8 @@ class CalculationService
         true
       end
   
-      def isValidAmpare(param, ampare_array)
-        if (!ampare_array.include?(param))
+      def isValidAmpere(param, ampere_array)
+        if (!ampere_array.include?(param))
           return false
         end
         true
@@ -79,16 +79,16 @@ class CalculationService
         raise CustomExceptions::BadParameter, item_name
       end
   
-      def getAmpare(ampare, item_name, ampare_array)
+      def getAmpere(ampere, item_name, ampere_array)
         if (
         # 契約アンペア数の存在、数値チェック
-        !isExistingAndInt(ampare) || 
+        !isExistingAndInt(ampere) || 
         # 契約アンペア数が有効な値かチェック
-        !isValidAmpare(ampare, ampare_array))
+        !isValidAmpere(ampere, ampere_array))
           raiseBadParameter(item_name)
         end
           
-        ampare = ampare.to_i
+        ampere = ampere.to_i
       end
   
       def getAmount (amount, item_name)

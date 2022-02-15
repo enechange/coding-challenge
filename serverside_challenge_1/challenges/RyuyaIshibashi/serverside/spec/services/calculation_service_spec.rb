@@ -29,15 +29,15 @@ describe CalculationService do
       end
     end
   
-    describe ".isValidAmpare" do
+    describe ".isValidAmpere" do
       let (:some_array) { ["1", "5", "10"]}
   
-      it "paramがampare_arrayに含まれる場合、trueを返す" do
-        expect(CalculationService.send(:isValidAmpare, "5", some_array)).to eq true    
+      it "paramがampere_arrayに含まれる場合、trueを返す" do
+        expect(CalculationService.send(:isValidAmpere, "5", some_array)).to eq true    
       end
   
-      it "paramがampare_arrayに含まれない場合、falseを返す" do
-        expect(CalculationService.send(:isValidAmpare, "2", some_array)).to eq false      
+      it "paramがampere_arrayに含まれない場合、falseを返す" do
+        expect(CalculationService.send(:isValidAmpere, "2", some_array)).to eq false      
       end
     end
   
@@ -49,22 +49,22 @@ describe CalculationService do
       end
     end
   
-    describe ".getAmpare" do
+    describe ".getAmpere" do
       let (:some_array) { ["1", "5", "10"]}
       it "存在、数値チェックでエラーの場合、BadParameter Exceptionを発生させる" do
         expect do
-          CalculationService.send(:getAmpare, nil, "契約アンペア数", some_array)
+          CalculationService.send(:getAmpere, nil, "契約アンペア数", some_array)
         end.to raise_error(CustomExceptions::BadParameter, "契約アンペア数")
       end
   
       it "有効な値かチェックでエラーの場合、BadParameter Exceptionを発生させる" do
         expect do
-          CalculationService.send(:getAmpare, "2", "契約アンペア数", some_array)
+          CalculationService.send(:getAmpere, "2", "契約アンペア数", some_array)
         end.to raise_error(CustomExceptions::BadParameter, "契約アンペア数")
       end
   
       it "契約アンペア数が有効な値の場合、intに変換して返却" do
-        expect(CalculationService.send(:getAmpare, "5", "契約アンペア数", some_array)).to eq 5
+        expect(CalculationService.send(:getAmpere, "5", "契約アンペア数", some_array)).to eq 5
       end
     end
   
@@ -172,7 +172,7 @@ describe CalculationService do
   
         # 正常系：契約アンペア数のパラメータが取りうる値の対として念のためテスト
         context "契約アンペア数のパラメータが取りうる値でない場合" do
-          subject { CalculationService.execute({ ampare: "11" }) }
+          subject { CalculationService.execute({ ampere: "11" }) }
           it "エラー時のログが適切に出力されること (Bad Parameter)" do
             bad_parameter_logs("契約アンペア数")
             subject
@@ -184,7 +184,7 @@ describe CalculationService do
         end
 
         context "使用料のパラメータが不正な場合" do
-          subject { CalculationService.execute({ ampare: "10" }) }
+          subject { CalculationService.execute({ ampere: "10" }) }
           it "エラー時のログが適切に出力されること (Bad Parameter)" do
             bad_parameter_logs("使用料")
             subject
@@ -207,9 +207,9 @@ describe CalculationService do
 
         before do
           # 内部のメソッドで例外を発生
-          allow(CalculationService).to receive(:getAmpare).and_raise(StandardError, "hogehoge")
+          allow(CalculationService).to receive(:getAmpere).and_raise(StandardError, "hogehoge")
         end
-        subject { CalculationService.execute({ ampare: "10", amount: "5" }) }
+        subject { CalculationService.execute({ ampere: "10", amount: "5" }) }
         it "エラー時のログが適切に出力されること (Exception)" do
           exception_logs("hogehoge")
           subject
@@ -228,13 +228,13 @@ describe CalculationService do
         expect(Rails.logger).to receive(:info).with("code=01003; message='処理を終了します。'")
       end
 
-      subject { CalculationService.execute({ ampare: "10", amount: "10" }) }
+      subject { CalculationService.execute({ ampere: "10", amount: "10" }) }
   
       context "契約アンペア数のパラメータが取りうる値の場合 -" do
-        ampares = ['10', '15', '20', '30', '40', '50', '60']
-        ampares.each do |ampare|
-          context "契約アンペア数が#{ampare}Aの場合" do
-            subject { CalculationService.execute({ ampare: ampare, amount: "10" }) }
+        amperes = ['10', '15', '20', '30', '40', '50', '60']
+        amperes.each do |ampere|
+          context "契約アンペア数が#{ampere}Aの場合" do
+            subject { CalculationService.execute({ ampere: ampere, amount: "10" }) }
             it "正常時のログが適切に出力されること" do
               ok_logs(0)
               subject

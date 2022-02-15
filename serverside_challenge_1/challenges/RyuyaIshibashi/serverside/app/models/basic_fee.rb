@@ -1,10 +1,10 @@
 class BasicFee < ApplicationRecord
   belongs_to :plan
   with_options presence: true do
-    validates :ampare
+    validates :ampere
     validates :fee
   end
-  scope :search_with_ampare, -> (ampare) { where(ampare: ampare) }
+  scope :search_with_ampere, -> (ampere) { where(ampere: ampere) }
 
   def getCompanyName
     self.plan.company.name

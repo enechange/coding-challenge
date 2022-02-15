@@ -19,7 +19,7 @@ RSpec.describe Plan, type: :model do
   it "1つのプランに複数の基本料金が登録できる" do
     plan = FactoryBot.create(:plan);
     3.times do
-      expect(plan.basic_fees.create(ampare: '9.99', fee: '9.99')).to be_valid
+      expect(plan.basic_fees.create(ampere: '9.99', fee: '9.99')).to be_valid
     end
   end
 

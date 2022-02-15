@@ -12,7 +12,7 @@
         </v-col>
       </v-row>
     </div>
-    <div class="ampare mt-8">
+    <div class="ampere mt-8">
       <v-row>
         <v-col class="title">
           ご契約のアンペア数を入力してください（単位：A）
@@ -20,8 +20,8 @@
       </v-row>
       <v-row>
         <InputTextbox
-          :params="ampareParams"
-          ref="formAmpare"
+          :params="ampereParams"
+          ref="formAmpere"
         />
       </v-row>
     </div>
@@ -102,7 +102,7 @@ export default Vue.extend({
     InputTextbox,
   },
   data: () => ({
-    ampareParams: {
+    ampereParams: {
       placeholder: 'ご契約のアンペア数',
       maxLength: '2',
       suffix: 'A',
@@ -121,11 +121,11 @@ export default Vue.extend({
     async getSimulations() {
       this.simulations.splice(0, this.simulations.length);
 
-      const ampare = this.$refs.formAmpare.inputText || '';
+      const ampere = this.$refs.formAmpere.inputText || '';
       const amount = this.$refs.formAmount.inputText || '';
 
       const result = await this.$store.dispatch('callCalculation', {
-        ampare,
+        ampere,
         amount,
       });
 

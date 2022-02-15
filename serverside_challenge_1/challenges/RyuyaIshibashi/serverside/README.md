@@ -17,7 +17,7 @@ Production: 5.6.50
 
 ## Usage
 * URL  
-`https://ryuya-serverside.herokuapp.com/api/calculation?ampare=#{契約アンペア数}&amount=#{使用料}`
+`https://ryuya-serverside.herokuapp.com/api/calculation?ampere=#{契約アンペア数}&amount=#{使用料}`
 
 * 上記URLへのGETリクエストで動作をご確認いただけます。 
 

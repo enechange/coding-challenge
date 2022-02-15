@@ -14,11 +14,11 @@ ActiveRecord::Schema.define(version: 2022_01_23_070616) do
 
   create_table "basic_fees", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "plan_id", null: false
-    t.decimal "ampare", precision: 12, scale: 2, null: false
+    t.decimal "ampere", precision: 12, scale: 2, null: false
     t.decimal "fee", precision: 12, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ampare"], name: "index_basic_fees_on_ampare"
+    t.index ["ampere"], name: "index_basic_fees_on_ampere"
     t.index ["plan_id"], name: "index_basic_fees_on_plan_id"
   end
 
