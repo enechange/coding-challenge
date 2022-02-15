@@ -4,7 +4,6 @@ class BasicFee < ApplicationRecord
     validates :ampere
     validates :fee
   end
-  scope :search_with_ampere, -> (ampere) { where(ampere: ampere) }
 
   def getCompanyName
     self.plan.company.name

@@ -34,24 +34,4 @@ RSpec.describe BasicFee, type: :model do
       expect(basic_fee.getPlanName).to eq plan.name
     end
   end
-
-  describe "scope" do
-    describe "search_with_ampere" do
-      before do
-        FactoryBot.create_list(:basic_fee, 2, ampere: '10.00')
-        FactoryBot.create_list(:basic_fee, 3, ampere: '15.00')
-        FactoryBot.create_list(:basic_fee, 4, ampere: '20.00')
-      end
-  
-      it "パラメーターで指定された契約アンペア数のデータのみを返す" do 
-        expect(BasicFee.search_with_ampere('10.00').count).to eq 2
-        expect(BasicFee.search_with_ampere('15.00').count).to eq 3
-        expect(BasicFee.search_with_ampere('20.00').count).to eq 4
-      end
-  
-      it "該当データがなければ、カウント0件となる" do 
-        expect(BasicFee.search_with_ampere('30.00').count).to eq 0
-      end        
-    end
-  end
 end

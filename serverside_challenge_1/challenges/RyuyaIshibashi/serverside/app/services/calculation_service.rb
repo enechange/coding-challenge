@@ -14,7 +14,7 @@ class CalculationService
         amount = getAmount(params[AMOUNT[:name]], AMOUNT[:japanese])
         
         # [3] 検索処理
-        basic_fees = BasicFee.search_with_ampere(ampere)
+        basic_fees = BasicFee.where(ampere: ampere)
         simulations = getSimulations(basic_fees, amount)
   
         Rails.logger.info LogInfo.getText('PROCESS_SEARCH', [simulations.count])     
