@@ -27,11 +27,11 @@ RSpec.describe BasicFee, type: :model do
     end
   end
 
-  describe "#company_name" do
+  describe "#plan_name" do
     it "紐づくプラン名が取得できること" do
       basic_fee = FactoryBot.create(:basic_fee)
       plan = FactoryBot.create(:plan)
-      expect(basic_fee.getPlanName).to eq plan.name
+      expect(basic_fee.plan_name).to eq plan.name
     end
   end
 end

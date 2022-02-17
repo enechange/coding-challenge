@@ -9,7 +9,7 @@ class BasicFee < ApplicationRecord
     self.plan.company.name
   end
 
-  def getPlanName
+  def plan_name
     self.plan.name
   end
 end

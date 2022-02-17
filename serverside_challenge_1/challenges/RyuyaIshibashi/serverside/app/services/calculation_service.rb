@@ -110,7 +110,7 @@ class CalculationService
       
           simulation_result = {
             provider_name: basic_fee.company_name,
-            plan_name: basic_fee.getPlanName,
+            plan_name: basic_fee.plan_name,
             price: price
           }
   
