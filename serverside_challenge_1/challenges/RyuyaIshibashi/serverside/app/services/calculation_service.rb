@@ -61,11 +61,8 @@ class CalculationService
     end
   
     private
-      def isExistingAndInt(param)
-        if (!param || !param.match(/\A(0|[1-9][0-9]*)\z/))
-          return false
-        end
-        true
+      def exist_and_int?(param)
+        !!(param && param.match(/\A(0|[1-9][0-9]*)\z/))
       end
   
       def isValidAmpere(param, ampere_array)
@@ -82,7 +79,7 @@ class CalculationService
       def getAmpere(ampere, item_name, ampere_array)
         if (
         # 契約アンペア数の存在、数値チェック
-        !isExistingAndInt(ampere) || 
+        !exist_and_int?(ampere) || 
         # 契約アンペア数が有効な値かチェック
         !isValidAmpere(ampere, ampere_array))
           raiseBadParameter(item_name)
@@ -93,7 +90,7 @@ class CalculationService
   
       def getAmount (amount, item_name)
         # 使用料の存在、数値チェック
-        if (!isExistingAndInt(amount))
+        if (!exist_and_int?(amount))
           raiseBadParameter(item_name)
         end
   

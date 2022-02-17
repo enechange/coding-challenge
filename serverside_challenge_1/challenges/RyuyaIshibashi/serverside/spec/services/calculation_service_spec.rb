@@ -4,28 +4,28 @@ require 'bigdecimal'
 describe CalculationService do
 
   describe "Private methods" do
-    describe ".isExistingAndInt" do
+    describe ".exist_and_int?" do
       it "paramが存在しない場合falseを返す" do
-        expect(CalculationService.send(:isExistingAndInt, nil)).to eq false
+        expect(CalculationService.send(:exist_and_int?, nil)).to eq false
       end        
   
       it "paramが\"0\"以上の整数の場合trueを返す" do
         int_ary = [*(0..999)]
         int_ary.each do |int|
-          expect(CalculationService.send(:isExistingAndInt, int.to_s)).to eq true
+          expect(CalculationService.send(:exist_and_int?, int.to_s)).to eq true
         end
       end
   
       it "paramが小数の場合falseを返す" do
-        expect(CalculationService.send(:isExistingAndInt, "1.1")).to eq false
+        expect(CalculationService.send(:exist_and_int?, "1.1")).to eq false
       end
   
       it "paramが空の場合falseを返す" do
-        expect(CalculationService.send(:isExistingAndInt, "")).to eq false
+        expect(CalculationService.send(:exist_and_int?, "")).to eq false
       end
   
       it "paramが文字列の場合falseを返す" do
-        expect(CalculationService.send(:isExistingAndInt, "a")).to eq false
+        expect(CalculationService.send(:exist_and_int?, "a")).to eq false
       end
     end
   
