@@ -109,7 +109,7 @@ class CalculationService
           price = calculate(basic_fee.fee, unit_price, amount)
       
           simulation_result = {
-            provider_name: basic_fee.getCompanyName,
+            provider_name: basic_fee.company_name,
             plan_name: basic_fee.getPlanName,
             price: price
           }

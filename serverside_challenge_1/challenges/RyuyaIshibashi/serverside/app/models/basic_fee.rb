@@ -5,7 +5,7 @@ class BasicFee < ApplicationRecord
     validates :fee
   end
 
-  def getCompanyName
+  def company_name
     self.plan.company.name
   end
 

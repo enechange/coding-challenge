@@ -19,15 +19,15 @@ RSpec.describe BasicFee, type: :model do
     expect(FactoryBot.build(:basic_fee, fee: nil)).to_not be_valid 
   end
 
-  describe "#getCompanyName" do
+  describe "#company_name" do
     it "紐づく会社名が取得できること" do
       basic_fee = FactoryBot.create(:basic_fee)
       company = FactoryBot.create(:company)
-      expect(basic_fee.getCompanyName).to eq company.name
+      expect(basic_fee.company_name).to eq company.name
     end
   end
 
-  describe "#getCompanyName" do
+  describe "#company_name" do
     it "紐づくプラン名が取得できること" do
       basic_fee = FactoryBot.create(:basic_fee)
       plan = FactoryBot.create(:plan)
