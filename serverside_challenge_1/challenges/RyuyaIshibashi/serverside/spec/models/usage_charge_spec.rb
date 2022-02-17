@@ -23,7 +23,7 @@ RSpec.describe UsageCharge, type: :model do
     expect(FactoryBot.build(:usage_charge, unit_price: nil)).to_not be_valid 
   end
 
-  describe ".getUnitPrice" do
+  describe ".unit_price" do
     let (:plan_id) { UsageCharge.first.plan_id }
     context "従量料金レコードの使用料下限、使用料上限どちらも設定がある場合" do
       before do
@@ -31,22 +31,22 @@ RSpec.describe UsageCharge, type: :model do
       end
 
       it "該当するプランがない場合、対象外" do
-        expect(UsageCharge.getUnitPrice(plan_id + 1, 10.99)).to eq nil
+        expect(UsageCharge.unit_price(plan_id + 1, 10.99)).to eq nil
       end
       it "使用料がfromより小さい場合、対象外" do
-        expect(UsageCharge.getUnitPrice(plan_id, 10.98)).to eq nil
+        expect(UsageCharge.unit_price(plan_id, 10.98)).to eq nil
       end
       it "使用料がfromと等しい場合、対象外" do
-        expect(UsageCharge.getUnitPrice(plan_id, 10.99)).to eq nil
+        expect(UsageCharge.unit_price(plan_id, 10.99)).to eq nil
       end
       it "使用料がfrom-toの間にある場合、対象" do
-        expect(UsageCharge.getUnitPrice(plan_id, 15.99)).to eq 100.99
+        expect(UsageCharge.unit_price(plan_id, 15.99)).to eq 100.99
       end
       it "使用料がtoと等しい場合、対象" do
-        expect(UsageCharge.getUnitPrice(plan_id, 20.99)).to eq 100.99
+        expect(UsageCharge.unit_price(plan_id, 20.99)).to eq 100.99
       end
       it "使用料がtoより大きい場合、対象外" do
-        expect(UsageCharge.getUnitPrice(plan_id, 30.00)).to eq nil
+        expect(UsageCharge.unit_price(plan_id, 30.00)).to eq nil
       end
     end
 
@@ -56,16 +56,16 @@ RSpec.describe UsageCharge, type: :model do
       end
 
       it "該当するプランがない場合、対象外" do
-        expect(UsageCharge.getUnitPrice(plan_id + 1, 10.99)).to eq nil
+        expect(UsageCharge.unit_price(plan_id + 1, 10.99)).to eq nil
       end
       it "使用料がfromより小さい場合、対象外" do
-        expect(UsageCharge.getUnitPrice(plan_id, 10.98)).to eq nil
+        expect(UsageCharge.unit_price(plan_id, 10.98)).to eq nil
       end
       it "使用料がfromと等しい場合、対象外" do
-        expect(UsageCharge.getUnitPrice(plan_id, 10.99)).to eq nil
+        expect(UsageCharge.unit_price(plan_id, 10.99)).to eq nil
       end
       it "使用料がfromより大きい場合、対象" do
-        expect(UsageCharge.getUnitPrice(plan_id, 100.99)).to eq 100.99
+        expect(UsageCharge.unit_price(plan_id, 100.99)).to eq 100.99
       end
     end
 
@@ -75,7 +75,7 @@ RSpec.describe UsageCharge, type: :model do
         FactoryBot.create(:usage_charge_itself, plan_id: plan_id, from: "15.99", to: nil, unit_price: "200.99")
       end
       it "複数件マッチしてもアンマッチと同じ扱いとする" do
-        expect(UsageCharge.getUnitPrice(1, 17.99)).to eq nil
+        expect(UsageCharge.unit_price(1, 17.99)).to eq nil
       end
     end
   end

@@ -6,7 +6,7 @@ class UsageCharge < ApplicationRecord
   end
 
   class << self
-    def getUnitPrice (plan_id, amount)
+    def unit_price (plan_id, amount)
       # 使用料が0の場合は0を返す
       return 0 if amount == 0
 

@@ -103,7 +103,7 @@ class CalculationService
       def getSimulations (basic_fees, amount)
         simulations = []
         basic_fees.each do |basic_fee|
-          unit_price = UsageCharge.getUnitPrice(basic_fee.plan_id, amount)
+          unit_price = UsageCharge.unit_price(basic_fee.plan_id, amount)
           next if unit_price.nil?
           
           price = calculate(basic_fee.fee, unit_price, amount)

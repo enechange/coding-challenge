@@ -117,7 +117,7 @@ describe CalculationService do
 
         it "使用料が0より大きい場合、正しいシミュレーション結果の配列を返す" do
           unit_prices = [BigDecimal("98.76"), BigDecimal("65.43"), BigDecimal("21.09")]
-          allow(UsageCharge).to receive(:getUnitPrice).and_return(*unit_prices)
+          allow(UsageCharge).to receive(:unit_price).and_return(*unit_prices)
           
           simulation_results = CalculationService.send(:getSimulations, basic_fees, 3)
 
@@ -129,7 +129,7 @@ describe CalculationService do
         end
         it "（通常想定されないが）該当の従量料金レコードがないものはシミュレーション結果の配列から除外する" do
           unit_prices = [BigDecimal("98.76"), nil, BigDecimal("21.09")]
-          allow(UsageCharge).to receive(:getUnitPrice).and_return(*unit_prices)
+          allow(UsageCharge).to receive(:unit_price).and_return(*unit_prices)
           
           simulation_results = CalculationService.send(:getSimulations, basic_fees, 3)
 
