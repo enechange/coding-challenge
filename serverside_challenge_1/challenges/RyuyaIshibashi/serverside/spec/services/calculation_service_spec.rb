@@ -29,15 +29,15 @@ describe CalculationService do
       end
     end
   
-    describe ".isValidAmpere" do
+    describe ".valid_ampere?" do
       let (:some_array) { ["1", "5", "10"]}
   
       it "paramがampere_arrayに含まれる場合、trueを返す" do
-        expect(CalculationService.send(:isValidAmpere, "5", some_array)).to eq true    
+        expect(CalculationService.send(:valid_ampere?, "5", some_array)).to eq true    
       end
   
       it "paramがampere_arrayに含まれない場合、falseを返す" do
-        expect(CalculationService.send(:isValidAmpere, "2", some_array)).to eq false      
+        expect(CalculationService.send(:valid_ampere?, "2", some_array)).to eq false      
       end
     end
   
