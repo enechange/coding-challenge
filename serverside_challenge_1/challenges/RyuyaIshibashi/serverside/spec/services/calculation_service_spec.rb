@@ -41,10 +41,10 @@ describe CalculationService do
       end
     end
   
-    describe ".raiseBadParameter" do
+    describe ".raise_bad_parameter" do
       it "BadParameter Exceptionを発生させる" do
         expect do
-          CalculationService.send(:raiseBadParameter, "hogehoge")
+          CalculationService.send(:raise_bad_parameter, "hogehoge")
         end.to raise_error(CustomExceptions::BadParameter, "hogehoge")
       end
     end

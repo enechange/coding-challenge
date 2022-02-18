@@ -69,7 +69,7 @@ class CalculationService
         ampere_array.include?(param)
       end
   
-      def raiseBadParameter (item_name)
+      def raise_bad_parameter (item_name)
         raise CustomExceptions::BadParameter, item_name
       end
   
@@ -79,7 +79,7 @@ class CalculationService
         !exist_and_int?(ampere) || 
         # 契約アンペア数が有効な値かチェック
         !valid_ampere?(ampere, ampere_array))
-          raiseBadParameter(item_name)
+          raise_bad_parameter(item_name)
         end
           
         ampere = ampere.to_i
@@ -88,7 +88,7 @@ class CalculationService
       def getAmount (amount, item_name)
         # 使用料の存在、数値チェック
         if (!exist_and_int?(amount))
-          raiseBadParameter(item_name)
+          raise_bad_parameter(item_name)
         end
   
         amount = amount.to_i
