@@ -43,13 +43,13 @@ class LogInfo
 
   class << self
     def text (msg_id, args = [])
-      "code=#{code(msg_id)}; message='#{getMessage(msg_id, args)}'"
+      "code=#{code(msg_id)}; message='#{message(msg_id, args)}'"
     end
   
     def hash (msg_id, args = [])
       {
         code: code(msg_id),
-        message: getMessage(msg_id, args)
+        message: message(msg_id, args)
       }
     end
 
@@ -58,7 +58,7 @@ class LogInfo
         self.const_get(msg_id)[:code]
       end
     
-      def getMessage(msg_id, args = [])
+      def message(msg_id, args = [])
         message = self.const_get(msg_id)[:message]
         args.each_with_index do |value, index|
           message = message.sub("%{#{ ( index + 1 ).to_s }}", value.to_s)
