@@ -1,6 +1,6 @@
 module CalculationHelper
   def ok_response (simulations)
-    [{ status: 0, simulations: simulations }, :ok]
+    [{ simulations: simulations }, :ok]
   end
 
   def ok_body (simulations)
@@ -8,7 +8,7 @@ module CalculationHelper
   end
 
   def bad_parameter_response (item_name)
-    [{ status: 1, error: { code: "02001", message: "不正なリクエストです。項目=#{item_name}" } }, :bad_request]
+    [{ error: { code: "02001", message: "不正なリクエストです。項目=#{item_name}" } }, :bad_request]
   end
 
   def bad_parameter_body (item_name)
@@ -16,7 +16,7 @@ module CalculationHelper
   end
 
   def exception_response
-    [{ status: 1, error: { code: "03001", message: "想定外のエラーが発生しました。" } }, :internal_server_error]
+    [{ error: { code: "03001", message: "想定外のエラーが発生しました。" } }, :internal_server_error]
   end
 
   def exception_body

@@ -20,36 +20,25 @@ class CalculationService
         Rails.logger.info LogInfo.text('PROCESS_SEARCH', [simulations.count])     
   
         # [4] 編集返却処理 (入力チェックOK)
-        result = {
-          status: 0,
-          simulations: simulations
-        }
+        result = { simulations: simulations }
         return result, :ok
   
              
       rescue CustomExceptions::BadParameter =>  e  
         # [4] 編集返却処理 (入力チェックNG)
-        result = { 
-          status: 1,
-          error: LogInfo.hash('INPUT_CHECK', [e.message])
-        }
-
         Rails.logger.warn LogInfo.text('INPUT_CHECK', [e.message])
 
+        result = { error: LogInfo.hash('INPUT_CHECK', [e.message]) }
         return result, :bad_request
 
   
       rescue => e  
         # [4] 編集返却処理 (Exception発生)
-        result = { 
-          status: 1,
-          error: LogInfo.hash('EXCEPTION')
-        }
-
         Rails.logger.error LogInfo.text('EXCEPTION')
         Rails.logger.error LogInfo.text('EXCEPTION_MESSAGE', [e.message])
         Rails.logger.error LogInfo.text('EXCEPTION_TRACE', [e.backtrace.join("\n")])
 
+        result = { error: LogInfo.hash('EXCEPTION') }
         return result, :internal_server_error
         
   
