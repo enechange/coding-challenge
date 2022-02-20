@@ -11,7 +11,7 @@ class CalculationService
   
         # [2] 入力チェック処理
         ampere = ampere(params[AMPARE[:name]], AMPARE[:japanese], AMPARE[:array])
-        amount = getAmount(params[AMOUNT[:name]], AMOUNT[:japanese])
+        amount = amount(params[AMOUNT[:name]], AMOUNT[:japanese])
         
         # [3] 検索処理
         basic_fees = BasicFee.where(ampere: ampere)
@@ -86,7 +86,7 @@ class CalculationService
         ampere = ampere.to_i
       end
   
-      def getAmount (amount, item_name)
+      def amount (amount, item_name)
         # 使用料の存在、数値チェック
         if (!exist_and_int?(amount))
           raise_bad_parameter(item_name)
