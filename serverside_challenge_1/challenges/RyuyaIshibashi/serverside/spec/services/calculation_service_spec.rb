@@ -49,22 +49,22 @@ describe CalculationService do
       end
     end
   
-    describe ".getAmpere" do
+    describe ".ampere" do
       let (:some_array) { ["1", "5", "10"]}
       it "存在、数値チェックでエラーの場合、BadParameter Exceptionを発生させる" do
         expect do
-          CalculationService.send(:getAmpere, nil, "契約アンペア数", some_array)
+          CalculationService.send(:ampere, nil, "契約アンペア数", some_array)
         end.to raise_error(CustomExceptions::BadParameter, "契約アンペア数")
       end
   
       it "有効な値かチェックでエラーの場合、BadParameter Exceptionを発生させる" do
         expect do
-          CalculationService.send(:getAmpere, "2", "契約アンペア数", some_array)
+          CalculationService.send(:ampere, "2", "契約アンペア数", some_array)
         end.to raise_error(CustomExceptions::BadParameter, "契約アンペア数")
       end
   
       it "契約アンペア数が有効な値の場合、intに変換して返却" do
-        expect(CalculationService.send(:getAmpere, "5", "契約アンペア数", some_array)).to eq 5
+        expect(CalculationService.send(:ampere, "5", "契約アンペア数", some_array)).to eq 5
       end
     end
   
@@ -207,7 +207,7 @@ describe CalculationService do
 
         before do
           # 内部のメソッドで例外を発生
-          allow(CalculationService).to receive(:getAmpere).and_raise(StandardError, "hogehoge")
+          allow(CalculationService).to receive(:ampere).and_raise(StandardError, "hogehoge")
         end
         subject { CalculationService.execute({ ampere: "10", amount: "5" }) }
         it "エラー時のログが適切に出力されること (Exception)" do
