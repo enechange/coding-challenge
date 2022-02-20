@@ -46,7 +46,7 @@ class LogInfo
       "code=#{getCode(msg_id)}; message='#{getMessage(msg_id, args)}'"
     end
   
-    def getHash(msg_id, args = [])
+    def hash (msg_id, args = [])
       {
         code: getCode(msg_id),
         message: getMessage(msg_id, args)

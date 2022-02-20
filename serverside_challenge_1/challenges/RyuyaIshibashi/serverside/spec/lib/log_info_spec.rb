@@ -21,7 +21,7 @@ describe LogInfo do
     end
 
     it "ハッシュが正しく返却されること" do
-      expect(LogInfo.getHash('INPUT_CHECK', ['契約アンペア数'])).to eq ({ code: '02001', message: "不正なリクエストです。項目=契約アンペア数" })
+      expect(LogInfo.hash('INPUT_CHECK', ['契約アンペア数'])).to eq ({ code: '02001', message: "不正なリクエストです。項目=契約アンペア数" })
     end
   end
 
@@ -31,7 +31,7 @@ describe LogInfo do
     end
 
     it "ハッシュが正しく返却されること" do
-      expect(LogInfo.getHash('EXCEPTION')).to eq ({ code: '03001', message: "想定外のエラーが発生しました。" })
+      expect(LogInfo.hash('EXCEPTION')).to eq ({ code: '03001', message: "想定外のエラーが発生しました。" })
     end
   end
 

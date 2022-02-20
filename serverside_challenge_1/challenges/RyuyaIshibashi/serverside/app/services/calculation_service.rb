@@ -31,7 +31,7 @@ class CalculationService
         # [4] 編集返却処理 (入力チェックNG)
         result = { 
           result: 1,
-          error: LogInfo.getHash('INPUT_CHECK', [e.message])
+          error: LogInfo.hash('INPUT_CHECK', [e.message])
         }
 
         Rails.logger.warn LogInfo.text('INPUT_CHECK', [e.message])
@@ -43,7 +43,7 @@ class CalculationService
         # [4] 編集返却処理 (Exception発生)
         result = { 
           result: 1,
-          error: LogInfo.getHash('EXCEPTION')
+          error: LogInfo.hash('EXCEPTION')
         }
 
         Rails.logger.error LogInfo.text('EXCEPTION')
