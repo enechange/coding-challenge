@@ -43,18 +43,18 @@ class LogInfo
 
   class << self
     def text (msg_id, args = [])
-      "code=#{getCode(msg_id)}; message='#{getMessage(msg_id, args)}'"
+      "code=#{code(msg_id)}; message='#{getMessage(msg_id, args)}'"
     end
   
     def hash (msg_id, args = [])
       {
-        code: getCode(msg_id),
+        code: code(msg_id),
         message: getMessage(msg_id, args)
       }
     end
 
     private
-      def getCode(msg_id)
+      def code(msg_id)
         self.const_get(msg_id)[:code]
       end
     
