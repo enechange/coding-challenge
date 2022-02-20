@@ -21,7 +21,7 @@ class CalculationService
   
         # [4] 編集返却処理 (入力チェックOK)
         result = {
-          result: 0,
+          status: 0,
           simulations: simulations
         }
         return result, :ok
@@ -30,7 +30,7 @@ class CalculationService
       rescue CustomExceptions::BadParameter =>  e  
         # [4] 編集返却処理 (入力チェックNG)
         result = { 
-          result: 1,
+          status: 1,
           error: LogInfo.hash('INPUT_CHECK', [e.message])
         }
 
@@ -42,7 +42,7 @@ class CalculationService
       rescue => e  
         # [4] 編集返却処理 (Exception発生)
         result = { 
-          result: 1,
+          status: 1,
           error: LogInfo.hash('EXCEPTION')
         }
 
