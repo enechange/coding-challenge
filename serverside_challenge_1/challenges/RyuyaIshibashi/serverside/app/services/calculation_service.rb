@@ -10,9 +10,13 @@ class CalculationService
         Rails.logger.info LogInfo.text('PROCESS_START')
   
         # [2] 入力チェック処理
-        ampere = ampere(params[AMPERE[:name]], AMPERE[:japanese], AMPERE[:array])
+        ampere = params[AMPERE[:name]]
+        raise_bad_parameter(AMPERE[:japanese]) unless valid_ampere?(ampere, AMPERE[:array])
+
         amount = amount(params[AMOUNT[:name]], AMOUNT[:japanese])
-        
+
+        ampere = ampere.to_i
+
         # [3] 検索処理
         basic_fees = BasicFee.where(ampere: ampere)
         simulations = simulate(basic_fees, amount)
@@ -61,17 +65,8 @@ class CalculationService
         raise CustomExceptions::BadParameter, item_name
       end
   
-      def ampere (ampere, item_name, ampere_array)
-        if (
-        # 契約アンペア数の存在、数値チェック
-        !exist_and_int?(ampere) ||
-        # 契約アンペア数が有効な値かチェック
-        !included_in_array?(ampere, ampere_array)
-        )
-          raise_bad_parameter(item_name)
-        end
-          
-        ampere = ampere.to_i
+      def valid_ampere? (ampere, ampere_array)
+        return exist_and_int?(ampere) && included_in_array?(ampere, ampere_array)
       end
   
       def amount (amount, item_name)

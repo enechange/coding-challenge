@@ -127,7 +127,7 @@ RSpec.describe "Calculations", type: :request do
       context "Internal Server Error" do
         before do
           # 内部のメソッドで例外を発生
-          allow(CalculationService).to receive(:ampere).and_raise(StandardError, "hogehoge")  
+          allow(CalculationService).to receive(:valid_ampere?).and_raise(StandardError, "hogehoge")  
           get '/api/calculation?ampere=10&amount=10'
         end
 
