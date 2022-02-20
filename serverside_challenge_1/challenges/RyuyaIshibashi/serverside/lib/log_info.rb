@@ -42,7 +42,7 @@ class LogInfo
   }
 
   class << self
-    def getText(msg_id, args = [])
+    def text (msg_id, args = [])
       "code=#{getCode(msg_id)}; message='#{getMessage(msg_id, args)}'"
     end
   

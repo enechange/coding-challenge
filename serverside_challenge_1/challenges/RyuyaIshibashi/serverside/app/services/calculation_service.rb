@@ -7,7 +7,7 @@ class CalculationService
     def execute (params)
       begin
         # [1] 初期処理
-        Rails.logger.info LogInfo.getText('PROCESS_START')
+        Rails.logger.info LogInfo.text('PROCESS_START')
   
         # [2] 入力チェック処理
         ampere = ampere(params[AMPERE[:name]], AMPERE[:japanese], AMPERE[:array])
@@ -17,7 +17,7 @@ class CalculationService
         basic_fees = BasicFee.where(ampere: ampere)
         simulations = simulate(basic_fees, amount)
   
-        Rails.logger.info LogInfo.getText('PROCESS_SEARCH', [simulations.count])     
+        Rails.logger.info LogInfo.text('PROCESS_SEARCH', [simulations.count])     
   
         # [4] 編集返却処理 (入力チェックOK)
         result = {
@@ -34,7 +34,7 @@ class CalculationService
           error: LogInfo.getHash('INPUT_CHECK', [e.message])
         }
 
-        Rails.logger.warn LogInfo.getText('INPUT_CHECK', [e.message])
+        Rails.logger.warn LogInfo.text('INPUT_CHECK', [e.message])
 
         return result, :bad_request
 
@@ -46,16 +46,16 @@ class CalculationService
           error: LogInfo.getHash('EXCEPTION')
         }
 
-        Rails.logger.error LogInfo.getText('EXCEPTION')
-        Rails.logger.error LogInfo.getText('EXCEPTION_MESSAGE', [e.message])
-        Rails.logger.error LogInfo.getText('EXCEPTION_TRACE', [e.backtrace.join("\n")])
+        Rails.logger.error LogInfo.text('EXCEPTION')
+        Rails.logger.error LogInfo.text('EXCEPTION_MESSAGE', [e.message])
+        Rails.logger.error LogInfo.text('EXCEPTION_TRACE', [e.backtrace.join("\n")])
 
         return result, :internal_server_error
         
   
       ensure
         # [5] 終了処理
-        Rails.logger.info LogInfo.getText('PROCESS_END')
+        Rails.logger.info LogInfo.text('PROCESS_END')
       end
     end
   
