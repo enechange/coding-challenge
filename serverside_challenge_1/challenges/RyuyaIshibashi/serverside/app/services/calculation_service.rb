@@ -12,10 +12,11 @@ class CalculationService
         # [2] 入力チェック処理
         ampere = params[AMPERE[:name]]
         raise_bad_parameter(AMPERE[:japanese]) unless valid_ampere?(ampere, AMPERE[:array])
-
-        amount = amount(params[AMOUNT[:name]], AMOUNT[:japanese])
-
         ampere = ampere.to_i
+
+        amount = params[AMOUNT[:name]]
+        raise_bad_parameter(AMOUNT[:japanese]) unless valid_amount?(amount)
+        amount = amount.to_i
 
         # [3] 検索処理
         basic_fees = BasicFee.where(ampere: ampere)
@@ -66,16 +67,11 @@ class CalculationService
       end
   
       def valid_ampere? (ampere, ampere_array)
-        return exist_and_int?(ampere) && included_in_array?(ampere, ampere_array)
+        exist_and_int?(ampere) && included_in_array?(ampere, ampere_array)
       end
   
-      def amount (amount, item_name)
-        # 使用料の存在、数値チェック
-        if (!exist_and_int?(amount))
-          raise_bad_parameter(item_name)
-        end
-  
-        amount = amount.to_i
+      def valid_amount? (amount)
+        exist_and_int?(amount)
       end
         
       def simulate (basic_fees, amount)

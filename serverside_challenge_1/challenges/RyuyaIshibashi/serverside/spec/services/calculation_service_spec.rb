@@ -64,15 +64,13 @@ describe CalculationService do
       end
     end
   
-    describe ".amount" do
-      it "存在、数値チェックでエラーの場合、BadParameter Exceptionを発生させる" do
-        expect do
-          CalculationService.send(:amount, "a", "使用料")
-        end.to raise_error(CustomExceptions::BadParameter, "使用料")
+    describe ".valid_amount?" do
+      it "存在、数値チェックでエラーの場合、falseを返却する" do
+        expect(CalculationService.send(:valid_amount?, "a")).to eq false
       end
   
       it "使用料が有効な値の場合、intに変換して返却" do
-        expect(CalculationService.send(:amount, "3", "契約アンペア数")).to eq 3
+        expect(CalculationService.send(:valid_amount?, "3")).to eq true
       end
     end
 
