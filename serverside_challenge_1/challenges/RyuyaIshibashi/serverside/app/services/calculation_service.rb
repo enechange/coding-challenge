@@ -1,6 +1,6 @@
 class CalculationService
 
-  AMPARE = { name: :ampere, japanese: '契約アンペア数', array: ['10', '15', '20', '30', '40', '50', '60'] }
+  AMPERE = { name: :ampere, japanese: '契約アンペア数', array: ['10', '15', '20', '30', '40', '50', '60'] }
   AMOUNT = { name: :amount, japanese: '使用料' }
 
   class << self
@@ -10,7 +10,7 @@ class CalculationService
         Rails.logger.info LogInfo.getText('PROCESS_START')
   
         # [2] 入力チェック処理
-        ampere = ampere(params[AMPARE[:name]], AMPARE[:japanese], AMPARE[:array])
+        ampere = ampere(params[AMPERE[:name]], AMPERE[:japanese], AMPERE[:array])
         amount = amount(params[AMOUNT[:name]], AMOUNT[:japanese])
         
         # [3] 検索処理
@@ -37,7 +37,6 @@ class CalculationService
         Rails.logger.warn LogInfo.getText('INPUT_CHECK', [e.message])
 
         return result, :bad_request
-
 
   
       rescue => e  
