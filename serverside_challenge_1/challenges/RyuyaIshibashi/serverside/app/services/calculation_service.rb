@@ -15,7 +15,7 @@ class CalculationService
         
         # [3] 検索処理
         basic_fees = BasicFee.where(ampere: ampere)
-        simulations = getSimulations(basic_fees, amount)
+        simulations = simulate(basic_fees, amount)
   
         Rails.logger.info LogInfo.getText('PROCESS_SEARCH', [simulations.count])     
   
@@ -94,7 +94,7 @@ class CalculationService
         amount = amount.to_i
       end
         
-      def getSimulations (basic_fees, amount)
+      def simulate (basic_fees, amount)
         simulations = []
         basic_fees.each do |basic_fee|
           unit_price = UsageCharge.unit_price(basic_fee.plan_id, amount)

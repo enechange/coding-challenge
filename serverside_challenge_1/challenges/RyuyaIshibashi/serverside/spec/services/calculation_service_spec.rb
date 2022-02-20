@@ -80,11 +80,11 @@ describe CalculationService do
       end
     end
 
-    describe ".getSimulations" do
+    describe ".simulate" do
 
       context "契約アンペア数に該当する基本料金が0件の場合" do
         it "空の配列を返す" do
-          expect(CalculationService.send(:getSimulations, BasicFee.none, 10)).to eq []          
+          expect(CalculationService.send(:simulate, BasicFee.none, 10)).to eq []          
         end
       end
 
@@ -106,7 +106,7 @@ describe CalculationService do
         let (:basic_fees) { BasicFee.all }
 
         it "使用料が0の場合、料金は基本料金としてシミュレーション結果の配列を返す" do
-          simulation_results = CalculationService.send(:getSimulations, basic_fees, 0)
+          simulation_results = CalculationService.send(:simulate, basic_fees, 0)
 
           expect(simulation_results).to eq [
             simulation_result("会社_1", "プラン_1", 12), # 12.34の切り捨て
@@ -119,7 +119,7 @@ describe CalculationService do
           unit_prices = [BigDecimal("98.76"), BigDecimal("65.43"), BigDecimal("21.09")]
           allow(UsageCharge).to receive(:unit_price).and_return(*unit_prices)
           
-          simulation_results = CalculationService.send(:getSimulations, basic_fees, 3)
+          simulation_results = CalculationService.send(:simulate, basic_fees, 3)
 
           expect(simulation_results).to eq [
             simulation_result("会社_1", "プラン_1", 308), # (12.34 + 98.76 * 3)の切り捨て
@@ -131,7 +131,7 @@ describe CalculationService do
           unit_prices = [BigDecimal("98.76"), nil, BigDecimal("21.09")]
           allow(UsageCharge).to receive(:unit_price).and_return(*unit_prices)
           
-          simulation_results = CalculationService.send(:getSimulations, basic_fees, 3)
+          simulation_results = CalculationService.send(:simulate, basic_fees, 3)
 
           expect(simulation_results).to eq [
             simulation_result("会社_1", "プラン_1", 308), # (12.34 + 98.76 * 3)の切り捨て
@@ -249,7 +249,7 @@ describe CalculationService do
 
       context "戻り値が0件の場合" do
         before do
-          allow(CalculationService).to receive(:getSimulations).and_return([])
+          allow(CalculationService).to receive(:simulate).and_return([])
         end
 
         it "正常時のログが適切に出力されること" do
@@ -265,7 +265,7 @@ describe CalculationService do
       context "戻り値が1件の場合" do
         let (:simulation_results) { [simulation_result("会社_1", "プラン_1", 100)] }
         before do
-          allow(CalculationService).to receive(:getSimulations).and_return(simulation_results)
+          allow(CalculationService).to receive(:simulate).and_return(simulation_results)
         end
   
         it "正常時のログが適切に出力されること" do
@@ -289,7 +289,7 @@ describe CalculationService do
           ]
         }
         before do
-          allow(CalculationService).to receive(:getSimulations).and_return(simulation_results)
+          allow(CalculationService).to receive(:simulate).and_return(simulation_results)
         end
   
         it "正常時のログが適切に出力されること" do
