@@ -8,7 +8,7 @@ class LogInfo
 
   PROCESS_SEARCH = {
     code: '01002',
-    message: 'データ取得件数＝%{1}件'
+    message: 'データ取得件数=%{1}件'
   }
 
   PROCESS_END = {

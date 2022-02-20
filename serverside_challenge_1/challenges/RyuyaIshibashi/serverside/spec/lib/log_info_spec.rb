@@ -8,7 +8,7 @@ describe LogInfo do
   end
 
   it "検索処理のテキストが正しく返却されること" do
-    expect(LogInfo.text('PROCESS_SEARCH', [3])).to eq "code=01002; message='データ取得件数＝3件'"
+    expect(LogInfo.text('PROCESS_SEARCH', [3])).to eq "code=01002; message='データ取得件数=3件'"
   end
 
   it "終了処理のログテキストが正しく返却されること" do

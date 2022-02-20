@@ -224,7 +224,7 @@ describe CalculationService do
     context "正常系" do
       def ok_logs (item_count)
         expect(Rails.logger).to receive(:info).with("code=01001; message='処理を開始します。'")
-        expect(Rails.logger).to receive(:info).with("code=01002; message='データ取得件数＝#{item_count}件'")
+        expect(Rails.logger).to receive(:info).with("code=01002; message='データ取得件数=#{item_count}件'")
         expect(Rails.logger).to receive(:info).with("code=01003; message='処理を終了します。'")
       end
 
