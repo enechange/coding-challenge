@@ -22,7 +22,7 @@ class UsageCharge < ApplicationRecord
       # 該当するレコードが1件でなかった場合、アンマッチとしてnilを返す（複数件該当の場合も同様）
       return nil unless usageCharges.count == 1
       
-      return usageCharges.first.unit_price
+      usageCharges.first.unit_price
     end
   end
 end
