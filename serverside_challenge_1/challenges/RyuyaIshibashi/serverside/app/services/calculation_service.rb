@@ -53,7 +53,7 @@ class CalculationService
         !!(param && param.match(/\A(0|[1-9][0-9]*)\z/))
       end
   
-      def valid_ampere? (param, ampere_array)
+      def included_in_array? (param, ampere_array)
         ampere_array.include?(param)
       end
   
@@ -66,7 +66,7 @@ class CalculationService
         # 契約アンペア数の存在、数値チェック
         !exist_and_int?(ampere) ||
         # 契約アンペア数が有効な値かチェック
-        !valid_ampere?(ampere, ampere_array)
+        !included_in_array?(ampere, ampere_array)
         )
           raise_bad_parameter(item_name)
         end
