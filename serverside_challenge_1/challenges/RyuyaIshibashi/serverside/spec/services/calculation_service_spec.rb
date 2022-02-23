@@ -136,9 +136,80 @@ describe CalculationService do
     end
 
     describe ".calculate" do
-      subject { CalculationService.send(:calculate, BigDecimal("12.34"), BigDecimal("98.76"), 5) }
-      it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
-        expect(subject).to eq 506 # (12.34 + 98.76 * 5)の切り捨て
+      let! (:plan) { FactoryBot.create(:plan) }
+      let! (:basic_fee) { FactoryBot.create(:basic_fee_itself, plan: plan, fee: BigDecimal("12.34")) }
+      let (:usage_charges) { UsageCharge.all }
+
+      context "該当する従量料金レコードが1件のみの場合" do
+        before do
+          FactoryBot.create(:usage_charge_itself, plan: plan, from: BigDecimal("0"), to: nil, unit_price: BigDecimal("56.78"))
+        end
+        subject { CalculationService.send(:calculate, basic_fee, usage_charges, 5) }
+        it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
+          expect(subject).to eq 296 # (12.34 + 56.78 * 5)の切り捨て
+        end
+      end
+
+      context "該当する従量料金レコードが2件の場合" do
+        before do
+          FactoryBot.create(:usage_charge_itself, plan: plan, from: BigDecimal("0"), to: BigDecimal("12.34"), unit_price: BigDecimal("56.78"))
+        end
+        
+        context "2件目の使用料上限なしの場合" do
+          before do
+            FactoryBot.create(:usage_charge_itself, plan: plan, from: BigDecimal("12.34"), to: nil, unit_price: BigDecimal("90.12"))
+          end
+          subject { CalculationService.send(:calculate, basic_fee, usage_charges, 20) }
+          it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
+            # 基本料: 12.34
+            # 使用料：(56.78 * 12.34) + (90.12 * (20-12.34)) = 700.6652 + 690.3192 = 1390.9844
+            expect(subject).to eq 1403
+          end
+        end
+
+        context "2件目の使用料上限ありの場合" do
+          before do
+            FactoryBot.create(:usage_charge_itself, plan: plan, from: BigDecimal("12.34"), to: BigDecimal("56.78"), unit_price: BigDecimal("90.12"))
+          end
+          subject { CalculationService.send(:calculate, basic_fee, usage_charges, 20) }
+          it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
+            # 基本料: 12.34
+            # 使用料：(56.78 * 12.34) + (90.12 * (20-12.34)) = 700.6652 + 690.3192 = 1390.9844
+            expect(subject).to eq 1403
+          end
+        end
+      end
+
+      context "該当する従量料金レコードがN件の場合" do
+        before do
+          FactoryBot.create(:usage_charge_itself, plan: plan, from: BigDecimal("0"), to: BigDecimal("12.34"), unit_price: BigDecimal("56.78"))
+          FactoryBot.create(:usage_charge_itself, plan: plan, from: BigDecimal("12.34"), to: BigDecimal("56.78"), unit_price: BigDecimal("90.12"))
+          FactoryBot.create(:usage_charge_itself, plan: plan, from: BigDecimal("56.78"), to: BigDecimal("90.12"), unit_price: BigDecimal("123.45"))
+        end
+        
+        context "N件目の使用料上限なしの場合" do
+          before do
+            FactoryBot.create(:usage_charge_itself, plan: plan, from: BigDecimal("90.12"), to: nil, unit_price: BigDecimal("234.56"))
+          end
+          subject { CalculationService.send(:calculate, basic_fee, usage_charges, 100) }
+          it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
+            # 基本料: 12.34
+            # 使用料：(56.78 * 12.34) + (90.12 * (56.78-12.34)) + (123.45 * (90.12 - 56.78)) + (234.56 * (100 - 90.12)) = 11138.8738
+            expect(subject).to eq 11151
+          end
+        end
+
+        context "N件目の使用料上限ありの場合" do
+          before do
+            FactoryBot.create(:usage_charge_itself, plan: plan, from: BigDecimal("90.12"), to: BigDecimal("123.45"), unit_price: BigDecimal("234.56"))
+          end
+          subject { CalculationService.send(:calculate, basic_fee, usage_charges, 100) }
+          it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
+            # 基本料: 12.34
+            # 使用料：(56.78 * 12.34) + (90.12 * (56.78-12.34)) + (123.45 * (90.12 - 56.78)) + (234.56 * (100 - 90.12)) = 11138.8738
+            expect(subject).to eq 11151
+          end
+        end
       end
     end
   end
