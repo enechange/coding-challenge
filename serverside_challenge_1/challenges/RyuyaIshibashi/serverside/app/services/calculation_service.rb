@@ -77,31 +77,35 @@ class CalculationService
       def simulate (basic_fees, amount)
         simulations = []
         basic_fees.each do |basic_fee|
-          
-          # usage_charges = basic_fee.plan.usage_charges.order(:from).where('from <= ?', amount)
-
-          unit_price = UsageCharge.unit_price(basic_fee.plan_id, amount)
-          next if unit_price.nil?
-          
-          # price = calculate(basic_fee, usage_charges, amount)
-          price = calculate(basic_fee.fee, unit_price, amount)
-      
+          price = 0
+          if amount == 0 then
+            price = basic_fee.fee.truncate
+          else
+            usage_charges = usage_charges(basic_fee.plan, amount)
+            next unless usage_charges.present?
+            price = calculate(basic_fee, usage_charges, amount)
+          end
+        
           simulation_result = {
             provider_name: basic_fee.company_name,
             plan_name: basic_fee.plan_name,
             price: price
           }
-  
+
           simulations << simulation_result
         end
         simulations
       end
- 
+
+      def usage_charges (plan, amount)
+        plan.usage_charges.where('usage_charges.from <= ?', amount).order(:from)
+      end
+
       def calculate (basic_fee, usage_charges, amount)
         price = basic_fee.fee
 
         usage_charges.each do |usage_charge|
-          if usage_charge.to.nil? || amount < usage_charge.to then
+          if usage_charge.to.nil? || amount <= usage_charge.to then
             price += usage_charge.unit_price * (amount - usage_charge.from)
             break
           end
