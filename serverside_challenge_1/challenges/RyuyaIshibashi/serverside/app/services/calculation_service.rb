@@ -81,7 +81,7 @@ class CalculationService
           if amount == 0 then
             price = basic_fee.fee.truncate
           else
-            usage_charges = usage_charges(basic_fee.plan, amount)
+            usage_charges = usage_charges(basic_fee, amount)
             next unless usage_charges.present?
             price = calculate(basic_fee, usage_charges, amount)
           end
@@ -97,8 +97,8 @@ class CalculationService
         simulations
       end
 
-      def usage_charges (plan, amount)
-        plan.usage_charges.where('usage_charges.from <= ?', amount).order(:from)
+      def usage_charges (basic_fee, amount)
+        basic_fee.plan.usage_charges.where('usage_charges.from < ?', amount).order(:from)
       end
 
       def calculate (basic_fee, usage_charges, amount)
