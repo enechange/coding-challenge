@@ -147,11 +147,12 @@ describe CalculationService do
     describe ".usage_charges" do
       let! (:plan) { FactoryBot.create(:plan) }
       let! (:basic_fee) { FactoryBot.create(:basic_fee_itself, plan: plan) }
+      let! (:plan_basic_fee) { Plan.basic_fee_ampere(basic_fee.ampere).first }
 
       context "プランに紐づく従量料金レコードが1件の場合" do
         let! (:usage_charge) { FactoryBot.create(:usage_charge_itself, plan: plan, from: "0.00", to: nil) }
 
-        subject { CalculationService.send(:usage_charges, basic_fee, 1) }
+        subject { CalculationService.send(:usage_charges, plan_basic_fee, 1) }
         it "プランに紐づく1件の従量料金レコードを返す" do
           expect(subject.count).to eq 1
           expect(subject.first).to eq usage_charge
@@ -163,7 +164,7 @@ describe CalculationService do
         let! (:usage_charge_2) { FactoryBot.create(:usage_charge_itself, plan: plan, from: "12.00", to: nil) }
 
         context "使用料が2件目の従量料金レコードの使用料下限より小さい場合" do
-          subject { CalculationService.send(:usage_charges, basic_fee, 11) }
+          subject { CalculationService.send(:usage_charges, plan_basic_fee, 11) }
           it "プランに紐づく1件目の従量料金レコードを返す" do
             expect(subject.count).to eq 1
             expect(subject.first).to eq usage_charge_1
@@ -171,7 +172,7 @@ describe CalculationService do
         end
 
         context "使用料が2件目の従量料金レコードの使用料下限と等しい場合" do
-          subject { CalculationService.send(:usage_charges, basic_fee, 12) }
+          subject { CalculationService.send(:usage_charges, plan_basic_fee, 12) }
           it "プランに紐づく1件目の従量料金レコードを返す" do
             expect(subject.count).to eq 1
             expect(subject.first).to eq usage_charge_1
@@ -179,7 +180,7 @@ describe CalculationService do
         end
 
         context "使用料が2件目の従量料金レコードの使用料下限より大きい場合" do
-          subject { CalculationService.send(:usage_charges, basic_fee, 13) }
+          subject { CalculationService.send(:usage_charges, plan_basic_fee, 13) }
           it "プランに紐づく2件の従量料金レコードを使用料下限の昇順に返す" do
             expect(subject.count).to eq 2
             expect(subject.first).to eq usage_charge_1
@@ -195,7 +196,7 @@ describe CalculationService do
         let! (:usage_charge_4) { FactoryBot.create(:usage_charge_itself, plan: plan, from: "34.00", to: nil) }
 
         context "使用料がN件目の従量料金レコードの使用料下限より小さい場合" do
-          subject { CalculationService.send(:usage_charges, basic_fee, 33) }
+          subject { CalculationService.send(:usage_charges, plan_basic_fee, 33) }
           it "プランに紐づくN-1件の従量料金レコードを使用料下限の昇順に返す" do
             expect(subject.count).to eq 3
             expect(subject.first).to eq usage_charge_1
@@ -205,7 +206,7 @@ describe CalculationService do
         end
 
         context "使用料がN件目の従量料金レコードの使用料下限と等しい場合" do
-          subject { CalculationService.send(:usage_charges, basic_fee, 34) }
+          subject { CalculationService.send(:usage_charges, plan_basic_fee, 34) }
           it "プランに紐づくN-1件の使用料レコードを使用料下限の昇順に返す" do
             expect(subject.count).to eq 3
             expect(subject.first).to eq usage_charge_1
@@ -215,7 +216,7 @@ describe CalculationService do
         end
 
         context "使用料がN件目の従量料金レコードの使用料下限より大きい場合" do
-          subject { CalculationService.send(:usage_charges, basic_fee, 35) }
+          subject { CalculationService.send(:usage_charges, plan_basic_fee, 35) }
           it "プランに紐づくN件の従量料金レコードを使用料下限の昇順に返す" do
             expect(subject.count).to eq 4
             expect(subject.first).to eq usage_charge_1
@@ -229,7 +230,7 @@ describe CalculationService do
       context "(通常想定されないが)使用料未満の使用料下限を持つ従量料金レコードがない場合" do
         let! (:usage_charge) { FactoryBot.create(:usage_charge_itself, plan: plan, from: "12.00", to: "23.00") }
 
-        subject { CalculationService.send(:usage_charges, basic_fee, 12) }
+        subject { CalculationService.send(:usage_charges, plan_basic_fee, 12) }
         it "0件の従量料金レコードを返す" do
           expect(subject.count).to eq 0
         end
@@ -239,13 +240,14 @@ describe CalculationService do
     describe ".calculate" do
       let! (:plan) { FactoryBot.create(:plan) }
       let! (:basic_fee) { FactoryBot.create(:basic_fee_itself, plan: plan, fee: "12.34") }
+      let! (:plan_basic_fee) { Plan.basic_fee_ampere(basic_fee.ampere).first.basic_fee }
       let (:usage_charges) { UsageCharge.all }
 
       context "該当する従量料金レコードが1件のみの場合" do
         before do
           FactoryBot.create(:usage_charge_itself, plan: plan, from: "0.00", to: nil, unit_price: "56.78")
         end
-        subject { CalculationService.send(:calculate, basic_fee, usage_charges, 5) }
+        subject { CalculationService.send(:calculate, plan_basic_fee, usage_charges, 5) }
         it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
           expect(subject).to eq 296 # (12.34 + 56.78 * 5)の切り捨て
         end
@@ -260,7 +262,7 @@ describe CalculationService do
           before do
             FactoryBot.create(:usage_charge_itself, plan: plan, from: "12.34", to: nil, unit_price: "90.12")
           end
-          subject { CalculationService.send(:calculate, basic_fee, usage_charges, 20) }
+          subject { CalculationService.send(:calculate, plan_basic_fee, usage_charges, 20) }
           it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
             # 基本料: 12.34
             # 使用料：(56.78 * 12.34) + (90.12 * (20-12.34)) = 700.6652 + 690.3192 = 1390.9844
@@ -273,7 +275,7 @@ describe CalculationService do
             FactoryBot.create(:usage_charge_itself, plan: plan, from: "12.34", to: "56.78", unit_price: "90.12")
           end
           context "通常ケース" do
-            subject { CalculationService.send(:calculate, basic_fee, usage_charges, 20) }
+            subject { CalculationService.send(:calculate, plan_basic_fee, usage_charges, 20) }
             it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
               # 基本料: 12.34
               # 使用料：(56.78 * 12.34) + (90.12 * (20-12.34)) = 1390.9844
@@ -281,7 +283,7 @@ describe CalculationService do
             end
           end
           context "使用料が2件目の使用料上限と等しい場合" do
-            subject { CalculationService.send(:calculate, basic_fee, usage_charges, 56.78) }
+            subject { CalculationService.send(:calculate, plan_basic_fee, usage_charges, 56.78) }
             it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
               # 基本料: 12.34
               # 使用料：(56.78 * 12.34) + (90.12 * (56.78-12.34)) = 4705.598
@@ -302,7 +304,7 @@ describe CalculationService do
           before do
             FactoryBot.create(:usage_charge_itself, plan: plan, from: "90.12", to: nil, unit_price: "234.56")
           end
-          subject { CalculationService.send(:calculate, basic_fee, usage_charges, 100) }
+          subject { CalculationService.send(:calculate, plan_basic_fee, usage_charges, 100) }
           it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
             # 基本料: 12.34
             # 使用料：(56.78 * 12.34) + (90.12 * (56.78-12.34)) + (123.45 * (90.12 - 56.78)) + (234.56 * (100 - 90.12)) = 11138.8738
@@ -314,7 +316,7 @@ describe CalculationService do
           before do
             FactoryBot.create(:usage_charge_itself, plan: plan, from: "90.12", to: "123.45", unit_price: "234.56")
           end
-          subject { CalculationService.send(:calculate, basic_fee, usage_charges, 100) }
+          subject { CalculationService.send(:calculate, plan_basic_fee, usage_charges, 100) }
           it "Decimalで渡された値を用いて計算後、正しく整数値に切り捨てされること" do
             # 基本料: 12.34
             # 使用料：(56.78 * 12.34) + (90.12 * (56.78-12.34)) + (123.45 * (90.12 - 56.78)) + (234.56 * (100 - 90.12)) = 11138.8738
