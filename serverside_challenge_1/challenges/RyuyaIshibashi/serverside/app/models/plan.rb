@@ -4,5 +4,9 @@ class Plan < ApplicationRecord
   has_many :usage_charges
   validates :name, presence: true
 
-  scope :ampere, -> (ampere) { joins(:basic_fees).where(basic_fees: { ampere: ampere }) }
+  scope :basic_fee_ampere, -> (ampere) {
+    joins(:basic_fees)
+      .select('plans.*, basic_fees.fee AS basic_fee')
+      .where(basic_fees: { ampere: ampere })
+  }
 end

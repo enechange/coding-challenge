@@ -31,28 +31,32 @@ RSpec.describe Plan, type: :model do
   end
 
   describe "scope" do
-    describe "ampere" do
+    describe "basic_fee_ampere" do
       let! (:plan_1) { FactoryBot.create(:plan) }
       let! (:plan_2) { FactoryBot.create(:plan) }
       let! (:plan_3) { FactoryBot.create(:plan) }
-
-      before do
-        FactoryBot.create(:basic_fee_itself, plan: plan_1, ampere: '12.34')
-        FactoryBot.create(:basic_fee_itself, plan: plan_1, ampere: '23.45')
-
-        FactoryBot.create(:basic_fee_itself, plan: plan_2, ampere: '23.45')
-        FactoryBot.create(:basic_fee_itself, plan: plan_2, ampere: '34.56')
-
-        FactoryBot.create(:basic_fee_itself, plan: plan_3, ampere: '12.34')
-        FactoryBot.create(:basic_fee_itself, plan: plan_3, ampere: '34.56')
-      end
-
-      subject { Plan.ampere('12.34') }
+  
+      
+      let! (:basic_fee_1_1) { FactoryBot.create(:basic_fee_itself, plan: plan_1, ampere: '12', fee: '12') }
+      let! (:basic_fee_1_2) { FactoryBot.create(:basic_fee_itself, plan: plan_1, ampere: '23', fee: '23') }
+  
+      let! (:basic_fee_2_1) { FactoryBot.create(:basic_fee_itself, plan: plan_2, ampere: '23', fee: '34') }
+      let! (:basic_fee_2_2) { FactoryBot.create(:basic_fee_itself, plan: plan_2, ampere: '34', fee: '45') }
+  
+      let! (:basic_fee_3_1) { FactoryBot.create(:basic_fee_itself, plan: plan_3, ampere: '12', fee: '56') }
+      let! (:basic_fee_3_2) { FactoryBot.create(:basic_fee_itself, plan: plan_3, ampere: '34', fee: '78') }
+  
+      subject { Plan.basic_fee_ampere(12) }
       
       it "該当する契約アンペア数を持つ基本料金に紐づくプランのみ取得されること" do
-        expect(subject.count).to eq 2
+        expect(subject.size).to eq 2
         expect(subject[0]).to eq plan_1
         expect(subject[1]).to eq plan_3
+      end
+
+      it "プランに加えて基本料金も取得されること" do
+        expect(subject[0].basic_fee).to eq basic_fee_1_1.fee
+        expect(subject[1].basic_fee).to eq basic_fee_3_1.fee
       end
     end
   end
