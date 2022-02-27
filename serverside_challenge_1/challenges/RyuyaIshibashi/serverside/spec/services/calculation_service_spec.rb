@@ -85,24 +85,27 @@ describe CalculationService do
         let! (:company_1) { FactoryBot.create(:company, name: "会社_1") }
         let! (:company_2) { FactoryBot.create(:company, name: "会社_2") }
         let! (:company_3) { FactoryBot.create(:company, name: "会社_3") }
+        let! (:company_4) { FactoryBot.create(:company, name: "会社_4") }
   
         let! (:plan_1) { FactoryBot.create(:plan_itself, company: company_1, name: "プラン_1") }
         let! (:plan_2) { FactoryBot.create(:plan_itself, company: company_2, name: "プラン_2") }
         let! (:plan_3) { FactoryBot.create(:plan_itself, company: company_3, name: "プラン_3") }
+        let! (:plan_4) { FactoryBot.create(:plan_itself, company: company_3, name: "プラン_4") }
 
         before do
-          FactoryBot.create(:basic_fee_itself, plan: plan_1, fee: "12.34")
-          FactoryBot.create(:basic_fee_itself, plan: plan_2, fee: "56.78")
-          FactoryBot.create(:basic_fee_itself, plan: plan_3, fee: "90.12")
+          FactoryBot.create(:basic_fee_itself, plan: plan_1, ampere:"12", fee: "12.34")
+          FactoryBot.create(:basic_fee_itself, plan: plan_2, ampere:"12", fee: "56.78")
+          FactoryBot.create(:basic_fee_itself, plan: plan_3, ampere:"12", fee: "90.12")
+          FactoryBot.create(:basic_fee_itself, plan: plan_4, ampere:"13", fee: "123.45")
 
           FactoryBot.create(:usage_charge)
         end
         
-        let (:basic_fees) { BasicFee.all }
+        let (:ampere) { 12 }
         let (:usage_charges) { UsageCharge.all }
 
-        it "使用料が0の場合、料金は基本料金としてシミュレーション結果の配列を返す" do
-          simulation_results = CalculationService.send(:simulate, basic_fees, 0)
+        it "使用料が0の場合、契約アンペア数がマッチするプランに基づくシミュレーション結果の配列を返す（料金は基本料金）" do
+          simulation_results = CalculationService.send(:simulate, ampere, 0)
 
           expect(simulation_results).to eq [
             simulation_result("会社_1", "プラン_1", 12), # 12.34の切り捨て
@@ -111,13 +114,13 @@ describe CalculationService do
           ]
         end
 
-        it "使用料が0より大きい場合、正しいシミュレーション結果の配列を返す" do
+        it "使用料が0より大きい場合、契約アンペア数がマッチするプランに基づくシミュレーション結果の配列を返す" do
           allow(CalculationService).to receive(:usage_charges).and_return(usage_charges)
           
           prices = [308, 253, 153]
           allow(CalculationService).to receive(:calculate).and_return(*prices)
           
-          simulation_results = CalculationService.send(:simulate, basic_fees, 3)
+          simulation_results = CalculationService.send(:simulate, ampere, 3)
 
           expect(simulation_results).to eq [
             simulation_result("会社_1", "プラン_1", prices[0]),
@@ -131,7 +134,7 @@ describe CalculationService do
           prices = [308, 253]
           allow(CalculationService).to receive(:calculate).and_return(*prices)
           
-          simulation_results = CalculationService.send(:simulate, basic_fees, 3)
+          simulation_results = CalculationService.send(:simulate, ampere, 3)
 
           expect(simulation_results).to eq [
             simulation_result("会社_1", "プラン_1", prices[0]),
