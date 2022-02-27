@@ -29,4 +29,31 @@ RSpec.describe Plan, type: :model do
       expect(plan.usage_charges.create(from: '9.99', to: '9.99', unit_price: '9.99')).to be_valid
     end
   end
+
+  describe "scope" do
+    describe "ampere" do
+      let! (:plan_1) { FactoryBot.create(:plan) }
+      let! (:plan_2) { FactoryBot.create(:plan) }
+      let! (:plan_3) { FactoryBot.create(:plan) }
+
+      before do
+        FactoryBot.create(:basic_fee_itself, plan: plan_1, ampere: '12.34')
+        FactoryBot.create(:basic_fee_itself, plan: plan_1, ampere: '23.45')
+
+        FactoryBot.create(:basic_fee_itself, plan: plan_2, ampere: '23.45')
+        FactoryBot.create(:basic_fee_itself, plan: plan_2, ampere: '34.56')
+
+        FactoryBot.create(:basic_fee_itself, plan: plan_3, ampere: '12.34')
+        FactoryBot.create(:basic_fee_itself, plan: plan_3, ampere: '34.56')
+      end
+
+      subject { Plan.ampere('12.34') }
+      
+      it "該当する契約アンペア数を持つ基本料金に紐づくプランのみ取得されること" do
+        expect(subject.count).to eq 2
+        expect(subject[0]).to eq plan_1
+        expect(subject[1]).to eq plan_3
+      end
+    end
+  end
 end
