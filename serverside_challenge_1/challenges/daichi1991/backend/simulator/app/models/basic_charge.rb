@@ -1,0 +1,2 @@
+class BasicCharge < ApplicationRecord
+end
