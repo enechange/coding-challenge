@@ -77,15 +77,15 @@ describe CalculationService do
 
       context "契約アンペア数に該当する基本料金が0件の場合" do
         it "空の配列を返す" do
-          expect(CalculationService.send(:simulate, BasicFee.none, 10)).to eq []          
+          expect(CalculationService.send(:simulate, 10, 10)).to eq []          
         end
       end
 
       context "契約アンペア数に該当する基本料金がある場合" do
-        let! (:company_1) { FactoryBot.create(:company, name: "会社_1") }
-        let! (:company_2) { FactoryBot.create(:company, name: "会社_2") }
-        let! (:company_3) { FactoryBot.create(:company, name: "会社_3") }
-        let! (:company_4) { FactoryBot.create(:company, name: "会社_4") }
+        let! (:company_1) { FactoryBot.create(:company, id: 1, name: "会社_1") }
+        let! (:company_2) { FactoryBot.create(:company, id: 2, name: "会社_2") }
+        let! (:company_3) { FactoryBot.create(:company, id: 3, name: "会社_3") }
+        let! (:company_4) { FactoryBot.create(:company, id: 4, name: "会社_4") }
   
         let! (:plan_1) { FactoryBot.create(:plan_itself, company: company_1, name: "プラン_1") }
         let! (:plan_2) { FactoryBot.create(:plan_itself, company: company_2, name: "プラン_2") }
@@ -97,12 +97,13 @@ describe CalculationService do
           FactoryBot.create(:basic_fee_itself, plan: plan_2, ampere:"12", fee: "56.78")
           FactoryBot.create(:basic_fee_itself, plan: plan_3, ampere:"12", fee: "90.12")
           FactoryBot.create(:basic_fee_itself, plan: plan_4, ampere:"13", fee: "123.45")
-
-          FactoryBot.create(:usage_charge)
         end
         
         let (:ampere) { 12 }
-        let (:usage_charges) { UsageCharge.all }
+        let (:usage_charges) { 
+          FactoryBot.create(:usage_charge_itself, plan: plan_1)
+          UsageCharge.all 
+        }
 
         it "使用料が0の場合、契約アンペア数がマッチするプランに基づくシミュレーション結果の配列を返す（料金は基本料金）" do
           simulation_results = CalculationService.send(:simulate, ampere, 0)

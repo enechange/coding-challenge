@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2022_01_23_070616) do
     t.index ["plan_id"], name: "index_basic_fees_on_plan_id"
   end
 
-  create_table "companies", charset: "utf8mb4", force: :cascade do |t|
+  create_table "companies", id: :bigint, default: nil, charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -19,19 +19,21 @@ RSpec.describe BasicFee, type: :model do
     expect(FactoryBot.build(:basic_fee, fee: nil)).to_not be_valid 
   end
 
-  describe "#company_name" do
-    it "紐づく会社名が取得できること" do
-      basic_fee = FactoryBot.create(:basic_fee)
-      company = FactoryBot.create(:company)
-      expect(basic_fee.company_name).to eq company.name
-    end
-  end
+  context "クラスメソッドの検証" do
+    let! (:company) { FactoryBot.create(:company) }
+    let! (:plan) { FactoryBot.create(:plan_itself, company: company) }
+    let! (:basic_fee) { FactoryBot.create(:basic_fee_itself, plan: plan) }
 
-  describe "#plan_name" do
-    it "紐づくプラン名が取得できること" do
-      basic_fee = FactoryBot.create(:basic_fee)
-      plan = FactoryBot.create(:plan)
-      expect(basic_fee.plan_name).to eq plan.name
+    describe "#company_name" do
+      it "紐づく会社名が取得できること" do
+        expect(basic_fee.company_name).to eq company.name
+      end
+    end
+  
+    describe "#plan_name" do
+      it "紐づくプラン名が取得できること" do
+        expect(basic_fee.plan_name).to eq plan.name
+      end
     end
   end
 end
