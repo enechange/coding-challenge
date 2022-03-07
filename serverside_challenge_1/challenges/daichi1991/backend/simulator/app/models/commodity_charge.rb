@@ -1,0 +1,2 @@
+class CommodityCharge < ApplicationRecord
+end
