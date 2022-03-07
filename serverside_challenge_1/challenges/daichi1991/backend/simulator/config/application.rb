@@ -34,5 +34,12 @@ module Simulator
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
     config.factory_bot false
+    config.generators do |g|
+      g.text_framework :rspec,
+        view_specs: false, 
+        helper_specs: false, 
+        controller_specs: false, 
+        routing_specs: false
+    end
   end
 end
