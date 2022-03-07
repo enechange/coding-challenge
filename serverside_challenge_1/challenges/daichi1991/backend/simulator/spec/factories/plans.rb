@@ -23,6 +23,5 @@ FactoryBot.define do
       plan {'従量電灯B たっぷりプラン'}
       company {'JXTGでんき'}
     end
-
   end
 end
