@@ -4,7 +4,7 @@ RSpec.describe Plan, type: :model do
 
   describe'バリデーション' do
 
-    it 'planとcompanyどちらも値が設定されていればOK' do
+    it 'planとprivider_nameどちらも値が設定されていればOK' do
       plan = build(:plan, :A)
       expect(plan.valid?).to eq(true)
     end
@@ -15,9 +15,9 @@ RSpec.describe Plan, type: :model do
       expect(plan.valid?).to eq(false)
     end
 
-    it 'companyが空だとNG' do
+    it 'provider_nameが空だとNG' do
       plan = build(:plan, :A)
-      plan.company = ''
+      plan.provider_name = ''
       expect(plan.valid?).to eq(false)
     end
 
