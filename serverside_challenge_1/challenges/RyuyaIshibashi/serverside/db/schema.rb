@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2022_01_23_070616) do
     t.decimal "unit_price", precision: 12, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["plan_id", "from", "to"], name: "index_usage_charges_on_plan_id_and_from_and_to"
+    t.index ["plan_id", "from"], name: "index_usage_charges_on_plan_id_and_from"
     t.index ["plan_id"], name: "index_usage_charges_on_plan_id"
   end
 

@@ -8,6 +8,6 @@ class CreateUsageCharges < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
-    add_index :usage_charges, [:plan_id, :from, :to]
+    add_index :usage_charges, [:plan_id, :from]
   end
 end
