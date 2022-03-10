@@ -1,7 +1,10 @@
 class Plan < ApplicationRecord
   belongs_to :company
+  
   has_many :basic_fees
   has_many :usage_charges
+
+  validates :id, presence: true, uniqueness: true
   validates :name, presence: true
 
   scope :basic_fee_ampere, -> (ampere) {

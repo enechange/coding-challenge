@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2022_01_23_070616) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "plans", charset: "utf8mb4", force: :cascade do |t|
+  create_table "plans", id: :bigint, default: nil, charset: "utf8mb4", force: :cascade do |t|
     t.bigint "company_id", null: false
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false

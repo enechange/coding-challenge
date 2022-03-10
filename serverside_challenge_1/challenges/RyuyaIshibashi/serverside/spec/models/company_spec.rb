@@ -21,8 +21,8 @@ RSpec.describe Company, type: :model do
 
   it "1つの会社に複数のプランが登録できる" do
     company = FactoryBot.create(:company);
-    3.times do
-      expect(company.plans.create(name: 'foobar')).to be_valid
+    3.times do |i|
+      expect(company.plans.create(id: i + 1, name: 'foobar')).to be_valid
     end
   end
 end

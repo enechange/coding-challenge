@@ -47,9 +47,9 @@ RSpec.describe "Calculations", type: :request do
         let! (:company_2) { FactoryBot.create(:company, id: 2, name: "会社_2") }  
         let! (:company_3) { FactoryBot.create(:company, id: 3, name: "会社_3") }  
 
-        let! (:plan_1) { FactoryBot.create(:plan_itself, company: company_1, name: "プラン_1") }
-        let! (:plan_2) { FactoryBot.create(:plan_itself, company: company_2, name: "プラン_2") }
-        let! (:plan_3) { FactoryBot.create(:plan_itself, company: company_3, name: "プラン_3") }
+        let! (:plan_1) { FactoryBot.create(:plan_itself, id: 1, company: company_1, name: "プラン_1") }
+        let! (:plan_2) { FactoryBot.create(:plan_itself, id: 2, company: company_2, name: "プラン_2") }
+        let! (:plan_3) { FactoryBot.create(:plan_itself, id: 3, company: company_3, name: "プラン_3") }
 
         before do
           # プラン_1 基本料金

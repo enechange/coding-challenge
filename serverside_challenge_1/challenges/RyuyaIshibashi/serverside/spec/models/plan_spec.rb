@@ -35,9 +35,9 @@ RSpec.describe Plan, type: :model do
     describe "basic_fee_ampere" do
       let! (:company) { FactoryBot.create(:company) }
 
-      let! (:plan_1) { FactoryBot.create(:plan_itself, company: company) }
-      let! (:plan_2) { FactoryBot.create(:plan_itself, company: company) }
-      let! (:plan_3) { FactoryBot.create(:plan_itself, company: company) }
+      let! (:plan_1) { FactoryBot.create(:plan_itself, id: 1, company: company) }
+      let! (:plan_2) { FactoryBot.create(:plan_itself, id: 2, company: company) }
+      let! (:plan_3) { FactoryBot.create(:plan_itself, id: 3, company: company) }
   
       
       let! (:basic_fee_1_1) { FactoryBot.create(:basic_fee_itself, plan: plan_1, ampere: '12', fee: '12') }
