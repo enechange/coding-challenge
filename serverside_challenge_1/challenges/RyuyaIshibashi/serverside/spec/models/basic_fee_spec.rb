@@ -23,17 +23,5 @@ RSpec.describe BasicFee, type: :model do
     let! (:company) { FactoryBot.create(:company) }
     let! (:plan) { FactoryBot.create(:plan_itself, company: company) }
     let! (:basic_fee) { FactoryBot.create(:basic_fee_itself, plan: plan) }
-
-    describe "#company_name" do
-      it "紐づく会社名が取得できること" do
-        expect(basic_fee.company_name).to eq company.name
-      end
-    end
-  
-    describe "#plan_name" do
-      it "紐づくプラン名が取得できること" do
-        expect(basic_fee.plan_name).to eq plan.name
-      end
-    end
   end
 end
