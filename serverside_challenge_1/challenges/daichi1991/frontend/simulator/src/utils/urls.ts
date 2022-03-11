@@ -1,7 +1,7 @@
 const mode = process.env.REACT_APP_MODE
 
 const HOST =
-  mode === 'test'
+  mode === 'TEST'
     ? 'http://localhost:3000/'
     : 'https://simulator-backend.herokuapp.com'
 

@@ -9,12 +9,13 @@ export const SendButton = () => {
   const kwh = useContext(ParametersContext).kwh
 
   const handleGetPlans = () => {
+    console.log(kwh)
     getPlans(ampere, kwh)
   }
 
   return (
     <>
-      <Button variant="contained" onClick={() => handleGetPlans}>
+      <Button variant="contained" onClick={handleGetPlans}>
         シミュレーションする
       </Button>
     </>

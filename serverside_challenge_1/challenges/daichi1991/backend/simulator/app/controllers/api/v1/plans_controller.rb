@@ -3,7 +3,7 @@ module Api
     class PlansController < ApplicationController
       def index
         get_ampere = params[:ampere]
-        get_kwh = params[:kw]
+        get_kwh = params[:kwh]
         records = Plan.join_tables.ampere(get_ampere).min_amount(get_kwh).max_amount(get_kwh)
         result = delete_key(calculate_price(store_unit(record_to_hash(records), get_kwh)))
 

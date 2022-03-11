@@ -25,6 +25,7 @@ export const PlansProvider: React.FC = (children) => {
       })
       .then((res) => {
         console.log('success')
+        console.log(res.data)
         setPlans(res.data)
       })
   }

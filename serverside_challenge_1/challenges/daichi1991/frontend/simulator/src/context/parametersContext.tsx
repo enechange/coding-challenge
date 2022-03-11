@@ -18,7 +18,7 @@ export const ParametersOperationContext =
   createContext<ParametersOperationType>(defaultParametersOperation)
 
 export const ParametersProvider: React.FC = (children) => {
-  const [ampere, setAmpere] = useState<number>(0)
+  const [ampere, setAmpere] = useState<number>(10)
   const [kwh, setKwh] = useState<number>(0)
 
   const handleSetAmpere = (imputAmpere: number) => {
