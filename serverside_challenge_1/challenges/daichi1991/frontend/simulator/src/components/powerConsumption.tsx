@@ -1,11 +1,14 @@
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { ParametersOperationContext } from '../context/parametersContext'
 
 export const PowerConsumption = () => {
-  const [kwh, setKwh] = useState<string>('')
+  const handleSetKwh = useContext(ParametersOperationContext).handleSetKwh
+  const [inputkwh, setInputKwh] = useState<string>('')
   const handleKwh = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setKwh(event.target.value)
+    setInputKwh(event.target.value)
+    handleSetKwh(Number(event.target.value))
   }
   return (
     <Box
@@ -20,7 +23,7 @@ export const PowerConsumption = () => {
         id="outlined-basic"
         label="電力使用量"
         variant="outlined"
-        value={kwh}
+        value={inputkwh}
         onChange={handleKwh}
       />
     </Box>

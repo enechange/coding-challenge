@@ -3,12 +3,17 @@ import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { ParametersOperationContext } from '../context/parametersContext'
 
 export const AmpereForm = () => {
-  const [ampere, setAmpere] = useState<string>('10')
+  const handleSetAmpere = useContext(ParametersOperationContext).handleSetAmpere
+
+  const [imputAmpere, setImputAmpere] = useState<string>('10')
+
   const handleChnage = (event: SelectChangeEvent) => {
-    setAmpere(event.target.value as string)
+    setImputAmpere(event.target.value as string)
+    handleSetAmpere(Number(event.target.value))
   }
   return (
     <Box sx={{ minWidth: 120 }}>
@@ -21,7 +26,7 @@ export const AmpereForm = () => {
         <Select
           labelId="ampere-select-label"
           id="ampere-select"
-          value={ampere}
+          value={imputAmpere}
           label="契約アンペア数"
           onChange={handleChnage}
           defaultValue={'10'}
