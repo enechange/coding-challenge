@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import React, { useContext, useState } from 'react'
-import { ParametersOperationContext } from '../context/parametersContext'
+import { ParametersOperationContext } from '../../context/parametersContext'
 
 export const PowerConsumption = () => {
   const handleSetKwh = useContext(ParametersOperationContext).handleSetKwh

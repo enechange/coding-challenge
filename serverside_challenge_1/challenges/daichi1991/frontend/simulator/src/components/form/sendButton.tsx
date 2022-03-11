@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button'
 import React, { useContext } from 'react'
-import { ParametersContext } from '../context/parametersContext'
-import { GetPlansContext } from '../context/plansContests'
+import { ParametersContext } from '../../context/parametersContext'
+import { GetPlansContext } from '../../context/plansContests'
 
 export const SendButton = () => {
   const getPlans = useContext(GetPlansContext).getPlans

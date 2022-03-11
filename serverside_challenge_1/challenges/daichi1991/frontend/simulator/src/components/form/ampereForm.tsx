@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import React, { useContext, useState } from 'react'
-import { ParametersOperationContext } from '../context/parametersContext'
+import { ParametersOperationContext } from '../../context/parametersContext'
 
 export const AmpereForm = () => {
   const handleSetAmpere = useContext(ParametersOperationContext).handleSetAmpere
