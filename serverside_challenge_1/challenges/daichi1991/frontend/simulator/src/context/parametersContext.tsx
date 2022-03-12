@@ -4,6 +4,7 @@ import { ParametersOperationType, ParametersType } from '../utils/types'
 const defaultParameters = {
   ampere: 0,
   kwh: 0,
+  emptyKwh: '',
 }
 
 export const ParametersContext =
@@ -12,6 +13,7 @@ export const ParametersContext =
 const defaultParametersOperation = {
   handleSetAmpere: () => console.error('Providerが設定されていません'),
   handleSetKwh: () => console.error('Providerが設定されていません'),
+  handleSetEmptyKwh: () => console.error('Providerが設定されていません'),
 }
 
 export const ParametersOperationContext =
@@ -20,6 +22,7 @@ export const ParametersOperationContext =
 export const ParametersProvider: React.FC = (children) => {
   const [ampere, setAmpere] = useState<number>(10)
   const [kwh, setKwh] = useState<number>(0)
+  const [emptyKwh, setEmptyKwh] = useState<string>('')
 
   const handleSetAmpere = (imputAmpere: number) => {
     setAmpere(imputAmpere)
@@ -29,10 +32,14 @@ export const ParametersProvider: React.FC = (children) => {
     setKwh(inputKwh)
   }
 
+  const handleSetEmptyKwh = (inputMessage: string) => {
+    setEmptyKwh(inputMessage)
+  }
+
   return (
-    <ParametersContext.Provider value={{ ampere, kwh }}>
+    <ParametersContext.Provider value={{ ampere, kwh, emptyKwh }}>
       <ParametersOperationContext.Provider
-        value={{ handleSetAmpere, handleSetKwh }}
+        value={{ handleSetAmpere, handleSetKwh, handleSetEmptyKwh }}
       >
         {children.children}
       </ParametersOperationContext.Provider>

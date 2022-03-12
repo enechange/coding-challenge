@@ -4,10 +4,15 @@ module Api
       def index
         get_ampere = params[:ampere]
         get_kwh = params[:kwh]
-        records = Plan.join_tables.ampere(get_ampere).min_amount(get_kwh).max_amount(get_kwh)
-        result = delete_key(calculate_price(store_unit(record_to_hash(records), get_kwh)))
-
-        render json: result
+        if get_ampere !~ /^[0-9]+$/ || get_kwh !~ /^[0-9]+$/
+          response_bad_request
+        elsif get_kwh.to_i > 999999999
+          response_bad_request
+        else
+          records = Plan.join_tables.ampere(get_ampere).min_amount(get_kwh).max_amount(get_kwh)
+          result = array_sort(delete_key(calculate_price(store_unit(record_to_hash(records), get_kwh))))        
+          response_success(result)
+        end
         
       end
 
@@ -43,6 +48,10 @@ module Api
             h.delete("unit_price")
             h.delete("unit")
           end
+        end
+
+        def array_sort(array)
+          array.sort_by!{|a| a["price"]}
         end
 
     end

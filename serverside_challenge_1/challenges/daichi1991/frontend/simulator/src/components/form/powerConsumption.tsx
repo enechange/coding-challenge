@@ -1,31 +1,42 @@
+import { Typography } from '@mui/material'
 import Box from '@mui/material/Box'
+import InputAdornment from '@mui/material/InputAdornment'
+import InputLabel from '@mui/material/InputLabel'
 import TextField from '@mui/material/TextField'
 import React, { useContext, useState } from 'react'
-import { ParametersOperationContext } from '../../context/parametersContext'
+import {
+  ParametersContext,
+  ParametersOperationContext,
+} from '../../context/parametersContext'
 
 export const PowerConsumption = () => {
   const handleSetKwh = useContext(ParametersOperationContext).handleSetKwh
   const [inputkwh, setInputKwh] = useState<string>('')
+  const emptyKwh = useContext(ParametersContext).emptyKwh
+
   const handleKwh = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInputKwh(event.target.value)
-    handleSetKwh(Number(event.target.value))
+    const inputValue = event.target.value
+    if (Number(inputValue)) {
+      setInputKwh(inputValue)
+      handleSetKwh(Number(inputValue))
+    }
   }
   return (
-    <Box
-      component="form"
-      sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
-      }}
-      noValidate
-      autoComplete="off"
-    >
-      <TextField
-        id="outlined-basic"
-        label="電力使用量"
-        variant="outlined"
-        value={inputkwh}
-        onChange={handleKwh}
-      />
-    </Box>
+    <>
+      <Box sx={{ width: 120, margin: '0 auto' }}>
+        <InputLabel id="kwh-input-label">電力使用量</InputLabel>
+        <TextField
+          id="kwh-input"
+          variant="outlined"
+          value={inputkwh}
+          onChange={handleKwh}
+          sx={{ width: '100%' }}
+          InputProps={{
+            endAdornment: <InputAdornment position="end">kwh</InputAdornment>,
+          }}
+        />
+      </Box>
+      <Typography color="red">{emptyKwh}</Typography>
+    </>
   )
 }

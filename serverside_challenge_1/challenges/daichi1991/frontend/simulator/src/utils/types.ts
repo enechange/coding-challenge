@@ -7,11 +7,13 @@ export type PlanType = {
 export type ParametersType = {
   ampere: number
   kwh: number
+  emptyKwh: string
 }
 
 export type ParametersOperationType = {
   handleSetAmpere: (imputAmpere: number) => void
   handleSetKwh: (inputKwh: number) => void
+  handleSetEmptyKwh: (inputMessage: string) => void
 }
 
 export type GetPlansType = {

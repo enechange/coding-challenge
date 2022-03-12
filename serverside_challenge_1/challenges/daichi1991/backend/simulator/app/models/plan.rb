@@ -15,6 +15,8 @@ class Plan < ApplicationRecord
   scope :ampere, -> (get_ampere){where(basic_charges: {ampere: get_ampere})}
   scope :min_amount, -> (get_kwh){where('min_amount <= ?', get_kwh)}
   scope :max_amount, -> (get_kwh){where('max_amount >= ?', get_kwh)}
+
+  
   
   
 end
