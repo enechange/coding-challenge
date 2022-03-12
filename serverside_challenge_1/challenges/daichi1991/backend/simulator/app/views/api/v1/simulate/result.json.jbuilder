@@ -1,3 +1,3 @@
 json.array!(@results) do |result|
-  json.(result, :plan, :company, :price)
+  json.call(result, :plan, :company, :price)
 end
