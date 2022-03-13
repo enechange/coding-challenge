@@ -15,7 +15,7 @@ export const AmpereForm = () => {
     handleSetAmpere(Number(event.target.value))
   }
   return (
-    <Box sx={{ width: 120, margin: '0 auto', mb: 4 }}>
+    <Box sx={{ width: 160, margin: '0 auto', mb: 4 }}>
       <InputLabel id="ampere-select-label">契約アンペア数</InputLabel>
       <Select
         labelId="ampere-select-label"

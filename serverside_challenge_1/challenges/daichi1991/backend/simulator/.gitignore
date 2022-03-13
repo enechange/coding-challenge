@@ -22,3 +22,5 @@
 /config/master.key
 
 .env
+/vendor/bundle
+.foreman

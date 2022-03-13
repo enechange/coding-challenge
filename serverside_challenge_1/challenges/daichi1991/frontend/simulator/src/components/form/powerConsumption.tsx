@@ -23,7 +23,7 @@ export const PowerConsumption = () => {
   }
   return (
     <>
-      <Box sx={{ width: 120, margin: '0 auto' }}>
+      <Box sx={{ width: 160, margin: '0 auto' }}>
         <InputLabel id="kwh-input-label">電力使用量</InputLabel>
         <TextField
           id="kwh-input"
