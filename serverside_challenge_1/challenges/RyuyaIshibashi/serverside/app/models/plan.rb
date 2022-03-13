@@ -12,4 +12,15 @@ class Plan < ApplicationRecord
       .select('plans.*, basic_fees.fee AS basic_fee')
       .where(basic_fees: { ampere: ampere })
   }
+
+  class << self
+    def csv_header_converters
+      headers = {
+        'ID' => :id,
+        'COMPANY_ID' => :company_id,
+        'NAME' => :name
+      }
+      lambda { |name| headers[name] }
+    end
+  end
 end
