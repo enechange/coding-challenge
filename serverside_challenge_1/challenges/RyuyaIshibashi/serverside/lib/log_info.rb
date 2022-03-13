@@ -60,10 +60,8 @@ class LogInfo
     
       def message(msg_id, args = [])
         message = self.const_get(msg_id)[:message]
-        args.each_with_index do |value, index|
-          message = message.sub("%{#{ ( index + 1 ).to_s }}", value.to_s)
-        end
-        message
+        replace_hash = [*1..args.count].map{|n| "%{#{n.to_s}}"}.zip(args.map(&:to_s)).to_h
+        message.gsub(/%{\d*}/, replace_hash)
       end
   end
 end
