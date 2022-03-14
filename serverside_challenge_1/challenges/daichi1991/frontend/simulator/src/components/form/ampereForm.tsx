@@ -4,6 +4,7 @@ import InputLabel from '@mui/material/InputLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import React, { useContext, useState } from 'react'
 import { ParametersOperationContext } from '../../context/parametersContext'
+import { FormStyle, InputTextStyle } from '../../utils/styles'
 
 export const AmpereForm = () => {
   const handleSetAmpere = useContext(ParametersOperationContext).handleSetAmpere
@@ -15,7 +16,7 @@ export const AmpereForm = () => {
     handleSetAmpere(Number(event.target.value))
   }
   return (
-    <Box sx={{ width: 160, margin: '0 auto', mb: 4 }}>
+    <Box sx={FormStyle}>
       <InputLabel id="ampere-select-label">契約アンペア数</InputLabel>
       <Select
         labelId="ampere-select-label"
@@ -24,7 +25,7 @@ export const AmpereForm = () => {
         label="ampere"
         onChange={handleChnage}
         defaultValue={'10'}
-        sx={{ width: '100%', textAlign: 'left' }}
+        sx={InputTextStyle}
       >
         <MenuItem value={'10'}>10 A</MenuItem>
         <MenuItem value={'20'}>20 A</MenuItem>

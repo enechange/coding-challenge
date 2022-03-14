@@ -8,6 +8,7 @@ import {
   ParametersContext,
   ParametersOperationContext,
 } from '../../context/parametersContext'
+import { FormStyle, InputTextStyle } from '../../utils/styles'
 
 export const PowerConsumption = () => {
   const handleSetKwh = useContext(ParametersOperationContext).handleSetKwh
@@ -16,23 +17,21 @@ export const PowerConsumption = () => {
 
   const handleKwh = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value
-    if (Number(inputValue)) {
-      setInputKwh(inputValue)
-      handleSetKwh(Number(inputValue))
-    }
+    setInputKwh(inputValue)
+    handleSetKwh(Number(inputValue))
   }
   return (
     <>
-      <Box sx={{ width: 160, margin: '0 auto' }}>
-        <InputLabel id="kwh-input-label">電力使用量</InputLabel>
+      <Box sx={FormStyle}>
+        <InputLabel id="kwh-input-label">電気使用量</InputLabel>
         <TextField
           id="kwh-input"
           variant="outlined"
           value={inputkwh}
           onChange={handleKwh}
-          sx={{ width: '100%' }}
+          sx={InputTextStyle}
           InputProps={{
-            endAdornment: <InputAdornment position="end">kwh</InputAdornment>,
+            endAdornment: <InputAdornment position="end">kWh</InputAdornment>,
           }}
         />
       </Box>

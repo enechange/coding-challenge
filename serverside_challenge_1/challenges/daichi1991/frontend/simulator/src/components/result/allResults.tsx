@@ -4,6 +4,7 @@ import {
   PlanErrorMessageContext,
   PlansContext,
 } from '../../context/plansContests'
+import { AllResultsStyle } from '../../utils/styles'
 import { ResultWrapper } from './resultWrapper'
 
 export const AllResults = () => {
@@ -15,7 +16,7 @@ export const AllResults = () => {
         {planErrorMessage}
       </Typography>
       {Object.keys(plans).length != 0 && (
-        <Box sx={{ width: '90%', margin: '0 auto', mt: 2, mb: 2 }}>
+        <Box sx={AllResultsStyle}>
           <Typography variant="h6">シミュレーション結果</Typography>
           {plans.map((plan, index) => (
             <ResultWrapper key={index} plan={plan} index={index} />

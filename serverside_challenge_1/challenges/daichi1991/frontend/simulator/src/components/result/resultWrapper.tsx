@@ -2,6 +2,7 @@ import { Box } from '@mui/material'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import React from 'react'
+import { ResultCardStyle } from '../../utils/styles'
 import { PlanType } from '../../utils/types'
 
 interface Props {
@@ -14,21 +15,7 @@ export const ResultWrapper = (props: Props) => {
   const indexNo = props.index
   return (
     <>
-      <Card
-        sx={{
-          width: '100%',
-          m: '0 auto',
-          mt: 2,
-          height: 120,
-          border: 0.5,
-          display: 'block',
-          position: 'relative',
-          animationName: 'fadeUpAnime',
-          animationDuration: '0.5s',
-          animationFillMode: 'forwards',
-          opacity: 0,
-        }}
-      >
+      <Card sx={ResultCardStyle}>
         {indexNo == 0 && <Typography variant="subtitle2">最もお得!</Typography>}
         <Box
           sx={{
@@ -42,7 +29,7 @@ export const ResultWrapper = (props: Props) => {
           <Typography variant="h6" component="span" sx={{ fontWeight: 'bold' }}>
             {planState.plan}
           </Typography>
-          <Typography variant="subtitle1" component="span" sx={{ ml: 2 }}>
+          <Typography variant="subtitle1" component="span" sx={{ ml: 1 }}>
             {planState.provider_name}
           </Typography>
           <Typography variant="h4" color={'red'}>

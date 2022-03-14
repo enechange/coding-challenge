@@ -56,10 +56,6 @@ class Plan < ApplicationRecord
       a.delete_if{|k,v|
         k != 'provider_name' && k != 'plan' && k != 'price'
       }
-      # h.delete('id')
-      # h.delete('charge')
-      # h.delete('unit_price')
-      # h.delete('unit')
     end
   end
 

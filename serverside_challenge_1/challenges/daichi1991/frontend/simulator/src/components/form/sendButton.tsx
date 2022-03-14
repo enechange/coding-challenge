@@ -5,6 +5,7 @@ import {
   ParametersOperationContext,
 } from '../../context/parametersContext'
 import { GetPlansContext } from '../../context/plansContests'
+import { SendButtonStyle } from '../../utils/styles'
 
 export const SendButton = () => {
   const getPlans = useContext(GetPlansContext).getPlans
@@ -22,7 +23,7 @@ export const SendButton = () => {
 
   return (
     <>
-      <Button variant="contained" onClick={handleGetPlans} sx={{ mt: 2 }}>
+      <Button variant="contained" onClick={handleGetPlans} sx={SendButtonStyle}>
         シミュレーションする
       </Button>
     </>
