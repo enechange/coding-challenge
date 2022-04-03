@@ -1,27 +1,21 @@
 FactoryBot.define do
   factory :plan do
-    trait :A do
-      id { 1 }
-      plan { '従量電灯B' }
-      provider_name { '東京電力エナジーパートナー' }
+    trait :planA do
+      plan_code { 'PL000001' }
+      plan_name { '従量電灯B' }
+      provider_code { 'PR000001' }
     end
 
-    trait :B do
-      id { 2 }
-      plan { 'おうちプラン' }
-      provider_name { 'Loopでんき' }
+    trait :planB do
+      plan_code { 'PL000002' }
+      plan_name { 'おうちプラン' }
+      provider_code { 'PR000002' }
     end
 
-    trait :C do
-      id { 3 }
-      plan { 'ずっとも電気1' }
-      provider_name { '東京ガス株式会社' }
-    end
-
-    trait :D do
-      id { 4 }
-      plan { '従量電灯B たっぷりプラン' }
-      provider_name { 'JXTGでんき' }
+    trait :planC do
+      plan_code { 'PL000003' }
+      plan_name { 'ずっとも電気1' }
+      provider_code { 'PR000003' }
     end
   end
 end

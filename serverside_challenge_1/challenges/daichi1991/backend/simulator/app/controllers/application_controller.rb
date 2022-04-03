@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
     render json: response_data, status: :ok
   end
 
-  def response_bad_request
-    render status: :bad_request, json: { status: 400, message: 'Bad Request' }
+  def response_bad_request(message)
+    render status: :bad_request, json: { status: 400, message: message }
   end
 end

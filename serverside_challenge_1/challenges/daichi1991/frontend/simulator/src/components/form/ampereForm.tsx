@@ -28,6 +28,7 @@ export const AmpereForm = () => {
         sx={InputTextStyle}
       >
         <MenuItem value={'10'}>10 A</MenuItem>
+        <MenuItem value={'15'}>15 A</MenuItem>
         <MenuItem value={'20'}>20 A</MenuItem>
         <MenuItem value={'30'}>30 A</MenuItem>
         <MenuItem value={'40'}>40 A</MenuItem>

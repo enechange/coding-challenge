@@ -10,34 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_08_152703) do
+ActiveRecord::Schema.define(version: 2022_03_26_111547) do
 
-  create_table "basic_charges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "plan_id"
-    t.integer "ampere"
-    t.decimal "charge", precision: 10, scale: 2
+  create_table "basic_charges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs", force: :cascade do |t|
+    t.string "plan_code", null: false
+    t.integer "ampere", null: false
+    t.decimal "charge", precision: 10, scale: 2, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["plan_id"], name: "index_basic_charges_on_plan_id"
+    t.index ["plan_code"], name: "fk_rails_36cbfc5eba"
   end
 
-  create_table "commodity_charges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "plan_id"
-    t.integer "min_amount"
-    t.integer "max_amount"
+  create_table "commodity_charges", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs", force: :cascade do |t|
+    t.string "plan_code"
+    t.integer "min_amount", null: false
+    t.integer "max_amount", null: false
     t.decimal "unit_price", precision: 10, scale: 2
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["plan_id"], name: "index_commodity_charges_on_plan_id"
+    t.index ["plan_code"], name: "fk_rails_4e4793210c"
   end
 
-  create_table "plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.string "plan"
-    t.string "provider_name"
+  create_table "plans", primary_key: "plan_code", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs", force: :cascade do |t|
+    t.string "plan_name", null: false
+    t.string "provider_code", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["provider_code"], name: "fk_rails_f84095dcf1"
+  end
+
+  create_table "providers", primary_key: "provider_code", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs", force: :cascade do |t|
+    t.string "provider_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "basic_charges", "plans"
-  add_foreign_key "commodity_charges", "plans"
+  add_foreign_key "basic_charges", "plans", column: "plan_code", primary_key: "plan_code"
+  add_foreign_key "commodity_charges", "plans", column: "plan_code", primary_key: "plan_code"
+  add_foreign_key "plans", "providers", column: "provider_code", primary_key: "provider_code"
 end

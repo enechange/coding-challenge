@@ -26,12 +26,19 @@ export const PlansProvider: React.FC = (children) => {
         },
       })
       .then((res) => {
-        setPlanErrorMessage('')
-        setPlans(res.data)
+        if (res.status === 200) {
+          setPlanErrorMessage('')
+          setPlans(res.data)
+        } else {
+          setPlans([])
+          console.log(res.status)
+          setPlanErrorMessage(res.data.message)
+          throw new Error(res.statusText)
+        }
       })
-      .catch(() => {
+      .catch((err) => {
         setPlans([])
-        setPlanErrorMessage('入力値が不正です。')
+        setPlanErrorMessage(err.response.data.message)
       })
   }
 
