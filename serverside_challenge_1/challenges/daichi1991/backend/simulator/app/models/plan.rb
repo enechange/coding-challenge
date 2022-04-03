@@ -30,8 +30,8 @@ class Plan < ApplicationRecord
     records = record_to_hash(records)
     records = calculate_step_price(records, get_kwh)
     records = calculate_price(records)
-    records = delete_key(records)
-    array_sort(records)
+    records =array_sort(records)
+    return records.map { |r| [r['provider_name'],r['plan_name'],r['price']] }
   end
 
   def self.record_to_hash(records)
@@ -54,14 +54,6 @@ class Plan < ApplicationRecord
       array[count].store('price', price)
       count += 1
     end
-  end
-
-  def self.delete_key(array)
-    new_array = []
-    array.each do |a|
-      new_array.push(a.slice('provider_name', 'plan_name', 'price'))
-    end
-    return new_array
   end
 
   def self.array_sort(array)

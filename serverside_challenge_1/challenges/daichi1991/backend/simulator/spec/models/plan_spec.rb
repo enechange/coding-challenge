@@ -128,33 +128,6 @@ RSpec.describe Plan, type: :model do
       expect(records[0]).not_to include('price')
     end
   end
-  describe 'delete_key' do
-    before do
-      create(:provider, :providerA)
-      create(:plan, :planA)
-      create(:basic_charge, :basicChargeA1)
-      create(:commodity_charge, :commodityChargeA1)
-    end
-    it 'provider_name、plan、priceが存在していればOK' do
-      records = Plan.select_plan.extraction_condition(10,100)
-      records = Plan.record_to_hash(records)
-      records = Plan.calculate_step_price(records, 100)
-      records = Plan.calculate_price(records)
-      records = Plan.delete_key(records)
-      expect(records[0]).to include('provider_name','plan_name','price')
-    end
-    it '正常系以外のキーが存在していたらNG' do
-      records = Plan.select_plan.extraction_condition(10,100)
-      records = Plan.record_to_hash(records)
-      records = Plan.calculate_step_price(records, 100)
-      records = Plan.calculate_price(records)
-      records = Plan.delete_key(records)
-      expect(records[0]).not_to include('plan_code')
-      expect(records[0]).not_to include('charge')
-      expect(records[0]).not_to include('unit_price')
-      expect(records[0]).not_to include('step_price')
-    end
-  end
   describe 'array_sort' do
     before do
       create(:provider, :providerA)
@@ -173,7 +146,6 @@ RSpec.describe Plan, type: :model do
       records = Plan.record_to_hash(records)
       records = Plan.calculate_step_price(records, 1000)
       records = Plan.calculate_price(records)
-      records = Plan.delete_key(records)
       records = Plan.array_sort(records)
       expect(records[0]['plan_name']).to eq('おうちプラン') 
     end
@@ -182,7 +154,6 @@ RSpec.describe Plan, type: :model do
       records = Plan.record_to_hash(records)
       records = Plan.calculate_step_price(records, 100)
       records = Plan.calculate_price(records)
-      records = Plan.delete_key(records)
       records = Plan.array_sort(records)
       expect(records[0]['plan_name']).to eq('従量電灯B') 
     end
