@@ -1,8 +1,23 @@
-* {
-  box-sizing: border-box;
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --body-default: #f8f8f8;
+  --body-button: #3d5b97;
+  --body-group: #dddddd;
+  --body-required: #e66059;
+  --line-primary: #ed9b38;
+  --text-default: #444444;
+  --text-primary: var(--white);
 }
 
-body,html {
+* {
+  box-sizing: border-box;
+  color: var(--text-default);
+}
+
+body,
+html {
+  background: var(--body-default);
   height: 100%;
-  margin: 0
+  margin: 0;
 }
