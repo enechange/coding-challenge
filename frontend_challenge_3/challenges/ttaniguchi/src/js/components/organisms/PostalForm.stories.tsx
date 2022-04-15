@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import PostalForm, { Props } from './PostalForm';
 
 export default {
-  title: 'challenge/molecules/PostalForm',
+  title: 'challenge/organisms/PostalForm',
   component: PostalForm,
 } as Meta;
 
