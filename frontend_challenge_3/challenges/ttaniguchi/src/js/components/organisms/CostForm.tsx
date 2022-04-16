@@ -22,7 +22,7 @@ const StyledYen = styled.div`
 `;
 
 export type Props = {
-  cost: number;
+  cost?: number;
   error?: string;
   onChange: (cost: number) => void;
 };

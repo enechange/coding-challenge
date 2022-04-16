@@ -26,7 +26,7 @@ const StyledInput = styled.input`
 `;
 
 export type Props = {
-  cost: number;
+  cost?: number;
   onChange: (cost: number) => void;
 };
 const CostInput: FC<Props> = ({ cost, onChange }) => {
