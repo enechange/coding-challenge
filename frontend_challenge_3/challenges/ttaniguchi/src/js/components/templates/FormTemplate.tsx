@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import styled from 'styled-components';
+import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
 import SelectForm from '@/js/components/organisms/SelectForm';
 import CostForm from '@/js/components/organisms/CostForm';
@@ -9,6 +10,9 @@ const StyledRoot = styled.div`
 `;
 const ContainerLayout = styled.div`
   padding: 16px 0;
+`;
+const ButtonLayout = styled.div`
+  padding: 24px;
 `;
 
 const FormTemplate: FC = () => {
@@ -53,6 +57,9 @@ const FormTemplate: FC = () => {
       <ContainerLayout>
         <CostForm cost={cost} onChange={handleCost} />
       </ContainerLayout>
+      <ButtonLayout>
+        <ExecButton onClick={() => console.log('onClick')} disabled={false} />
+      </ButtonLayout>
     </StyledRoot>
   );
 };
