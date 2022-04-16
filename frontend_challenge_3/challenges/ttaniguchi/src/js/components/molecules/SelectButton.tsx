@@ -7,7 +7,7 @@ const StyledRoot = styled.div`
   border-radius: 4px;
   width: 100%;
 `;
-const StyledLabel = styled.button`
+const StyledButton = styled.button`
   align-items: center;
   background: var(--white);
   border: 4px solid var(--body-group);
@@ -35,15 +35,16 @@ const StyledDescription = styled.div`
 export type Props = {
   label: string;
   description?: string;
+  onClick: () => void;
 };
-const SelectButton: FC<Props> = ({ label, description }) => (
+const SelectButton: FC<Props> = ({ label, description, onClick }) => (
   <StyledRoot>
-    <StyledLabel>
+    <StyledButton onClick={onClick}>
       <MoreLayout>
         <More height={40} width={40} color="#ed9b38" />
       </MoreLayout>
       {label}
-    </StyledLabel>
+    </StyledButton>
     {description && (
       <>
         <StyledHorizontalRule />

@@ -1,4 +1,5 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
 import { Meta, Story } from '@storybook/react';
 
 import SelectButton, { Props } from './SelectButton';
@@ -8,7 +9,9 @@ export default {
   component: SelectButton,
 } as Meta;
 
-const Template: Story<Props> = (args) => <SelectButton {...args} />;
+const Template: Story<Props> = (args) => (
+  <SelectButton {...args} onClick={action('onClick')} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
