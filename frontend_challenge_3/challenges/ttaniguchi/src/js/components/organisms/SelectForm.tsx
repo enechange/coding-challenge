@@ -58,7 +58,7 @@ const SelectForm: FC<Props> = ({
       {DATA.map(
         ({ name, selected, description, handler }) =>
           handler && (
-            <ContainerLayout>
+            <ContainerLayout key={name}>
               <FieldLabel>{name}</FieldLabel>
               <InputLayout>
                 <SelectButton
