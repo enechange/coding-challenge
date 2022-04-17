@@ -25,7 +25,7 @@ const FormTemplate: FC = () => {
   // TODO: 暫定データ
   const [corp, plan, cap] = [
     '東京電力エナジーパートナー',
-    ['従量灯C', '従量灯Cプランです'],
+    ['従量電灯C', '従量電灯Cプランです'],
     49,
   ];
 
