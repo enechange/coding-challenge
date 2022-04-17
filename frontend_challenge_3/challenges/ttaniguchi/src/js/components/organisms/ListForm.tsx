@@ -1,0 +1,56 @@
+import React, { FC } from 'react';
+import styled from 'styled-components';
+import { List } from '@/js/types/List';
+
+const StyledRoot = styled.div`
+  background: var(--white);
+  border-radius: 16px;
+  height: 100%;
+  min-height: 240px;
+  padding: 48px 0;
+`;
+const StyledList = styled.div`
+  border-top: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  height: 100%;
+  overflow-y: scroll;
+`;
+const StyledData = styled.div<{ selected: boolean }>`
+  ${({ selected }) =>
+    selected &&
+    `
+    background: var(--body-selected);
+  `}
+  align-items: center;
+  border-top: 1px solid var(--line-default);
+  display: flex;
+  height: 64px;
+  padding: 0 16px;
+  &:first-child {
+    border-bottom: 0;
+  }
+`;
+
+export type Props = {
+  list: List;
+  selected: number;
+  onSelect: (key: number) => void;
+};
+const SelectForm: FC<Props> = ({ list, selected, onSelect }) => {
+  return (
+    <StyledRoot>
+      <StyledList>
+        {list.map(({ key, value }) => (
+          <StyledData
+            key={key}
+            selected={key === selected}
+            onClick={() => onSelect(key)}
+          >
+            {value}
+          </StyledData>
+        ))}
+      </StyledList>
+    </StyledRoot>
+  );
+};
+export default SelectForm;
