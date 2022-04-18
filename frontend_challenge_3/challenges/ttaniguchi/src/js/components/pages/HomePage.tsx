@@ -21,7 +21,7 @@ const HomePage: FC = () => {
   const [code, handleCode] = useState<[string, string]>(['', '']);
   const [corp, handleCorp] = useState<string | undefined>(undefined);
   const [plan, handlePlan] = useState<[string, string] | undefined>(undefined);
-  const [cap, handleCap] = useState<number | undefined>(undefined);
+  const [cap, handleCap] = useState<string | undefined>(undefined);
   const [cost, handleCost] = useState<number | undefined>(undefined);
 
   const [dialog, handleDialog] = useState<
@@ -76,7 +76,7 @@ const HomePage: FC = () => {
             list: [{ key: 1, value: '49kVA' }],
             selected: 1,
             onSelect: () => {
-              handleCap(49);
+              handleCap('49kVA');
               close();
             },
           });

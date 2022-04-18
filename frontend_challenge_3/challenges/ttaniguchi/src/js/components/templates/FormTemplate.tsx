@@ -32,11 +32,11 @@ export type Props = {
   code: [string, string];
   corp?: string;
   plan?: [string, string];
-  cap?: number;
+  cap?: string;
   cost?: number;
   handleCode: (code: [string, string]) => void;
   openDialog: (type: string) => void;
-  handleCost: (cap: number) => void;
+  handleCost: (cost: number) => void;
   handleSend: () => void;
 };
 const FormTemplate: FC<Props> = ({
@@ -70,7 +70,7 @@ const FormTemplate: FC<Props> = ({
       <ContainerLayout>
         <SelectForm
           selectedCorp={corp}
-          selectedPlan={plan as [string, string]}
+          selectedPlan={plan}
           selectedCap={cap}
           onClickCorp={() => openDialog('corp')}
           onClickPlan={() => openDialog('plan')}
