@@ -27,9 +27,9 @@ const HomePage: FC = () => {
   const [dialog, handleDialog] = useState<Dialog | undefined>(undefined);
 
   const [code, handleCode] = useState<[string, string]>(['', '']);
-  const [corpId, handleCorpId] = useState<number | undefined>(undefined);
-  const [planId, handlePlanId] = useState<number | undefined>(undefined);
-  const [capId, handleCapId] = useState<number | undefined>(undefined);
+  const [corpId, handleCorpId] = useState<number>(0);
+  const [planId, handlePlanId] = useState<number>(0);
+  const [capId, handleCapId] = useState<number>(0);
   const [cost, handleCost] = useState<number | undefined>(undefined);
 
   const areaId = code[0].slice(0, 1);
@@ -112,6 +112,7 @@ const HomePage: FC = () => {
           <DialogTemplate
             list={dialog.list}
             selected={dialog.selected}
+            onClose={() => close()}
             onSelect={dialog.onSelect}
           />
         </DialogLayout>

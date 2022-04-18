@@ -19,11 +19,12 @@ const DialogLayout = styled.div`
 export type Props = {
   list: List;
   selected?: number;
+  onClose: () => void;
   onSelect: (key: number) => void;
 };
-const DialogTemplate: FC<Props> = ({ list, selected, onSelect }) => {
+const DialogTemplate: FC<Props> = ({ list, selected, onClose, onSelect }) => {
   return (
-    <StyledRoot>
+    <StyledRoot onClick={onClose}>
       <DialogLayout>
         <ListForm list={list} selected={selected} onSelect={onSelect} />
       </DialogLayout>

@@ -11,7 +11,11 @@ export default {
 } as Meta;
 
 const Template: Story<Props> = (args) => (
-  <DialogTemplate {...args} onSelect={action('onSelect')} />
+  <DialogTemplate
+    {...args}
+    onClose={action('onClose')}
+    onSelect={action('onSelect')}
+  />
 );
 
 export const Default = Template.bind({});
