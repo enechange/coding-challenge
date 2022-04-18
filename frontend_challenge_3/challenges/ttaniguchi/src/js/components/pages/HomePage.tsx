@@ -16,85 +16,91 @@ const DialogLayout = styled.div`
   width: 100%;
 `;
 
+type Dialog = {
+  list: List;
+  selected: number | undefined;
+  onSelect: (key: number) => void;
+};
+
 const HomePage: FC = () => {
   const [data, setData] = useState<Area | undefined>(undefined);
+  const [dialog, handleDialog] = useState<Dialog | undefined>(undefined);
+
   const [code, handleCode] = useState<[string, string]>(['', '']);
-  const [corp, handleCorp] = useState<string | undefined>(undefined);
-  const [plan, handlePlan] = useState<[string, string] | undefined>(undefined);
-  const [cap, handleCap] = useState<string | undefined>(undefined);
+  const [corpId, handleCorpId] = useState<number | undefined>(undefined);
+  const [planId, handlePlanId] = useState<number | undefined>(undefined);
+  const [capId, handleCapId] = useState<number | undefined>(undefined);
   const [cost, handleCost] = useState<number | undefined>(undefined);
 
-  const [dialog, handleDialog] = useState<
-    | {
-        list: List;
-        selected: number;
-        onSelect: (key: number) => void;
-      }
-    | undefined
-  >(undefined);
-
-  const id = code[0].slice(0, 1);
+  const areaId = code[0].slice(0, 1);
   useEffect(() => {
-    if (id) {
-      const url = `/api/areas/${id}.json`;
+    if (areaId) {
+      const url = `/api/areas/${areaId}.json`;
       fetch(url)
         .then((r) => r.json())
         .then(({ data }) => setData(data));
     }
-  }, [id]);
+  }, [areaId]);
 
-  const close = useCallback(() => {
+  const corp = data?.corporations.find((r) => r.id === corpId);
+  const corpList = data?.corporations.map(({ id, name }) => ({
+    key: id,
+    value: name,
+  }));
+
+  const plan = corp?.plans.find((r) => r.id === planId);
+  const planList = corp?.plans.map(({ id, name }) => ({
+    key: id,
+    value: name,
+  }));
+
+  const capList = plan?.capacity.map((row, i) => ({
+    key: i + 1,
+    value: row,
+  }));
+  const cap = capList?.find((r) => r.key === capId);
+
+  const close = useCallback((callback?: () => void) => {
+    if (callback) {
+      callback();
+    }
     handleDialog(undefined);
   }, []);
+
   const open = useCallback(
     (key: string) => {
-      switch (key) {
-        case 'corp':
-          if (data?.corporations) {
-            handleDialog({
-              list: [{ key: 1, value: '東京電力' }],
-              selected: 1,
-              onSelect: () => {
-                handleCorp('東京電力');
-                close();
-              },
-            });
-          }
-          break;
-        case 'plan':
-          handleDialog({
-            list: [{ key: 1, value: '従量電灯C' }],
-            selected: 1,
-            onSelect: () => {
-              handlePlan(['従量電灯C', '従量電灯Cプランです']);
-              close();
-            },
-          });
-          break;
-        case 'cap':
-          handleDialog({
-            list: [{ key: 1, value: '49kVA' }],
-            selected: 1,
-            onSelect: () => {
-              handleCap('49kVA');
-              close();
-            },
-          });
-          break;
-        default:
-          break;
+      if (key === 'corp' && corpList) {
+        handleDialog({
+          list: corpList,
+          selected: corpId,
+          onSelect: (key) => close(() => handleCorpId(key)),
+        });
+      }
+      if (key === 'plan' && planList) {
+        handleDialog({
+          list: planList,
+          selected: planId,
+          onSelect: (key) => close(() => handlePlanId(key)),
+        });
+      }
+      if (key === 'cap' && capList) {
+        handleDialog({
+          list: capList,
+          selected: capId,
+          onSelect: (key) => close(() => handleCapId(key)),
+        });
       }
     },
-    [data],
+    [data, corpList, planList, capList],
   );
 
   return (
     <StyledRoot>
       <FormTemplate
         code={code}
-        corp={corp}
-        plan={plan}
-        cap={cap}
+        corp={corp?.name}
+        plan={plan && [plan.name, plan.description]}
+        cap={cap?.value}
         cost={cost}
         handleCode={handleCode}
         openDialog={open}

@@ -33,7 +33,7 @@ const StyledData = styled.div<{ selected: boolean }>`
 
 export type Props = {
   list: List;
-  selected: number;
+  selected?: number;
   onSelect: (key: number) => void;
 };
 const SelectForm: FC<Props> = ({ list, selected, onSelect }) => {

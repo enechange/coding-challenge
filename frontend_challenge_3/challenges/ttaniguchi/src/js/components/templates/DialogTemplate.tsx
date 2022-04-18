@@ -18,7 +18,7 @@ const DialogLayout = styled.div`
 
 export type Props = {
   list: List;
-  selected: number;
+  selected?: number;
   onSelect: (key: number) => void;
 };
 const DialogTemplate: FC<Props> = ({ list, selected, onSelect }) => {
