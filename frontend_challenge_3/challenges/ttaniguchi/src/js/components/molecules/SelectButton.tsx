@@ -7,7 +7,12 @@ const StyledRoot = styled.div`
   border-radius: 4px;
   width: 100%;
 `;
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ disabled: boolean }>`
+  ${({ disabled }) =>
+    disabled &&
+    `
+    color: var(--text-disabled);
+  `}
   align-items: center;
   background: var(--white);
   border: 4px solid var(--body-group);
@@ -35,13 +40,14 @@ const StyledDescription = styled.div`
 export type Props = {
   label: string;
   description?: string;
-  onClick: () => void;
+  disabled?: boolean;
+  onClick?: () => void;
 };
-const SelectButton: FC<Props> = ({ label, description, onClick }) => (
+const SelectButton: FC<Props> = ({ label, description, disabled, onClick }) => (
   <StyledRoot>
-    <StyledButton onClick={onClick}>
+    <StyledButton onClick={onClick} disabled={!!disabled}>
       <MoreLayout>
-        <More height={40} width={40} color="#ed9b38" />
+        <More height={40} width={40} color={disabled ? '#dddddd' : '#ed9b38'} />
       </MoreLayout>
       {label}
     </StyledButton>

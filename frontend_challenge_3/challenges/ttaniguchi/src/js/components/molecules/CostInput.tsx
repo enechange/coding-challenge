@@ -11,7 +11,7 @@ const StyledRoot = styled.div`
   padding: 4px;
   width: 100%;
 `;
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ disabled: boolean }>`
   border: 0;
   font-size: 16px;
   height: 100%;
@@ -19,17 +19,26 @@ const StyledInput = styled.input`
   padding-left: 1em;
   width: 100%;
 
-  &:hover,
-  &:focus {
-    box-shadow: inset 0 0 4px 0.5px var(--line-primary);
-  }
+  ${({ disabled }) =>
+    disabled
+      ? `
+    background: var(--body-default);
+    color: var(--text-disabled);
+    `
+      : `
+    &:hover,
+      &:focus {
+        box-shadow: inset 0 0 4px 0.5px var(--line-primary);
+      }
+    `}
 `;
 
 export type Props = {
   cost?: number;
+  disabled?: boolean;
   onChange: (cost: number) => void;
 };
-const CostInput: FC<Props> = ({ cost, onChange }) => {
+const CostInput: FC<Props> = ({ cost, disabled, onChange }) => {
   const fixCost = (cost: string) => Math.floor(parseInt(cost));
 
   return (
@@ -38,6 +47,7 @@ const CostInput: FC<Props> = ({ cost, onChange }) => {
         type="number"
         name="cost"
         value={cost}
+        disabled={!!disabled}
         onChange={(e) => onChange(fixCost(e.target.value))}
       />
     </StyledRoot>

@@ -14,3 +14,8 @@ export const Default = Template.bind({});
 Default.args = {
   cost: 5000,
 };
+export const Disabled = Template.bind({});
+Disabled.args = {
+  cost: 5000,
+  disabled: true,
+};

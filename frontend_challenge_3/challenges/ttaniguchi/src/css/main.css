@@ -3,6 +3,7 @@
   --white: #ffffff;
   --body-default: #f8f8f8;
   --body-button: #3d5b97;
+  --body-disabled: #aaaaaa;
   --body-group: #dddddd;
   --body-overlay: rgba(0, 0, 0, 0.3);
   --body-required: #e66059;
@@ -10,6 +11,7 @@
   --line-primary: #ed9b38;
   --line-default: #dddddd;
   --text-default: #444444;
+  --text-disabled: #dddddd;
   --text-primary: var(--white);
 }
 
