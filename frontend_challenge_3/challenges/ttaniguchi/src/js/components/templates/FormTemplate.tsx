@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
@@ -8,6 +8,19 @@ import CostForm from '@/js/components/organisms/CostForm';
 const StyledRoot = styled.div`
   position: relative;
 `;
+const StyledJumbotron = styled.div`
+  font-size: 16px;
+  line-height: 20px;
+  padding: 16px 0 24px;
+  text-align: center;
+`;
+const StyledTopic = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  line-height: 28px;
+  padding: 16px 0;
+`;
 const ContainerLayout = styled.div`
   padding: 16px 0;
 `;
@@ -15,50 +28,60 @@ const ButtonLayout = styled.div`
   padding: 24px;
 `;
 
-const FormTemplate: FC = () => {
-  const [code, handleCode] = useState<[string, string]>(['', '']);
-  // const [corp, handleCorp] = useState<string>('');
-  // const [plan, handlePlan] = useState<[string, string]>(['', '']);
-  // const [cap, handleCap] = useState<number>(0);
-  const [cost, handleCost] = useState<number | undefined>(undefined);
-
-  // TODO: 暫定データ
-  const [corp, plan, cap] = [
-    '東京電力エナジーパートナー',
-    ['従量灯C', '従量灯Cプランです'],
-    49,
-  ];
-
-  const open = () => {
-    console.log('clicked');
-  };
-
+export type Props = {
+  code: [string, string];
+  corp?: string;
+  plan?: [string, string];
+  cap?: string;
+  cost?: number;
+  handleCode: (code: [string, string]) => void;
+  openDialog: (type: string) => void;
+  handleCost: (cost: number) => void;
+  handleSend: () => void;
+};
+const FormTemplate: FC<Props> = ({
+  code,
+  corp,
+  plan,
+  cap,
+  cost,
+  handleCode,
+  openDialog,
+  handleCost,
+  handleSend,
+}) => {
   return (
     <StyledRoot>
-      <div>
-        <div>電気代から かんたんシミュレーション</div>
+      <StyledJumbotron>
+        <StyledTopic>
+          電気代から
+          <br />
+          かんたんシミュレーション
+        </StyledTopic>
         <div>
-          検針票を用意しなくてもOK いくらおトクになるのか今すぐわかります！
+          検針票を用意しなくてもOK
+          <br />
+          いくらおトクになるのか今すぐわかります！
         </div>
-      </div>
+      </StyledJumbotron>
       <ContainerLayout>
         <PostalForm code={code} onChange={handleCode} />
       </ContainerLayout>
       <ContainerLayout>
         <SelectForm
           selectedCorp={corp}
-          selectedPlan={plan as [string, string]}
+          selectedPlan={plan}
           selectedCap={cap}
-          onClickCorp={open}
-          onClickPlan={open}
-          onClickCap={open}
+          onClickCorp={() => openDialog('corp')}
+          onClickPlan={() => openDialog('plan')}
+          onClickCap={() => openDialog('cap')}
         />
       </ContainerLayout>
       <ContainerLayout>
         <CostForm cost={cost} onChange={handleCost} />
       </ContainerLayout>
       <ButtonLayout>
-        <ExecButton onClick={() => console.log('onClick')} disabled={false} />
+        <ExecButton onClick={handleSend} disabled={false} />
       </ButtonLayout>
     </StyledRoot>
   );

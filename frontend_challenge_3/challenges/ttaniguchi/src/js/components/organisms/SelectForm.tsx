@@ -20,7 +20,7 @@ const unselected = '- 未選択 -' as const;
 export type Props = {
   selectedCorp?: string;
   selectedPlan?: [string, string];
-  selectedCap?: number;
+  selectedCap?: string;
   onClickCorp?: () => void;
   onClickPlan?: () => void;
   onClickCap?: () => void;
@@ -47,7 +47,7 @@ const SelectForm: FC<Props> = ({
     },
     {
       name: '契約容量',
-      selected: selectedCap ? `${selectedCap}kVA` : unselected,
+      selected: selectedCap || unselected,
       handler: onClickCap,
     },
   ];

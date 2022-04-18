@@ -2,9 +2,16 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import More from '@/js/components/atoms/icons/More';
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<{ disabled: boolean }>`
   align-items: center;
+  ${({ disabled }) =>
+    disabled
+      ? `
+  background: var(--body-disabled);
+  `
+      : `
   background: var(--body-button);
+  `}
   border: 0;
   border-radius: 4px;
   display: flex;
@@ -44,7 +51,7 @@ const ExecButton: FC<Props> = ({ disabled, onClick }) => (
   <StyledButton onClick={onClick} disabled={disabled}>
     <StyledLabel>結果を見る</StyledLabel>
     <StyledIcon>
-      <More height={24} width={24} color="#3d5b97" />
+      <More height={24} width={24} color={disabled ? '#aaaaaa' : '#3d5b97'} />
     </StyledIcon>
   </StyledButton>
 );

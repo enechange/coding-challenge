@@ -4,7 +4,4 @@ import App from '@/js/components/main';
 
 import '@/css/main.css';
 
-render(
-  <App />,
-  document.getElementById('app'),
-);
+render(<App />, document.getElementById('app'));

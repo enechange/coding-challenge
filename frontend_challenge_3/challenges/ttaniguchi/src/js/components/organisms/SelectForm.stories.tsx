@@ -22,16 +22,16 @@ export const Default = Template1.bind({});
 export const Fill = Template1.bind({});
 Fill.args = {
   selectedCorp: '東京電力エナジーパートナー',
-  selectedPlan: ['従量灯C', '選択肢の説明文を表示するコンポーネント'],
-  selectedCap: 49,
+  selectedPlan: ['従量電灯C', '選択肢の説明文を表示するコンポーネント'],
+  selectedCap: '49kVA',
   onClickCap: action('onClickCap'),
 };
 
 const Template2: Story<Props> = () => (
   <SelectForm
     selectedCorp="東京電力エナジーパートナー"
-    selectedPlan={['従量灯C', '選択肢の説明文を表示するコンポーネント']}
-    selectedCap={49}
+    selectedPlan={['従量電灯C', '選択肢の説明文を表示するコンポーネント']}
+    selectedCap="49kVA"
     onClickCorp={action('onClickCorp')}
     onClickPlan={action('onClickPlan')}
     onClickCap={undefined}

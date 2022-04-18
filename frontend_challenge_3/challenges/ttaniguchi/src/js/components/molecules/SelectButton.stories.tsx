@@ -22,3 +22,8 @@ Description.args = {
   label: '東京電力エナジーパートナー',
   description: '選択肢の説明文を表示するコンポーネント',
 };
+export const Disabled = Template.bind({});
+Disabled.args = {
+  label: '東京電力エナジーパートナー',
+  disabled: true,
+};
