@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
@@ -15,24 +15,28 @@ const ButtonLayout = styled.div`
   padding: 24px;
 `;
 
-const FormTemplate: FC = () => {
-  const [code, handleCode] = useState<[string, string]>(['', '']);
-  // const [corp, handleCorp] = useState<string>('');
-  // const [plan, handlePlan] = useState<[string, string]>(['', '']);
-  // const [cap, handleCap] = useState<number>(0);
-  const [cost, handleCost] = useState<number | undefined>(undefined);
-
-  // TODO: 暫定データ
-  const [corp, plan, cap] = [
-    '東京電力エナジーパートナー',
-    ['従量電灯C', '従量電灯Cプランです'],
-    49,
-  ];
-
-  const open = () => {
-    console.log('clicked');
-  };
-
+export type Props = {
+  code: [string, string];
+  corp?: string;
+  plan?: [string, string];
+  cap?: number;
+  cost?: number;
+  handleCode: (code: [string, string]) => void;
+  openDialog: (type: string) => void;
+  handleCost: (cap: number) => void;
+  handleSend: () => void;
+};
+const FormTemplate: FC<Props> = ({
+  code,
+  corp,
+  plan,
+  cap,
+  cost,
+  handleCode,
+  openDialog,
+  handleCost,
+  handleSend,
+}) => {
   return (
     <StyledRoot>
       <div>
@@ -49,16 +53,16 @@ const FormTemplate: FC = () => {
           selectedCorp={corp}
           selectedPlan={plan as [string, string]}
           selectedCap={cap}
-          onClickCorp={open}
-          onClickPlan={open}
-          onClickCap={open}
+          onClickCorp={() => openDialog('corp')}
+          onClickPlan={() => openDialog('plan')}
+          onClickCap={() => openDialog('cap')}
         />
       </ContainerLayout>
       <ContainerLayout>
         <CostForm cost={cost} onChange={handleCost} />
       </ContainerLayout>
       <ButtonLayout>
-        <ExecButton onClick={() => console.log('onClick')} disabled={false} />
+        <ExecButton onClick={handleSend} disabled={false} />
       </ButtonLayout>
     </StyledRoot>
   );
