@@ -9,8 +9,5 @@ export const fixNum = (value: string, prevValue: string): string =>
   REGEX.NUMBER_ONLY.test(value) ? value : prevValue;
 export const isEmail = (email: string): boolean => REGEX.EMAIL.test(email);
 
-export const zen2han = (value: string) => {
-  return value.replace(REGEX.ZEN, (s) =>
-    String.fromCharCode(s.charCodeAt(0) - 65248),
-  );
-};
+export const zen2han = (value: string) =>
+  value.replace(REGEX.ZEN, (s) => String.fromCharCode(s.charCodeAt(0) - 65248));

@@ -39,16 +39,14 @@ export type Props = {
   onChange: (cost: number) => void;
 };
 const CostInput: FC<Props> = ({ cost, disabled, onChange }) => {
-  const fixCost = (cost: string) => Math.floor(parseInt(cost));
-
   return (
     <StyledRoot>
       <StyledInput
         type="number"
         name="cost"
-        value={cost}
+        value={cost || ''}
         disabled={!!disabled}
-        onChange={(e) => onChange(fixCost(e.target.value))}
+        onChange={(e) => onChange(parseInt(e.target.value, 10))}
       />
     </StyledRoot>
   );

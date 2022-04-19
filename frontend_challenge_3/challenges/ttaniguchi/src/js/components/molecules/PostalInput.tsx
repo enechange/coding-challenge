@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { fixNum, zen2han } from '@/js/libs/valid';
 
 const StyledRoot = styled.div`
   align-items: center;
@@ -55,7 +56,9 @@ const PostalInput: FC<Props> = ({ code: [code1, code2], onChange }) => {
         ref={code1Ref}
         value={code1}
         maxLength={3}
-        onChange={(e) => onChange([e.target.value, code2])}
+        onChange={(e) =>
+          onChange([fixNum(zen2han(e.target.value), code1), code2])
+        }
       />
       <StyledBar>-</StyledBar>
       <StyledInput
@@ -64,7 +67,9 @@ const PostalInput: FC<Props> = ({ code: [code1, code2], onChange }) => {
         ref={code2Ref}
         value={code2}
         maxLength={4}
-        onChange={(e) => onChange([code1, e.target.value])}
+        onChange={(e) =>
+          onChange([code1, fixNum(zen2han(e.target.value), code2)])
+        }
       />
     </StyledRoot>
   );
