@@ -23,7 +23,7 @@ type Dialog = {
 };
 
 const HomePage: FC = () => {
-  const [data, setData] = useState<Area | undefined>(undefined);
+  const [areaData, setAreaData] = useState<Area | undefined>(undefined);
   const [dialog, handleDialog] = useState<Dialog | undefined>(undefined);
 
   const [code, handleCode] = useState<[string, string]>(['', '']);
@@ -39,19 +39,22 @@ const HomePage: FC = () => {
       const url = `/api/areas/${areaId}.json`;
       fetch(url)
         .then((r) => r.json())
-        .then(({ data }) => setData(data));
+        .then(({ data }) => setAreaData(data));
     }
   }, [areaId]);
 
   const [corp, corpList] = useMemo(() => {
     handlePlanId(0);
-    return data?.corporations
+    return areaData?.corporations
       ? [
-          data.corporations.find((r) => r.id === corpId),
-          data.corporations.map(({ id, name }) => ({ key: id, value: name })),
+          areaData.corporations.find((r) => r.id === corpId),
+          areaData.corporations.map(({ id, name }) => ({
+            key: id,
+            value: name,
+          })),
         ]
       : [];
-  }, [data?.corporations, corpId]);
+  }, [areaData?.corporations, corpId]);
 
   const [plan, planList] = useMemo(() => {
     handleCapId(0);
@@ -100,13 +103,14 @@ const HomePage: FC = () => {
         });
       }
     },
-    [data, corpList, planList, capList],
+    [areaData, corpList, planList, capList],
   );
 
   return (
     <StyledRoot>
       <FormTemplate
         code={code}
+        areaData={areaData}
         corp={corp?.name}
         plan={plan && [plan.name, plan.description]}
         cap={cap?.value}

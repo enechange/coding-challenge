@@ -17,46 +17,23 @@ const InputLayout = styled.div`
 
 const unselected = '- 未選択 -' as const;
 
-export type Props = {
-  selectedCorp?: string;
-  selectedPlan?: [string, string];
-  selectedCap?: string;
-  onClickCorp?: () => void;
-  onClickPlan?: () => void;
-  onClickCap?: () => void;
+export type Selector = {
+  name: string;
+  selected?: string;
+  description?: string;
+  disabled?: boolean;
+  handler?: () => void;
 };
-const SelectForm: FC<Props> = ({
-  selectedCorp,
-  selectedPlan: [selectedPlan, selectedPlanDescription] = [],
-  selectedCap,
-  onClickCorp,
-  onClickPlan,
-  onClickCap,
-}) => {
-  const DATA = [
-    {
-      name: '電力会社',
-      selected: selectedCorp || unselected,
-      handler: onClickCorp,
-    },
-    {
-      name: 'プラン',
-      selected: selectedPlan || unselected,
-      description: selectedPlanDescription,
-      handler: onClickPlan,
-    },
-    {
-      name: '契約容量',
-      selected: selectedCap || unselected,
-      handler: onClickCap,
-    },
-  ];
 
+export type Props = {
+  selectors: Selector[];
+};
+const SelectForm: FC<Props> = ({ selectors }) => {
   return (
     <StyledRoot>
       <Title>電気のご使用状況について教えてください</Title>
-      {DATA.map(
-        ({ name, selected, description, handler }) =>
+      {selectors.map(
+        ({ name, selected, description, disabled, handler }) =>
           handler && (
             <ContainerLayout key={name}>
               <FieldLabel>{name}</FieldLabel>
@@ -64,6 +41,7 @@ const SelectForm: FC<Props> = ({
                 <SelectButton
                   label={selected || unselected}
                   description={description}
+                  disabled={disabled}
                   onClick={handler}
                 />
               </InputLayout>

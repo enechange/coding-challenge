@@ -2,8 +2,9 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
-import SelectForm from '@/js/components/organisms/SelectForm';
+import SelectForm, { Selector } from '@/js/components/organisms/SelectForm';
 import CostForm from '@/js/components/organisms/CostForm';
+import { Area } from '@/js/types/Area';
 
 const StyledRoot = styled.div`
   position: relative;
@@ -30,6 +31,7 @@ const ButtonLayout = styled.div`
 
 export type Props = {
   code: [string, string];
+  areaData?: Area;
   corp?: string;
   plan?: [string, string];
   cap?: string;
@@ -41,6 +43,7 @@ export type Props = {
 };
 const FormTemplate: FC<Props> = ({
   code,
+  areaData,
   corp,
   plan,
   cap,
@@ -50,6 +53,29 @@ const FormTemplate: FC<Props> = ({
   handleCost,
   handleSend,
 }) => {
+  const unselected = '- 未選択 -' as const;
+  const selector: Selector[] = [
+    {
+      name: '電力会社',
+      selected: corp || unselected,
+      disabled: code.join('').length < 7 || !areaData,
+      handler: () => openDialog('corp'),
+    },
+    {
+      name: 'プラン',
+      selected: plan ? plan[0] : unselected,
+      description: plan ? plan[1] : undefined,
+      disabled: !corp,
+      handler: () => openDialog('plan'),
+    },
+    {
+      name: '契約容量',
+      selected: cap || unselected,
+      disabled: !plan,
+      handler: () => openDialog('cap'),
+    },
+  ];
+
   return (
     <StyledRoot>
       <StyledJumbotron>
@@ -68,14 +94,7 @@ const FormTemplate: FC<Props> = ({
         <PostalForm code={code} onChange={handleCode} />
       </ContainerLayout>
       <ContainerLayout>
-        <SelectForm
-          selectedCorp={corp}
-          selectedPlan={plan}
-          selectedCap={cap}
-          onClickCorp={() => openDialog('corp')}
-          onClickPlan={() => openDialog('plan')}
-          onClickCap={() => openDialog('cap')}
-        />
+        <SelectForm selectors={selector} />
       </ContainerLayout>
       <ContainerLayout>
         <CostForm cost={cost} onChange={handleCost} />
