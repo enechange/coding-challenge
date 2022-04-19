@@ -36,22 +36,20 @@ const StyledInput = styled.input<{ disabled: boolean }>`
 export type Props = {
   cost?: number;
   disabled?: boolean;
+  onBlur?: () => void;
   onChange: (cost: number) => void;
 };
-const CostInput: FC<Props> = ({ cost, disabled, onChange }) => {
-  const fixCost = (cost: string) => Math.floor(parseInt(cost));
-
-  return (
-    <StyledRoot>
-      <StyledInput
-        type="number"
-        name="cost"
-        value={cost}
-        disabled={!!disabled}
-        onChange={(e) => onChange(fixCost(e.target.value))}
-      />
-    </StyledRoot>
-  );
-};
+const CostInput: FC<Props> = ({ cost, disabled, onBlur, onChange }) => (
+  <StyledRoot>
+    <StyledInput
+      type="number"
+      name="cost"
+      value={cost || ''}
+      disabled={!!disabled}
+      onBlur={onBlur}
+      onChange={(e) => onChange(parseInt(e.target.value, 10))}
+    />
+  </StyledRoot>
+);
 
 export default CostInput;

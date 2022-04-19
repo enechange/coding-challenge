@@ -2,6 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DialogTemplate from '@/js/components/templates/DialogTemplate';
 import FormTemplate from '@/js/components/templates/FormTemplate';
+import useSelectableList from '@/js/customHooks/useSelectableList';
 import { Area } from '@/js/types/Area';
 import { List } from '@/js/types/List';
 
@@ -23,42 +24,45 @@ type Dialog = {
 };
 
 const HomePage: FC = () => {
-  const [data, setData] = useState<Area | undefined>(undefined);
+  const [areaData, setAreaData] = useState<Area | undefined>(undefined);
   const [dialog, handleDialog] = useState<Dialog | undefined>(undefined);
 
   const [code, handleCode] = useState<[string, string]>(['', '']);
-  const [corpId, handleCorpId] = useState<number>(0);
-  const [planId, handlePlanId] = useState<number>(0);
-  const [capId, handleCapId] = useState<number>(0);
+  const [corpId, handleCorpId] = useState<number | undefined>(undefined);
+  const [planId, handlePlanId] = useState<number | undefined>(undefined);
+  const [capId, handleCapId] = useState<number | undefined>(undefined);
   const [cost, handleCost] = useState<number | undefined>(undefined);
 
   const areaId = code[0].slice(0, 1);
   useEffect(() => {
+    handleCorpId(undefined);
     if (areaId) {
       const url = `/api/areas/${areaId}.json`;
       fetch(url)
         .then((r) => r.json())
-        .then(({ data }) => setData(data));
+        .then(({ data }) => setAreaData(data))
+        .catch(() => setAreaData(undefined));
     }
   }, [areaId]);
 
-  const corp = data?.corporations.find((r) => r.id === corpId);
-  const corpList = data?.corporations.map(({ id, name }) => ({
-    key: id,
-    value: name,
-  }));
+  const { corp, selectableCorps, selectablePlans, selectableCaps } =
+    useSelectableList({
+      areaData,
+      corpId,
+      planId,
+      capId,
+    });
 
-  const plan = corp?.plans.find((r) => r.id === planId);
-  const planList = corp?.plans.map(({ id, name }) => ({
-    key: id,
-    value: name,
-  }));
+  useEffect(() => {
+    handlePlanId(undefined);
+  }, [areaData?.corporations, corpId]);
 
-  const capList = plan?.capacity.map((row, i) => ({
-    key: i + 1,
-    value: row,
-  }));
-  const cap = capList?.find((r) => r.key === capId);
+  useEffect(() => {
+    handleCapId(undefined);
+    if (planId && !selectableCaps?.length) {
+      handleCapId(0);
+    }
+  }, [corp?.plans, planId]);
 
   const close = useCallback((callback?: () => void) => {
     if (callback) {
@@ -69,38 +73,39 @@ const HomePage: FC = () => {
 
   const open = useCallback(
     (key: string) => {
-      if (key === 'corp' && corpList) {
+      if (key === 'corp' && selectableCorps) {
         handleDialog({
-          list: corpList,
+          list: selectableCorps,
           selected: corpId,
           onSelect: (key) => close(() => handleCorpId(key)),
         });
       }
-      if (key === 'plan' && planList) {
+      if (key === 'plan' && selectablePlans) {
         handleDialog({
-          list: planList,
+          list: selectablePlans,
           selected: planId,
           onSelect: (key) => close(() => handlePlanId(key)),
         });
       }
-      if (key === 'cap' && capList) {
+      if (key === 'cap' && selectableCaps) {
         handleDialog({
-          list: capList,
+          list: selectableCaps,
           selected: capId,
           onSelect: (key) => close(() => handleCapId(key)),
         });
       }
     },
-    [data, corpList, planList, capList],
+    [areaData, selectableCorps, selectablePlans, selectableCaps],
   );
 
   return (
     <StyledRoot>
       <FormTemplate
         code={code}
-        corp={corp?.name}
-        plan={plan && [plan.name, plan.description]}
-        cap={cap?.value}
+        areaData={areaData}
+        corpId={corpId}
+        planId={planId}
+        capId={capId}
         cost={cost}
         handleCode={handleCode}
         openDialog={open}

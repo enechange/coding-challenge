@@ -1,9 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
-import SelectForm from '@/js/components/organisms/SelectForm';
+import SelectForm, { Selector } from '@/js/components/organisms/SelectForm';
 import CostForm from '@/js/components/organisms/CostForm';
+import useSelectableList from '@/js/customHooks/useSelectableList';
+import { Area } from '@/js/types/Area';
 
 const StyledRoot = styled.div`
   position: relative;
@@ -27,12 +29,14 @@ const ContainerLayout = styled.div`
 const ButtonLayout = styled.div`
   padding: 24px;
 `;
+const unselected = '- 未選択 -' as const;
 
 export type Props = {
   code: [string, string];
-  corp?: string;
-  plan?: [string, string];
-  cap?: string;
+  areaData?: Area;
+  corpId?: number;
+  planId?: number;
+  capId?: number;
   cost?: number;
   handleCode: (code: [string, string]) => void;
   openDialog: (type: string) => void;
@@ -41,15 +45,71 @@ export type Props = {
 };
 const FormTemplate: FC<Props> = ({
   code,
-  corp,
-  plan,
-  cap,
+  areaData,
+  corpId,
+  planId,
+  capId,
   cost,
   handleCode,
   openDialog,
   handleCost,
   handleSend,
 }) => {
+  const [blur, handleBlur] = useState(false);
+  const { corp, plan, cap, selectableCaps } = useSelectableList({
+    areaData,
+    corpId,
+    planId,
+    capId,
+  });
+
+  const errors: Record<string, boolean> = useMemo(
+    () => ({
+      ngCode: code.join('').length !== 7,
+      noCorpId: corpId === undefined,
+      noPlanId: planId === undefined,
+      noCapId: capId === undefined,
+      noCost: cost === undefined,
+      ngCost: !!(blur && cost && cost < 1000),
+      outOfArea: !areaData && code.join('').length === 7,
+      outOfSimulation: !!(corp && corp.plans.length === 0),
+    }),
+    [!!areaData, code, corpId, planId, capId, cost, blur],
+  );
+  const hasError = Object.values(errors).some((r) => r);
+  const notNeedCap = plan && selectableCaps?.length === 0;
+
+  const selector: Selector[] = [
+    {
+      name: '電力会社',
+      selected: corp?.name,
+      disabled: !areaData,
+      handler: () => openDialog('corp'),
+    },
+    {
+      name: 'プラン',
+      selected: plan ? plan.name : unselected,
+      description: plan ? plan.description : undefined,
+      disabled: !corp,
+      handler: errors.outOfSimulation ? undefined : () => openDialog('plan'),
+    },
+    {
+      name: '契約容量',
+      selected: cap?.value || unselected,
+      disabled: !plan,
+      handler:
+        errors.outOfSimulation || notNeedCap
+          ? undefined
+          : () => openDialog('cap'),
+    },
+  ];
+
+  const handleOnSend = useCallback(() => {
+    if (!hasError) {
+      handleSend();
+    }
+  }, [errors]);
+
   return (
     <StyledRoot>
       <StyledJumbotron>
@@ -65,23 +125,30 @@ const FormTemplate: FC<Props> = ({
         </div>
       </StyledJumbotron>
       <ContainerLayout>
-        <PostalForm code={code} onChange={handleCode} />
-      </ContainerLayout>
-      <ContainerLayout>
-        <SelectForm
-          selectedCorp={corp}
-          selectedPlan={plan}
-          selectedCap={cap}
-          onClickCorp={() => openDialog('corp')}
-          onClickPlan={() => openDialog('plan')}
-          onClickCap={() => openDialog('cap')}
+        <PostalForm
+          code={code}
+          error={errors.outOfArea ? 'サービスエリア対象外です。' : undefined}
+          onChange={handleCode}
         />
       </ContainerLayout>
       <ContainerLayout>
-        <CostForm cost={cost} onChange={handleCost} />
+        <SelectForm
+          selectors={selector}
+          error={
+            errors.outOfSimulation ? 'シミュレーション対象外です。' : undefined
+          }
+        />
+      </ContainerLayout>
+      <ContainerLayout>
+        <CostForm
+          cost={cost}
+          error={errors.ngCost ? '電気代を正しく入力してください。' : undefined}
+          onBlur={() => handleBlur(true)}
+          onChange={handleCost}
+        />
       </ContainerLayout>
       <ButtonLayout>
-        <ExecButton onClick={handleSend} disabled={false} />
+        <ExecButton onClick={handleOnSend} disabled={hasError} />
       </ButtonLayout>
     </StyledRoot>
   );
