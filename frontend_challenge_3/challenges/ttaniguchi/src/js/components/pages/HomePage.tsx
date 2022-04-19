@@ -1,7 +1,8 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DialogTemplate from '@/js/components/templates/DialogTemplate';
 import FormTemplate from '@/js/components/templates/FormTemplate';
+import useSelectableList from '@/js/customHooks/useSelectableList';
 import { Area } from '@/js/types/Area';
 import { List } from '@/js/types/List';
 
@@ -43,34 +44,21 @@ const HomePage: FC = () => {
     }
   }, [areaId]);
 
-  const [corp, corpList] = useMemo(() => {
+  const { corp, plan, cap, selectableCorps, selectablePlans, selectableCaps } =
+    useSelectableList({
+      areaData,
+      corpId,
+      planId,
+      capId,
+    });
+
+  useEffect(() => {
     handlePlanId(0);
-    return areaData?.corporations
-      ? [
-          areaData.corporations.find((r) => r.id === corpId),
-          areaData.corporations.map(({ id, name }) => ({
-            key: id,
-            value: name,
-          })),
-        ]
-      : [];
   }, [areaData?.corporations, corpId]);
 
-  const [plan, planList] = useMemo(() => {
+  useEffect(() => {
     handleCapId(0);
-    return corp?.plans
-      ? [
-          corp.plans.find((r) => r.id === planId),
-          corp.plans.map(({ id, name }) => ({ key: id, value: name })),
-        ]
-      : [];
   }, [corp?.plans, planId]);
-
-  const [cap, capList] = useMemo(() => {
-    const capList = plan?.capacity.map((value, i) => ({ key: i + 1, value }));
-    const cap = capList?.find((r) => r.key === capId);
-    return [cap, capList];
-  }, [plan?.capacity, capId]);
 
   const close = useCallback((callback?: () => void) => {
     if (callback) {
@@ -81,29 +69,29 @@ const HomePage: FC = () => {
 
   const open = useCallback(
     (key: string) => {
-      if (key === 'corp' && corpList) {
+      if (key === 'corp' && selectableCorps) {
         handleDialog({
-          list: corpList,
+          list: selectableCorps,
           selected: corpId,
           onSelect: (key) => close(() => handleCorpId(key)),
         });
       }
-      if (key === 'plan' && planList) {
+      if (key === 'plan' && selectablePlans) {
         handleDialog({
-          list: planList,
+          list: selectablePlans,
           selected: planId,
           onSelect: (key) => close(() => handlePlanId(key)),
         });
       }
-      if (key === 'cap' && capList) {
+      if (key === 'cap' && selectableCaps) {
         handleDialog({
-          list: capList,
+          list: selectableCaps,
           selected: capId,
           onSelect: (key) => close(() => handleCapId(key)),
         });
       }
     },
-    [areaData, corpList, planList, capList],
+    [areaData, selectableCorps, selectablePlans, selectableCaps],
   );
 
   return (
