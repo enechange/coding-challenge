@@ -28,14 +28,14 @@ const HomePage: FC = () => {
   const [dialog, handleDialog] = useState<Dialog | undefined>(undefined);
 
   const [code, handleCode] = useState<[string, string]>(['', '']);
-  const [corpId, handleCorpId] = useState<number>(0);
-  const [planId, handlePlanId] = useState<number>(0);
-  const [capId, handleCapId] = useState<number>(0);
+  const [corpId, handleCorpId] = useState<number | undefined>(undefined);
+  const [planId, handlePlanId] = useState<number | undefined>(undefined);
+  const [capId, handleCapId] = useState<number | undefined>(undefined);
   const [cost, handleCost] = useState<number | undefined>(undefined);
 
   const areaId = code[0].slice(0, 1);
   useEffect(() => {
-    handleCorpId(0);
+    handleCorpId(undefined);
     if (areaId) {
       const url = `/api/areas/${areaId}.json`;
       fetch(url)
@@ -44,7 +44,7 @@ const HomePage: FC = () => {
     }
   }, [areaId]);
 
-  const { corp, plan, cap, selectableCorps, selectablePlans, selectableCaps } =
+  const { corp, selectableCorps, selectablePlans, selectableCaps } =
     useSelectableList({
       areaData,
       corpId,
@@ -53,11 +53,14 @@ const HomePage: FC = () => {
     });
 
   useEffect(() => {
-    handlePlanId(0);
+    handlePlanId(undefined);
   }, [areaData?.corporations, corpId]);
 
   useEffect(() => {
-    handleCapId(0);
+    handleCapId(undefined);
+    if (planId && !selectableCaps) {
+      handleCapId(0);
+    }
   }, [corp?.plans, planId]);
 
   const close = useCallback((callback?: () => void) => {
@@ -99,9 +102,9 @@ const HomePage: FC = () => {
       <FormTemplate
         code={code}
         areaData={areaData}
-        corp={corp?.name}
-        plan={plan && [plan.name, plan.description]}
-        cap={cap?.value}
+        corpId={corpId}
+        planId={planId}
+        capId={capId}
         cost={cost}
         handleCode={handleCode}
         openDialog={open}

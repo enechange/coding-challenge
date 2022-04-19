@@ -8,9 +8,9 @@ const useSelectableList = ({
   capId,
 }: {
   areaData?: Area;
-  corpId: number;
-  planId: number;
-  capId: number;
+  corpId?: number;
+  planId?: number;
+  capId?: number;
 }) => {
   const [corp, selectableCorps] = useMemo(() => {
     return areaData?.corporations

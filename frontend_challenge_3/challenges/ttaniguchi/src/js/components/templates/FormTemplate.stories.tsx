@@ -22,8 +22,8 @@ const Template: Story<Props> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   code: ['123', '4567'],
-  corp: '東京電力',
-  plan: ['従量電灯C', '東京電力の従量電灯Cプランです'],
-  cap: '49kVA',
+  corpId: undefined,
+  planId: undefined,
+  capId: undefined,
   cost: 5000,
 };

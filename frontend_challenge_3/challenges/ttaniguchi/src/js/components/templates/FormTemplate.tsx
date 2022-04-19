@@ -4,6 +4,7 @@ import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
 import SelectForm, { Selector } from '@/js/components/organisms/SelectForm';
 import CostForm from '@/js/components/organisms/CostForm';
+import useSelectableList from '@/js/customHooks/useSelectableList';
 import { Area } from '@/js/types/Area';
 
 const StyledRoot = styled.div`
@@ -32,9 +33,9 @@ const ButtonLayout = styled.div`
 export type Props = {
   code: [string, string];
   areaData?: Area;
-  corp?: string;
-  plan?: [string, string];
-  cap?: string;
+  corpId?: number;
+  planId?: number;
+  capId?: number;
   cost?: number;
   handleCode: (code: [string, string]) => void;
   openDialog: (type: string) => void;
@@ -44,35 +45,43 @@ export type Props = {
 const FormTemplate: FC<Props> = ({
   code,
   areaData,
-  corp,
-  plan,
-  cap,
+  corpId,
+  planId,
+  capId,
   cost,
   handleCode,
   openDialog,
   handleCost,
   handleSend,
 }) => {
+  const { corp, plan, cap, selectableCaps } = useSelectableList({
+    areaData,
+    corpId,
+    planId,
+    capId,
+  });
+
   const unselected = '- 未選択 -' as const;
   const selector: Selector[] = [
     {
       name: '電力会社',
-      selected: corp || unselected,
+      selected: corp?.name,
       disabled: code.join('').length < 7 || !areaData,
       handler: () => openDialog('corp'),
     },
     {
       name: 'プラン',
-      selected: plan ? plan[0] : unselected,
-      description: plan ? plan[1] : undefined,
+      selected: plan ? plan.name : unselected,
+      description: plan ? plan.description : undefined,
       disabled: !corp,
       handler: () => openDialog('plan'),
     },
     {
       name: '契約容量',
-      selected: cap || unselected,
+      selected: cap?.value || unselected,
       disabled: !plan,
-      handler: () => openDialog('cap'),
+      handler:
+        !plan || selectableCaps?.length ? () => openDialog('cap') : undefined,
     },
   ];
 
