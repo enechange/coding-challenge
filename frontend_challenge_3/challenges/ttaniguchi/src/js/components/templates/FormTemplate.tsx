@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import styled from 'styled-components';
 import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
@@ -84,6 +84,16 @@ const FormTemplate: FC<Props> = ({
         !plan || selectableCaps?.length ? () => openDialog('cap') : undefined,
     },
   ];
+  const errors: boolean[] = useMemo(
+    () => [
+      !code,
+      corpId === undefined,
+      planId === undefined,
+      capId === undefined,
+      !cost || cost < 1000,
+    ],
+    [code, corpId, planId, capId, cost],
+  );
 
   return (
     <StyledRoot>
@@ -109,7 +119,7 @@ const FormTemplate: FC<Props> = ({
         <CostForm cost={cost} onChange={handleCost} />
       </ContainerLayout>
       <ButtonLayout>
-        <ExecButton onClick={handleSend} disabled={false} />
+        <ExecButton onClick={handleSend} disabled={errors.some((r) => r)} />
       </ButtonLayout>
     </StyledRoot>
   );

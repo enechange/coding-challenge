@@ -58,7 +58,7 @@ const HomePage: FC = () => {
 
   useEffect(() => {
     handleCapId(undefined);
-    if (planId && !selectableCaps) {
+    if (planId && !selectableCaps?.length) {
       handleCapId(0);
     }
   }, [corp?.plans, planId]);
