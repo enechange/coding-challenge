@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
@@ -37,6 +37,7 @@ export type Props = {
   planId?: number;
   capId?: number;
   cost?: number;
+  locked: boolean;
   handleCode: (code: [string, string]) => void;
   openDialog: (type: string) => void;
   handleCost: (cost: number) => void;
@@ -49,6 +50,7 @@ const FormTemplate: FC<Props> = ({
   planId,
   capId,
   cost,
+  locked,
   handleCode,
   openDialog,
   handleCost,
@@ -61,12 +63,13 @@ const FormTemplate: FC<Props> = ({
     capId,
   });
 
+  const outOfArea = !areaData && code.join('').length === 7;
   const unselected = '- 未選択 -' as const;
   const selector: Selector[] = [
     {
       name: '電力会社',
       selected: corp?.name,
-      disabled: code.join('').length < 7 || !areaData,
+      disabled: !areaData,
       handler: () => openDialog('corp'),
     },
     {
@@ -84,16 +87,6 @@ const FormTemplate: FC<Props> = ({
         !plan || selectableCaps?.length ? () => openDialog('cap') : undefined,
     },
   ];
-  const errors: boolean[] = useMemo(
-    () => [
-      !code,
-      corpId === undefined,
-      planId === undefined,
-      capId === undefined,
-      !cost || cost < 1000,
-    ],
-    [code, corpId, planId, capId, cost],
-  );
 
   return (
     <StyledRoot>
@@ -110,7 +103,11 @@ const FormTemplate: FC<Props> = ({
         </div>
       </StyledJumbotron>
       <ContainerLayout>
-        <PostalForm code={code} onChange={handleCode} />
+        <PostalForm
+          code={code}
+          error={outOfArea ? '対象エリア外です' : undefined}
+          onChange={handleCode}
+        />
       </ContainerLayout>
       <ContainerLayout>
         <SelectForm selectors={selector} />
@@ -119,7 +116,7 @@ const FormTemplate: FC<Props> = ({
         <CostForm cost={cost} onChange={handleCost} />
       </ContainerLayout>
       <ButtonLayout>
-        <ExecButton onClick={handleSend} disabled={errors.some((r) => r)} />
+        <ExecButton onClick={handleSend} disabled={locked} />
       </ButtonLayout>
     </StyledRoot>
   );
