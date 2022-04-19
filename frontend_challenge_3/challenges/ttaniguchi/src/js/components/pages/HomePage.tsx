@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DialogTemplate from '@/js/components/templates/DialogTemplate';
 import FormTemplate from '@/js/components/templates/FormTemplate';
@@ -98,17 +98,6 @@ const HomePage: FC = () => {
     [areaData, selectableCorps, selectablePlans, selectableCaps],
   );
 
-  const errors: boolean[] = useMemo(
-    () => [
-      !code,
-      corpId === undefined,
-      planId === undefined,
-      capId === undefined,
-      !cost || cost < 1000,
-    ],
-    [code, corpId, planId, capId, cost],
-  );
-
   return (
     <StyledRoot>
       <FormTemplate
@@ -118,7 +107,6 @@ const HomePage: FC = () => {
         planId={planId}
         capId={capId}
         cost={cost}
-        locked={errors.some((r) => r)}
         handleCode={handleCode}
         openDialog={open}
         handleCost={handleCost}

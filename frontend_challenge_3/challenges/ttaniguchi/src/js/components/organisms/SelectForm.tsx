@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import styled from 'styled-components';
 import Title from '@/js/components/atoms/Title';
 import SelectButton from '@/js/components/molecules/SelectButton';
 import FieldLabel from '@/js/components/molecules/FieldLabel';
+import WarningLabel from '@/js/components/molecules/WarningLabel';
 
 const StyledRoot = styled.div`
   background: var(--white);
@@ -27,27 +28,31 @@ export type Selector = {
 
 export type Props = {
   selectors: Selector[];
+  error?: string;
 };
-const SelectForm: FC<Props> = ({ selectors }) => {
+const SelectForm: FC<Props> = ({ selectors, error }) => {
   return (
     <StyledRoot>
       <Title>電気のご使用状況について教えてください</Title>
-      {selectors.map(
-        ({ name, selected, description, disabled, handler }) =>
-          handler && (
-            <ContainerLayout key={name}>
-              <FieldLabel>{name}</FieldLabel>
-              <InputLayout>
-                <SelectButton
-                  label={selected || unselected}
-                  description={description}
-                  disabled={disabled}
-                  onClick={handler}
-                />
-              </InputLayout>
-            </ContainerLayout>
-          ),
-      )}
+      <ContainerLayout>
+        {selectors.map(
+          ({ name, selected, description, disabled, handler }) =>
+            handler && (
+              <Fragment key={name}>
+                <FieldLabel>{name}</FieldLabel>
+                <InputLayout>
+                  <SelectButton
+                    label={selected || unselected}
+                    description={description}
+                    disabled={disabled}
+                    onClick={handler}
+                  />
+                </InputLayout>
+              </Fragment>
+            ),
+        )}
+        {error && <WarningLabel>{error}</WarningLabel>}
+      </ContainerLayout>
     </StyledRoot>
   );
 };

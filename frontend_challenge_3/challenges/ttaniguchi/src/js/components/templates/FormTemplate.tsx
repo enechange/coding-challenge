@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
@@ -29,6 +29,7 @@ const ContainerLayout = styled.div`
 const ButtonLayout = styled.div`
   padding: 24px;
 `;
+const unselected = '- 未選択 -' as const;
 
 export type Props = {
   code: [string, string];
@@ -37,7 +38,6 @@ export type Props = {
   planId?: number;
   capId?: number;
   cost?: number;
-  locked: boolean;
   handleCode: (code: [string, string]) => void;
   openDialog: (type: string) => void;
   handleCost: (cost: number) => void;
@@ -50,12 +50,12 @@ const FormTemplate: FC<Props> = ({
   planId,
   capId,
   cost,
-  locked,
   handleCode,
   openDialog,
   handleCost,
   handleSend,
 }) => {
+  const [blur, handleBlur] = useState(false);
   const { corp, plan, cap, selectableCaps } = useSelectableList({
     areaData,
     corpId,
@@ -63,8 +63,22 @@ const FormTemplate: FC<Props> = ({
     capId,
   });
 
-  const outOfArea = !areaData && code.join('').length === 7;
-  const unselected = '- 未選択 -' as const;
+  const errors: Record<string, boolean> = useMemo(
+    () => ({
+      ngCode: code.join('').length !== 7,
+      noCorpId: corpId === undefined,
+      noPlanId: planId === undefined,
+      noCapId: capId === undefined,
+      noCost: cost === undefined,
+      ngCost: !!(blur && cost && cost < 1000),
+      outOfArea: !areaData && code.join('').length === 7,
+      outOfSimulation: !!(corp && corp.plans.length === 0),
+    }),
+    [!!areaData, code, corpId, planId, capId, cost, blur],
+  );
+  const hasError = Object.values(errors).some((r) => r);
+  const notNeedCap = plan && selectableCaps?.length === 0;
+
   const selector: Selector[] = [
     {
       name: '電力会社',
@@ -77,16 +91,24 @@ const FormTemplate: FC<Props> = ({
       selected: plan ? plan.name : unselected,
       description: plan ? plan.description : undefined,
       disabled: !corp,
-      handler: () => openDialog('plan'),
+      handler: errors.outOfSimulation ? undefined : () => openDialog('plan'),
     },
     {
       name: '契約容量',
       selected: cap?.value || unselected,
       disabled: !plan,
       handler:
-        !plan || selectableCaps?.length ? () => openDialog('cap') : undefined,
+        errors.outOfSimulation || notNeedCap
+          ? undefined
+          : () => openDialog('cap'),
     },
   ];
+
+  const handleOnSend = useCallback(() => {
+    if (!hasError) {
+      handleSend();
+    }
+  }, [errors]);
 
   return (
     <StyledRoot>
@@ -105,18 +127,28 @@ const FormTemplate: FC<Props> = ({
       <ContainerLayout>
         <PostalForm
           code={code}
-          error={outOfArea ? '対象エリア外です' : undefined}
+          error={errors.outOfArea ? 'サービスエリア対象外です。' : undefined}
           onChange={handleCode}
         />
       </ContainerLayout>
       <ContainerLayout>
-        <SelectForm selectors={selector} />
+        <SelectForm
+          selectors={selector}
+          error={
+            errors.outOfSimulation ? 'シミュレーション対象外です。' : undefined
+          }
+        />
       </ContainerLayout>
       <ContainerLayout>
-        <CostForm cost={cost} onChange={handleCost} />
+        <CostForm
+          cost={cost}
+          error={errors.ngCost ? '電気代を正しく入力してください。' : undefined}
+          onBlur={() => handleBlur(true)}
+          onChange={handleCost}
+        />
       </ContainerLayout>
       <ButtonLayout>
-        <ExecButton onClick={handleSend} disabled={locked} />
+        <ExecButton onClick={handleOnSend} disabled={hasError} />
       </ButtonLayout>
     </StyledRoot>
   );

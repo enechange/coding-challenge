@@ -24,15 +24,16 @@ const StyledYen = styled.div`
 export type Props = {
   cost?: number;
   error?: string;
+  onBlur?: () => void;
   onChange: (cost: number) => void;
 };
-const CostForm: FC<Props> = ({ cost, error, onChange }) => (
+const CostForm: FC<Props> = ({ cost, error, onBlur, onChange }) => (
   <StyledRoot>
     <Title>現在の電気の使用状況について教えてください</Title>
     <ContainerLayout>
       <FieldLabel>先月の電気代は？</FieldLabel>
       <InputLayout>
-        <CostInput cost={cost} onChange={onChange} />
+        <CostInput cost={cost} onBlur={onBlur} onChange={onChange} />
         <StyledYen>円</StyledYen>
       </InputLayout>
       {error && <WarningLabel>{error}</WarningLabel>}
