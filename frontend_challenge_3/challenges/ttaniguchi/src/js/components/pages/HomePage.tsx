@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import DialogTemplate from '@/js/components/templates/DialogTemplate';
 import FormTemplate from '@/js/components/templates/FormTemplate';
@@ -34,6 +34,7 @@ const HomePage: FC = () => {
 
   const areaId = code[0].slice(0, 1);
   useEffect(() => {
+    handleCorpId(0);
     if (areaId) {
       const url = `/api/areas/${areaId}.json`;
       fetch(url)
@@ -42,23 +43,31 @@ const HomePage: FC = () => {
     }
   }, [areaId]);
 
-  const corp = data?.corporations.find((r) => r.id === corpId);
-  const corpList = data?.corporations.map(({ id, name }) => ({
-    key: id,
-    value: name,
-  }));
+  const [corp, corpList] = useMemo(() => {
+    handlePlanId(0);
+    return data?.corporations
+      ? [
+          data.corporations.find((r) => r.id === corpId),
+          data.corporations.map(({ id, name }) => ({ key: id, value: name })),
+        ]
+      : [];
+  }, [data?.corporations, corpId]);
 
-  const plan = corp?.plans.find((r) => r.id === planId);
-  const planList = corp?.plans.map(({ id, name }) => ({
-    key: id,
-    value: name,
-  }));
+  const [plan, planList] = useMemo(() => {
+    handleCapId(0);
+    return corp?.plans
+      ? [
+          corp.plans.find((r) => r.id === planId),
+          corp.plans.map(({ id, name }) => ({ key: id, value: name })),
+        ]
+      : [];
+  }, [corp?.plans, planId]);
 
-  const capList = plan?.capacity.map((row, i) => ({
-    key: i + 1,
-    value: row,
-  }));
-  const cap = capList?.find((r) => r.key === capId);
+  const [cap, capList] = useMemo(() => {
+    const capList = plan?.capacity.map((value, i) => ({ key: i + 1, value }));
+    const cap = capList?.find((r) => r.key === capId);
+    return [cap, capList];
+  }, [plan?.capacity, capId]);
 
   const close = useCallback((callback?: () => void) => {
     if (callback) {
