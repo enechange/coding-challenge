@@ -24,7 +24,12 @@ export type Props = {
 };
 const DialogTemplate: FC<Props> = ({ list, selected, onClose, onSelect }) => {
   return (
-    <StyledRoot onClick={onClose}>
+    <StyledRoot
+      onClick={(e) => {
+        e.stopPropagation();
+        onClose();
+      }}
+    >
       <DialogLayout>
         <ListForm list={list} selected={selected} onSelect={onSelect} />
       </DialogLayout>

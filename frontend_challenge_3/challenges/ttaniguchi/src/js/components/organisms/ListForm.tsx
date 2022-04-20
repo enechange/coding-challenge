@@ -38,13 +38,16 @@ export type Props = {
 };
 const SelectForm: FC<Props> = ({ list, selected, onSelect }) => {
   return (
-    <StyledRoot>
+    <StyledRoot onClick={(e) => e.stopPropagation()}>
       <StyledList>
         {list.map(({ key, value }) => (
           <StyledData
             key={key}
             selected={key === selected}
-            onClick={() => onSelect(key)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect(key);
+            }}
           >
             {value}
           </StyledData>
