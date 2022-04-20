@@ -32,6 +32,7 @@ const HomePage: FC = () => {
   const [planId, handlePlanId] = useState<number | undefined>(undefined);
   const [capId, handleCapId] = useState<number | undefined>(undefined);
   const [cost, handleCost] = useState<number | undefined>(undefined);
+  const [email, handleEmail] = useState<string | undefined>(undefined);
 
   const areaId = code[0].slice(0, 1);
   useEffect(() => {
@@ -107,9 +108,11 @@ const HomePage: FC = () => {
         planId={planId}
         capId={capId}
         cost={cost}
+        email={email}
         handleCode={handleCode}
         openDialog={open}
         handleCost={handleCost}
+        handleEmail={handleEmail}
         handleSend={() => console.log('sending')}
       />
       {dialog && (

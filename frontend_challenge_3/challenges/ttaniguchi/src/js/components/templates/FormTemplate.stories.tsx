@@ -15,6 +15,7 @@ const Template: Story<Props> = (args) => (
     handleCode={action('handleCode')}
     openDialog={action('openDialog')}
     handleCost={action('handleCost')}
+    handleEmail={action('handleEmail')}
     handleSend={action('handleSend')}
   />
 );
@@ -26,4 +27,5 @@ Default.args = {
   planId: undefined,
   capId: undefined,
   cost: 5000,
+  email: 'test@example.com',
 };

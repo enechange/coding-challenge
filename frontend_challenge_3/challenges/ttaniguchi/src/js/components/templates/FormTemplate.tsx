@@ -4,7 +4,9 @@ import ExecButton from '@/js/components/molecules/ExecButton';
 import PostalForm from '@/js/components/organisms/PostalForm';
 import SelectForm, { Selector } from '@/js/components/organisms/SelectForm';
 import CostForm from '@/js/components/organisms/CostForm';
+import EmailForm from '@/js/components/organisms/EmailForm';
 import useSelectableList from '@/js/customHooks/useSelectableList';
+import { isEmail } from '@/js/libs/valid';
 import { Area } from '@/js/types/Area';
 
 const StyledRoot = styled.div`
@@ -38,9 +40,11 @@ export type Props = {
   planId?: number;
   capId?: number;
   cost?: number;
+  email?: string;
   handleCode: (code: [string, string]) => void;
   openDialog: (type: string) => void;
   handleCost: (cost: number) => void;
+  handleEmail: (email: string) => void;
   handleSend: () => void;
 };
 const FormTemplate: FC<Props> = ({
@@ -50,12 +54,15 @@ const FormTemplate: FC<Props> = ({
   planId,
   capId,
   cost,
+  email,
   handleCode,
   openDialog,
   handleCost,
+  handleEmail,
   handleSend,
 }) => {
-  const [blur, handleBlur] = useState(false);
+  const [blurCost, handleBlurCost] = useState(false);
+  const [blurEmail, handleBlurEmail] = useState(false);
   const { corp, plan, cap, selectableCaps } = useSelectableList({
     areaData,
     corpId,
@@ -70,11 +77,12 @@ const FormTemplate: FC<Props> = ({
       noPlanId: planId === undefined,
       noCapId: capId === undefined,
       noCost: cost === undefined,
-      ngCost: !!(blur && cost && cost < 1000),
+      ngCost: !!(blurCost && cost && cost < 1000),
+      ngEmail: !!(blurEmail && email && !isEmail(email)),
       outOfArea: !areaData && code.join('').length === 7,
       outOfSimulation: !!(corp && corp.plans.length === 0),
     }),
-    [!!areaData, code, corpId, planId, capId, cost, blur],
+    [!!areaData, code, corpId, planId, capId, cost, blurCost, email, blurEmail],
   );
   const hasError = Object.values(errors).some((r) => r);
   const notNeedCap = plan && selectableCaps?.length === 0;
@@ -143,8 +151,20 @@ const FormTemplate: FC<Props> = ({
         <CostForm
           cost={cost}
           error={errors.ngCost ? '電気代を正しく入力してください。' : undefined}
-          onBlur={() => handleBlur(true)}
+          onBlur={() => handleBlurCost(true)}
           onChange={handleCost}
+        />
+      </ContainerLayout>
+      <ContainerLayout>
+        <EmailForm
+          email={email}
+          error={
+            errors.ngEmail
+              ? 'メールアドレスを正しく入力してください。'
+              : undefined
+          }
+          onBlur={() => handleBlurEmail(true)}
+          onChange={handleEmail}
         />
       </ContainerLayout>
       <ButtonLayout>
