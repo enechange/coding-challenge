@@ -33,7 +33,11 @@ const CostForm: FC<Props> = ({ cost, error, onBlur, onChange }) => (
     <ContainerLayout>
       <FieldLabel>先月の電気代は？</FieldLabel>
       <InputLayout>
-        <CostInput cost={cost} onBlur={onBlur} onChange={onChange} />
+        <CostInput
+          cost={cost ? cost.toString() : ''}
+          onBlur={onBlur}
+          onChange={(str) => onChange(parseInt(str, 10))}
+        />
         <StyledYen>円</StyledYen>
       </InputLayout>
       {error && <WarningLabel>{error}</WarningLabel>}
