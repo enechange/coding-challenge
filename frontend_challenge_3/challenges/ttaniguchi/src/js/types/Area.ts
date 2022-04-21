@@ -14,6 +14,6 @@ type Plan = {
   id: number;
   name: string;
   description: string;
-  min_cost: string;
+  min_cost: number;
   capacity: string[];
 };

@@ -80,7 +80,7 @@ const FormTemplate: FC<Props> = ({
       noCapId: capId === undefined,
       noCost: cost === undefined,
       noEmail: email === undefined,
-      ngCost: !!(blurCost && cost && cost < 1000),
+      ngCost: !!(blurCost && cost && plan && cost < plan.min_cost),
       ngEmail: !!(blurEmail && email && !isEmail(email)),
       outOfArea: !areaData && code.join('').length === 7,
       outOfSimulation: !!(corp && corp.plans.length === 0),
