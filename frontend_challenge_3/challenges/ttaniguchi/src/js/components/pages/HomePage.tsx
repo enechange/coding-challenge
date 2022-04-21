@@ -46,7 +46,7 @@ const HomePage: FC = () => {
     }
   }, [areaId]);
 
-  const { corp, selectableCorps, selectablePlans, selectableCaps } =
+  const { corp, plan, cap, selectableCorps, selectablePlans, selectableCaps } =
     useSelectableList({
       areaData,
       corpId,
@@ -99,6 +99,23 @@ const HomePage: FC = () => {
     [areaData, selectableCorps, selectablePlans, selectableCaps],
   );
 
+  const handleSend = useCallback(() => {
+    const results = [
+      `郵便番号: ${code.join('-')}`,
+      `電力会社: ${corp?.name}`,
+      `プラン: ${plan?.name}`,
+      `契約容量: ${cap?.value || '─'}`,
+      `電気代: ${cost}円`,
+      `メール: ${email}`,
+    ];
+
+    handleDialog({
+      list: results.map((value, key) => ({ key, value })),
+      selected: capId,
+      onSelect: () => close(),
+    });
+  }, [code, corp, plan, cap, cost, email]);
+
   return (
     <StyledRoot>
       <FormTemplate
@@ -113,7 +130,7 @@ const HomePage: FC = () => {
         openDialog={open}
         handleCost={handleCost}
         handleEmail={handleEmail}
-        handleSend={() => console.log('sending')}
+        handleSend={handleSend}
       />
       {dialog && (
         <DialogLayout>
