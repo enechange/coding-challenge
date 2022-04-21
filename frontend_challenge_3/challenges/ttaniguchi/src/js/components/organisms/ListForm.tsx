@@ -33,6 +33,10 @@ const StyledData = styled.div<{ selected: boolean }>`
   &:first-child {
     border-bottom: 0;
   }
+  &:hover,
+  &:focus {
+    background: var(--body-active);
+  }
 `;
 
 export type Props = {
