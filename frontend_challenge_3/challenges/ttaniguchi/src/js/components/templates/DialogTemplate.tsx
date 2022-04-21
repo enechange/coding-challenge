@@ -8,11 +8,16 @@ const StyledRoot = styled.div`
   background: var(--body-overlay);
   display: flex;
   height: 100vh;
+  justify-content: center;
   position: relative;
+
+  animation: fade-in 0.25s ease-out;
+  animation-direction: normal;
 `;
 const DialogLayout = styled.div`
-  height: 70vh;
-  padding: 0 16px;
+  height: 100vh;
+  max-width: var(--body-width);
+  padding: 48px 0px;
   width: 100%;
 `;
 
@@ -24,7 +29,12 @@ export type Props = {
 };
 const DialogTemplate: FC<Props> = ({ list, selected, onClose, onSelect }) => {
   return (
-    <StyledRoot onClick={onClose}>
+    <StyledRoot
+      onClick={(e) => {
+        e.stopPropagation();
+        onClose();
+      }}
+    >
       <DialogLayout>
         <ListForm list={list} selected={selected} onSelect={onSelect} />
       </DialogLayout>

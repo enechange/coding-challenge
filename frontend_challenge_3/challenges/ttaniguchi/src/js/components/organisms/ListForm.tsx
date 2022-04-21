@@ -8,6 +8,10 @@ const StyledRoot = styled.div`
   height: 100%;
   min-height: 240px;
   padding: 48px 0;
+
+  animation: fade-in 0.25s ease-out;
+  animation: move-up 0.25s ease-out;
+  animation-direction: normal;
 `;
 const StyledList = styled.div`
   border-top: 1px solid var(--black);
@@ -29,6 +33,10 @@ const StyledData = styled.div<{ selected: boolean }>`
   &:first-child {
     border-bottom: 0;
   }
+  &:hover,
+  &:focus {
+    background: var(--body-active);
+  }
 `;
 
 export type Props = {
@@ -38,13 +46,16 @@ export type Props = {
 };
 const SelectForm: FC<Props> = ({ list, selected, onSelect }) => {
   return (
-    <StyledRoot>
+    <StyledRoot onClick={(e) => e.stopPropagation()}>
       <StyledList>
         {list.map(({ key, value }) => (
           <StyledData
             key={key}
             selected={key === selected}
-            onClick={() => onSelect(key)}
+            onClick={(e) => {
+              e.stopPropagation();
+              onSelect(key);
+            }}
           >
             {value}
           </StyledData>

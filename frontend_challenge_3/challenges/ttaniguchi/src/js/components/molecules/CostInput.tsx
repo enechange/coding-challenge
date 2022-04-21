@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import styled from 'styled-components';
+import { fixNum, zen2han } from '@/js/libs/valid';
 
 const StyledRoot = styled.div`
   align-items: center;
@@ -26,7 +27,7 @@ const StyledInput = styled.input<{ disabled: boolean }>`
     color: var(--text-disabled);
     `
       : `
-    &:hover,
+      &:hover,
       &:focus {
         box-shadow: inset 0 0 4px 0.5px var(--line-primary);
       }
@@ -34,22 +35,30 @@ const StyledInput = styled.input<{ disabled: boolean }>`
 `;
 
 export type Props = {
-  cost?: number;
+  cost: string;
   disabled?: boolean;
   onBlur?: () => void;
-  onChange: (cost: number) => void;
+  onChange: (cost: string) => void;
 };
-const CostInput: FC<Props> = ({ cost, disabled, onBlur, onChange }) => (
-  <StyledRoot>
-    <StyledInput
-      type="number"
-      name="cost"
-      value={cost || ''}
-      disabled={!!disabled}
-      onBlur={onBlur}
-      onChange={(e) => onChange(parseInt(e.target.value, 10))}
-    />
-  </StyledRoot>
-);
+const CostInput: FC<Props> = ({ cost, disabled, onBlur, onChange }) => {
+  const check = useCallback(
+    (cost: string, befCost: string) =>
+      cost ? fixNum(zen2han(cost), befCost) : '',
+    [],
+  );
+
+  return (
+    <StyledRoot>
+      <StyledInput
+        type="tel"
+        name="cost"
+        value={cost}
+        disabled={!!disabled}
+        onBlur={onBlur}
+        onChange={(e) => onChange(check(e.target.value, cost))}
+      />
+    </StyledRoot>
+  );
+};
 
 export default CostInput;

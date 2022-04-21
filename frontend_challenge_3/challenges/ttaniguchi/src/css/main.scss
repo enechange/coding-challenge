@@ -1,6 +1,9 @@
+@charset "UTF-8";
+
 :root {
   --black: #000000;
   --white: #ffffff;
+  --body-active: #ed9b38;
   --body-default: #f8f8f8;
   --body-button: #3d5b97;
   --body-disabled: #aaaaaa;
@@ -8,11 +11,14 @@
   --body-overlay: rgba(0, 0, 0, 0.3);
   --body-required: #e66059;
   --body-selected: #dddddd;
+  --body-tapped: #1d4480;
   --line-primary: #ed9b38;
   --line-default: #dddddd;
   --text-default: #444444;
   --text-disabled: #dddddd;
   --text-primary: var(--white);
+
+  --body-width: 480px;
 }
 
 * {
@@ -25,4 +31,22 @@ html {
   background: var(--body-default);
   height: 100%;
   margin: 0;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes move-up {
+  0% {
+    transform: translateY(100px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

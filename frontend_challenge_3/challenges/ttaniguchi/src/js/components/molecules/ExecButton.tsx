@@ -7,10 +7,13 @@ const StyledButton = styled.button<{ disabled: boolean }>`
   ${({ disabled }) =>
     disabled
       ? `
-  background: var(--body-disabled);
-  `
+    background: var(--body-disabled);
+    `
       : `
-  background: var(--body-button);
+    background: var(--body-button);
+    &:hover {
+      background: var(--body-tapped);
+    }
   `}
   border: 0;
   border-radius: 4px;

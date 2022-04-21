@@ -9,9 +9,15 @@ const StyledRoot = styled.div`
 `;
 const StyledButton = styled.button<{ disabled: boolean }>`
   ${({ disabled }) =>
-    disabled &&
-    `
+    disabled
+      ? `
     color: var(--text-disabled);
+    `
+      : `
+    &:hover,
+    &:focus {
+      box-shadow: inset 0 0 4px 0.5px var(--line-primary);
+    }
   `}
   align-items: center;
   background: var(--white);

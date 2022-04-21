@@ -26,7 +26,7 @@ const StyledInput = styled.input<{ disabled: boolean }>`
     color: var(--text-disabled);
     `
       : `
-    &:hover,
+      &:hover,
       &:focus {
         box-shadow: inset 0 0 4px 0.5px var(--line-primary);
       }

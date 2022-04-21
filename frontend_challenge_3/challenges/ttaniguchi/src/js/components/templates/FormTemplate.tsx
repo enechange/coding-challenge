@@ -10,7 +10,9 @@ import { isEmail } from '@/js/libs/valid';
 import { Area } from '@/js/types/Area';
 
 const StyledRoot = styled.div`
+  max-width: var(--body-width);
   position: relative;
+  width: 100%;
 `;
 const StyledJumbotron = styled.div`
   font-size: 16px;
@@ -77,6 +79,7 @@ const FormTemplate: FC<Props> = ({
       noPlanId: planId === undefined,
       noCapId: capId === undefined,
       noCost: cost === undefined,
+      noEmail: email === undefined,
       ngCost: !!(blurCost && cost && cost < 1000),
       ngEmail: !!(blurEmail && email && !isEmail(email)),
       outOfArea: !areaData && code.join('').length === 7,

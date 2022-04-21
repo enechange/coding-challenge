@@ -10,7 +10,7 @@ const StyledRoot = styled.div`
   padding: 24px 0 32px;
 `;
 const ContainerLayout = styled.div`
-  padding: 32px 32px 0;
+  padding: 32px 24px 0;
 `;
 const InputLayout = styled.div`
   padding: 8px 0;
