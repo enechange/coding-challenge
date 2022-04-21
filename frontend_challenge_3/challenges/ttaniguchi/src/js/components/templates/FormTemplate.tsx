@@ -10,7 +10,9 @@ import { isEmail } from '@/js/libs/valid';
 import { Area } from '@/js/types/Area';
 
 const StyledRoot = styled.div`
+  max-width: var(--body-width);
   position: relative;
+  width: 100%;
 `;
 const StyledJumbotron = styled.div`
   font-size: 16px;

@@ -15,6 +15,8 @@
   --text-default: #444444;
   --text-disabled: #dddddd;
   --text-primary: var(--white);
+
+  --body-width: 480px;
 }
 
 * {
@@ -27,4 +29,22 @@ html {
   background: var(--body-default);
   height: 100%;
   margin: 0;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes move-up {
+  0% {
+    transform: translateY(100px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

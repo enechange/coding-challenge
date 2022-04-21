@@ -8,6 +8,10 @@ const StyledRoot = styled.div`
   height: 100%;
   min-height: 240px;
   padding: 48px 0;
+
+  animation: fade-in 0.25s ease-out;
+  animation: move-up 0.25s ease-out;
+  animation-direction: normal;
 `;
 const StyledList = styled.div`
   border-top: 1px solid var(--black);

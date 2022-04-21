@@ -7,6 +7,8 @@ import { Area } from '@/js/types/Area';
 import { List } from '@/js/types/List';
 
 const StyledRoot = styled.div`
+  display: flex;
+  justify-content: center;
   position: relative;
 `;
 const DialogLayout = styled.div`
