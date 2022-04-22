@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DialogTemplate from '@/js/components/templates/DialogTemplate';
-import FormTemplate from '@/js/components/templates/FormTemplate';
+import FormTemplate, { SelectorType } from '@/js/components/templates/FormTemplate';
 import useSelectableList from '@/js/customHooks/useSelectableList';
 import { Area } from '@/js/types/Area';
 import { List } from '@/js/types/List';
@@ -83,7 +83,7 @@ const HomePage: FC = () => {
   }, []);
 
   const open = useCallback(
-    (key: string) => {
+    (key: SelectorType) => {
       if (key === 'corp' && selectableCorps) {
         handleDialog({
           list: selectableCorps,

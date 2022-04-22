@@ -35,6 +35,8 @@ const ButtonLayout = styled.div`
 `;
 const unselected = '- 未選択 -' as const;
 
+export type SelectorType = 'corp' | 'plan' | 'cap';
+
 export type Props = {
   code: [string, string];
   areaData?: Area;
@@ -44,7 +46,7 @@ export type Props = {
   cost?: number;
   email?: string;
   handleCode: (code: [string, string]) => void;
-  openDialog: (type: string) => void;
+  openDialog: (type: SelectorType) => void;
   handleCost: (cost: number) => void;
   handleEmail: (email: string) => void;
   handleSend: () => void;
