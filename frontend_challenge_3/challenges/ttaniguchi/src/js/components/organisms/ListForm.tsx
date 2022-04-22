@@ -26,12 +26,12 @@ const StyledData = styled.div<{ selected: boolean }>`
     background: var(--body-selected);
   `}
   align-items: center;
-  border-top: 1px solid var(--line-default);
+  border-bottom: 1px solid var(--line-default);
   display: flex;
   height: 64px;
   padding: 0 16px;
   &:first-child {
-    border-bottom: 0;
+    border-top: 0;
   }
   &:hover,
   &:focus {

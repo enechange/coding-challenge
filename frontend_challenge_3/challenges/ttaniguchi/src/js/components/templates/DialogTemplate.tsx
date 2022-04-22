@@ -17,7 +17,7 @@ const StyledRoot = styled.div`
 const DialogLayout = styled.div`
   height: 100vh;
   max-width: var(--body-width);
-  padding: 48px 0px;
+  padding: 48px 16px;
   width: 100%;
 `;
 
