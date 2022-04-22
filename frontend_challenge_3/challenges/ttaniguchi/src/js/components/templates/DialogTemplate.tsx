@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import styled from 'styled-components';
 import ListForm from '@/js/components/organisms/ListForm';
 import { List } from '@/js/types/List';
@@ -28,6 +28,14 @@ export type Props = {
   onSelect: (key: number) => void;
 };
 const DialogTemplate: FC<Props> = ({ list, selected, onClose, onSelect }) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
     <StyledRoot
       onClick={(e) => {

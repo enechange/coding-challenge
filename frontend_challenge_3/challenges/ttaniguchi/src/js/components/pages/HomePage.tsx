@@ -36,14 +36,6 @@ const HomePage: FC = () => {
   const [cost, handleCost] = useState<number | undefined>(undefined);
   const [email, handleEmail] = useState<string | undefined>(undefined);
 
-  useEffect(() => {
-    if (dialog) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-  }, [dialog]);
-
   const areaId = code[0].slice(0, 1);
   useEffect(() => {
     handleCorpId(undefined);
