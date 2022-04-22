@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('//fonts.googleapis.com/earlyaccess/notosansjp.css');
 
 :root {
   --black: #000000;
@@ -29,6 +30,8 @@
 body,
 html {
   background: var(--body-default);
+  font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ',
+    Meiryo, sans-serif;
   height: 100%;
   margin: 0;
 }
