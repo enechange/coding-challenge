@@ -1,7 +1,9 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DialogTemplate from '@/js/components/templates/DialogTemplate';
-import FormTemplate, { SelectorType } from '@/js/components/templates/FormTemplate';
+import FormTemplate, {
+  SelectorType,
+} from '@/js/components/templates/FormTemplate';
 import useSelectableList from '@/js/customHooks/useSelectableList';
 import { Area } from '@/js/types/Area';
 import { List } from '@/js/types/List';
@@ -40,7 +42,7 @@ const HomePage: FC = () => {
   useEffect(() => {
     handleCorpId(undefined);
     if (areaId) {
-      const url = `/api/areas/${areaId}.json`;
+      const url = `${global.window.location.origin}${global.window.location.pathname}api/areas/${areaId}.json`;
       fetch(url)
         .then((r) => r.json())
         .then(({ data }) => setAreaData(data))
