@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :usage_fee do
-    id { 1 }
     plan_id { 1 }
     min_usage { 0 }
     max_usage { 120 }

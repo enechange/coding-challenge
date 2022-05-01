@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe BaseFee, type: :model do
-  let!(:provider) { create(:provider, name: 'provider_hoge')}
+  let!(:provider) { create(:provider, name: 'provider_hoge') }
   let!(:plan) { create(:plan, provider: provider, name: 'plan_hoge') }
 
   describe 'attribute: ampere' do

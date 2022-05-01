@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Plan, type: :model do
   describe 'attribute: name' do
-    let!(:provider) { create(:provider, name: 'provider_hoge')}
+    let!(:provider) { create(:provider, name: 'provider_hoge') }
     let!(:plan) { create(:plan, provider: provider, name: 'plan_hoge') }
 
     context 'when present' do
