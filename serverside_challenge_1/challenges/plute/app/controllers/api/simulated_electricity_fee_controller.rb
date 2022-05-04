@@ -5,16 +5,20 @@ module Api
 
     def every_plan
       result = Plan.all.map do |plan|
-        let = ElectricityFee.new(plan: plan, ampere: params[:ampere].to_i, usage: params[:usage].to_i)
-        let.calclate
-        {
-          provider_name: let.plan.provider.name,
-          plan_name: let.plan.name,
-          price: let.fee
-        }
+        ret = ElectricityFee.new(plan: plan, ampere: params[:ampere].to_i, usage: params[:usage].to_i)
+        begin
+          ret.calclate
+          {
+            provider_name: ret.plan.provider.name,
+            plan_name: ret.plan.name,
+            price: ret.fee
+          }
+        rescue ElectricityFee::UnsuppliedAmpereException
+          nil
+        end
       end
 
-      render_result(result)
+      render_result(result.compact)
     end
 
     private

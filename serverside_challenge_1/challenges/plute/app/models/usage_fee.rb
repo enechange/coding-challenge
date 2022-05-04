@@ -9,6 +9,6 @@ class UsageFee < ApplicationRecord
   private
 
   def valid_min_max
-    errors.add :base, "min_usage must be smaller than max_useage " if min_usage > max_usage
+    errors.add :base, "min_usage must be smaller than max_usage " if min_usage > max_usage
   end
 end

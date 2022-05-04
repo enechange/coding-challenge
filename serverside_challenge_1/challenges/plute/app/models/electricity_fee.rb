@@ -1,6 +1,8 @@
 class ElectricityFee
   AMPERE = [10, 15, 20, 30, 40, 50, 60]
 
+  class UnsuppliedAmpereException < Exception; end
+
   attr_accessor :plan, :ampere, :usage, :fee
 
   def initialize(plan:, ampere:, usage:)
@@ -16,8 +18,9 @@ class ElectricityFee
   private
 
   def base_fee
-    base_fee = BaseFee.where(plan: @plan, ampere: @ampere).first
-    base_fee.base_fee
+    ret = BaseFee.where(plan: @plan, ampere: @ampere).first
+    raise UnsuppliedAmpereException if ret.nil?
+    ret.base_fee
   end
 
   def usage_fee
