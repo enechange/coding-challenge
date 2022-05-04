@@ -17,6 +17,7 @@ RSpec.describe ElectricityFee, type: :model do
   let(:simulation_2) { ElectricityFee.new(plan: plan, ampere: 10, usage: 200) }
   let(:simulation_3) { ElectricityFee.new(plan: plan, ampere: 10, usage: 400) }
   let(:simulation_4) { ElectricityFee.new(plan: plan, ampere: 20, usage: 400) }
+  let(:simulation_5) { ElectricityFee.new(plan: plan, ampere: 30, usage: 100) }
 
   describe 'base_fee' do
     it 'caluclates base fee for given plan, ampere and usage' do
@@ -24,6 +25,12 @@ RSpec.describe ElectricityFee, type: :model do
       expect(simulation_2.send(:base_fee)).to be(286.0)
       expect(simulation_3.send(:base_fee)).to be(286.0)
       expect(simulation_4.send(:base_fee)).to be(572.0)
+    end
+
+    context 'when ampere is not supplied' do
+      it 'raises UnsuppliedAmpereException' do
+        expect { simulation_5.send(:base_fee) }.to raise_error(described_class::UnsuppliedAmpereException)
+      end
     end
   end
 

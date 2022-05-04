@@ -1,5 +1,6 @@
 class ElectricityFee
   AMPERE = [10, 15, 20, 30, 40, 50, 60]
+  MAX_USAGE = 99999
 
   class UnsuppliedAmpereException < Exception; end
 

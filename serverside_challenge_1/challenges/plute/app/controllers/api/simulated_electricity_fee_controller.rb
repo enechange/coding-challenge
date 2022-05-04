@@ -32,7 +32,7 @@ module Api
     def validate_usage_param
       return render_error({ status_code: 400, title: '使用量が指定されていません' }) if params[:usage].blank?
       return render_error({ status_code: 400, title: '指定された値が整数ではありません。使用量は0以上99,999以下の整数で指定してください' }) unless params[:usage].match(/\A(0|[1-9][0-9]*)\z/)
-      return render_error({ status_code: 400, title: '使用量は0以上99,999以下の整数で指定してください' }) if params[:usage].to_i > 99999
+      return render_error({ status_code: 400, title: '使用量は0以上99,999以下の整数で指定してください' }) if params[:usage].to_i > ElectricityFee::MAX_USAGE
     end
   end
 end
