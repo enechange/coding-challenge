@@ -6,9 +6,19 @@ class ApplicationController < ActionController::Base
            content_type: 'application/json'
   end
 
-  def render_error(error)
+  def render_raw_error(status, error)
     render json:         error,
-           status:       error[:status_code],
+           status:       status,
            content_type: 'application/problem+json'
+  end
+
+  def render_error(error_name)
+    render_raw_error(
+      I18n.t("api_errors.#{error_name}.status_code"),
+      {
+        code: I18n.t("api_errors.#{error_name}.code"),
+        title: I18n.t("api_errors.#{error_name}.title")
+      }
+    )
   end
 end

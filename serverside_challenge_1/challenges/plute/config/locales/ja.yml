@@ -1,0 +1,26 @@
+ja:
+  api_errors:
+    unspecified_ampere:
+      code: 'E0001'
+      status_code: 400
+      title: 'アンペアが指定されていません'
+    ampere_must_be_integer:
+      code: 'E0002'
+      status_code: 400
+      title: '指定された値が整数ではありません。アンペアは10, 15, 20, 30, 40, 50, 60のいずれかの整数で指定してください'
+    unacceptable_ampere:
+      code: 'E0003'
+      status_code: 400
+      title: 'アンペアは10, 15, 20, 30, 40, 50, 60のいずれかの整数で指定してください'
+    unspecified_usage:
+      code: 'E0101'
+      status_code: 400
+      title: '使用量が指定されていません'
+    usage_must_be_integer:
+      code: 'E0102'
+      status_code: 400
+      title: '指定された値が整数ではありません。使用量は0以上99,999以下の整数で指定してください'
+    usages_out_of_range:
+      code: 'E0103'
+      status_code: 400
+      title: '使用量は0以上99,999以下の整数で指定してください'

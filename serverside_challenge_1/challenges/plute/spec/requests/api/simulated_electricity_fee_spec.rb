@@ -33,7 +33,7 @@ RSpec.describe "Api::SimulatedElectricityFee", type: :request do
 
         expect(response.status).to eq(400)
         expect(JSON.parse(response.body, symbolize_names: true)).to eq({
-          status_code: 400, 
+          code: 'E0001',
           title: 'アンペアが指定されていません'
         })
       end
@@ -45,7 +45,7 @@ RSpec.describe "Api::SimulatedElectricityFee", type: :request do
 
         expect(response.status).to eq(400)
         expect(JSON.parse(response.body, symbolize_names: true)).to eq({
-          status_code: 400, 
+          code: 'E0002',
           title: '指定された値が整数ではありません。アンペアは10, 15, 20, 30, 40, 50, 60のいずれかの整数で指定してください'
         })
       end
@@ -57,7 +57,7 @@ RSpec.describe "Api::SimulatedElectricityFee", type: :request do
 
         expect(response.status).to eq(400)
         expect(JSON.parse(response.body, symbolize_names: true)).to eq({
-          status_code: 400, 
+          code: 'E0003',
           title: 'アンペアは10, 15, 20, 30, 40, 50, 60のいずれかの整数で指定してください'
         })
       end
@@ -69,7 +69,7 @@ RSpec.describe "Api::SimulatedElectricityFee", type: :request do
 
         expect(response.status).to eq(400)
         expect(JSON.parse(response.body, symbolize_names: true)).to eq({
-          status_code: 400, 
+          code: 'E0101',
           title: '使用量が指定されていません'
         })
       end
@@ -81,7 +81,7 @@ RSpec.describe "Api::SimulatedElectricityFee", type: :request do
 
         expect(response.status).to eq(400)
         expect(JSON.parse(response.body, symbolize_names: true)).to eq({
-          status_code: 400, 
+          code: 'E0102',
           title: '指定された値が整数ではありません。使用量は0以上99,999以下の整数で指定してください'
         })
       end
@@ -93,7 +93,7 @@ RSpec.describe "Api::SimulatedElectricityFee", type: :request do
 
         expect(response.status).to eq(400)
         expect(JSON.parse(response.body, symbolize_names: true)).to eq({
-          status_code: 400, 
+          code: 'E0103',
           title: '使用量は0以上99,999以下の整数で指定してください'
         })
       end

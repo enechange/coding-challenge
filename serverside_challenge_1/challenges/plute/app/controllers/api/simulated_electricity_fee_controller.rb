@@ -24,15 +24,15 @@ module Api
     private
 
     def validate_ampere_param
-      return render_error({ status_code: 400, title: 'アンペアが指定されていません' }) if params[:ampere].blank?
-      return render_error({ status_code: 400, title: '指定された値が整数ではありません。アンペアは10, 15, 20, 30, 40, 50, 60のいずれかの整数で指定してください'}) unless params[:ampere].match(/\A(0|[1-9][0-9]*)\z/)
-      return render_error({ status_code: 400, title: 'アンペアは10, 15, 20, 30, 40, 50, 60のいずれかの整数で指定してください'}) unless ElectricityFee::AMPERE.include?(params[:ampere].to_i)
+      return render_error('unspecified_ampere') if params[:ampere].blank?
+      return render_error('ampere_must_be_integer') unless params[:ampere].match(/\A(0|[1-9][0-9]*)\z/)
+      return render_error('unacceptable_ampere') unless ElectricityFee::AMPERE.include?(params[:ampere].to_i)
     end
 
     def validate_usage_param
-      return render_error({ status_code: 400, title: '使用量が指定されていません' }) if params[:usage].blank?
-      return render_error({ status_code: 400, title: '指定された値が整数ではありません。使用量は0以上99,999以下の整数で指定してください' }) unless params[:usage].match(/\A(0|[1-9][0-9]*)\z/)
-      return render_error({ status_code: 400, title: '使用量は0以上99,999以下の整数で指定してください' }) if params[:usage].to_i > ElectricityFee::MAX_USAGE
+      return render_error('unspecified_usage') if params[:usage].blank?
+      return render_error('usage_must_be_integer') unless params[:usage].match(/\A(0|[1-9][0-9]*)\z/)
+      return render_error('usages_out_of_range') if params[:usage].to_i > ElectricityFee::MAX_USAGE
     end
   end
 end
