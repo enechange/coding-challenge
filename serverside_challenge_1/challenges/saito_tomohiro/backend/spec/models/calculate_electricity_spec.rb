@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'debug'
+# require 'debug'
 
 # id:1のprovider,planでテスト
 RSpec.describe CalculateElectricity, type: :model do
