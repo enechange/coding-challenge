@@ -10,41 +10,41 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_29_091905) do
-  create_table "base_charges", force: :cascade do |t|
-    t.integer "ampere", null: false
-    t.float "base_charge", null: false
-    t.integer "plan_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["plan_id"], name: "index_base_charges_on_plan_id"
+ActiveRecord::Schema[7.0].define(version: 20_220_529_091_905) do
+  create_table 'base_charges', force: :cascade do |t|
+    t.integer 'ampere', null: false
+    t.float 'base_charge', null: false
+    t.integer 'plan_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['plan_id'], name: 'index_base_charges_on_plan_id'
   end
 
-  create_table "per_use_charges", force: :cascade do |t|
-    t.integer "min_usage", null: false
-    t.integer "max_usage", null: false
-    t.float "per_use_charge", null: false
-    t.integer "plan_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["plan_id"], name: "index_per_use_charges_on_plan_id"
+  create_table 'per_use_charges', force: :cascade do |t|
+    t.integer 'min_usage', null: false
+    t.integer 'max_usage', null: false
+    t.float 'per_use_charge', null: false
+    t.integer 'plan_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['plan_id'], name: 'index_per_use_charges_on_plan_id'
   end
 
-  create_table "plans", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "provider_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["provider_id"], name: "index_plans_on_provider_id"
+  create_table 'plans', force: :cascade do |t|
+    t.string 'name', null: false
+    t.integer 'provider_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['provider_id'], name: 'index_plans_on_provider_id'
   end
 
-  create_table "providers", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'providers', force: :cascade do |t|
+    t.string 'name', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
   end
 
-  add_foreign_key "base_charges", "plans"
-  add_foreign_key "per_use_charges", "plans"
-  add_foreign_key "plans", "providers"
+  add_foreign_key 'base_charges', 'plans'
+  add_foreign_key 'per_use_charges', 'plans'
+  add_foreign_key 'plans', 'providers'
 end
