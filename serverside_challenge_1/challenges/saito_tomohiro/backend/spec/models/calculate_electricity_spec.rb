@@ -42,13 +42,13 @@ RSpec.describe CalculateElectricity, type: :model do
     end
   end
 
-  describe 'electricity_charge' do
-    it 'caluclates base fee for given plan, ampere and usage' do
-      expect(simulation1.simulate_electricity_charge).to be(286.0)
-      expect(simulation2.simulate_electricity_charge).to be(2671.6)
-      expect(simulation3.simulate_electricity_charge).to be(7438.0)
-      expect(simulation4.simulate_electricity_charge).to be(4933.0)
-      expect(simulation5.simulate_electricity_charge).to be(5076.0)
+  describe 'simulate_electricity_charge' do
+    it 'caluclates simulate_electricity_charge' do
+      expect(simulation1.simulate_electricity_charge).to eq(286.0)
+      expect(simulation2.simulate_electricity_charge).to eq(2671.6)
+      expect(simulation3.simulate_electricity_charge).to eq(7438.0)
+      expect(simulation4.simulate_electricity_charge).to eq(4933.0)
+      expect(simulation5.simulate_electricity_charge).to eq(5076.0)
     end
   end
 end
