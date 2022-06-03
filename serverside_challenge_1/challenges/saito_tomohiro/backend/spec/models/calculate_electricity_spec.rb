@@ -25,6 +25,12 @@ RSpec.describe CalculateElectricity, type: :model do
       expect(simulation3.send(:base_charge)).to be(286.0)
       expect(simulation4.send(:base_charge)).to be(429.0)
       expect(simulation5.send(:base_charge)).to be(572.0)
+    it 'caluclates base_charge' do
+      expect(simulation1.send(:base_charge)).to eq(286.0)
+      expect(simulation2.send(:base_charge)).to eq(286.0)
+      expect(simulation3.send(:base_charge)).to eq(286.0)
+      expect(simulation4.send(:base_charge)).to eq(429.0)
+      expect(simulation5.send(:base_charge)).to eq(572.0)
     end
   end
 
