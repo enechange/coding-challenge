@@ -6,3 +6,4 @@ FactoryBot.define do
     base_charge { 286 }
   end
 end
+

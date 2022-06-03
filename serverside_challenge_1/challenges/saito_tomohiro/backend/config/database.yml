@@ -25,5 +25,5 @@ production:
   adapter: postgresql
   encoding: unicode
   database: production
-  username: tomohiro
-  password: password
+  username: <%= Rails.application.credentials.db[:username] %>
+  password: <%= Rails.application.credentials.db[:password] %>

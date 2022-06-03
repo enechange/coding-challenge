@@ -28,7 +28,6 @@
           プラン: {{ result_simulation.plan_name }} <br />
           料金: {{ result_simulation.price }}円
         </div>
->>>>>>> development
       </v-col>
     </v-row>
   </v-container>
