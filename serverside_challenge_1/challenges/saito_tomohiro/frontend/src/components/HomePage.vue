@@ -6,7 +6,9 @@
         <v-select outlined :items="amperes" v-model="select_ampere"></v-select>
         <div>使用量 [kWh]</div>
         <v-text-field v-model="usage" outlined required></v-text-field>
-        <v-btn @click="simulationCharge">結果を見る</v-btn>
+        <v-btn :disabled="checkUsage" @click="simulationCharge"
+          >結果を見る</v-btn
+        >
       </v-col>
     </v-row>
 
@@ -39,11 +41,20 @@ import axios from "axios";
 export default {
   data: () => ({
     select_ampere: null,
-    usage: null,
+    usage: "",
     result_simulations: null,
     amperes: [10, 15, 20, 30, 40, 50, 60],
     error: null,
   }),
+  computed: {
+    checkUsage: function () {
+      if (this.usage.match(/[^0-9,^０-９]/) || this.usage == "") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
   methods: {
     initializeParams() {
       this.select_ampere = null;
@@ -51,9 +62,8 @@ export default {
       this.result_simulations = null;
       this.error = null;
     },
-
     async simulationCharge() {
-        this.error = null;
+      this.error = null;
       try {
         const res = await axios.get(`${process.env.VUE_APP_API_URL}`, {
           params: {

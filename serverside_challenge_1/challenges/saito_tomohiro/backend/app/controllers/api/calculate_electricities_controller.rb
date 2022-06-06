@@ -6,7 +6,6 @@ module Api
     def simulate
       plans = Plan.all
       prices = plans.map do |plan|
-        # debugger
         price = CalculateElectricity.new(plan, simulate_params[:ampere],
                                          simulate_params[:usage]).simulate_electricity_charge
         { price: price, plan_name: plan.name, provider_name: plan.provider.name }
@@ -29,7 +28,7 @@ module Api
 
     def validate_params_usage
       return response_bad_request('使用量を指定してください') if params[:usage].blank?
-      return response_bad_request('使用量は数字で指定してください') unless params[:usage].match(/[0-9.,０-９]/)
+      return response_bad_request('使用量は0以上の数字で指定してください') if params[:usage].match(/[^0-9,^０-９]/)
     end
   end
 end

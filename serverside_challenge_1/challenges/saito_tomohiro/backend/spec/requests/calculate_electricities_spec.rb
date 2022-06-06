@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'CalculateElectricities', type: :request do
   describe 'GET /' do
-
     it 'is valid simulate electricity' do
       get '/',
           params: { ampere: 10, usage: 100 }
@@ -24,7 +23,13 @@ RSpec.describe 'CalculateElectricities', type: :request do
 
       it 'is invalid not number usage' do
         get '/',
-            params: { ampere: 10, usage: "a" }
+            params: { ampere: 10, usage: 'a' }
+        expect(response).to have_http_status(400)
+      end
+
+      it 'is invalid negative number' do
+        get '/',
+            params: { ampere: 10, usage: '-1' }
         expect(response).to have_http_status(400)
       end
     end

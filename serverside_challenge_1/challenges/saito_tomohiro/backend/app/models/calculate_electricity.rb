@@ -1,6 +1,6 @@
 class CalculateElectricity
   AMPERE = [10, 15, 20, 30, 40, 50, 60]
-  MAX_USAGE = 99999
+  MAX_USAGE = 99_999
   attr_accessor :plan, :ampere, :usage
 
   def initialize(plan, ampere, usage)
