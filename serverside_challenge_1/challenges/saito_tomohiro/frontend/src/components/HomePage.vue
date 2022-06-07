@@ -4,7 +4,7 @@
       <v-col>
         <div>契約アンペア数 [A]</div>
         <v-select outlined :items="amperes" v-model="select_ampere"></v-select>
-        <div>使用量 [kWh]</div>
+        <div>使用量 [kWh] (半角数字で入力してください)</div>
         <v-text-field v-model="usage" outlined required></v-text-field>
         <v-btn :disabled="checkUsage" @click="simulationCharge"
           >結果を見る</v-btn
@@ -48,7 +48,7 @@ export default {
   }),
   computed: {
     checkUsage: function () {
-      if (this.usage.match(/[^0-9,^０-９]/) || this.usage == "") {
+      if (this.usage.match(/[^0-9]/) || this.usage == "") {
         return true;
       } else {
         return false;
@@ -72,6 +72,7 @@ export default {
           },
         });
         if (!this.error) {
+          console.log(res.data);
           this.result_simulations = res.data;
         }
       } catch (error) {
