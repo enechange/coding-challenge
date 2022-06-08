@@ -20,15 +20,10 @@
         v-for="result_simulation in result_simulations"
         :key="result_simulation.provider_name"
       >
-        <div v-if="result_simulation.price == null">
+        <div>
           会社: {{ result_simulation.provider_name }} <br />
           プラン: {{ result_simulation.plan_name }} <br />
-          指定のアンペア数での契約プランはございません
-        </div>
-        <div v-else>
-          会社: {{ result_simulation.provider_name }} <br />
-          プラン: {{ result_simulation.plan_name }} <br />
-          料金: {{ result_simulation.price }}円
+          プラン: {{ result_simulation.price }}円 <br />
         </div>
       </v-col>
     </v-row>

@@ -13,7 +13,7 @@
 ActiveRecord::Schema[7.0].define(version: 20_220_529_091_905) do
   create_table 'base_charges', force: :cascade do |t|
     t.integer 'ampere', null: false
-    t.decimal 'base_charge', precision: 4, scale: 2, null: false
+    t.decimal 'base_charge', precision: 6, scale: 2, null: false
     t.integer 'plan_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
@@ -22,8 +22,8 @@ ActiveRecord::Schema[7.0].define(version: 20_220_529_091_905) do
 
   create_table 'per_use_charges', force: :cascade do |t|
     t.integer 'min_usage', null: false
-    t.integer 'max_usage', null: false
-    t.decimal 'per_use_charge', precision: 4, scale: 2, null: false
+    t.integer 'max_usage'
+    t.decimal 'per_use_charge', precision: 6, scale: 2, null: false
     t.integer 'plan_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false

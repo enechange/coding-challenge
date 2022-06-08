@@ -2,12 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'CalculateElectricities', type: :request do
   describe 'GET /' do
-    it 'is valid simulate electricity' do
-      get '/',
-          params: { ampere: 10, usage: 100 }
-      expect(response).to have_http_status(200)
-    end
-
     context 'validate params' do
       it 'is invalid blank ampere' do
         get '/',
@@ -32,6 +26,16 @@ RSpec.describe 'CalculateElectricities', type: :request do
             params: { ampere: 10, usage: '-1' }
         expect(response).to have_http_status(400)
       end
+    end
+
+    it 'check response' do
+      get '/',
+          params: { ampere: 10, usage: 100 }
+      expect(response).to have_http_status(200)
+      expect(JSON.parse(response.body)).to eq([
+                                                { 'plan_name' => '従量電灯B', 'price' => '2274.0',
+                                                  'provider_name' => '東京電力エナジーパートナー' }, { 'plan_name' => 'おうちプラン', 'price' => '2640.0', 'provider_name' => 'Loopでんき' }
+                                              ])
     end
   end
 end

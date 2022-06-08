@@ -19,7 +19,7 @@ FactoryBot.define do
     trait :per_use_charge3 do
       id { 3 }
       min_usage { 300 }
-      max_usage { 100_000 }
+      max_usage { nil }
       per_use_charge { 30.57 }
     end
   end
