@@ -1,4 +1,5 @@
 class Provider < ApplicationRecord
-  validates :id, presence: true, uniqueness: true
+  has_many :plans
+
   validates :name, presence: true
 end
