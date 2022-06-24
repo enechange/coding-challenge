@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_24_020056) do
+ActiveRecord::Schema.define(version: 2022_06_24_022434) do
+
+  create_table "basic_fees", force: :cascade do |t|
+    t.integer "plan_id", null: false
+    t.decimal "ampere", precision: 2, null: false
+    t.decimal "base_fee", precision: 12, scale: 2, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["plan_id"], name: "index_basic_fees_on_plan_id"
+  end
 
   create_table "plans", force: :cascade do |t|
     t.integer "provider_id", null: false
@@ -26,5 +35,6 @@ ActiveRecord::Schema.define(version: 2022_06_24_020056) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "basic_fees", "plans"
   add_foreign_key "plans", "providers"
 end
