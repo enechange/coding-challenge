@@ -45,16 +45,26 @@ module Api
             expect(response).to have_http_status(400)
           end
 
+          it "契約アンペアが用意された値以外は400レスポンスが返ってくる" do
+            get '/api/v1/simulation', params: { ampere: 11, usage: 100 }
+            expect(response).to have_http_status(400)
+          end
+
           it "使用量がブランクの時は400レスポンスが返ってくる" do
             get '/api/v1/simulation', params: { ampere: 10, usage: nil }
             expect(response).to have_http_status(400)
           end
 
-          it "契約アンペアが0以上の整数値でない時は400レスポンスが返ってくる" do
+          it "使用量が0以上の整数値でない時は400レスポンスが返ってくる" do
             get '/api/v1/simulation', params: { ampere: 10, usage: "fugafuga" }
             expect(response).to have_http_status(400)
 
             get '/api/v1/simulation', params: { ampere: 10, usage: -10 }
+            expect(response).to have_http_status(400)
+          end
+
+          it "使用量が用意された値以外は400レスポンスが返ってくる" do
+            get '/api/v1/simulation', params: { ampere: 10, usage: 100000 }
             expect(response).to have_http_status(400)
           end
         end

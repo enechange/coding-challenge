@@ -1,6 +1,9 @@
 module Api
   module V1
     class ElectricityChargeSimulation
+      AMPERE_LIST = [10, 15, 20, 30, 40, 50, 60]
+      MAX_USAGE = 99999
+
       attr_accessor :ampere, :usage, :result
 
       def initialize(params)
