@@ -1,24 +1,35 @@
-# README
+# 課題提出の件
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+お世話になっております。
 
-Things you may want to cover:
+コーディング課題が完了いたしました。
 
-* Ruby version
+プルリクエストをお送りいたしましたので、ご確認のほどよろしくお願いいたします。
 
-* System dependencies
+# やったこと
 
-* Configuration
+* 課題の要件の実装を行いました。
 
-* Database creation
+* シミュレーションクラス(ElectricityChargeSimulation)の作成を致しました。
 
-* Database initialization
+* 従量料金の最大値を設定いたしました。
 
-* How to run the test suite
+  * 用意されておりましたcsvの最大値が99999でしたので、それ以上の値を許容しないように致しました。
 
-* Services (job queues, cache servers, search engines, etc.)
+* 作成したモデル、リクエストのテストを、RSpecを用いて作成いたしました。
 
-* Deployment instructions
+  * ダミーデータは、FactoryBotを利用いたしました。
 
-* ...
+  * モデルでは、バリデーションに関するテストも追加いたしました。
+
+  * リクエストでは、200レスポンスと4xx系レスポンスのテストを用意いたしました。
+
+# 確認方法
+
+Herokuなどのデプロイは特に用意しておりません。ローカルの環境で ```rails s``` により起動することで環境を立ち上げました。
+
+成果物の確認は、以下の2つを用いました。
+
+* [curl](https://curl.se/ )コマンド
+
+* [Postman](https://www.postman.com/ ) API
