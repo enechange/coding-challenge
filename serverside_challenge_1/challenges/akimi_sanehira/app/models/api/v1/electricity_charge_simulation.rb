@@ -1,7 +1,7 @@
 module Api
   module V1
     class ElectricityChargeSimulation
-      attr_accessor :ampere, :result
+      attr_accessor :ampere, :usage, :result
 
       def initialize(params)
         @ampere = params[:ampere].to_i

@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :provider do
-    name { "hoge_company" }
+    id { 1 }
+    name { "hoge_provider" }
   end
 end
