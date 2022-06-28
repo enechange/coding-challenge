@@ -15,7 +15,7 @@ module Api
       def simulate_charge_plan
         basic_fee_list = BasicFee.where(ampere: @ampere)
         prices = basic_fee_list.map do |bf|
-          res = base_charge(bf.plan) + electricity_charge(bf.plan)
+          res = bf.base_fee + electricity_charge(bf.plan)
           { provider_name: bf.plan.provider.name, plan_name: bf.plan.name, price: res }
         end
       end
