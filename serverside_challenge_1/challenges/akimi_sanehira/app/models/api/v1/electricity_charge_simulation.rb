@@ -27,7 +27,7 @@ module Api
         end
 
         def electricity_charge(plan)
-          UsageCharge.where(plan: plan).where('min_usage <= ?', @usage).inject(0) do |electricity_charge, usage_class|
+          plan.usage_charges.where('min_usage <= ?', @usage).inject(0) do |electricity_charge, usage_class|
             if @usage <= usage_class.max_usage || usage_class.max_usage.nil?
               electricity_charge + usage_class.unit_usage_fee * (@usage - usage_class.min_usage)
             else
