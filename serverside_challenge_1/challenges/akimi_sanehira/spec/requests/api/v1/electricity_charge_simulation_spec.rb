@@ -35,37 +35,45 @@ module Api
           it "契約アンペアがブランクの時は400レスポンスが返ってくる" do
             get '/api/v1/simulation', params: { ampere: nil, usage: 100 }
             expect(response).to have_http_status(400)
+            expect(JSON.parse(response.body, symbolize_names: true)[:message]).to eq "契約アンペアを入力してください"
           end
 
           it "契約アンペアが0以上の整数値でない時は400レスポンスが返ってくる" do
             get '/api/v1/simulation', params: { ampere: "hogehoge", usage: 100 }
             expect(response).to have_http_status(400)
+            expect(JSON.parse(response.body, symbolize_names: true)[:message]).to eq "契約アンペアは0以上の整数値を入力してください"
 
             get '/api/v1/simulation', params: { ampere: -4, usage: 100 }
             expect(response).to have_http_status(400)
+            expect(JSON.parse(response.body, symbolize_names: true)[:message]).to eq "契約アンペアは0以上の整数値を入力してください"
           end
 
           it "契約アンペアが用意された値以外は400レスポンスが返ってくる" do
             get '/api/v1/simulation', params: { ampere: 11, usage: 100 }
             expect(response).to have_http_status(400)
+            expect(JSON.parse(response.body, symbolize_names: true)[:message]).to eq "入力された契約アンペアは、シミュレーションには用いられておりません"
           end
 
           it "使用量がブランクの時は400レスポンスが返ってくる" do
             get '/api/v1/simulation', params: { ampere: 10, usage: nil }
             expect(response).to have_http_status(400)
+            expect(JSON.parse(response.body, symbolize_names: true)[:message]).to eq "使用量を入力してください"
           end
 
           it "使用量が0以上の整数値でない時は400レスポンスが返ってくる" do
             get '/api/v1/simulation', params: { ampere: 10, usage: "fugafuga" }
             expect(response).to have_http_status(400)
+            expect(JSON.parse(response.body, symbolize_names: true)[:message]).to eq "使用量は0以上の整数値を入力してください"
 
             get '/api/v1/simulation', params: { ampere: 10, usage: -10 }
             expect(response).to have_http_status(400)
+            expect(JSON.parse(response.body, symbolize_names: true)[:message]).to eq "使用量は0以上の整数値を入力してください"
           end
 
           it "使用量が用意された値以外は400レスポンスが返ってくる" do
             get '/api/v1/simulation', params: { ampere: 10, usage: 100000 }
             expect(response).to have_http_status(400)
+            expect(JSON.parse(response.body, symbolize_names: true)[:message]).to eq "入力された使用量は、シミュレーションに用意された最大値を超えています"
           end
         end
       end
