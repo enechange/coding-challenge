@@ -13,7 +13,8 @@ class UserElectronInfo
 
   validates :electricity_usage,
             presence: true,
-            numericality: { greater_than_or_equal_to: 0 }
+            numericality: { greater_than_or_equal_to: 0 },
+            numericality: { less_than_or_equal_to: Constants::MAXIMUM_ELECTRICITY_USAGE }
 
   define_model_callbacks :save, only: :before
   before_save { throw(:abort) if invalid? }
