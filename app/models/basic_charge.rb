@@ -3,7 +3,7 @@ class BasicCharge < ApplicationRecord
 
   validates :contract_amperage,
             presence: true,
-            inclusion: { in: Constants::CONTRACT_AMPERAGE },
+            inclusion: { in: Constants::CONTRACT_AMPERAGE_TYPE },
             uniqueness: { scope: :electricity_rate_plan_id }
 
   validates :charge_unit_price,

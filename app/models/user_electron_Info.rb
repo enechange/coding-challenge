@@ -9,7 +9,7 @@ class UserElectronInfo
 
   validates :contract_amperage,
             presence: true,
-            inclusion: { in: Constants::CONTRACT_AMPERAGE }
+            inclusion: { in: Constants::CONTRACT_AMPERAGE_TYPE }
 
   validates :electricity_usage,
             presence: true,
