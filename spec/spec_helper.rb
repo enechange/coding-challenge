@@ -91,4 +91,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+  # テスト実行前に初期データの投入
+  config.before :suite do
+    load Rails.root.join('db', 'seeds', 'test.rb')
+  end
 end
