@@ -311,7 +311,7 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           expect(JSON.parse(response.body)["errors"]).to eq({
                                                               "electricity_usage" => [
                                                                 "未入力です。",
-                                                                "0以上、99999以下の数値を入力してください。"
+                                                                "0以上、99999以下の整数を入力してください。"
                                                               ]
                                                             }
                                                          )
@@ -328,7 +328,7 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           expect(response.status).to eq(400)
           expect(JSON.parse(response.body)["errors"]).to eq({
                                                               "electricity_usage" => [
-                                                                "0以上、99999以下の数値を入力してください。"
+                                                                "0以上、99999以下の整数を入力してください。"
                                                               ]
                                                             }
                                                          )
@@ -345,7 +345,24 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           expect(response.status).to eq(400)
           expect(JSON.parse(response.body)["errors"]).to eq({
                                                               "electricity_usage" => [
-                                                                "0以上、99999以下の数値を入力してください。"
+                                                                "0以上、99999以下の整数を入力してください。"
+                                                              ]
+                                                            }
+                                                         )
+        end
+      end
+
+      context '電気使用量が少数の場合' do
+        it '入力条件に関するエラーメッセージを返す' do
+          ampere = 10
+          usage = 0.1
+
+          get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+
+          expect(response.status).to eq(400)
+          expect(JSON.parse(response.body)["errors"]).to eq({
+                                                              "electricity_usage" => [
+                                                                "0以上、99999以下の整数を入力してください。"
                                                               ]
                                                             }
                                                          )

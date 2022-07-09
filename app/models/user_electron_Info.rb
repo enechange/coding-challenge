@@ -10,15 +10,18 @@ class UserElectronInfo
             inclusion: { in: Constants::CONTRACT_AMPERAGE_TYPE,
                          message: "#{Constants::CONTRACT_AMPERAGE_TYPE}内、いずれかの数値を入力してください。" }
 
+  ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE = "0以上、#{Constants::MAXIMUM_ELECTRICITY_USAGE}以下の整数を入力してください。"
+
   validates :electricity_usage,
             presence: { message: "未入力です。" },
             numericality: { in: 0..Constants::MAXIMUM_ELECTRICITY_USAGE,
-                            message: "0以上、#{Constants::MAXIMUM_ELECTRICITY_USAGE}以下の数値を入力してください。" }
+                            message: ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE }
 
   define_model_callbacks :save, only: :before
   before_save { throw(:abort) if invalid? }
 
-  validate :cannot_less_than_zero
+  validate :cannot_less_than_zero,
+           :cannot_float
 
   def save
     run_callbacks :save do
@@ -30,7 +33,14 @@ class UserElectronInfo
   # ※「in: 0..Constants::MAXIMUM_ELECTRICITY_USAGE」でマイナス数値を除外できなかったので、独自に定義
   def cannot_less_than_zero
     if electricity_usage.instance_of?(Integer) && electricity_usage < 0
-      errors.add(:electricity_usage, "0以上、#{Constants::MAXIMUM_ELECTRICITY_USAGE}以下の数値を入力してください。")
+      errors.add(:electricity_usage, ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE)
+    end
+  end
+
+  # 電気使用量は0以上の整数となるため、少数の場合はsaveさせない
+  def cannot_float
+    if electricity_usage.instance_of?(Float)
+      errors.add(:electricity_usage, ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE)
     end
   end
 end
