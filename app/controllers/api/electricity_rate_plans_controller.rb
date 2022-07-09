@@ -1,9 +1,13 @@
 module Api
   class ElectricityRatePlansController < ApplicationController
+    include Common
+
     def index
       # 受け取った「契約アンペア数」、「電気使用量」が不正な値でないか確認する
-      user_electron_info = UserElectronInfo.new(user_electron_info_params)
-      return render json: { status: 'ERROR', data: user_electron_info.errors } unless user_electron_info.save
+      user_electron_info = UserElectronInfo.new(contract_amperage: convert_integer(user_electron_info_params[:contract_amperage]),
+                                                electricity_usage: convert_integer(user_electron_info_params[:electricity_usage]))
+
+      return render json: user_electron_info.errors, status: 400 unless user_electron_info.save
 
       # 全てのプランの情報（電気料金等）を取得
       results = []
