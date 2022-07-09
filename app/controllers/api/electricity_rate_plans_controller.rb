@@ -7,7 +7,7 @@ module Api
       user_electron_info = UserElectronInfo.new(contract_amperage: convert_integer(user_electron_info_params[:contract_amperage]),
                                                 electricity_usage: convert_integer(user_electron_info_params[:electricity_usage]))
 
-      return render json: user_electron_info.errors, status: 400 unless user_electron_info.save
+      return render status: 400, json: { errors: user_electron_info.errors } unless user_electron_info.save
 
       # 全てのプランの情報（電気料金等）を取得
       results = []

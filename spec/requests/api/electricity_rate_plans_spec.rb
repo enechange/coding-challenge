@@ -256,13 +256,13 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)).to eq({
-                                                    "contract_amperage" =>[
-                                                      "未入力です。",
-                                                      "[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。"
-                                                    ]
-                                                  }
-                                               )
+          expect(JSON.parse(response.body)["errors"]).to eq({
+                                                              "contract_amperage" => [
+                                                                "未入力です。",
+                                                                "[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。"
+                                                              ]
+                                                            }
+                                                         )
         end
       end
 
@@ -274,12 +274,12 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)).to eq({
-                                                    "contract_amperage" =>[
-                                                      "[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。"
-                                                    ]
-                                                  }
-                                               )
+          expect(JSON.parse(response.body)["errors"]).to eq({
+                                                              "contract_amperage" => [
+                                                                "[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。"
+                                                              ]
+                                                            }
+                                                         )
         end
       end
 
@@ -291,12 +291,12 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)).to eq({
-                                                    "contract_amperage" =>[
-                                                      "[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。"
-                                                    ]
-                                                  }
-                                               )
+          expect(JSON.parse(response.body)["errors"]).to eq({
+                                                              "contract_amperage" => [
+                                                                "[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。"
+                                                              ]
+                                                            }
+                                                         )
         end
       end
 
@@ -308,13 +308,13 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)).to eq({
-                                                    "electricity_usage" =>[
-                                                      "未入力です。",
-                                                      "0以上、99999以下の数値を入力してください。"
-                                                    ]
-                                                  }
-                                               )
+          expect(JSON.parse(response.body)["errors"]).to eq({
+                                                              "electricity_usage" => [
+                                                                "未入力です。",
+                                                                "0以上、99999以下の数値を入力してください。"
+                                                              ]
+                                                            }
+                                                         )
         end
       end
 
@@ -326,12 +326,12 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)).to eq({
-                                                    "electricity_usage" =>[
-                                                      "0以上、99999以下の数値を入力してください。"
-                                                    ]
-                                                  }
-                                               )
+          expect(JSON.parse(response.body)["errors"]).to eq({
+                                                              "electricity_usage" => [
+                                                                "0以上、99999以下の数値を入力してください。"
+                                                              ]
+                                                            }
+                                                         )
         end
       end
 
@@ -343,12 +343,12 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)).to eq({
-                                                    "electricity_usage" =>[
-                                                      "0以上、99999以下の数値を入力してください。"
-                                                    ]
-                                                  }
-                                               )
+          expect(JSON.parse(response.body)["errors"]).to eq({
+                                                              "electricity_usage" => [
+                                                                "0以上、99999以下の数値を入力してください。"
+                                                              ]
+                                                            }
+                                                         )
         end
       end
     end
