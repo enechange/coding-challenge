@@ -30,10 +30,8 @@ class ElectricityRateCalculation
     user_usage = user_electron_info.electricity_usage.dup
 
     target_plan.usage_charges.sort_by { |v| v.minimum_usage }.each do |plan_usage_charge|
-      # 以下の場合は、処理終了
-      # ・従量料金の区分（○kWh〜○kWhまで）が、全従量料金（target_plan.usage_charges）の中で最大値の場合
-      # ・plan_usage_chargeの区分の最大値がユーザーの電気使用量を超える場合
-      if plan_usage_charge.max_usage.blank? || user_electron_info.electricity_usage < plan_usage_charge.max_usage
+      # 従量料金の区分の最大値がユーザーの電気使用量を超える場合、処理終了
+      if user_electron_info.electricity_usage < plan_usage_charge.max_usage
         break total_charge += user_usage * plan_usage_charge.charge_unit_price
       end
 
