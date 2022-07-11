@@ -86,4 +86,11 @@ RSpec.describe UsageCharge, type: :model do
     usage.valid?
     expect(usage.errors[:electricity_rate_plan]).to include("を入力してください")
   end
+
+  it "同一プラン内で、区分の最大値,最小値がが既に登録されている最小値、最大値と同じ数値の場合は、無効である" do
+    create(:usage_charge, max_usage: 100, minimum_usage: 0, electricity_rate_plan: plan)
+    usage = build(:usage_charge, max_usage: 100, minimum_usage: 0, electricity_rate_plan: plan)
+    usage.valid?
+    expect(usage.errors[:minimum_usage]).to include("プラン、区分（最大値、最小値）の組み合わせは存在します")
+  end
 end
