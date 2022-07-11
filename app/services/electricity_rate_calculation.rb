@@ -5,12 +5,12 @@ class ElectricityRateCalculation
     basic_charge = calculation_basic_charge(plan, user_electron_info)
 
     # プランを提供していない会社はレスポンスに含めない
-    # ※# 契約アンペア数によってプランを提供していない会社もある
+    # ※契約アンペア数によってプランを提供していない会社もある
     return nil if basic_charge.blank?
 
     usage_charge = calculation_usage_charge(plan, user_electron_info)
 
-    # 電気料金の合計は、小数点以下（銭）は切り捨て
+    # 電気料金の合計は、小数点以下（銭）を切り捨て
     (basic_charge + usage_charge).floor
   end
 

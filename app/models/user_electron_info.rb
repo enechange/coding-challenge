@@ -6,7 +6,7 @@ class UserElectronInfo
   include ActiveModel::Model
 
   attr_accessor :contract_amperage, # 契約アンペア数
-                :electricity_usage # 電気使用量
+                :electricity_usage  # 電気使用量
 
   validates :contract_amperage,
             presence: { message: '未入力です。' },
