@@ -9,3 +9,7 @@ Metrics/MethodLength:
 
 Style/GuardClause:
   MinBodyLength: 5
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
