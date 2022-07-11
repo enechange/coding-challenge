@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # requestで受け取った契約アンペア数,電気使用量を保持するclass
 # dbと連携しないmodel（validationを使用したいため、modelに定義）
 class UserElectronInfo
@@ -7,14 +9,14 @@ class UserElectronInfo
                 :electricity_usage # 電気使用量
 
   validates :contract_amperage,
-            presence: { message: "未入力です。" },
+            presence: { message: '未入力です。' },
             inclusion: { in: Constants::CONTRACT_AMPERAGE_TYPE,
                          message: "#{Constants::CONTRACT_AMPERAGE_TYPE}内、いずれかの数値を入力してください。" }
 
-  ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE = "0以上、#{Constants::MAXIMUM_ELECTRICITY_USAGE}以下の整数を入力してください。"
+  ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE = "0以上、#{Constants::MAXIMUM_ELECTRICITY_USAGE}以下の整数を入力してください。".freeze
 
   validates :electricity_usage,
-            presence: { message: "未入力です。" },
+            presence: { message: '未入力です。' },
             numericality: { in: 0..Constants::MAXIMUM_ELECTRICITY_USAGE,
                             message: ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE }
 
@@ -33,15 +35,13 @@ class UserElectronInfo
   # マイナス数値の場合はsaveさせない
   # ※「in: 0..Constants::MAXIMUM_ELECTRICITY_USAGE」でマイナス数値を除外できなかったので、独自に定義
   def cannot_less_than_zero
-    if electricity_usage.instance_of?(Integer) && electricity_usage < 0
+    if electricity_usage.instance_of?(Integer) && electricity_usage.negative?
       errors.add(:electricity_usage, ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE)
     end
   end
 
   # 電気使用量は0以上の整数となるため、少数の場合はsaveさせない
   def cannot_float
-    if electricity_usage.instance_of?(Float)
-      errors.add(:electricity_usage, ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE)
-    end
+    errors.add(:electricity_usage, ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE) if electricity_usage.instance_of?(Float)
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BasicCharge < ApplicationRecord
   belongs_to :electricity_rate_plan
 

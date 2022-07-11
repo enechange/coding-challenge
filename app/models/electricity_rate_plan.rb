@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ElectricityRatePlan < ApplicationRecord
   belongs_to :electric_power_provider
   has_many :basic_charges, dependent: :destroy

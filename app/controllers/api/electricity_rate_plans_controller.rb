@@ -1,11 +1,16 @@
+# frozen_string_literal: true
+
 module Api
   class ElectricityRatePlansController < ApplicationController
     include Common
 
     def index
+      amperage = convert_integer(user_electron_info_params[:contract_amperage])
+      usage = convert_integer(user_electron_info_params[:electricity_usage])
+
       # 受け取った「契約アンペア数」、「電気使用量」が不正な値でないか確認する
-      user_electron_info = UserElectronInfo.new(contract_amperage: convert_integer(user_electron_info_params[:contract_amperage]),
-                                                electricity_usage: convert_integer(user_electron_info_params[:electricity_usage]))
+      user_electron_info = UserElectronInfo.new(contract_amperage: amperage,
+                                                electricity_usage: usage)
 
       return render status: 400, json: { errors: user_electron_info.errors } unless user_electron_info.save
 
@@ -20,7 +25,7 @@ module Api
         # プラン情報を格納
         results.push({ provider_name: plan.electric_power_provider.name,
                        plan_name: plan.name,
-                       price: price })
+                       price: price }) # rubocop:disable Style/HashSyntax
       end
 
       render json: results

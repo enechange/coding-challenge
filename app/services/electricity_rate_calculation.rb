@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ElectricityRateCalculation
   def self.calculation_electricity_charge(plan, user_electron_info)
     basic_charge = calculation_basic_charge(plan, user_electron_info)
@@ -12,8 +14,6 @@ class ElectricityRateCalculation
     (basic_charge + usage_charge).floor
   end
 
-  private
-
   # 基本料金の計算
   def self.calculation_basic_charge(target_plan, user_electron_info)
     target_basic_charge = target_plan.basic_charges.find do |plan|
@@ -21,6 +21,7 @@ class ElectricityRateCalculation
     end
 
     return nil if target_basic_charge.blank?
+
     target_basic_charge.charge_unit_price
   end
 
@@ -29,7 +30,7 @@ class ElectricityRateCalculation
     total_charge = 0
     user_usage = user_electron_info.electricity_usage.dup
 
-    target_plan.usage_charges.sort_by { |v| v.minimum_usage }.each do |plan_usage_charge|
+    target_plan.usage_charges.sort_by(&:minimum_usage).each do |plan_usage_charge|
       # 従量料金の区分の最大値がユーザーの電気使用量を超える場合、処理終了
       if user_electron_info.electricity_usage < plan_usage_charge.max_usage
         break total_charge += user_usage * plan_usage_charge.charge_unit_price
