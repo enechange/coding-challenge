@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "ElectricityRatePlans", type: :request do
-  describe "GET /electricity_rate_plans" do
+RSpec.describe 'ElectricityRatePlans', type: :request do
+  describe 'GET /electricity_rate_plans' do
     context 'リクエストに含まれる契約アンペア数,電気使用量が正常な値の場合' do
       it 'プラン情報が正しく取得できる' do
         ampere = 30
@@ -12,27 +14,26 @@ RSpec.describe "ElectricityRatePlans", type: :request do
         expect(response.status).to eq(200)
         expect(JSON.parse(response.body)).to eq([
                                                   {
-                                                    "provider_name" => "東京電力エナジーパートナー",
-                                                    "plan_name" => "従量電灯B",
-                                                    "price" => 11067
+                                                    'provider_name' => '東京電力エナジーパートナー',
+                                                    'plan_name' => '従量電灯B',
+                                                    'price' => 11_067
                                                   },
                                                   {
-                                                    "provider_name" => "Loopでんき",
-                                                    "plan_name" => "おうちプラン",
-                                                    "price" => 10560
+                                                    'provider_name' => 'Loopでんき',
+                                                    'plan_name' => 'おうちプラン',
+                                                    'price' => 10_560
                                                   },
                                                   {
-                                                    "provider_name" => "東京ガス",
-                                                    "plan_name" => "ずっとも電気1",
-                                                    "price" => 10507
+                                                    'provider_name' => '東京ガス',
+                                                    'plan_name' => 'ずっとも電気1',
+                                                    'price' => 10_507
                                                   },
                                                   {
-                                                    "provider_name" => "JXTGでんき",
-                                                    "plan_name" => "従量電灯Bたっぷりプラン",
-                                                    "price" => 10518
+                                                    'provider_name' => 'JXTGでんき',
+                                                    'plan_name' => '従量電灯Bたっぷりプラン',
+                                                    'price' => 10_518
                                                   }
-                                                ]
-                                             )
+                                                ])
       end
 
       context '基本料金の計算結果の確認（東京電力エナジーを参照）' do
@@ -46,9 +47,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 2274
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 2274
                                                          })
           end
         end
@@ -60,9 +61,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 2417
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 2417
                                                          })
           end
         end
@@ -74,9 +75,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 2560
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 2560
                                                          })
           end
         end
@@ -88,9 +89,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 2846
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 2846
                                                          })
           end
         end
@@ -102,9 +103,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 3132
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 3132
                                                          })
           end
         end
@@ -116,9 +117,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 3418
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 3418
                                                          })
           end
         end
@@ -130,9 +131,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 3704
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 3704
                                                          })
           end
         end
@@ -149,9 +150,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 305
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 305
                                                          })
           end
         end
@@ -164,9 +165,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 2671
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 2671
                                                          })
           end
         end
@@ -179,9 +180,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 2698
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 2698
                                                          })
           end
         end
@@ -194,9 +195,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 7438
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 7438
                                                          })
           end
         end
@@ -209,9 +210,9 @@ RSpec.describe "ElectricityRatePlans", type: :request do
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body)).to include({
-                                                           "provider_name" => "東京電力エナジーパートナー",
-                                                           "plan_name" => "従量電灯B",
-                                                           "price" => 7468
+                                                           'provider_name' => '東京電力エナジーパートナー',
+                                                           'plan_name' => '従量電灯B',
+                                                           'price' => 7468
                                                          })
           end
         end
@@ -238,7 +239,7 @@ RSpec.describe "ElectricityRatePlans", type: :request do
             get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
             result = JSON.parse(response.body).find do |content|
-              content["plan_name"] == "ずっとも電気1"
+              content['plan_name'] == 'ずっとも電気1'
             end
             expect(response.status).to eq(200)
             expect(result).to be nil
@@ -256,13 +257,12 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)["errors"]).to eq({
-                                                              "contract_amperage" => [
-                                                                "未入力です。",
-                                                                "[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。"
+          expect(JSON.parse(response.body)['errors']).to eq({
+                                                              'contract_amperage' => [
+                                                                '未入力です。',
+                                                                '[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。'
                                                               ]
-                                                            }
-                                                         )
+                                                            })
         end
       end
 
@@ -274,12 +274,11 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)["errors"]).to eq({
-                                                              "contract_amperage" => [
-                                                                "[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。"
+          expect(JSON.parse(response.body)['errors']).to eq({
+                                                              'contract_amperage' => [
+                                                                '[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。'
                                                               ]
-                                                            }
-                                                         )
+                                                            })
         end
       end
 
@@ -291,12 +290,11 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)["errors"]).to eq({
-                                                              "contract_amperage" => [
-                                                                "[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。"
+          expect(JSON.parse(response.body)['errors']).to eq({
+                                                              'contract_amperage' => [
+                                                                '[10, 15, 20, 30, 40, 50, 60]内、いずれかの数値を入力してください。'
                                                               ]
-                                                            }
-                                                         )
+                                                            })
         end
       end
 
@@ -308,13 +306,12 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)["errors"]).to eq({
-                                                              "electricity_usage" => [
-                                                                "未入力です。",
-                                                                "0以上、99999以下の整数を入力してください。"
+          expect(JSON.parse(response.body)['errors']).to eq({
+                                                              'electricity_usage' => [
+                                                                '未入力です。',
+                                                                '0以上、99999以下の整数を入力してください。'
                                                               ]
-                                                            }
-                                                         )
+                                                            })
         end
       end
 
@@ -326,12 +323,11 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)["errors"]).to eq({
-                                                              "electricity_usage" => [
-                                                                "0以上、99999以下の整数を入力してください。"
+          expect(JSON.parse(response.body)['errors']).to eq({
+                                                              'electricity_usage' => [
+                                                                '0以上、99999以下の整数を入力してください。'
                                                               ]
-                                                            }
-                                                         )
+                                                            })
         end
       end
 
@@ -343,12 +339,11 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)["errors"]).to eq({
-                                                              "electricity_usage" => [
-                                                                "0以上、99999以下の整数を入力してください。"
+          expect(JSON.parse(response.body)['errors']).to eq({
+                                                              'electricity_usage' => [
+                                                                '0以上、99999以下の整数を入力してください。'
                                                               ]
-                                                            }
-                                                         )
+                                                            })
         end
       end
 
@@ -360,12 +355,11 @@ RSpec.describe "ElectricityRatePlans", type: :request do
           get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
 
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)["errors"]).to eq({
-                                                              "electricity_usage" => [
-                                                                "0以上、99999以下の整数を入力してください。"
+          expect(JSON.parse(response.body)['errors']).to eq({
+                                                              'electricity_usage' => [
+                                                                '0以上、99999以下の整数を入力してください。'
                                                               ]
-                                                            }
-                                                         )
+                                                            })
         end
       end
     end
