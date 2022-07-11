@@ -24,6 +24,6 @@ RSpec.describe ElectricityRatePlan, type: :model do
     create(:plan, electric_power_provider: provider)
     plan = build(:plan, electric_power_provider: provider)
     plan.valid?
-    expect(plan.errors[:name]).to include("はすでに存在します")
+    expect(plan.errors[:name]).to include('電力会社名、プラン名の組み合わせは存在します')
   end
 end

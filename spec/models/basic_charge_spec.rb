@@ -25,7 +25,7 @@ RSpec.describe BasicCharge, type: :model do
     create(:basic_charge, electricity_rate_plan: plan)
     usage = build(:basic_charge, electricity_rate_plan: plan)
     usage.valid?
-    expect(usage.errors[:contract_amperage]).to include("はすでに存在します")
+    expect(usage.errors[:contract_amperage]).to include('プラン、契約アンペア数の組み合わせは存在します')
   end
 
   it "料金単価が無い場合は、無効である" do

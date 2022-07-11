@@ -5,7 +5,8 @@ class ElectricityRatePlan < ApplicationRecord
 
   validates :name,
             presence: true,
-            uniqueness: { scope: :electric_power_provider_id }
+            uniqueness: { scope: :electric_power_provider_id,
+                          message: '電力会社名、プラン名の組み合わせは存在します' }
 
   validates :electric_power_provider_id, presence: true
 end
