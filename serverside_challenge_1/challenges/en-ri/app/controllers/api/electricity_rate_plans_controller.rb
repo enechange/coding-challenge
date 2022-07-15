@@ -2,7 +2,7 @@
 
 module Api
   class ElectricityRatePlansController < ApplicationController
-    include Common
+    include NumericConverter
 
     def index
       amperage = convert_integer(user_electron_info_params[:contract_amperage])
