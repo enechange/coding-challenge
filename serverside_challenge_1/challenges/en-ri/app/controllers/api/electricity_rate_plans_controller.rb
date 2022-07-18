@@ -9,10 +9,10 @@ module Api
       usage = convert_float(convert_integer(user_electron_info_params[:electricity_usage]))
 
       # 受け取った「契約アンペア数」、「電気使用量」が不正な値でないか確認する
-      user_electron_info = UserElectronInfo.new(contract_amperage: amperage,
-                                                electricity_usage: usage)
+      user_electron_info = UserElectronInfoValidator.new(contract_amperage: amperage,
+                                                         electricity_usage: usage)
 
-      return render status: 400, json: { errors: user_electron_info.errors } unless user_electron_info.save
+      return render status: 400, json: { errors: user_electron_info.errors } unless user_electron_info.valid?
 
       # 全てのプランの情報（電気料金等）を取得
       results = []

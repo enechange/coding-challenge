@@ -2,7 +2,7 @@
 
 # requestで受け取った契約アンペア数,電気使用量を保持するclass
 # dbと連携しないmodel（validationを使用したいため、modelに定義）
-class UserElectronInfo
+class UserElectronInfoValidator
   include ActiveModel::Model
 
   attr_accessor :contract_amperage, # 契約アンペア数
@@ -20,17 +20,8 @@ class UserElectronInfo
             numericality: { in: 0..Constants::MAXIMUM_ELECTRICITY_USAGE,
                             message: ELECTRICITY_USAGE_NUMERIC_ERROR_MESSAGE }
 
-  define_model_callbacks :save, only: :before
-  before_save { throw(:abort) if invalid? }
-
   validate :cannot_less_than_zero,
            :cannot_float
-
-  def save
-    run_callbacks :save do
-      true
-    end
-  end
 
   # マイナス数値の場合はsaveさせない
   # ※「in: 0..Constants::MAXIMUM_ELECTRICITY_USAGE」でマイナス数値を除外できなかったので、独自に定義
