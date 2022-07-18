@@ -9,7 +9,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
         ampere = 30
         usage = 400
 
-        get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+        get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
         expect(response.status).to eq(200)
         expect(JSON.parse(response.body)).to eq([
@@ -226,7 +226,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
             plans = ElectricityRatePlan.eager_load(:basic_charges)
                                        .where(basic_charges: { contract_amperage: ampere })
 
-            get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+            get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
             expect(response.status).to eq(200)
             expect(JSON.parse(response.body).count).to eq(plans.count)
@@ -236,7 +236,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
             ampere = 20
             usage = 200
 
-            get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+            get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
             result = JSON.parse(response.body).find do |content|
               content['plan_name'] == 'ずっとも電気1'
@@ -254,7 +254,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
           ampere = ''
           usage = 400
 
-          get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+          get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
           expect(response.status).to eq(400)
           expect(JSON.parse(response.body)['errors']).to eq({
@@ -271,7 +271,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
           ampere = 'test'
           usage = 400
 
-          get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+          get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
           expect(response.status).to eq(400)
           expect(JSON.parse(response.body)['errors']).to eq({
@@ -287,7 +287,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
           ampere = 1000
           usage = 400
 
-          get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+          get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
           expect(response.status).to eq(400)
           expect(JSON.parse(response.body)['errors']).to eq({
@@ -303,7 +303,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
           ampere = 10
           usage = ''
 
-          get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+          get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
           expect(response.status).to eq(400)
           expect(JSON.parse(response.body)['errors']).to eq({
@@ -320,7 +320,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
           ampere = 10
           usage = 'test'
 
-          get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+          get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
           expect(response.status).to eq(400)
           expect(JSON.parse(response.body)['errors']).to eq({
@@ -336,7 +336,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
           ampere = 10
           usage = -1
 
-          get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+          get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
           expect(response.status).to eq(400)
           expect(JSON.parse(response.body)['errors']).to eq({
@@ -352,7 +352,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
           ampere = 10
           usage = 0.1
 
-          get "/api/electricity_rate_plans?contract_amperage=#{ampere}&electricity_usage=#{usage}"
+          get api_electricity_rate_plans_path(contract_amperage: ampere, electricity_usage: usage)
 
           expect(response.status).to eq(400)
           expect(JSON.parse(response.body)['errors']).to eq({
