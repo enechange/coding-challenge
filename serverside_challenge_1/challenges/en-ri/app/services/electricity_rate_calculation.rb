@@ -16,8 +16,8 @@ class ElectricityRateCalculation
 
   # 基本料金の計算
   def self.calculation_basic_charge(target_plan, user_electron_info)
-    target_basic_charge = target_plan.basic_charges.find do |plan|
-      plan.contract_amperage == user_electron_info.contract_amperage
+    target_basic_charge = target_plan.basic_charges.find do |basic_charge|
+      basic_charge.contract_amperage == user_electron_info.contract_amperage
     end
 
     return nil if target_basic_charge.blank?
