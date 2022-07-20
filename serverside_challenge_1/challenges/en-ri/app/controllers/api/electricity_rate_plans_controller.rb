@@ -5,8 +5,8 @@ module Api
     include NumericConverter
 
     def index
-      amperage = convert_float(convert_integer(user_electron_info_params[:contract_amperage]))
-      usage = convert_float(convert_integer(user_electron_info_params[:electricity_usage]))
+      amperage = convert_string_to_integer_or_float(user_electron_info_params[:contract_amperage])
+      usage = convert_string_to_integer_or_float(user_electron_info_params[:electricity_usage])
 
       # 受け取った「契約アンペア数」、「電気使用量」が不正な値でないか確認する
       user_electron_info = UserElectronInfoValidator.new(contract_amperage: amperage,
