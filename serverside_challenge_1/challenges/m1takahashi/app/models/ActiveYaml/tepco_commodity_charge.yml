@@ -1,0 +1,12 @@
+- id: 1
+  min: 0
+  max: 120
+  charge_with_tax: 19.88
+- id: 2
+  min: 121
+  max: 300
+  charge_with_tax: 26.48
+- id: 3
+  min: 301
+  max: 2000000000
+  charge_with_tax: 30.57
