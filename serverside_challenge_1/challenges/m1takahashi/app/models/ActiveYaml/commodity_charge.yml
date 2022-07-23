@@ -42,7 +42,7 @@
   provider_id: 4
   min: 121
   max: 300
-  charge_with_tax: 26.41
+  charge_with_tax: 26.48
 - id: 10
   provider_id: 4
   min: 301
@@ -52,4 +52,4 @@
   provider_id: 4
   min: 601
   max: 2000000000
-  charge_with_tax: 26.51
+  charge_with_tax: 26.15
