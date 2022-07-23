@@ -1,24 +1,38 @@
-# README
+# 構成
+- Ruby 3.0.0
+- Rails 6.1.6
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 要件
+## データは、CSVやYAMLなどのファイルで管理して読み込んでください。
+- ファイルはご用意ください（CSVやYAML形式など）。
+- ファイルの用意が必須の為、データベースでのマスタ管理を行うと二重管理になるので、データベースは利用しない。
 
-Things you may want to cover:
+# 環境構築手順
+## Cloud9へのRubyインストール
 
-* Ruby version
+```
+$ ruby -v
+ruby 2.6.3p62 (2019-04-16 revision 67580) [x86_64-linux]
+$ rvm list
+$ rvm get stable
+$ rvm list known
+$ rvm install
+$ ruby -v
+ruby 3.0.0p0 (2020-12-25 revision 95aff21468) [x86_64-linux]
+$ rvm --default use 3.0.0
+$ rvm list
+   ruby-2.6.3 [ x86_64 ]
+=* ruby-3.0.0 [ x86_64 ]
+```
 
-* System dependencies
+## アプリケーション作成（Rails6.1系へのダウングレード）
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+$ gem list rails
+$ gem install -v 6.1.6 rails
+$ rails _6.1.6_ new . -O ｰB
+$ npm install --global yarn
+$ yarn --version
+$ rails webpacker:install
+$ rails s
+```
