@@ -1,4 +1,3 @@
-class TepcoBasicCharge < ActiveYaml::Base
-  set_root_path Rails.root.join('app/models/ActiveYaml')
+class TepcoBasicCharge < ActiveYamlBase
   set_filename "tepco_basic_charge"
 end
