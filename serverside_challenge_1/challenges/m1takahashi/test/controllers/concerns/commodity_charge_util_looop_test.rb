@@ -1,11 +1,10 @@
 require "test_helper"
-require "calc_price"
 
 # Looopでんき
 # 区分なし,1kWh=26.40固定
 # 区分はないが,東京電力のテストケースを流用
-class CalcPriceLooopTest < ActiveSupport::TestCase
-  include CalcPrice
+class CommodityChargeUtilLooopTest < ActiveSupport::TestCase
+  include CommodityChargeUtil
   
   setup do
     provider = Provider.find(2)
