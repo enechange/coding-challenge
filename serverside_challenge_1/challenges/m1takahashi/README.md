@@ -8,7 +8,7 @@
 ### URL
 
 ```
-GET /api/v1/plans
+GET /api/v1/plans/index HTTP/1.1
 ```
 
 ### Request

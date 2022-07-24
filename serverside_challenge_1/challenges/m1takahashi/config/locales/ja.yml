@@ -1,0 +1,4 @@
+ja:
+  api:
+    errors:
+      invalid: "不正なアクセスです"
