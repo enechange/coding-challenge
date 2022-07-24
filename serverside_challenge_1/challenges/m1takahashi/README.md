@@ -107,12 +107,3 @@ $ yarn --version
 $ rails webpacker:install
 $ rails s
 ```
-
-## コンテナ化
-
-```
-$ sudo docker images
-$ docker build ./ -t enechange-m1takahashi
-```
-
-
