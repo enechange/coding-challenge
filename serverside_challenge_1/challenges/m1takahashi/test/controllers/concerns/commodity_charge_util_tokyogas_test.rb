@@ -1,9 +1,8 @@
 require "test_helper"
-require "calc_price"
 
 # 東京ガス
-class CalcPriceTokyogasTest < ActiveSupport::TestCase
-  include CalcPrice
+class CommodityChargeUtilTokyogasTest < ActiveSupport::TestCase
+  include CommodityChargeUtil
   
   setup do
     provider = Provider.find(3)

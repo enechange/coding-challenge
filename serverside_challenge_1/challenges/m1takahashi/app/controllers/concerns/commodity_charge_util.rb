@@ -1,4 +1,4 @@
-module CalcPrice
+module CommodityChargeUtil
   extend ActiveSupport::Concern
   
   # 使用量から,区分に合わせた料金単価を取得

@@ -1,12 +1,11 @@
 require "test_helper"
-require "calc_price"
 
-# 東京電力エナジーパートナー
-class CalcPriceTepcoTest < ActiveSupport::TestCase
-  include CalcPrice
+# JXTGでんき
+class CommodityChargeUtilJxtgTest < ActiveSupport::TestCase
+  include CommodityChargeUtil
   
   setup do
-    provider = Provider.find(1)
+    provider = Provider.find(4)
     @commodity_charges = CommodityCharge.provider(provider.id).all
   end
 
@@ -30,13 +29,23 @@ class CalcPriceTepcoTest < ActiveSupport::TestCase
      assert_equal unit_price, 26.48
   end
 
-  test "301kWhが指定された場合には,30.57円を返すこと" do
+  test "301kWhが指定された場合には,25.08円を返すこと" do
      unit_price = commodity_unit_price(@commodity_charges, 301)
-     assert_equal unit_price, 30.57
+     assert_equal unit_price, 25.08
   end
 
-  test "1000kWhが指定された場合には,30.57円を返すこと" do
+  test "600kWhが指定された場合には,25.08円を返すこと" do
+     unit_price = commodity_unit_price(@commodity_charges, 600)
+     assert_equal unit_price, 25.08
+  end
+
+  test "601kWhが指定された場合には,26.15円を返すこと" do
+     unit_price = commodity_unit_price(@commodity_charges, 601)
+     assert_equal unit_price, 26.15
+  end
+
+  test "1000kWhが指定された場合には,26.15円を返すこと" do
      unit_price = commodity_unit_price(@commodity_charges, 1000)
-     assert_equal unit_price, 30.57
+     assert_equal unit_price, 26.15
   end
 end
