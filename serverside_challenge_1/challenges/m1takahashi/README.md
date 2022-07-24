@@ -54,9 +54,17 @@ HTTP/1.1 200 OK
 }
 ```
 
-# 構成
+# システム構成
+
+## 言語,フレームワーク
 - Ruby 3.0.0
 - Rails 6.1.6
+
+## 開発環境
+- AWS Cloud9
+
+## 実行環境
+- AWS App Runner
 
 # 要件
 ## データは、CSVやYAMLなどのファイルで管理して読み込んでください。
@@ -99,3 +107,12 @@ $ yarn --version
 $ rails webpacker:install
 $ rails s
 ```
+
+## コンテナ化
+
+```
+$ sudo docker images
+$ docker build ./ -t enechange-m1takahashi
+```
+
+
