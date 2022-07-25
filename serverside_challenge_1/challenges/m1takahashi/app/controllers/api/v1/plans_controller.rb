@@ -18,9 +18,9 @@ class Api::V1::PlansController < ApplicationController
       basic_price = basic_charge.charge_with_tax
       # 従量課金単価を取得
       commodity_charges = CommodityCharge.provider(provider.id).all
-      unit_price = commodity_unit_price(commodity_charges, @amount_of_use)
+      unit_price = commodity_unit_price(commodity_charges, @amount)
       # 従量料金② 使用量 * 単価
-      commodity_price = unit_price * @amount_of_use
+      commodity_price = unit_price * @amount
       # 合計金額
       price = basic_price + commodity_price
       plans.push({
@@ -29,27 +29,25 @@ class Api::V1::PlansController < ApplicationController
         price: price.ceil # 小数点以下切り上げ
       })
     end
-    result = {
-      'code' => API_CODE_SUCCESS,
-      'message' => "",
-      'data' => plans
-    }
-    render :json => result
+    render :json => { 'code' => API_CODE_SUCCESS, 'message' => "", 'data' => plans }
   end
   
   private
   
   def validate_params
     message = ""
-    # アンペア数確認    
+    # 契約アンペア数確認    
     @ampere = params[:ampere].to_i
     unless BasicCharge::AMPERES.include?(@ampere)
       message = t("api.errors.ampere")
     end
     # 使用量確認
-    @amount_of_use = params[:amount_of_use].to_i
-    unless CommodityCharge::AMOUNT_OF_USE_MIN <= @amount_of_use && CommodityCharge::AMOUNT_OF_USE_MAX >= @amount_of_use
-      message = t("api.errors.amount_of_use")
+    if params[:amount].blank?
+      message = t("api.errors.amount_blank")
+    end
+    @amount = params[:amount].to_i
+    unless CommodityCharge::AMOUNT_MIN <= @amount && CommodityCharge::AMOUNT_MAX >= @amount
+      message = t("api.errors.amount_range")
     end
     unless message.empty?
       render :json => { 'code' => API_CODE_ERROR, 'message' => message, 'data' => [] } and return
