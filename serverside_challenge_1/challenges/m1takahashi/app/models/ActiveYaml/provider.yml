@@ -6,7 +6,7 @@
   plan_name: おうちプラン
 - id: 3
   provider_name: 東京ガス
-  plan_name: ずっとも電気1 
+  plan_name: ずっとも電気1
 - id: 4
   provider_name: JXTGでんき
   plan_name: 従量電灯Bたっぷりプラン
