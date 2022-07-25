@@ -166,7 +166,7 @@ class Api::V1::PlansControllerJxtgTest < ActionDispatch::IntegrationTest
   #
   
   # 1430 + 19.88 * 120 = 3815.6（切り上げ:3816）
-  test "50Aの基本料金と『120kWhまで』の場合,3816円を返すこと" do
+  test "50Aの基本料金と『最初の120kWhまで』の場合,3816円を返すこと" do
     get api_v1_plans_index_url, params: { ampere: 50, amount: 120 }
     plan = plan_from_response_body(@provider_name , response.body)
     assert_equal plan["price"], 3816
