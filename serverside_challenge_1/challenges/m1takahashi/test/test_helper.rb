@@ -14,4 +14,10 @@ class ActiveSupport::TestCase
     plans = res["data"].select{|item| item["provider_name"] == provider_name }
     plans.shift
   end
+  
+  # APIレスポンスから,電力会社名一覧を取得する
+  def provider_names_from_response_body(body)
+    res = JSON.parse(body)
+    res["data"].map{|item| item["provider_name"] }
+  end
 end
