@@ -13,6 +13,8 @@
 ActiveRecord::Schema.define(version: 2022_08_23_110819) do
 
   create_table "basic_rates", force: :cascade do |t|
+    t.integer "ampere", null: false
+    t.decimal "price", precision: 6, scale: 2, null: false
     t.integer "electricity_plan_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -20,11 +22,13 @@ ActiveRecord::Schema.define(version: 2022_08_23_110819) do
   end
 
   create_table "electric_power_companies", force: :cascade do |t|
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "electricity_plans", force: :cascade do |t|
+    t.string "name", null: false
     t.integer "electric_power_company_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -32,6 +36,9 @@ ActiveRecord::Schema.define(version: 2022_08_23_110819) do
   end
 
   create_table "meter_rates", force: :cascade do |t|
+    t.integer "min_usage", null: false
+    t.integer "max_usage"
+    t.decimal "price", precision: 6, scale: 2, null: false
     t.integer "electricity_plan_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
