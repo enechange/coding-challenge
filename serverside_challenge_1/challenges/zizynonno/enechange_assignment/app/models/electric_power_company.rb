@@ -1,0 +1,2 @@
+class ElectricPowerCompany < ApplicationRecord
+end
