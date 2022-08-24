@@ -15,13 +15,16 @@ module Api
         electric_power_companies = ElectricPowerCompany.includes(electricity_plans: :basic_rate).includes(electricity_plans: :meter_rate)
         electric_power_companies.all.each do |company|
           company.electricity_plans.each do |plan|
-            plan.basic_rate.find { |basic| basic.ampere == params[:ampere].to_i }
+            basic = plan.basic_rate.find { |basic| basic.ampere == params[:ampere].to_i }
             meter = plan.meter_rate.where(max_usage: nil).find { |meter| meter.min_usage < params[:usage].to_i }
             if meter.present?
-              responce.push({ provider_name: meter.electricity_plan.electric_power_company.name, plan_name: plan.name, price: 1000 })
+              price = basic.price + meter.price * params[:usage].to_i
+              responce.push({ provider_name: meter.electricity_plan.electric_power_company.name, plan_name: plan.name, price: price })
             else
-               meter = plan.meter_rate.where.not(max_usage: nil).find{ |meter| meter.min_usage < params[:usage].to_i && meter.max_usage >= params[:usage].to_i }
-               responce.push({ provider_name: meter.electricity_plan.electric_power_company.name, plan_name: plan.name, price: 1000 })
+              next if basic.blank?
+              meter = plan.meter_rate.where.not(max_usage: nil).find{ |meter| meter.min_usage < params[:usage].to_i && meter.max_usage >= params[:usage].to_i }
+              price = basic.price + meter.price * params[:usage].to_i
+              responce.push({ provider_name: meter.electricity_plan.electric_power_company.name, plan_name: plan.name, price: price })
             end
           end
         end
