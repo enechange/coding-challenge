@@ -17,7 +17,6 @@ module Api
         end
 
         def validate_params
-          responce = params[:ampere].to_i + params[:usage].to_i
           electricity_plan = ElectricityPlan.find(1)
           base_rate = electricity_plan.basic_rate.build(ampere: params[:ampere].to_i, price: 1000)
           meter_rate = electricity_plan.meter_rate.build(min_usage: params[:usage].to_i, max_usage: 1000, price: 1000)
