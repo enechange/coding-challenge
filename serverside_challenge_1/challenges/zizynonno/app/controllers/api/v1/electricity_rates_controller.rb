@@ -1,22 +1,22 @@
 module Api
   module V1
-    class ElectricityPlansController < ApplicationController
-      before_action :params_validate, only: [:index]
+    class ElectricityRatesController < ApplicationController
+      before_action :validate_params, only: [:execute]
 
-      def index
-        responce = ElectricityRate.new(index_params).result
+      def execute
+        responce = ElectricityRate.new(execute_params).result
         render json: { status: 'success', data: responce }
       end
 
       private
-        def index_params
+        def execute_params
           params.permit(
             :ampere,
             :usage
           )
         end
 
-        def params_validate
+        def validate_params
           responce = params[:ampere].to_i + params[:usage].to_i
           electricity_plan = ElectricityPlan.find(1)
           base_rate = electricity_plan.basic_rate.build(ampere: params[:ampere].to_i, price: 1000)
