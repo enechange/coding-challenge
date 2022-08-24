@@ -4,10 +4,10 @@ class ElectricityRate
   def initialize(params)
     @ampere = params[:ampere].to_i
     @usage = params[:usage].to_i
-    @result = calculate
+    @result = simulate
   end
 
-  def calculate
+  def simulate
     responce = []
     electric_power_companies = ElectricPowerCompany.includes(electricity_plans: :basic_rate).includes(electricity_plans: :meter_rate)
     electric_power_companies.all.each do |company|
