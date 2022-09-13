@@ -1,0 +1,90 @@
+providers:
+  - name: 東京電力エナジーパートナー
+    plans:
+      - name: 従量電灯B
+        basic_charges:
+          - ampere: 10
+            price: 286.00
+          - ampere: 15
+            price: 429.00
+          - ampere: 20
+            price: 572.00
+          - ampere: 30
+            price: 858.00
+          - ampere: 40
+            price: 1144.00
+          - ampere: 50
+            price: 1430.00
+          - ampere: 60
+            price: 1716.0
+        pay_as_you_go_fees:
+          - max_usage: 120
+            price: 19.88
+          - min_usage: 120
+            max_usage: 300
+            price: 26.48
+          - min_usage: 300
+            price: 30.57
+  - name: Loopでんき
+    plans:
+      - name: おうちプラン
+        basic_charges:
+          - ampere: 10
+            price: 0
+          - ampere: 15
+            price: 0
+          - ampere: 20
+            price: 0
+          - ampere: 30
+            price: 0
+          - ampere: 40
+            price: 0
+          - ampere: 50
+            price: 0
+          - ampere: 60
+            price: 0
+        pay_as_you_go_fees:
+          - price: 19.88
+  - name: 東京ガス
+    plans:
+      - name: ずっとも電気1
+        basic_charges:
+          - ampere: 30
+            price: 858.00
+          - ampere: 40
+            price: 1144.00
+          - ampere: 50
+            price: 1430.00
+          - ampere: 60
+            price: 1716.0
+        pay_as_you_go_fees:
+          - max_usage: 140
+            price: 23.67
+          - min_usage: 140
+            max_usage: 350
+            price: 23.88
+          - min_usage: 350
+            price: 26.41
+  - name: JXTGでんき
+    plans:
+      - name: 従量電灯Bたっぷりプラン
+        basic_charges:
+          - ampere: 30
+            price: 858.00
+          - ampere: 40
+            price: 1144.00
+          - ampere: 50
+            price: 1430.00
+          - ampere: 60
+            price: 1716.0
+        pay_as_you_go_fees:
+          - max_usage: 120
+            price: 19.88
+          - min_usage: 120
+            max_usage: 300
+            price: 26.48
+          - min_usage: 300
+            max_usage: 600
+            price: 25.08
+          - min_usage: 600
+            price: 26.15
