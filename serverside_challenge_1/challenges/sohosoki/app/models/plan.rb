@@ -2,4 +2,19 @@ class Plan < ApplicationRecord
   belongs_to :provider
   has_many :basic_charges
   has_many :pay_as_you_go_fees
+
+  def pay_as_you_go_fees_of_usage(usage)
+
+    [
+      # min, max が両方とも設定されている範囲の間
+      pay_as_you_go_fees.find_by('min_usage < ? and ? <= max_usage', usage, usage),
+
+      # min, max の片方しか設定されていない範囲の外側
+      pay_as_you_go_fees.find_by('(? <= max_usage and min_usage is null) or (min_usage <= ? and max_usage is null)', usage, usage),
+
+      # min, max の両方が未設定（全ての使用量で同じ料金）
+      pay_as_you_go_fees.find_by(min_usage: nil, max_usage: nil)
+    ].find { |record| !record.nil? }
+
+  end
 end
