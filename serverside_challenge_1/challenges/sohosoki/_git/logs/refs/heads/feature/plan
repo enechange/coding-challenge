@@ -1,8 +1,0 @@
-0000000000000000000000000000000000000000 3dd6c17b9b849d1fe7024ddf9b2151d130eb652e so hosoki <fucso.h@gmail.com> 1662902769 +0900	commit (initial): env: docker compose で API モードの rails 環境構築
-3dd6c17b9b849d1fe7024ddf9b2151d130eb652e 6c54c244cc5ddd285bdaea54e67358b28e760a36 so hosoki <fucso.h@gmail.com> 1662902803 +0900	commit (amend): env: docker compose で API モードの rails 環境構築
-6c54c244cc5ddd285bdaea54e67358b28e760a36 cfdd7c21522430bfe402bdd01baf28b31a3dc302 so hosoki <fucso.h@gmail.com> 1662905325 +0900	commit: モデル作成
-cfdd7c21522430bfe402bdd01baf28b31a3dc302 afd72ae2402f8ab6379176e4d955d32ad6659375 so hosoki <fucso.h@gmail.com> 1662907504 +0900	commit (amend): モデル作成
-afd72ae2402f8ab6379176e4d955d32ad6659375 ef29c704f5a6fb745643b122da2d47b4ece718f7 so hosoki <fucso.h@gmail.com> 1662909043 +0900	commit: mysql の文字コード変更
-ef29c704f5a6fb745643b122da2d47b4ece718f7 36241e5edd3bda81178d0711b8a4586f646f3d2c so hosoki <fucso.h@gmail.com> 1662909055 +0900	commit: seed
-36241e5edd3bda81178d0711b8a4586f646f3d2c 97d2275b362615f1fb383c74bb7d60e3f3ac7f05 so hosoki <fucso.h@gmail.com> 1662910481 +0900	commit: とりあえず全会社全プランを取得するAPI作成
-97d2275b362615f1fb383c74bb7d60e3f3ac7f05 97d2275b362615f1fb383c74bb7d60e3f3ac7f05 so hosoki <fucso.h@gmail.com> 1662910511 +0900	Branch: renamed refs/heads/main to refs/heads/feature/plan
