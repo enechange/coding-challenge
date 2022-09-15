@@ -2,8 +2,11 @@ class Api::V1::PlansController < Api::Controller
 
   def simulate
 
-    ampere = simulate_params[:ampere].to_i
-    usage = simulate_params[:usage].to_i
+    params = Form::Plan::Simulate.new(simulate_params)
+    if params.invalid?
+      return badRequest(params.errors)
+    end
+    params.params => { ampere:, usage: }
 
     # 指定のアンペアで利用可能なプラン
     plans = Plan.with_basic_charge(ampere)
