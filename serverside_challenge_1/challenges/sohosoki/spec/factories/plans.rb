@@ -1,4 +1,8 @@
 FactoryBot.define do
+  factory :plan  do
+    association :provider
+  end
+
   factory :ranged_fee_plan, class: Plan  do
     association :provider
     name { 'RangedFeePlan' }
