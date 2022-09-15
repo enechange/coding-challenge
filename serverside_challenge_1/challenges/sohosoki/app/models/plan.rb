@@ -3,6 +3,14 @@ class Plan < ApplicationRecord
   has_many :basic_charges
   has_many :pay_as_you_go_fees
 
+  # 指定のアンペアで契約可能なプラン
+  scope :with_basic_charge, -> (ampere) {
+    joins(:basic_charges).
+      select('plans.*, basic_charges.ampere, basic_charges.price').
+      where(basic_charges: {ampere: ampere})
+  }
+
+
   def pay_as_you_go_fees_of_usage(usage)
 
     [
