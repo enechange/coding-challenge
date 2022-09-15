@@ -44,7 +44,7 @@ providers:
           - ampere: 60
             price: 0
         pay_as_you_go_fees:
-          - price: 19.88
+          - price: 26.40
   - name: 東京ガス
     plans:
       - name: ずっとも電気1
