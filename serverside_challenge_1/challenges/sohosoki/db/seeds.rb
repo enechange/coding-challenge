@@ -3,7 +3,6 @@ require 'yaml'
 data = open("#{Rails.root}/db/data.yaml", 'r') { |f| YAML.load(f) }
 data['providers'].each do |provider_data|
 
-  puts provider_data
   provider = Provider.create(name: provider_data['name'])
   provider_data['plans'].each do |plan_data|
 
