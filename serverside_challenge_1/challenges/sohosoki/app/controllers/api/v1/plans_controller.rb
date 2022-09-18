@@ -4,7 +4,7 @@ class Api::V1::PlansController < Api::Controller
 
     params = Form::Plan::Simulate.new(simulate_params)
     if params.invalid?
-      return badRequest(params.errors)
+      return badRequest(params.errors.full_messages)
     end
     params.params => { ampere:, usage: }
 

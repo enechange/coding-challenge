@@ -1,0 +1,6 @@
+ja:
+  activemodel:
+    attributes:
+      form/plan/simulate:
+        ampere: アンペア
+        usage: 使用量
