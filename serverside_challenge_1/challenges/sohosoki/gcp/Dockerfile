@@ -3,11 +3,11 @@ ARG RUBYGEMS_VERSION=3.3.20
 
 RUN mkdir /var/app
 WORKDIR /var/app
-COPY ../Gemfile /var/app/Gemfile
-COPY ../Gemfile.lock /var/app/Gemfile.lock
+COPY Gemfile /var/app/Gemfile
+COPY Gemfile.lock /var/app/Gemfile.lock
 RUN gem update --system ${RUBYGEMS_VERSION}
 RUN bundle install
-COPY ../ /var/app
+COPY . /var/app
 
 ENV RAILS_ENV=production
 
