@@ -4,7 +4,7 @@ class CreatePayAsYouGoFees < ActiveRecord::Migration[7.0]
       t.integer :min_usage
       t.integer :max_usage
       t.decimal :price, precision: 6, scale: 2
-      t.references :plan, null: false, foreign_key: true
+      t.references :plan, null: false
 
       t.timestamps
     end
