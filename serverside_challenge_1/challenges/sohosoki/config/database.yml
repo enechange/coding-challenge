@@ -56,6 +56,9 @@ test:
 #
 production:
   <<: *default
-  database: challenge_production
-  username: app
-  password: <%= ENV["APP_DATABASE_PASSWORD"] %>
+  ssl_mode: verify_identity
+  sslca: "/etc/ssl/certs/ca-certificates.crt"
+  host: <%= ENV["DATABASE_HOST"] %>
+  database: <%= ENV["DATABASE_NAME"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
