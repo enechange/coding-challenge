@@ -11,5 +11,8 @@ COPY . /var/app
 
 ENV RAILS_ENV=production
 
+COPY gcp/entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+
 EXPOSE 8080
-CMD ["bin/rails", "server", "-b", "0.0.0.0", "-p", "8080"]
