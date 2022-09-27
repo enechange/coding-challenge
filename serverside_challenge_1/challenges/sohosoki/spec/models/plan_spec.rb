@@ -61,7 +61,7 @@ RSpec.describe Plan, type: :model do
       expect(fee_prices).to match_array expect_prices
 
       # 使用料金に対する従量料金の合計が期待通りか
-      total_price = 0 # FIXME
+      total_price = fees.sum { |fee| fee.usage_price(usage) }
       expect(total_price).to eq expected_total_price
     end
 
