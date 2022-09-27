@@ -53,35 +53,41 @@ RSpec.describe Plan, type: :model do
       @plan = FactoryBot.create(:ranged_fee_plan)
     end
 
-    def check_price(usage, expect_prices, plan = @plan)
+    def check_price(usage, expect_prices, expected_total_price, plan = @plan)
       fees = plan.pay_as_you_go_fees_of_usage(usage)
+
+      # 取得できた料金のリストが期待通りか
       fee_prices = fees.map { |fee| fee.price } 
       expect(fee_prices).to match_array expect_prices
+
+      # 使用料金に対する従量料金の合計が期待通りか
+      total_price = 0 # FIXME
+      expect(total_price).to eq expected_total_price
     end
 
     context 'min, max の範囲内' do
       it '120' do
-        check_price(120, [100])
+        check_price(120, [100], 120 * 100)
       end
       it '200' do
-        check_price(200, [100, 200])
+        check_price(200, [100, 200], (120 * 100) + (80 * 200))
       end
       it '300' do
-        check_price(300, [100, 200])
+        check_price(300, [100, 200], (120 * 100) + (180 * 200))
       end
       it '600' do
-        check_price(600, [100, 200, 300])
+        check_price(600, [100, 200, 300], (120 * 100) + (180 * 200) + (300 * 300))
       end
     end
     context 'min, max の片方のみの設定の範囲外' do
       it '0' do
-        check_price(0, [100])
+        check_price(0, [100], 0 * 100)
       end
       it '119' do
-        check_price(119, [100])
+        check_price(119, [100], 119 * 100)
       end
       it '601' do
-        check_price(601, [100, 200, 300, 400])
+        check_price(601, [100, 200, 300, 400], (120 * 100) + (180 * 200) + (300 * 300) + (1 * 400))
       end
     end
     context 'min, max 両方の指定がない' do
@@ -89,10 +95,10 @@ RSpec.describe Plan, type: :model do
         @single_fee_plan = FactoryBot.create(:single_fee_plan)
       end
       it '0' do
-        check_price(0, [500], @single_fee_plan)
+        check_price(0, [500], 0 * 500, @single_fee_plan)
       end
       it '1000' do
-        check_price(1000, [500], @single_fee_plan)
+        check_price(1000, [500], 1000 * 500, @single_fee_plan)
       end
     end
   end
