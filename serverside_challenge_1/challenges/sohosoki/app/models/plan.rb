@@ -11,16 +11,10 @@ class Plan < ApplicationRecord
   }
 
   def pay_as_you_go_fees_of_usage(usage)
-    [
-      # min, max が両方とも設定されている範囲の間
-      pay_as_you_go_fees.find_by('min_usage < ? and ? <= max_usage', usage, usage),
 
-      # min, max の片方しか設定されていない範囲の外側
-      pay_as_you_go_fees.find_by('(? <= max_usage and min_usage is null) or (min_usage <= ? and max_usage is null)', usage, usage),
-
-      # min, max の両方が未設定（全ての使用量で同じ料金）
-      pay_as_you_go_fees.find_by(min_usage: nil, max_usage: nil)
-    ].find { |record| !record.nil? }
+    # 最低使用量が引数の値よりも小さい料金を取得
+    # 使用量が 0 から n の料金は min_usage が null で登録されているので、その料金も含める
+    return pay_as_you_go_fees.where('min_usage < ?', usage).or(pay_as_you_go_fees.where(min_usage: nil))
   end
 
   def calculate(ampere, usage)
