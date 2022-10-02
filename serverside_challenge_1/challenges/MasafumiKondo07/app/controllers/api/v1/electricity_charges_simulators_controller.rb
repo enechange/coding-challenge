@@ -11,7 +11,7 @@ module Api
             electricity_fee_instance = plan.electricity_fees.find_by(classification_min: ..params[:amount_used], classification_max: params[:amount_used]..)
             electricity_fee_instance = plan.electricity_fees.find_by(classification_min: ..params[:amount_used], classification_max: nil) if electricity_fee_instance.nil?
             
-            simulation_list << {provider_name: company.name, plan_name: plan.name, price: calc_result(basic_charge_instance.price, electricity_fee(electricity_fee_instance.price))}
+            simulation_list << {provider_name: company.name, plan_name: plan.name, price: calc_result(basic_charge_instance.price, electricity_fee_instance.calc(params[:amount_used].to_i))}
           end
         end
         # 指定された基本料金でのプランが見つからない場合、エラーメッセージを返却
@@ -26,10 +26,6 @@ module Api
 
       def calc_result(basic_charge, electricity_fee)
         basic_charge + electricity_fee
-      end
-
-      def electricity_fee(unit_price)
-        unit_price * params[:amount_used].to_i
       end
 
       def error_object
