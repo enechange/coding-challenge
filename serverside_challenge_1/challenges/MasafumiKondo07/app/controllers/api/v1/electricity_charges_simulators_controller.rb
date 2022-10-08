@@ -12,7 +12,7 @@ module Api
             electricity_fees = plan.electricity_fees.where(classification_min: ..params[:amount_used])
             total_electricity_fee = ElectricityFee.calc(electricity_fees, params[:amount_used].to_i)
             
-            simulation_list << {provider_name: company.name, plan_name: plan.name, price: plan.applicable_plan_fee(basic_charge_instance.price, total_electricity_fee)}
+            simulation_list << {company_name: company.name, plan_name: plan.name, price: plan.applicable_plan_fee(basic_charge_instance.price, total_electricity_fee)}
           end
         end
         # 指定された基本料金でのプランが見つからない場合、エラーメッセージを返却
