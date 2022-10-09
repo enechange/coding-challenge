@@ -2,9 +2,8 @@ module Api
   module V1
     class ElectricityChargesSimulatorsController < ApplicationController
       def index
-        companies = Company.all
         simulation_list = []
-        companies.each do |company|
+        Company.preload(:plans).all.each do |company|
           company.plans.each do |plan|
             basic_charge_instance = plan.basic_charges.find_by(ampere: params[:ampere])
             next if basic_charge_instance.nil?
