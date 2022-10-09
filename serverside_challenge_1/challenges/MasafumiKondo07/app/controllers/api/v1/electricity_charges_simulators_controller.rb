@@ -9,8 +9,8 @@ module Api
             basic_charge_instance = plan.basic_charges.find_by(ampere: params[:ampere])
             next if basic_charge_instance.nil?
 
-            electricity_fees = plan.electricity_fees.where(classification_min: ..params[:amount_used])
-            total_electricity_fee = ElectricityFee.calc(electricity_fees, params[:amount_used].to_i)
+            # 従量料金の計算
+            total_electricity_fee = ElectricityFee.calc(plan, params[:amount_used].to_i)
             
             simulation_list << {company_name: company.name, plan_name: plan.name, price: plan.applicable_plan_fee(basic_charge_instance.price, total_electricity_fee)}
           end
