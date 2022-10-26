@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 2022_10_22_234839) do
   create_table "usage_charges", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.float "charge_unit_price", null: false
     t.integer "minimum_usage", null: false
-    t.integer "max_usage", null: false
+    t.integer "max_usage"
     t.bigint "electricity_rate_plan_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

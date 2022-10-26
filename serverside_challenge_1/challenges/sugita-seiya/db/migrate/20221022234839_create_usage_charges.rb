@@ -3,7 +3,7 @@ class CreateUsageCharges < ActiveRecord::Migration[6.1]
     create_table :usage_charges do |t|
       t.float :charge_unit_price, null: false
       t.integer :minimum_usage, null: false
-      t.integer :max_usage, null: false
+      t.integer :max_usage
       t.references :electricity_rate_plan,
                     null: false,
                     foreign_key: true,
