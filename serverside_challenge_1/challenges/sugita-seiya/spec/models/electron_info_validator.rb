@@ -6,7 +6,7 @@ RSpec.describe ElectronInfoValidator, type: :model do
       subject { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: 100)}
 
       it '有効であること' do
-        expect(subject.valid?).to eq true
+        expect(subject.valid?).to be_truthy
       end
     end
   end
@@ -17,7 +17,7 @@ RSpec.describe ElectronInfoValidator, type: :model do
         subject { ElectronInfoValidator.new(contract_amperage: "", electricity_usage: 100)}
 
         it '無効であること' do
-          expect(subject.valid?).to eq false
+          expect(subject.valid?).to be_falsey
         end
       end
 
@@ -25,7 +25,7 @@ RSpec.describe ElectronInfoValidator, type: :model do
         subject { ElectronInfoValidator.new(contract_amperage: "contract_amperage", electricity_usage: 100)}
 
         it '無効であること' do
-          expect(subject.valid?).to eq false
+          expect(subject.valid?).to be_falsey
         end
       end
 
@@ -33,7 +33,7 @@ RSpec.describe ElectronInfoValidator, type: :model do
         subject { ElectronInfoValidator.new(contract_amperage: 9, electricity_usage: 100)}
 
         it '無効であること' do
-          expect(subject.valid?).to eq false
+          expect(subject.valid?).to be_falsey
         end
       end
     end
@@ -43,7 +43,7 @@ RSpec.describe ElectronInfoValidator, type: :model do
         subject { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: "")}
 
         it '無効であること' do
-          expect(subject.valid?).to eq false
+          expect(subject.valid?).to be_falsey
         end
       end
 
@@ -51,7 +51,7 @@ RSpec.describe ElectronInfoValidator, type: :model do
         subject { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: "electricity_usage")}
 
         it '文字列の場合' do
-          expect(subject.valid?).to eq false
+          expect(subject.valid?).to be_falsey
         end
       end
 
@@ -59,7 +59,7 @@ RSpec.describe ElectronInfoValidator, type: :model do
         subject { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: -1)}
 
         it '文字列の場合' do
-          expect(subject.valid?).to eq false
+          expect(subject.valid?).to be_falsey
         end
       end
 
@@ -67,7 +67,7 @@ RSpec.describe ElectronInfoValidator, type: :model do
         subject { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: 100.5)}
 
         it '文字列の場合' do
-          expect(subject.valid?).to eq false
+          expect(subject.valid?).to be_falsey
         end
       end
     end
