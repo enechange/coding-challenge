@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ElectricityRatePlan, type: :model do
   let(:provider) { create(:provider) }
 
-  describe "成功" do
+  describe "有効" do
     context "プラン名が存在していて、電力会社名に紐づくidとプラン名が重複しない場合" do
       it '有効であること' do
         plan = build(:plan, electric_power_provider: provider)
@@ -13,7 +13,7 @@ RSpec.describe ElectricityRatePlan, type: :model do
     end
   end
 
-  describe "失敗" do
+  describe "無効" do
     describe "プラン名" do
       context "存在しない場合" do
         it '無効であること' do

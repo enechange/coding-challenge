@@ -4,16 +4,17 @@ RSpec.describe BasicCharge, type: :model do
   let(:provider) { create(:provider) }
   let(:plan) { create(:plan, electric_power_provider: provider) }
 
-  describe "成功" do
+  describe "有効" do
     context "アンペア数、料金単価、プランに紐づくidが存在する場合" do
       it '有効であること' do
         usage = build(:basic_charge, electricity_rate_plan: plan)
+
         expect(usage).to be_valid
       end
     end
   end
 
-  describe "失敗" do
+  describe "無効" do
     describe "アンペア" do
       context "存在しない場合" do
         it '無効であること' do

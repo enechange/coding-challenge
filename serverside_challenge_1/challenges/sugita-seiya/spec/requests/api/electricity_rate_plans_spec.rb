@@ -214,7 +214,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
         end
       end
 
-      describe '1ヶ月の使用量(kWh)の増加確認' do
+      describe '使用量(kWh)の増加確認' do
         context '契約アンペア数10A、電気使用量0kWhの場合' do
           let(:contract_amperage) { 10 }
           let(:electricity_usage) { 0 }
@@ -400,7 +400,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
         end
 
         context '文字列の場合' do
-          let(:contract_amperage) { 'test' }
+          let(:contract_amperage) { 'contract_amperage' }
           let(:electricity_usage) { 400 }
 
           it '入力条件に関するエラーメッセージを返す' do
@@ -411,7 +411,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
           end
         end
 
-        context '入力条件に該当しない数値の場合' do
+        context '入力条件(10,15,20,30,40,50,60)に該当しない場合' do
           let(:contract_amperage) { 1000 }
           let(:electricity_usage) { 400 }
 
@@ -439,7 +439,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
 
         context '文字列の場合' do
           let(:contract_amperage) { 10 }
-          let(:electricity_usage) { 'test' }
+          let(:electricity_usage) { 'electricity_usage' }
 
           it '入力条件に関するエラーメッセージを返す' do
             get "/api/electricity_rate_plans?contract_amperage=#{contract_amperage}&electricity_usage=#{electricity_usage}"
@@ -449,7 +449,7 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
           end
         end
 
-        context '入力条件に該当しない数値の場合' do
+        context 'マイナス値の場合' do
           let(:contract_amperage) { 10 }
           let(:electricity_usage) { -1 }
 

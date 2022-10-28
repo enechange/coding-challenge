@@ -4,7 +4,7 @@ RSpec.describe UsageCharge, type: :model do
   let(:provider) { create(:provider) }
   let(:plan) { create(:plan, electric_power_provider: provider) }
 
-  describe "成功" do
+  describe "有効" do
     context "料金単価、区分(最小値、最大値)、プランに紐づくidが存在する場合" do
       it '有効であること' do
         usage = build(:usage_charge, electricity_rate_plan: plan)
@@ -14,7 +14,7 @@ RSpec.describe UsageCharge, type: :model do
     end
   end
 
-  describe "失敗" do
+  describe "無効" do
     describe "料金単価" do
       context "存在しない場合" do
         it '無効であること' do
