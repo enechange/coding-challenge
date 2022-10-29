@@ -15,16 +15,16 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
             expect(response.status).to eq(200)
             expect(body.count).to eq(2)
             expect(body).to eq([
-                                {
-                                  'provider_name' => '東京電力エナジーパートナー',
-                                  'plan_name' => '従量電灯B',
-                                  'price' => 2274
-                                },
-                                {
-                                  'provider_name' => 'Loopでんき',
-                                  'plan_name' => 'おうちプラン',
-                                  'price' => 2640
-                                }
+                                  {
+                                    'provider_name' => '東京電力エナジーパートナー',
+                                    'plan_name' => '従量電灯B',
+                                    'price' => 2274
+                                  },
+                                  {
+                                    'provider_name' => 'Loopでんき',
+                                    'plan_name' => 'おうちプラン',
+                                    'price' => 2640
+                                  }
                               ])
           end
         end
@@ -39,16 +39,16 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
             expect(response.status).to eq(200)
             expect(body.count).to eq(2)
             expect(body).to eq([
-                                {
-                                  'provider_name' => '東京電力エナジーパートナー',
-                                  'plan_name' => '従量電灯B',
-                                  'price' => 2417
-                                },
-                                {
-                                  'provider_name' => 'Loopでんき',
-                                  'plan_name' => 'おうちプラン',
-                                  'price' => 2640
-                                }
+                                  {
+                                    'provider_name' => '東京電力エナジーパートナー',
+                                    'plan_name' => '従量電灯B',
+                                    'price' => 2417
+                                  },
+                                  {
+                                    'provider_name' => 'Loopでんき',
+                                    'plan_name' => 'おうちプラン',
+                                    'price' => 2640
+                                  }
                               ])
           end
         end
@@ -63,16 +63,16 @@ RSpec.describe 'ElectricityRatePlans', type: :request do
             expect(response.status).to eq(200)
             expect(body.count).to eq(2)
             expect(body).to eq([
-                                {
-                                  'provider_name' => '東京電力エナジーパートナー',
-                                  'plan_name' => '従量電灯B',
-                                  'price' => 2560
-                                },
-                                {
-                                  'provider_name' => 'Loopでんき',
-                                  'plan_name' => 'おうちプラン',
-                                  'price' => 2640
-                                }
+                                  {
+                                    'provider_name' => '東京電力エナジーパートナー',
+                                    'plan_name' => '従量電灯B',
+                                    'price' => 2560
+                                  },
+                                  {
+                                    'provider_name' => 'Loopでんき',
+                                    'plan_name' => 'おうちプラン',
+                                    'price' => 2640
+                                  }
                               ])
           end
         end
