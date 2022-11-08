@@ -9,6 +9,7 @@ RSpec.describe NumericConverter do
 
       it '変換されること' do
         expect(subject.class).to eq Integer
+        expect(subject).to eq 50
       end
     end
   end
@@ -19,6 +20,7 @@ RSpec.describe NumericConverter do
 
       it '変換されないこと' do
         expect(subject.class).to eq String
+        expect(subject).to eq ""
       end
     end
 
@@ -27,6 +29,7 @@ RSpec.describe NumericConverter do
 
       it '変換されないこと' do
         expect(subject.class).to eq String
+        expect(subject).to eq "character_string"
       end
     end
 
@@ -35,6 +38,7 @@ RSpec.describe NumericConverter do
 
       it '変換されないこと' do
         expect(subject.class).to eq String
+        expect(subject).to eq "100.5"
       end
     end
 
@@ -43,6 +47,7 @@ RSpec.describe NumericConverter do
 
       it '変換されないこと' do
         expect(subject.class).to eq String
+        expect(subject).to eq "100character_string"
       end
     end
 
@@ -51,6 +56,7 @@ RSpec.describe NumericConverter do
 
       it '変換されないこと' do
         expect(subject.class).to eq String
+        expect(subject).to eq "!!"
       end
     end
   end
