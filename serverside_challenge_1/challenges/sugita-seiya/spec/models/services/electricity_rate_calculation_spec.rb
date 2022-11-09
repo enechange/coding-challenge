@@ -142,33 +142,6 @@ RSpec.describe ElectricityRateCalculation, type: :service do
           expect(subject).to eq 10495
         end
       end
-
-      context '契約アンペア数10A、電気使用量450kWhの場合' do
-        let(:electron_info) { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: 450)}
-        subject { ElectricityRateCalculation.calculation_electricity_charge(plan, electron_info) }
-
-        it '12023円であること' do
-          expect(subject).to eq 12023
-        end
-      end
-
-      context '契約アンペア数10A、電気使用量500kWhの場合' do
-        let(:electron_info) { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: 500)}
-        subject { ElectricityRateCalculation.calculation_electricity_charge(plan, electron_info) }
-
-        it '13552円であること' do
-          expect(subject).to eq 13552
-        end
-      end
-
-      context '契約アンペア数10A、電気使用量1000kWhの場合' do
-        let(:electron_info) { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: 1000)}
-        subject { ElectricityRateCalculation.calculation_electricity_charge(plan, electron_info) }
-
-        it '28837円であること' do
-          expect(subject).to eq 28837
-        end
-      end
     end
   end
 
@@ -289,15 +262,6 @@ RSpec.describe ElectricityRateCalculation, type: :service do
 
       it '10209円であること' do
         expect(subject).to eq 10209
-      end
-    end
-
-    context '電気使用量が500kWhの場合' do
-      let(:electron_info) { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: 500)}
-      subject { ElectricityRateCalculation.calculation_usage_charge(plan, electron_info) }
-
-      it '13266円であること' do
-        expect(subject).to eq 13266
       end
     end
   end
