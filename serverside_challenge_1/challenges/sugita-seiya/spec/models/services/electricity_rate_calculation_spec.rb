@@ -265,15 +265,6 @@ RSpec.describe ElectricityRateCalculation, type: :service do
       end
     end
 
-    context '電気使用量が100kWhの場合' do
-      let(:electron_info) { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: 100)}
-      subject { ElectricityRateCalculation.calculation_usage_charge(plan, electron_info) }
-
-      it '1988円であること' do
-        expect(subject).to eq 1988
-      end
-    end
-
     context '電気使用量が200kWhの場合' do
       let(:electron_info) { ElectronInfoValidator.new(contract_amperage: 10, electricity_usage: 200)}
       subject { ElectricityRateCalculation.calculation_usage_charge(plan, electron_info) }
