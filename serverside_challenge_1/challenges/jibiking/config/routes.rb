@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       post "plans", to: "plans#import"
       post "amperages", to: "amperages#import"
       post "kilowattos", to: "kilowattos#import"
-      post "suggests", to: "suggests#calc"
+      get "suggests", to: "suggests#calc"
     end
   end
 end
