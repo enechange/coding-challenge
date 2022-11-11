@@ -16,7 +16,7 @@ RSpec.describe 'Suggests', type: :request do
 
 
     describe '成功' do
-      describe 'アンペア数変更時の動作確認' do
+      describe 'A数変更時の動作確認' do
         # kWhは10kWhで固定
         let(:kwh){ 10 }
 
@@ -197,6 +197,197 @@ RSpec.describe 'Suggests', type: :request do
                   "provider_name"=>"JXTGでんき",
                   "plan_name"=>"従量電灯Bたっぷりプラン",
                   "price"=>1915
+              }
+          ])
+          end
+        end
+      end
+
+      describe 'kWh数変更時の動作確認' do
+        # Aは30Aで固定
+        let(:amp){ 30 }
+
+        context '120kWhの場合' do
+          let(:kwh){ 120 }
+          it '正しいプラン情報が取得できる' do
+            get path
+            
+            expect(response).to be_successful
+            expect(body).to eq([
+              {
+                  "provider_name"=>"東京電力エナジーパートナー",
+                  "plan_name"=>"従量電灯B",
+                  "price"=>3244
+              },
+              {
+                  "provider_name"=>"Loopでんき",
+                  "plan_name"=>"おうちプラン",
+                  "price"=>3168
+              },
+              {
+                  "provider_name"=>"東京ガス",
+                  "plan_name"=>"ずっとも電気1",
+                  "price"=>3698
+              },
+              {
+                  "provider_name"=>"JXTGでんき",
+                  "plan_name"=>"従量電灯Bたっぷりプラン",
+                  "price"=>3244
+              }
+          ])
+          end
+        end
+
+        context '140kWhの場合' do
+          let(:kwh){ 140 }
+          it '正しいプラン情報が取得できる' do
+            get path
+            
+            expect(response).to be_successful
+            expect(body).to eq([
+              {
+                  "provider_name"=>"東京電力エナジーパートナー",
+                  "plan_name"=>"従量電灯B",
+                  "price"=>4565
+              },
+              {
+                  "provider_name"=>"Loopでんき",
+                  "plan_name"=>"おうちプラン",
+                  "price"=>3696
+              },
+              {
+                  "provider_name"=>"東京ガス",
+                  "plan_name"=>"ずっとも電気1",
+                  "price"=>4172
+              },
+              {
+                  "provider_name"=>"JXTGでんき",
+                  "plan_name"=>"従量電灯Bたっぷりプラン",
+                  "price"=>4565
+              }
+          ])
+          end
+        end
+
+        context '300kWhの場合' do
+          let(:kwh){ 300 }
+          it '正しいプラン情報が取得できる' do
+            get path
+            
+            expect(response).to be_successful
+            expect(body).to eq([
+              {
+                  "provider_name"=>"東京電力エナジーパートナー",
+                  "plan_name"=>"従量電灯B",
+                  "price"=>8802
+              },
+              {
+                  "provider_name"=>"Loopでんき",
+                  "plan_name"=>"おうちプラン",
+                  "price"=>7920
+              },
+              {
+                  "provider_name"=>"東京ガス",
+                  "plan_name"=>"ずっとも電気1",
+                  "price"=>8022
+              },
+              {
+                  "provider_name"=>"JXTGでんき",
+                  "plan_name"=>"従量電灯Bたっぷりプラン",
+                  "price"=>8802
+              }
+          ])
+          end
+        end
+
+        context '350kWhの場合' do
+          let(:kwh){ 350 }
+          it '正しいプラン情報が取得できる' do
+            get path
+            
+            expect(response).to be_successful
+            expect(body).to eq([
+              {
+                  "provider_name"=>"東京電力エナジーパートナー",
+                  "plan_name"=>"従量電灯B",
+                  "price"=>11558
+              },
+              {
+                  "provider_name"=>"Loopでんき",
+                  "plan_name"=>"おうちプラン",
+                  "price"=>9240
+              },
+              {
+                  "provider_name"=>"東京ガス",
+                  "plan_name"=>"ずっとも電気1",
+                  "price"=>9216
+              },
+              {
+                  "provider_name"=>"JXTGでんき",
+                  "plan_name"=>"従量電灯Bたっぷりプラン",
+                  "price"=>9636
+              }
+          ])
+          end
+        end
+
+        context '600kWhの場合' do
+          let(:kwh){ 600 }
+          it '正しいプラン情報が取得できる' do
+            get path
+            
+            expect(response).to be_successful
+            expect(body).to eq([
+              {
+                  "provider_name"=>"東京電力エナジーパートナー",
+                  "plan_name"=>"従量電灯B",
+                  "price"=>19200
+              },
+              {
+                  "provider_name"=>"Loopでんき",
+                  "plan_name"=>"おうちプラン",
+                  "price"=>15840
+              },
+              {
+                  "provider_name"=>"東京ガス",
+                  "plan_name"=>"ずっとも電気1",
+                  "price"=>16704
+              },
+              {
+                  "provider_name"=>"JXTGでんき",
+                  "plan_name"=>"従量電灯Bたっぷりプラン",
+                  "price"=>15906
+              }
+          ])
+          end
+        end
+
+        context '650kWhの場合' do
+          let(:kwh){ 650 }
+          it '正しいプラン情報が取得できる' do
+            get path
+            
+            expect(response).to be_successful
+            expect(body).to eq([
+              {
+                  "provider_name"=>"東京電力エナジーパートナー",
+                  "plan_name"=>"従量電灯B",
+                  "price"=>20729
+              },
+              {
+                  "provider_name"=>"Loopでんき",
+                  "plan_name"=>"おうちプラン",
+                  "price"=>17160
+              },
+              {
+                  "provider_name"=>"東京ガス",
+                  "plan_name"=>"ずっとも電気1",
+                  "price"=>18025
+              },
+              {
+                  "provider_name"=>"JXTGでんき",
+                  "plan_name"=>"従量電灯Bたっぷりプラン",
+                  "price"=>17856
               }
           ])
           end
