@@ -1,35 +1,18 @@
 require 'rails_helper'
+require 'support/import_helper'
 
-RSpec.describe "Providers", type: :request do
-  describe "POST /api/v1/providers" do
-    describe "成功" do
-      context "正しい形式のファイルをインポートした場合" do
-        let(:success_file){'providers.csv'}
+RSpec.describe 'Providers', type: :request do
+  describe 'POST /api/v1/providers' do
+    let(:path){'/api/v1/providers'}
+    let(:success_file){'providers.csv'}
+    let(:error_file){'plans.csv'}
 
-        it "インポートに成功する" do
-          post '/api/v1/providers', params: {
-            file: fixture_file_upload(success_file)
-          }
-
-          expect(response).to be_successful
-          expect(response.body).to eq("{\"Success\":\"インポートが成功しました。\"}")
-        end
-      end
+    describe '成功' do
+      it_behaves_like '正しい形式のファイルのインポートに成功すること'
     end
 
-    describe "失敗" do
-      context "誤った形式のファイルをインポートした場合" do
-        let(:error_file){'plans.csv'}
-
-        it "インポートに失敗する" do
-          post '/api/v1/providers', params: {
-            file: fixture_file_upload(error_file)
-          }
-
-          expect(response).to be_successful
-          expect(response.body).to eq("{\"Erorr\":\"インポートが失敗しました。CSVファイルのデータ形式を見直してください。\"}")
-        end
-      end
+    describe '失敗' do
+      it_behaves_like '誤った形式のファイルのインポートに失敗すること'
     end
   end
 end
