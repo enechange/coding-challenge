@@ -13,8 +13,9 @@ module Suggest
     kilowattos = Provider.joins(plans: :kilowattos).where(plans: {id: amperage_plan}).pluck("min_kilowatto, max_kilowatto, kilowatto_price")
 
     # ⑤取得した④のkilowattoから該当のkilowatto_priceを抽出
-    kwh = kwh.to_i
     kilowatto_price = []
+    kilowatto_price << 0 if kwh == '0'
+    kwh = kwh.to_i
     kilowattos.each do |i|
       if (i[0] < kwh) && ((i[1] ||= 0) >= kwh)
         kilowatto_price << i[2]
@@ -22,7 +23,6 @@ module Suggest
         kilowatto_price << i[2]
       end
     end
-
     # ⑥ ③と⑤から、合計値を計算しcalc_priceに入れる
     calc_price = []
     amperage_price.zip(kilowatto_price) do |a, k|

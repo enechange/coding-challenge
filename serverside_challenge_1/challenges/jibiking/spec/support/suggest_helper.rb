@@ -8,3 +8,14 @@ shared_examples 'Aのエラーメッセージを返す' do
     })
   end
 end
+
+shared_examples 'kWhのエラーメッセージを返す' do
+  it 'kWhのエラーメッセージを返す' do
+    get path
+
+    expect(response).to be_successful
+    expect(body).to eq({
+      "Error"=>"kWhを指定の値にしてください。"
+    })
+  end
+end

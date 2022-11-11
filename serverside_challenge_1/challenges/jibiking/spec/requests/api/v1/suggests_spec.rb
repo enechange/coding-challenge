@@ -411,6 +411,31 @@ RSpec.describe 'Suggests', type: :request do
           include_examples 'Aのエラーメッセージを返す'
         end
       end
+
+      describe 'kWh誤入力時の動作確認' do
+        # Aは30Aで固定
+        let(:amp){ 30 }
+
+        context '予期しないkWh数（マイナス）が入力された場合' do
+          let(:kwh){ -100 }
+          include_examples 'kWhのエラーメッセージを返す'
+        end
+
+        context '予期しないkWh数（小数点）が入力された場合' do
+          let(:kwh){ 0.5 }
+          include_examples 'kWhのエラーメッセージを返す'
+        end
+
+        context '文字列が入力された場合' do
+          let(:kwh){ 'test' }
+          include_examples 'kWhのエラーメッセージを返す'
+        end
+
+        context 'kWhが入力されなかった場合' do
+          let(:kwh){ '' }
+          include_examples 'kWhのエラーメッセージを返す'
+        end
+      end
     end
   end
 end
