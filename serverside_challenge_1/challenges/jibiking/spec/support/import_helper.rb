@@ -5,7 +5,9 @@ shared_examples '正しい形式のファイルのインポートに成功する
 		}
 
 		expect(response).to be_successful
-		expect(response.body).to eq("{\"Success\":\"インポートが成功しました。\"}")
+		expect(body).to eq({
+			"Success"=>"インポートが成功しました。"
+	})
 	end
 end
 
@@ -16,6 +18,8 @@ shared_examples '誤った形式のファイルのインポートに失敗する
 		}
 
 		expect(response).to be_successful
-		expect(response.body).to eq("{\"Erorr\":\"インポートが失敗しました。CSVファイルのデータ形式を見直してください。\"}")
+		expect(body).to eq({
+			"Erorr"=>"インポートが失敗しました。CSVファイルのデータ形式を見直してください。"
+	})
 	end
 end
