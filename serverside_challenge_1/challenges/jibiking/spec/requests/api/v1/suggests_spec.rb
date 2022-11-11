@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'support/suggest_helper'
 
 RSpec.describe 'Suggests', type: :request do
   describe 'GET /api/v1/suggests' do
@@ -201,6 +202,23 @@ RSpec.describe 'Suggests', type: :request do
           end
         end
 
+      end
+    end
+
+    describe '失敗' do
+      describe 'A数誤入力時の動作確認' do
+        # kWhは10kWhで固定
+        let(:kwh){ 10 }
+
+        context '予期しないA数が入力された場合' do
+          let(:amp){ 5 }
+          include_examples 'Aのエラーメッセージを返す'
+        end
+
+        context '文字列が入力された場合' do
+          let(:amp){ 'test' }
+          include_examples 'Aのエラーメッセージを返す'
+        end
       end
     end
   end
