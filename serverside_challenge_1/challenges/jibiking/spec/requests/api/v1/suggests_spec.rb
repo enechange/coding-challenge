@@ -401,13 +401,28 @@ RSpec.describe 'Suggests', type: :request do
         # kWhは10kWhで固定
         let(:kwh){ 10 }
 
-        context '予期しないA数が入力された場合' do
+        context '予期しないA数（指定外）が入力された場合' do
           let(:amp){ 5 }
+          include_examples 'Aのエラーメッセージを返す'
+        end
+
+        context '予期しないA数（マイナス）が入力された場合' do
+          let(:amp){ -30 }
+          include_examples 'Aのエラーメッセージを返す'
+        end
+
+        context '予期しないA数（小数点）が入力された場合' do
+          let(:amp){ 0.5 }
           include_examples 'Aのエラーメッセージを返す'
         end
 
         context '文字列が入力された場合' do
           let(:amp){ 'test' }
+          include_examples 'Aのエラーメッセージを返す'
+        end
+
+        context 'Aが入力されなかった場合' do
+          let(:amp){ '' }
           include_examples 'Aのエラーメッセージを返す'
         end
       end
