@@ -1,18 +1,18 @@
 module Api
   module V1
-    class SuggestsController < ApplicationController
+    class ElectricityChargeSimulatorsController < ApplicationController
       include Suggest
     
       def calc
-        amp = suggest_params[:A]
-        kwh = suggest_params[:kWh]
+        amp = electricity_charge_simulators_params[:A]
+        kwh = electricity_charge_simulators_params[:kWh]
         
         calc_response = suggest_calc(amp,kwh)
         
         render json: calc_response, status: :ok
       end
 
-      def suggest_params
+      def electricity_charge_simulators_params
         params.permit(:A, :kWh)
       end
     end
