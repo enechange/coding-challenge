@@ -23,6 +23,7 @@ module Suggest
         kilowatto_price << i[2]
       end
     end
+
     # ⑥ ③と⑤から、合計値を計算しcalc_priceに入れる
     calc_price = []
     amperage_price.zip(kilowatto_price) do |a, k|
@@ -39,7 +40,7 @@ module Suggest
       providers_plans_prices << (p_name << c_price)
     end
 
-    # ⑨指定されたレスポンス形式に成形 or Aが指定の値ではない場合エラーメッセージを出す
+    # ⑨指定されたレスポンス形式に成形 or A,kWhが指定の値ではない場合エラーメッセージを出す
     if amperage_info.present? && kilowatto_price.present?
       providers_plans_prices.map{|i|{provider_name: i[0], plan_name: i[1], price: i[2]}}
     elsif amperage_info.blank?
