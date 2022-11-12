@@ -6,7 +6,7 @@ class Amperage < ApplicationRecord
   validates :amperage_price, presence: true
   validates :plan_id, presence: true
 
-  include Common
+  include CsvImports
 
   # 更新を許可するカラムを定義
   def self.updatable_attributes

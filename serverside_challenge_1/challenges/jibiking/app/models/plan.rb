@@ -6,7 +6,7 @@ class Plan < ApplicationRecord
   validates :name, presence: true
   validates :provider_id, presence: true
 
-  include Common
+  include CsvImports
 
   # 更新を許可するカラムを定義
   def self.updatable_attributes

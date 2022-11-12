@@ -1,4 +1,4 @@
-module Common
+module CsvImports
   extend ActiveSupport::Concern
 
   module ClassMethods
