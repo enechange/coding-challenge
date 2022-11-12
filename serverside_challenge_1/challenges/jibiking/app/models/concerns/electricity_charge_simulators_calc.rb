@@ -1,5 +1,5 @@
-module Suggest
-  def suggest_calc(amp, kwh)
+module ElectricityChargeSimulatorsCalc
+  def electricity_charge_simulators_calc(amp, kwh)
     # ①amperage関連の必要情報の抽出
     amperage_info = Provider.joins(plans: :amperages).where(amperages: {amperage: amp}).pluck("plans.id, amperage_price, providers.name, plans.name")
 
