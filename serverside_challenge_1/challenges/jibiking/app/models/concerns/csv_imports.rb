@@ -7,7 +7,7 @@ module CsvImports
       import_row_error_count = 0
       import_file_error_count = 0
 
-      if file
+      if file.present?
         # CSVファイルのインポート
         CSV.foreach(file.path, headers: true) do |row|
           

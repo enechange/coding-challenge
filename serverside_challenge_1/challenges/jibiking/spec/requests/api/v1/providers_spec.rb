@@ -14,6 +14,7 @@ RSpec.describe 'Providers', type: :request do
 
     describe '失敗' do
       it_behaves_like '誤った形式のファイルのインポートに失敗すること'
+      it_behaves_like 'ファイルを指定しなかった場合にインポートに失敗すること'
     end
   end
 end

@@ -23,3 +23,16 @@ shared_examples '誤った形式のファイルのインポートに失敗する
 	})
 	end
 end
+
+shared_examples 'ファイルを指定しなかった場合にインポートに失敗すること' do
+	it 'インポートに失敗する' do
+		post path, params: {
+			file: ''
+		}
+
+		expect(response).to be_successful
+		expect(body).to eq({
+			"Erorr"=>"インポートが失敗しました。CSVファイルを指定してください。"
+		})
+	end
+end
