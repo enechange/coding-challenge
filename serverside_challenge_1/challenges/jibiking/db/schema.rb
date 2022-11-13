@@ -13,7 +13,7 @@
 ActiveRecord::Schema[7.0].define(version: 2022_11_05_071158) do
   create_table "amperages", charset: "utf8mb3", force: :cascade do |t|
     t.integer "amperage", null: false
-    t.integer "unit", null: false
+    t.integer "contract_unit", null: false
     t.float "amperage_price", null: false
     t.bigint "plan_id", null: false
     t.datetime "created_at", null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_05_071158) do
   create_table "kilowattos", charset: "utf8mb3", force: :cascade do |t|
     t.integer "min_kilowatto", null: false
     t.integer "max_kilowatto"
-    t.integer "unit", null: false
+    t.integer "kwh_unit", null: false
     t.float "kilowatto_price", null: false
     t.bigint "plan_id", null: false
     t.datetime "created_at", null: false

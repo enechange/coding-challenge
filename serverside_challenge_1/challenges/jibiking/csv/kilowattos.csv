@@ -1,4 +1,4 @@
-min_kilowatto,max_kilowatto,unit,kilowatto_price,plan_id
+min_kilowatto,max_kilowatto,kwh_unit,kilowatto_price,plan_id
 0,120,1,19.88,1
 120,300,1,26.48,1
 300, ,1,30.57,1
