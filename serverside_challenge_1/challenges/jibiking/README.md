@@ -1,90 +1,102 @@
 ## 環境
 - Ruby 3.1.2
 - Rails 7.0.4
-- MySQL
+- MySQL 8.0.30
 
 <br>
 <br>
 
 ## 環境構築方法
-1. .envファイルを作成し、下記を追加
-```
-DATABASE_DEV_PASSWORD = 'ご自身のパスワード'
-DATABASE_DEV_USER = 'ご自身のユーザー'
-DATABASE_DEV_HOST = 'ご自身のホスト'
-```
-
-2. DBを作成後、CSVファイルをcURLの通りDBにインポートする
+1. .envファイルを作成し、database.ymlの環境変数を設定する。
+2. DBを作成後、CSVファイルをcURLの通りDBにインポートする。
 3. rails sでサーバーを立ち上げ、料金計算のcURLを叩けば任意のレスポンスが返ってきます。
 
 <br>
 <br>
 
 ## 実装について
-要件の通り、リクエスト（AとkWh）を受け取って、プランごとの電気料金（provider_name, plan_name, price）を返す実装になっております。（詳細は下記cURLをご参照ください）
+要件の通り、リクエスト（AとkWh）を受け取って、プランごとの電気料金（provider_name, plan_name, price）を返す実装になっております。（詳細は下記URL及びcURLをご参照ください）
 
 データは/csvディレクトリ以下のCSVファイルを読み込むことでDBにインポート可能です。
 
 <br>
 <br>
 
-## デプロイ
-今週末（11/12~11/13）にAWSもしくはHerokuにデプロイ予定です。
+## デプロイ先
+AWS EC2にデプロイしました。
+
+下記URLに任意のパラメータ（アンペア数→A、使用料→kWh）を設定することで、該当プランごとの電気料金を返します。
+
+http://52.193.177.120/api/v1/electricity_charge_simulators?A=30&kWh=300
 
 <br>
 <br>
 
-## cURL
-※ 現時点（11/10）の環境構築後のrails serverでのcURLになります。
-
-```javascript
+## cURL（AWS）
+```terminal
 // 料金計算
 
-curl --location --request POST 'http://localhost:3000/api/v1/suggests' \
+curl --location --request GET 'http://52.193.177.120/api/v1/electricity_charge_simulators?A=30&kWh=500' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "A": 30,
     "kWh": 100
 }'
+```
 
+<br>
+<br>
+
+## cURL（ローカル）
+環境構築後のrails serverでのcURLになります。
+
+```terminal
+// 料金計算
+
+curl --location --request GET 'http://localhost:3000/api/v1/electricity_charge_simulators?A=50&kWh=300' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "A": 30,
+    "kWh": 100
+}'
 ```
 
 <br>
 
 以下のインポートファイルは/csv以下の該当csvファイルを読み込んでください。
-```javascript
+```terminal
 // Providersインポート
 
 curl --location --request POST 'http://localhost:3000/api/v1/providers' \
---form 'file=@"/Users/jibiki/freespace/test1/csv/providers.csv"'
+--form 'file=@"/Users/jibiki/freespace/coding-challenge/serverside_challenge_1/challenges/jibiking/csv/providers.csv"'
 ```
 
 
 <br>
 
-```javascript
+```terminal
 // Plansインポート
 
 curl --location --request POST 'http://localhost:3000/api/v1/plans' \
---form 'file=@"/Users/jibiki/freespace/test1/csv/plans.csv"'
+--form 'file=@"/Users/jibiki/freespace/coding-challenge/serverside_challenge_1/challenges/jibiking/csv/plans.csv"'
 ```
 
 
 <br>
 
-```javascript
+```terminal
 // Amperagesインポート
 
 curl --location --request POST 'http://localhost:3000/api/v1/amperages' \
---form 'file=@"/Users/jibiki/freespace/test1/csv/amperages.csv"'
+--form 'file=@"/Users/jibiki/freespace/coding-challenge/serverside_challenge_1/challenges/jibiking/csv/amperages.csv"'
 ```
 
 
 <br>
 
-```javascript
+```terminal
 // Kilowattosインポート
 
 curl --location --request POST 'http://localhost:3000/api/v1/kilowattos' \
---form 'file=@"/Users/jibiki/freespace/test1/csv/kilowattos.csv"'
+--form 'file=@"/Users/jibiki/freespace/coding-challenge/serverside_challenge_1/challenges/jibiking/csv/kilowattos.csv"'
 ```
