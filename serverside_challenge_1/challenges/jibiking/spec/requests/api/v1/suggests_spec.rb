@@ -1,10 +1,10 @@
 require 'rails_helper'
-require 'support/suggest_helper'
+require 'support/electricity_charge_simulators_helper'
 
-RSpec.describe 'Suggests', type: :request do
-  describe 'GET /api/v1/suggests' do
+RSpec.describe 'ElectricityChargeSimulators', type: :request do
+  describe 'GET /api/v1/electricity_charge_simulators' do
     let(:body){ JSON.parse(response.body) }
-    let(:path){ "/api/v1/suggests?A=#{amp}&kWh=#{kwh}" }
+    let(:path){ "/api/v1/electricity_charge_simulators?A=#{amp}&kWh=#{kwh}" }
 
     before do
       # テストデータの挿入
