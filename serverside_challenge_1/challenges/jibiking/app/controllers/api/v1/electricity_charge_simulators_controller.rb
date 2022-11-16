@@ -10,12 +10,12 @@ module Api
         # ElectricityChargeSimulatorValidatorモデルのバリデーションに引っかかった場合は400エラーを出す
         amp_and_kwh = ElectricityChargeSimulatorValidator.new(A: amp, kWh: kwh)
         unless amp_and_kwh.valid?
-          return render status: 400, json: { Error: amp_and_kwh.errors }
+          return render status: :bad_request, json: { Error: amp_and_kwh.errors }
         end
         
-        calc_response = electricity_charge_simulators_calc(amp,kwh)
+        response = electricity_charge_simulators_calc(amp,kwh)
         
-        render json: calc_response, status: :ok
+        render json: response, status: :ok
       end
 
       def electricity_charge_simulators_params
