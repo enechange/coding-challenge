@@ -4,7 +4,7 @@ shared_examples '正しい形式のファイルのインポートに成功する
 			file: fixture_file_upload(success_file)
 		}
 
-		expect(response).to be_successful
+		expect(response.status).to eq(200)
 		expect(body).to eq({
 			"Success"=>"インポートが成功しました。"
 	})
@@ -17,7 +17,7 @@ shared_examples '誤った形式のファイルのインポートに失敗する
 			file: fixture_file_upload(error_file)
 		}
 
-		expect(response).to be_successful
+		expect(response.status).to eq(200)
 		expect(body).to eq({
 			"Erorr"=>"インポートが失敗しました。CSVファイルのデータ形式を見直してください。"
 	})
@@ -30,7 +30,7 @@ shared_examples 'ファイルを指定しなかった場合にインポートに
 			file: ''
 		}
 
-		expect(response).to be_successful
+		expect(response.status).to eq(200)
 		expect(body).to eq({
 			"Erorr"=>"インポートが失敗しました。CSVファイルを指定してください。"
 		})

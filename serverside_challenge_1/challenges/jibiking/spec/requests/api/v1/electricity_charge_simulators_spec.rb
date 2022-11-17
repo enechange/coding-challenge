@@ -25,7 +25,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
 
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -46,7 +46,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
 
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -62,7 +62,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
 
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -83,7 +83,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
 
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -114,7 +114,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
 
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -145,7 +145,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
 
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -176,7 +176,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
 
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -212,7 +212,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
             
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -243,7 +243,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
             
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -274,7 +274,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
             
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -305,7 +305,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
             
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -336,7 +336,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
             
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -367,7 +367,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
           it '正しいプラン情報が取得できる' do
             get path
             
-            expect(response).to be_successful
+            expect(response.status).to eq(200)
             expect(body).to eq([
               {
                   "provider_name"=>"東京電力エナジーパートナー",
@@ -403,27 +403,27 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
 
         context '予期しないA数（指定外）が入力された場合' do
           let(:amp){ 5 }
-          include_examples 'Aのエラーメッセージを返す'
+          include_examples 'Aが指定外だった場合のエラーメッセージを返す'
         end
 
         context '予期しないA数（マイナス）が入力された場合' do
           let(:amp){ -30 }
-          include_examples 'Aのエラーメッセージを返す'
+          include_examples 'Aが指定外だった場合のエラーメッセージを返す'
         end
 
         context '予期しないA数（小数点）が入力された場合' do
           let(:amp){ 0.5 }
-          include_examples 'Aのエラーメッセージを返す'
+          include_examples 'Aが指定外だった場合のエラーメッセージを返す'
         end
 
         context '文字列が入力された場合' do
           let(:amp){ 'test' }
-          include_examples 'Aのエラーメッセージを返す'
+          include_examples 'Aが指定外だった場合のエラーメッセージを返す'
         end
 
         context 'Aが入力されなかった場合' do
           let(:amp){ '' }
-          include_examples 'Aのエラーメッセージを返す'
+          include_examples 'Aが未入力だった場合のエラーメッセージを返す'
         end
       end
 
