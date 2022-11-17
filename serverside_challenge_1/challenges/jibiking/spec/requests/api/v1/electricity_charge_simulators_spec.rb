@@ -433,22 +433,22 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
 
         context '予期しないkWh数（マイナス）が入力された場合' do
           let(:kwh){ -100 }
-          include_examples 'kWhのエラーメッセージを返す'
+          include_examples 'kWhが指定外だった場合のエラーメッセージを返す'
         end
 
         context '予期しないkWh数（小数点）が入力された場合' do
           let(:kwh){ 0.5 }
-          include_examples 'kWhのエラーメッセージを返す'
+          include_examples 'kWhが指定外だった場合のエラーメッセージを返す'
         end
 
         context '文字列が入力された場合' do
           let(:kwh){ 'test' }
-          include_examples 'kWhのエラーメッセージを返す'
+          include_examples 'kWhが指定外だった場合のエラーメッセージを返す'
         end
 
         context 'kWhが入力されなかった場合' do
           let(:kwh){ '' }
-          include_examples 'kWhのエラーメッセージを返す'
+          include_examples 'kWhが未入力だった場合のエラーメッセージを返す'
         end
       end
     end
