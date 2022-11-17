@@ -30,7 +30,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>485
+                  "price"=>484
               },
               {
                   "provider_name"=>"Loopでんき",
@@ -51,7 +51,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>628
+                  "price"=>627
               }
           ])
           end
@@ -67,7 +67,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>771
+                  "price"=>770
               },
               {
                   "provider_name"=>"Loopでんき",
@@ -88,7 +88,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>1057
+                  "price"=>1056
               },
               {
                   "provider_name"=>"Loopでんき",
@@ -98,12 +98,12 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京ガス",
                   "plan_name"=>"ずっとも電気1",
-                  "price"=>1095
+                  "price"=>1094
               },
               {
                   "provider_name"=>"JXTGでんき",
                   "plan_name"=>"従量電灯Bたっぷりプラン",
-                  "price"=>1057
+                  "price"=>1056
               }
           ])
           end
@@ -119,7 +119,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>1343
+                  "price"=>1342
               },
               {
                   "provider_name"=>"Loopでんき",
@@ -129,12 +129,12 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京ガス",
                   "plan_name"=>"ずっとも電気1",
-                  "price"=>1381
+                  "price"=>1380
               },
               {
                   "provider_name"=>"JXTGでんき",
                   "plan_name"=>"従量電灯Bたっぷりプラン",
-                  "price"=>1343
+                  "price"=>1342
               }
           ])
           end
@@ -150,7 +150,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>1629
+                  "price"=>1628
               },
               {
                   "provider_name"=>"Loopでんき",
@@ -160,12 +160,12 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京ガス",
                   "plan_name"=>"ずっとも電気1",
-                  "price"=>1667
+                  "price"=>1666
               },
               {
                   "provider_name"=>"JXTGでんき",
                   "plan_name"=>"従量電灯Bたっぷりプラン",
-                  "price"=>1629
+                  "price"=>1628
               }
           ])
           end
@@ -181,7 +181,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>1915
+                  "price"=>1914
               },
               {
                   "provider_name"=>"Loopでんき",
@@ -191,12 +191,12 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京ガス",
                   "plan_name"=>"ずっとも電気1",
-                  "price"=>1953
+                  "price"=>1952
               },
               {
                   "provider_name"=>"JXTGでんき",
                   "plan_name"=>"従量電灯Bたっぷりプラン",
-                  "price"=>1915
+                  "price"=>1914
               }
           ])
           end
@@ -217,7 +217,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>3244
+                  "price"=>3243
               },
               {
                   "provider_name"=>"Loopでんき",
@@ -232,7 +232,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"JXTGでんき",
                   "plan_name"=>"従量電灯Bたっぷりプラン",
-                  "price"=>3244
+                  "price"=>3243
               }
           ])
           end
@@ -258,7 +258,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京ガス",
                   "plan_name"=>"ずっとも電気1",
-                  "price"=>4172
+                  "price"=>4171
               },
               {
                   "provider_name"=>"JXTGでんき",
@@ -310,7 +310,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>11558
+                  "price"=>11557
               },
               {
                   "provider_name"=>"Loopでんき",
@@ -356,7 +356,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"JXTGでんき",
                   "plan_name"=>"従量電灯Bたっぷりプラン",
-                  "price"=>15906
+                  "price"=>15905
               }
           ])
           end
@@ -372,7 +372,7 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京電力エナジーパートナー",
                   "plan_name"=>"従量電灯B",
-                  "price"=>20729
+                  "price"=>20728
               },
               {
                   "provider_name"=>"Loopでんき",
@@ -382,12 +382,12 @@ RSpec.describe 'ElectricityChargeSimulators', type: :request do
               {
                   "provider_name"=>"東京ガス",
                   "plan_name"=>"ずっとも電気1",
-                  "price"=>18025
+                  "price"=>18024
               },
               {
                   "provider_name"=>"JXTGでんき",
                   "plan_name"=>"従量電灯Bたっぷりプラン",
-                  "price"=>17856
+                  "price"=>17855
               }
           ])
           end

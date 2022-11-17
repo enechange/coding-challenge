@@ -22,9 +22,9 @@ module ElectricityChargeSimulatorsCalc
     amperage_prices = Amperage.where(amperage: amp).pluck(:amperage_price)
 
     # 取得した基本料金と従量料金から電気料金の計算（小数点以下切り捨て）
-    calc_prices = []
+    prices = []
     amperage_prices.zip(kilowatto_prices) do |amperage_price, kilowatto_price|
-      calc_prices << (amperage_price + kilowatto_price).floor
+      prices << (amperage_price + kilowatto_price).floor
     end
 
     # レスポンスに必要な電力会社名とプラン名の取得
@@ -33,11 +33,11 @@ module ElectricityChargeSimulatorsCalc
 
     # 電力会社名・プラン名・電気料金をハッシュに格納
     response = []
-    provider_names.zip(plan_names, calc_prices) do |provider_name, plan_name, calc_price|
+    provider_names.zip(plan_names, prices) do |provider_name, plan_name, price|
       response.push({
         provider_name: provider_name,
         plan_name: plan_name,
-        calc_price: calc_price
+        price: price
       })
     end
     
