@@ -1,4 +1,4 @@
-shared_examples '正しい形式のファイルのインポートに成功すること' do
+shared_examples '正しい形式のファイルを指定した場合' do
 	it 'インポートに成功する' do
 		post path, params: {
 			file: fixture_file_upload(success_file)
@@ -11,7 +11,7 @@ shared_examples '正しい形式のファイルのインポートに成功する
 	end
 end
 
-shared_examples '誤った形式のファイルのインポートに失敗すること' do
+shared_examples '誤った形式のファイルを指定した場合' do
 	it 'インポートに失敗する' do
 		post path, params: {
 			file: fixture_file_upload(error_file)
@@ -24,7 +24,7 @@ shared_examples '誤った形式のファイルのインポートに失敗する
 	end
 end
 
-shared_examples 'ファイルを指定しなかった場合にインポートに失敗すること' do
+shared_examples 'ファイルを指定しなかった場合' do
 	it 'インポートに失敗する' do
 		post path, params: {
 			file: ''
