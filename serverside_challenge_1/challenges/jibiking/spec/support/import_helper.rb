@@ -17,7 +17,7 @@ shared_examples '誤った形式のファイルを指定した場合' do
 			file: fixture_file_upload(error_file)
 		}
 
-		expect(response.status).to eq(200)
+		expect(response.status).to eq(400)
 		expect(body).to eq({
 			"Erorr"=>"インポートが失敗しました。CSVファイルのデータ形式を見直してください。"
 	})
@@ -30,7 +30,7 @@ shared_examples 'ファイルを指定しなかった場合' do
 			file: ''
 		}
 
-		expect(response.status).to eq(200)
+		expect(response.status).to eq(400)
 		expect(body).to eq({
 			"Erorr"=>"インポートが失敗しました。CSVファイルを指定してください。"
 		})
