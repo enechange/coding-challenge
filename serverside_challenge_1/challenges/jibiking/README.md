@@ -15,7 +15,7 @@
 <br>
 
 ## 実装について
-要件の通り、リクエスト（AとkWh）を受け取って、プランごとの電気料金（provider_name, plan_name, price）を返す実装になっております。（詳細は下記URL及びcURLをご参照ください）
+要件の通り、リクエスト（AとkWh）を受け取って、プランごとの電気料金（provider_name, plan_name, price）を返す実装になっております。
 
 データは/csvディレクトリ以下のCSVファイルを読み込むことでDBにインポート可能です。
 
@@ -29,6 +29,7 @@ AWS EC2にデプロイしました。
 
 http://52.193.177.120/api/v1/electricity_charge_simulators?A=30&kWh=300
 
+
 <br>
 <br>
 
@@ -36,67 +37,5 @@ http://52.193.177.120/api/v1/electricity_charge_simulators?A=30&kWh=300
 ```terminal
 // 料金計算
 
-curl --location --request GET 'http://52.193.177.120/api/v1/electricity_charge_simulators?A=30&kWh=500' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "A": 30,
-    "kWh": 100
-}'
-```
-
-<br>
-<br>
-
-## cURL（ローカル）
-環境構築後のrails serverでのcURLになります。
-
-```terminal
-// 料金計算
-
-curl --location --request GET 'http://localhost:3000/api/v1/electricity_charge_simulators?A=50&kWh=300' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "A": 30,
-    "kWh": 100
-}'
-```
-
-<br>
-
-以下のインポートファイルは/csv以下の該当csvファイルを読み込んでください。
-```terminal
-// Providersインポート
-
-curl --location --request POST 'http://localhost:3000/api/v1/providers' \
---form 'file=@"/Users/jibiki/freespace/coding-challenge/serverside_challenge_1/challenges/jibiking/csv/providers.csv"'
-```
-
-
-<br>
-
-```terminal
-// Plansインポート
-
-curl --location --request POST 'http://localhost:3000/api/v1/plans' \
---form 'file=@"/Users/jibiki/freespace/coding-challenge/serverside_challenge_1/challenges/jibiking/csv/plans.csv"'
-```
-
-
-<br>
-
-```terminal
-// Amperagesインポート
-
-curl --location --request POST 'http://localhost:3000/api/v1/amperages' \
---form 'file=@"/Users/jibiki/freespace/coding-challenge/serverside_challenge_1/challenges/jibiking/csv/amperages.csv"'
-```
-
-
-<br>
-
-```terminal
-// Kilowattosインポート
-
-curl --location --request POST 'http://localhost:3000/api/v1/kilowattos' \
---form 'file=@"/Users/jibiki/freespace/coding-challenge/serverside_challenge_1/challenges/jibiking/csv/kilowattos.csv"'
+curl 'http://52.193.177.120/api/v1/electricity_charge_simulators?A=30&kWh=500'
 ```
