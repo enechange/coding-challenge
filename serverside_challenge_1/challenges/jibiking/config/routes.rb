@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       post "plans", to: "plans#import"
       post "amperages", to: "amperages#import"
       post "kilowattos", to: "kilowattos#import"
-      get "electricity_charge_simulators", to: "electricity_charge_simulators#calc"
+      get "electricity_charge_simulators", to: "electricity_charge_simulators#simulate"
     end
   end
 end

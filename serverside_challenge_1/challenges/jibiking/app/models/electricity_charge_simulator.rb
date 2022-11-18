@@ -1,5 +1,5 @@
-module ElectricityChargeSimulatorsCalc
-  def electricity_charge_simulators_calc(amp, kwh)
+class ElectricityChargeSimulator
+  def calc(amp, kwh)
     # ampが含まれるplanのidの取得
     amperage_plan = Plan.joins(:amperages).where(amperages: {amperage: amp}).pluck(:id)
 
