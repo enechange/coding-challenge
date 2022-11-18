@@ -6,8 +6,6 @@ module CsvImports
       row_count = 0
       import_file_error_flg = true
 
-      return { Erorr: 'インポートが失敗しました。CSVファイルを指定してください。' } if file.blank?
-
       # CSVファイルのインポート
       begin
         ActiveRecord::Base.transaction do
@@ -28,15 +26,10 @@ module CsvImports
           end
         end
       rescue
-        return { Erorr: 'インポートが失敗しました。CSVファイルのデータ形式を見直してください。' }
+        import_file_error_flg = false
       end
 
-      # CSVインポート後のレスポンス
-      if import_file_error_flg == false
-        { Erorr: 'インポートが失敗しました。CSVファイルのデータ形式を見直してください。' }
-      else
-        { Success: 'インポートが成功しました。' }
-      end
+      import_file_error_flg
     end
   end
 end
