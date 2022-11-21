@@ -18,11 +18,6 @@ ENECHANGEでは各電力会社向けに、電気料金のシミュレーショ�
   - 東京ガス / ずっとも電気1 （[参考](https://home.tokyo-gas.co.jp/power/ryokin/menu_waribiki/menu1.html)）
   - JXTGでんき / 従量電灯Bたっぷりプラン （[参考](https://mydenki.jp/files/plan_tappuri.pdf)）
 
-### 料金
-<img src="https://user-images.githubusercontent.com/1951287/150285118-01b72e4b-93a2-4d57-9e0c-861d60827f60.png" width="400px"> <img src="https://user-images.githubusercontent.com/1951287/150285466-2ef6c23a-f3a9-4123-9c1f-a1b3aed610c2.png" width="400px">
-<img src="https://user-images.githubusercontent.com/1951287/150285521-338b0083-b297-4b26-af45-64d8546f0d12.png" width="400px"> <img src="https://user-images.githubusercontent.com/1951287/150285556-c69c2b6e-955a-4769-b64e-1785e4e27d81.png" width="400px">
-
-
 ### 電気料金の計算方法
 電気料金は一般的に以下の計算で算出するが、本課題においては簡略化のため `③そのほか`は無視して良いものとする。
 ```
@@ -35,12 +30,15 @@ ENECHANGEでは各電力会社向けに、電気料金のシミュレーショ�
 
 #### ② 従量料金
 電気使用量（kWh）によって定まり、たくさん使えば使うほど料金は高くなる。
+[料金計算方法の詳細](https://www.tepco.co.jp/ep/private/plan2/chargelist04.html#sec03)を参照してください。
 
 #### ③ そのほか
 燃料費調整額や再生可能エネルギー賦課金など。今回は考慮しなくて良い。
 
-####　詳細
-[料金計算方法の詳細](https://www.tepco.co.jp/ep/private/plan2/chargelist04.html#sec03)を参照してください。
+### 料金表
+<img src="https://user-images.githubusercontent.com/1951287/150285118-01b72e4b-93a2-4d57-9e0c-861d60827f60.png" width="400px"> <img src="https://user-images.githubusercontent.com/1951287/150285466-2ef6c23a-f3a9-4123-9c1f-a1b3aed610c2.png" width="400px">
+<img src="https://user-images.githubusercontent.com/1951287/150285521-338b0083-b297-4b26-af45-64d8546f0d12.png" width="400px"> <img src="https://user-images.githubusercontent.com/1951287/150285556-c69c2b6e-955a-4769-b64e-1785e4e27d81.png" width="400px">
+
 
 ### そのほか
 - サーバーサイドは、Ruby on Railsを用いて実装してください。
