@@ -1,18 +1,18 @@
 class ElectricityChargeSimulator
   def calc(amp, kwh)
     # ampが含まれるplanのidの取得
-    amperage_plan = Plan.joins(:amperages).where(amperages: {amperage: amp}).pluck(:id)
+    amperage_plan = Plan.joins(:amperages).where(amperages: {amperage: amp}).select(:id)
 
     # 上記planの全kilowattoを取得
-    kilowattos = Kilowatto.joins(:plan).where(plans: {id: amperage_plan}).pluck(:min_kilowatto, :max_kilowatto, :kilowatto_price)
+    kilowattos = Kilowatto.joins(:plan).where(plans: {id: amperage_plan}).select(:min_kilowatto, :max_kilowatto, :kilowatto_price)
 
     # 取得した全kilowattoから、与えられたkwhに該当する範囲の従量料金を取得
     kilowatto_prices = []
     kilowattos.each do |kilowatto|
       # kilowattoの中身を変数に格納
-      min_kilowatto = kilowatto[0]
-      max_kilowatto = kilowatto[1]||= 0  # nilの場合0を代入
-      kilowatto_price = kilowatto[2]
+      min_kilowatto = kilowatto[:min_kilowatto]
+      max_kilowatto = kilowatto[:max_kilowatto]||= 0  # nilの場合0を代入
+      kilowatto_price = kilowatto[:kilowatto_price]
 
       # 与えられたkwhに該当するkilowatto範囲を判定し、該当するkilowatto_priceの従量料金を取得
       kilowatto_prices << kilowatto_price * kwh if ((min_kilowatto == 0) && (max_kilowatto >= kwh)) || ((min_kilowatto < kwh) && (max_kilowatto >= kwh)) || ((min_kilowatto < kwh) && (max_kilowatto == 0))
