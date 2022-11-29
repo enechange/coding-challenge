@@ -1,9 +1,16 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  provider_name: MyString
+normal_plan:
+  id: 1
+  name: ノーマルプラン
+  provider_name: プロバイダA
 
-two:
-  name: MyString
-  provider_name: MyString
+free_plan:
+  id: 2
+  name: 基本料無料プラン
+  provider_name: プロバイダB
+
+invalid_plan:
+  id: 3
+  name: 不正プラン
+  provider_name: プロバイダC

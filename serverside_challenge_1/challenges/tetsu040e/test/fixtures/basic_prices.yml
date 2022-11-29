@@ -1,11 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+normal_plan_10:
   plan_id: 1
-  ampere: 1
-  price: 1.5
+  ampere: 10
+  price: 100
 
-two:
+normal_plan_20:
   plan_id: 1
-  ampere: 1
-  price: 1.5
+  ampere: 20
+  price: 200
+
+free_plan_10:
+  plan_id: 2
+  ampere: 10
+  price: 0
+
+free_plan_20:
+  plan_id: 2
+  ampere: 20
+  price: 0

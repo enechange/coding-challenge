@@ -13,18 +13,15 @@ class Plan < ApplicationRecord
   end
 
   def calc_basic_price(ampere:)
-    if self.basic_prices.present?
-      row = self.basic_prices.select{ |basic_price| basic_price.ampere == ampere }.first
-    else
-      row = self.basic_prices.find_by(ampere: ampere)
-    end
-
+    # self.basic_prices.find_by を使うと preload 等していても N+1 問題が発生するため、 select にする
+    row = self.basic_prices.select{ |basic_price| basic_price.ampere == ampere }.first
     return row.present? ? row.price : nil
   end
 
   def calc_pay_per_use_price(amount:)
-    price = 0
+    return nil if self.unit_prices.size == 0
 
+    price = 0
     self.unit_prices.each do |unit_price|
       break if amount < unit_price.lower_usage_limit
 
