@@ -43,16 +43,28 @@ class PlanTest < ActiveSupport::TestCase
     assert price == 500
   end
 
-  test "[normal_plan] calc_pay_per_use_price 150" do
+  test "[normal_plan] calc_pay_per_use_price 100" do
     plan = Plan.find(1)
-    price = plan.calc_pay_per_use_price(amount: 150)
-    assert price == 2000
+    price = plan.calc_pay_per_use_price(amount: 100)
+    assert price == 1000
   end
 
-  test "[normal_plan] calc_pay_per_use_price 250" do
+  test "[normal_plan] calc_pay_per_use_price 101" do
     plan = Plan.find(1)
-    price = plan.calc_pay_per_use_price(amount: 250)
-    assert price == 4500
+    price = plan.calc_pay_per_use_price(amount: 101)
+    assert price == 1020
+  end
+
+  test "[normal_plan] calc_pay_per_use_price 200" do
+    plan = Plan.find(1)
+    price = plan.calc_pay_per_use_price(amount: 200)
+    assert price == 3000
+  end
+
+  test "[normal_plan] calc_pay_per_use_price 201" do
+    plan = Plan.find(1)
+    price = plan.calc_pay_per_use_price(amount: 201)
+    assert price == 3030
   end
 
   test "[free_plan] calc_pay_per_use_price 250" do
