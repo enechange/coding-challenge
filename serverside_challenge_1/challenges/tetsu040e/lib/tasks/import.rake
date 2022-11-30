@@ -36,12 +36,12 @@ namespace :import do
       }
     end
 
-    # begin
+    begin
       BasicPrice.create!(list)
-      # puts "completed!"
-    # rescue
-      # puts "error occurred!"
-    # end
+      puts "completed!"
+    rescue
+      puts "error occurred!"
+    end
   end
 
   task unit_prices: :environment do
