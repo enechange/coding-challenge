@@ -1,4 +1,4 @@
-class PlanCompareParam
+class PlanSimurateParam
   include ActiveModel::Model
   include ActiveModel::Attributes
 
