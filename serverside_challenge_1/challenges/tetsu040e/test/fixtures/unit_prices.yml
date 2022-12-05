@@ -1,14 +1,14 @@
-normal_plan_0:
-  plan_id: 1
-  lower_usage_limit: 0
-  upper_usage_limit: 100
-  price: 10
-
 normal_plan_100:
   plan_id: 1
   lower_usage_limit: 100
   upper_usage_limit: 200
   price: 20
+
+normal_plan_0:
+  plan_id: 1
+  lower_usage_limit: 0
+  upper_usage_limit: 100
+  price: 10
 
 normal_plan_200:
   plan_id: 1
