@@ -4,7 +4,7 @@ info:
   description: ""
   version: "v0.0.1"
 paths:
-  "/plan/simurate":
+  "/api/plan/simurate":
     get:
       summary: "電気料金比較"
       description: "契約アンペア数(A)と1ヶ月の使用量(kWh)を受け取って、プランごとの電気料金を返します"
