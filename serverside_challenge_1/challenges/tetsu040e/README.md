@@ -60,6 +60,12 @@ htts://challenge.tetsu.io/ に API 確認用のページをデプロイしてい
 
 ### フロントエンド
 
+vue.js と Tailwind CSS を使って実装しています。
+
+### API 仕様書
+
+[OpenAPI](https://www.google.com/search?q=openapi3.0&oq=openapi3.0&aqs=chrome..69i57j69i59l3j0i30l3j0i10i30j0i30j0i10i30.4041j1j4&sourceid=chrome&ie=UTF-8) の記法で作成し、[Redoc CLI](https://redocly.com/docs/redoc/deployment/cli/) を使って HTML へ変換しています。
+
 
 ### 時間があれば追加したかったこと
 
