@@ -3,4 +3,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  post 'electricity_rates/calculation'
+
+  match "*path", to: "error#not_found", via: %i[get post put patch delete], fallback: false
 end
