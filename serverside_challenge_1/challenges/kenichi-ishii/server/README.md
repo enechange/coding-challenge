@@ -1,24 +1,34 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### 使用方法
 
-Things you may want to cover:
+#### docker起動
+```
+docker-compose up -d
+```
 
-* Ruby version
+#### アクセス
+http://localhost:3000
 
-* System dependencies
 
-* Configuration
+#### APIについて
+- URL: /electricity_rates/calculation
 
-* Database creation
+- method: post
 
-* Database initialization
+- parameter:
+    - ampere (number, required) - 契約アンペア数
+    - usage (number, required) - 電気使用量
 
-* How to run the test suite
+- response (application/json) 
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+[
+    {
+        "provider_name": "provider_name",
+        "plan_name": "plan_name",
+        "price": 1000
+    }
+    ...
+]
+```
