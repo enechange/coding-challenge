@@ -2,7 +2,7 @@ class Api::V1::CostsController < ApplicationController
   require 'yaml'
 
   def index
-    yaml_path = params[:path] # 例: 'config/my_yaml.yml'
+    yaml_path = "config/costs.yml" # 例: 'config/my_yaml.yml'
     if File.exist?(yaml_path)
       yaml_data = YAML.load_file(yaml_path)
       render json: {
