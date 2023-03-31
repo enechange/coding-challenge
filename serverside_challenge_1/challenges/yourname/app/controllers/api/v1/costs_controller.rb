@@ -17,16 +17,14 @@ class Api::V1::CostsController < ApplicationController
   def calculate_rate
     contract_ampere = params[:contract_ampere].to_i
     usage = params[:usage].to_i
-
     rates = YAML.load_file(yaml_path)
-
     if contract_ampere && usage
-      basic_rate = rates['CompanyA']['basic_rates'][contract_ampere]
-      usage_rate = rates['CompanyA']['usage_rate']
-      total_cost = basic_rate + (usage_rate * usage)
-
       costs = []
       rates.keys.each do |key|
+        basic_rate = rates[key.to_s]['basic_rates'][contract_ampere]
+        usage_rate = rates[key.to_s]['usage_rates']
+        total_cost = basic_rate + (usage_rate * usage)
+
         costs << { 電力会社: key,
                     料金: total_cost
                   }
