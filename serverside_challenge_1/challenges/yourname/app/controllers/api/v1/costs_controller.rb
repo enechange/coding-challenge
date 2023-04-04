@@ -18,7 +18,10 @@ class Api::V1::CostsController < ApplicationController
     contract_ampere = params[:contract_ampere].to_i
     usage = params[:usage].to_i
     rates = YAML.load_file(yaml_path)
-    if contract_ampere && usage
+
+    if contract_ampere.zero? || usage.zero?
+      render json: { error: 'Invalid input: contract_ampere and usage are required' }, status: 400
+    else
       costs = []
       rates.keys.each do |key|
         basic_rate = rates[key.to_s]['basic_rates'][contract_ampere]
@@ -47,8 +50,6 @@ class Api::V1::CostsController < ApplicationController
                   }
       end
       render json: costs.to_json, status: 200
-    else
-      render json: { error: 'Invalid companyname' }, status: 400
     end
   end
 
