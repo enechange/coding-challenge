@@ -1,6 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::CostsController, type: :controller do
+  describe 'GET #index' do
+    it 'returns http success' do
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe "POST #calculate_rate" do
     let(:yaml_path) { Rails.root.join('config', 'rates.yml') }
     let(:rates) { YAML.load_file(yaml_path) }
