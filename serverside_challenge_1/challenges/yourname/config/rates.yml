@@ -30,7 +30,7 @@ LOOPでんき:
     60: 0.00
   usage_rates:
     - range: [1, "inf"]
-      rate: 20
+      rate: 26.40
 
 東京ガス株式会社:
   plan_name:
