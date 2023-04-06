@@ -1,0 +1,11 @@
+<%= form_with url: output_simulations_path, method: :get, local: true do |f| %>
+  <div>
+    <%= f.label :contract_ampere, '契約アンペア数' %>
+    <%= f.select :contract_ampere, [10, 15, 20, 30, 40, 50, 60], required: true %>A
+  </div>
+  <div>
+    <%= f.label :usage, '使用量' %>
+    <%= f.number_field :usage, required: true %>kWh
+  </div>
+  <%= f.submit 'シミュレーション開始', data: { disable_with: '送信中...' } %>
+<% end %>

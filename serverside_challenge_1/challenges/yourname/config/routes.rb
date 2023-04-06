@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
-  resources :simulations, only: [:index]
+  resources :simulations, only: [:input, :output] do
+    collection do
+      get :input
+      get :output
+    end
+  end
 
   namespace :api do
     namespace :v1 do

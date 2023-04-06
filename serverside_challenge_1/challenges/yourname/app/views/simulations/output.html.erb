@@ -1,0 +1,23 @@
+<!-- app/views/simulations/output.html.erb -->
+<h1>電気料金シミュレーション結果</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>電力会社</th>
+      <th>プラン名</th>
+      <th>料金</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @results.each do |result| %>
+      <tr>
+        <td><%= result['provider_name'] %></td>
+        <td><%= result['plan_name'] %></td>
+        <td><%= number_to_currency(result['price'], unit: '¥', precision: 0) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to '戻る', input_simulations_path %>
