@@ -9,7 +9,7 @@ class SimulationsController < ActionController::Base
     contract_ampere = params[:contract_ampere]
     usage = params[:usage]
 
-    uri = URI("http://localhost:3000/api/v1/costs/calculate_rate")
+    uri = URI("#{ENV['API_URI']}/api/v1/costs/calculate_rate")
     uri.query = URI.encode_www_form({ contract_ampere: contract_ampere, usage: usage })
     request = Net::HTTP::Get.new(uri)
     response = Net::HTTP.start(uri.hostname, uri.port) do |http|
