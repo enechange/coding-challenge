@@ -1,24 +1,44 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## アプリケーションの概要：
+* 電気料金表一覧API
+  * 各社のプランごとの電気料金を得ることができます
+* 電気料金シミュレーションPI
+  * 契約アンペア(A)と使用量(kWh)を入力すると、各社の電気料金を得ることができます
+* 電気料金シミュレーションツール
+  * 電気料金シミュレーションAPIにユーザーインターフェースを追加しました
+    * 入力: 契約アンペア(A), 使用量(kWh)
+    * 出力: 各社のプランごとの電気料金
 
-Things you may want to cover:
 
-* Ruby version
+## 必要な環境：
+* Ruby: 3.0.2p107
+* Rails: 6.1.7.3
+* node: v19.7.0
+* yarn: 1.22.19
 
-* System dependencies
+## インストール方法：
+* 本レポジトリを`git clone`
 
-* Configuration
+## 実行方法：
+* `rails s`コマンドでlocalhost:3000で立ち上げ
 
-* Database creation
+### API機能
+* 電気料金表一覧API: `/api/v1/costs`
+  * 入力: なし
+  * 出力: 各社のプランごとの電気料金(json形式)
+* 電気料金シミュレーションAPI: `/api/v1/costs/calculate_rate`
+  * 入力クエリ:
+    * 契約アンペア数: contract_ampere
+    * 使用量: usage
+  * 出力: 各社のプランごとの電気料金計算結果(json形式)
 
-* Database initialization
+### UI
+* シミュレーションツール: `/simulations/input`
+  * 入力値: 契約アンペア数, 使用量
+  * 出力値: 電力会社, プラン名, 料金
 
-* How to run the test suite
+## テスト方法：
+* `rspec`コマンドで実行可能
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## デプロイ方法
