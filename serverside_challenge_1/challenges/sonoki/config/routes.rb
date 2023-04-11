@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: 'simulations#input'
 
   resources :simulations, only: [:input, :output] do
     collection do
