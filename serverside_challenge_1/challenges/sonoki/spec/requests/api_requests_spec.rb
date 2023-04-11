@@ -22,6 +22,16 @@ RSpec.describe Api::V1::CostsController, type: :controller do
         expect(response).to have_http_status(200)
       end
 
+      it "returns the correct rates for each provider" do
+        post :calculate_rate, params: params
+        expect(JSON.parse(response.body)).to match_array([
+          { "provider_name" => "東京電力ナジーパートナー", "plan_name" => "従量電灯B", "price" => 5362.0 },
+          { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 5280.0 },
+          { "provider_name" => "東京ガス株式会社", "plan_name" => "ずっとも電気1", "price" => 5604.6 },
+          { "provider_name" => "JXTGでんき(旧myでんき)", "plan_name" => "従量電灯Bたっぷりプラン", "price" => 5362.0 }
+        ])
+      end
+
     end
 
     context "with non-existing contract_ampere" do
