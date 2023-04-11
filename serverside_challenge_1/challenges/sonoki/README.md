@@ -21,6 +21,7 @@
 * 本レポジトリを`git clone`
 
 ## 実行方法：
+* `bundle install`でgemをインストール
 * `rails s`コマンドでlocalhost:3000で立ち上げ
 
 ### API機能
