@@ -1,6 +1,12 @@
 {
   "dependencies": {
     "@popperjs/core": "^2.11.7",
-    "bootstrap": "^5.2.3"
+    "@rails/webpacker": "5.4.4",
+    "bootstrap": "^5.2.3",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3"
   }
 }
