@@ -30,4 +30,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
+# AWS用キーペア
+enechange_challenge_keypair.pem
+
 .env

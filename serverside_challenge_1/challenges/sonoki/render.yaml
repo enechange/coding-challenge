@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: Enechange-challenge
+    env: ruby
+    region: singapore
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: <%= ENV['RAILS_MASTER_KEY'] %>
+        sync: false
+      - key: <%= ENV['API_URI'] %>
+        sync: false
