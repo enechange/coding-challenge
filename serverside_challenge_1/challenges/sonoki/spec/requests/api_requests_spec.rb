@@ -15,20 +15,29 @@ RSpec.describe Api::V1::CostsController, type: :controller do
     end
 
     context "with valid contract_ampere and usage" do
-      let(:params) { { contract_ampere: 30, usage: 200 } }
+      let(:all_include_params) { { contract_ampere: 30, usage: 200 } }
+      let(:low_contract_ampare_params) { { contract_ampere: 10, usage: 200 } }
 
       it "returns a 200 status code" do
-        post :calculate_rate, params: params
+        post :calculate_rate, params: all_include_params
         expect(response).to have_http_status(200)
       end
 
       it "returns the correct rates for each provider" do
-        post :calculate_rate, params: params
+        post :calculate_rate, params: all_include_params
         expect(JSON.parse(response.body)).to match_array([
           { "provider_name" => "東京電力ナジーパートナー", "plan_name" => "従量電灯B", "price" => 5362.0 },
           { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 5280.0 },
           { "provider_name" => "東京ガス株式会社", "plan_name" => "ずっとも電気1", "price" => 5604.6 },
           { "provider_name" => "JXTGでんき(旧myでんき)", "plan_name" => "従量電灯Bたっぷりプラン", "price" => 5362.0 }
+        ])
+      end
+
+      it "returns the correct rates for limited provider" do
+        post :calculate_rate, params: low_contract_ampare_params
+        expect(JSON.parse(response.body)).to match_array([
+          { "provider_name" => "東京電力ナジーパートナー", "plan_name" => "従量電灯B", "price" => 4790.0 },
+          { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 5280.0 },
         ])
       end
 
