@@ -19,7 +19,7 @@ class Api::V1::CostsController < ApplicationController
       render json: { error: 'Invalid input: contract_ampere and usage are required' }, status: 400
     else
       costs = []
-      rates.keys.each do |key|
+      rates.each_key do |key|
         basic_rate = rates[key.to_s]['basic_rates'][contract_ampere]
         next unless basic_rate
 
@@ -28,10 +28,11 @@ class Api::V1::CostsController < ApplicationController
 
         rates[key.to_s]['usage_rates'].each do |rate_info|
           min, max = rate_info['range'].map { |value| value == "inf" ? Float::INFINITY : value }
+          defference =  max - min + 1
 
           if remaining_usage >= max
-            usage_total_cost += rate_info['rate'] * (max - min + 1)
-            remaining_usage -= (max - min + 1)
+            usage_total_cost += rate_info['rate'] * defference
+            remaining_usage -= defference
           else
             usage_total_cost += rate_info['rate'] * remaining_usage
             remaining_usage -= remaining_usage
@@ -45,13 +46,14 @@ class Api::V1::CostsController < ApplicationController
                     price: total_cost
                   }
       end
-      render json: costs.to_json, status: 200
+      render json: costs, status: 200
     end
   end
 
   private
 
   def yaml_path
-    Rails.root.join('config', 'rates.yml')
+    @yaml_path ||= Rails.root.join('config', 'rates.yml')
   end
+
 end

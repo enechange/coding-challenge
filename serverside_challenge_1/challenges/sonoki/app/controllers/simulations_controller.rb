@@ -20,7 +20,6 @@ class SimulationsController < ActionController::Base
       end
       data = JSON.parse(response.body)
       @results = data
-      render "output"
     end
   end
 end

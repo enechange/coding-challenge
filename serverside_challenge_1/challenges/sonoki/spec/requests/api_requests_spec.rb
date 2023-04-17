@@ -26,7 +26,7 @@ RSpec.describe Api::V1::CostsController, type: :controller do
       it "returns the correct rates for each provider" do
         post :calculate_rate, params: all_include_params
         expect(JSON.parse(response.body)).to match_array([
-          { "provider_name" => "東京電力ナジーパートナー", "plan_name" => "従量電灯B", "price" => 5362.0 },
+          { "provider_name" => "東京電力エナジーパートナー", "plan_name" => "従量電灯B", "price" => 5362.0 },
           { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 5280.0 },
           { "provider_name" => "東京ガス株式会社", "plan_name" => "ずっとも電気1", "price" => 5604.6 },
           { "provider_name" => "JXTGでんき(旧myでんき)", "plan_name" => "従量電灯Bたっぷりプラン", "price" => 5362.0 }
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::CostsController, type: :controller do
       it "returns the correct rates for limited provider" do
         post :calculate_rate, params: low_contract_ampare_params
         expect(JSON.parse(response.body)).to match_array([
-          { "provider_name" => "東京電力ナジーパートナー", "plan_name" => "従量電灯B", "price" => 4790.0 },
+          { "provider_name" => "東京電力エナジーパートナー", "plan_name" => "従量電灯B", "price" => 4790.0 },
           { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 5280.0 },
         ])
       end
