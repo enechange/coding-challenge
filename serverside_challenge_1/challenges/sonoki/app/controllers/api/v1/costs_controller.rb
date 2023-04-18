@@ -29,8 +29,8 @@ class Api::V1::CostsController < ApplicationController
         rates[key.to_s]['usage_rates'].each do |rate_info|
           min, max = rate_info['range'].map { |value| value == "inf" ? Float::INFINITY : value }
           difference =  max - min + 1
-
-          if remaining_usage >= max
+          # byebug
+          if remaining_usage >= difference
             usage_total_cost += rate_info['rate'] * difference
             remaining_usage -= difference
           else
