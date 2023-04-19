@@ -19,17 +19,16 @@ class Api::V1::CostsController < ApplicationController
       render json: { error: 'Invalid input: contract_ampere and usage are required' }, status: 400
     else
       costs = []
-      rates.each_key do |key|
-        basic_rate = rates[key.to_s]['basic_rates'][contract_ampere]
+      rates.each do |key, values|
+        basic_rate = values['basic_rates'][contract_ampere]
         next unless basic_rate
 
         usage_total_cost = 0
         remaining_usage = usage
 
-        rates[key.to_s]['usage_rates'].each do |rate_info|
+        values['usage_rates'].each do |rate_info|
           min, max = rate_info['range'].map { |value| value == "inf" ? Float::INFINITY : value }
           difference =  max - min + 1
-          # byebug
           if remaining_usage >= difference
             usage_total_cost += rate_info['rate'] * difference
             remaining_usage -= difference
@@ -42,7 +41,7 @@ class Api::V1::CostsController < ApplicationController
         total_cost = basic_rate + usage_total_cost
 
         costs << { provider_name: key,
-                    plan_name: rates[key.to_s]['plan_name'],
+                    plan_name: values['plan_name'],
                     price: total_cost
                   }
       end
