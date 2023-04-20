@@ -12,10 +12,10 @@ class Api::V1::CostsController < ApplicationController
 
   def calculate_rate
     contract_ampere = params[:contract_ampere].to_i
-    usage = params[:usage].to_i
+    usage = params[:usage].to_i unless (params[:usage].nil?)
     rates = YAML.load_file(yaml_path)
 
-    if contract_ampere.zero? || usage.zero?
+    if contract_ampere.zero? || usage.nil?
       render json: { error: 'Invalid input: contract_ampere and usage are required' }, status: 400
     else
       costs = []
