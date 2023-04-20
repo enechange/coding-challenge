@@ -18,6 +18,7 @@ RSpec.describe Api::V1::CostsController, type: :controller do
       let(:params) { { contract_ampere: 30, usage: 100 } }
       let(:second_step_usage_params) { { contract_ampere: 30, usage: 200 } }
       let(:third_step_usage_params) { { contract_ampere: 30, usage: 700 } }
+      let(:zero_usage_params) { { contract_ampere: 30, usage: 0 } }
       let(:low_contract_ampare_params) { { contract_ampere: 10, usage: 100 } }
 
       it "httpレスポンス200を返すこと" do
@@ -52,6 +53,16 @@ RSpec.describe Api::V1::CostsController, type: :controller do
           { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 18480.0},
           { "provider_name" => "東京ガス株式会社", "plan_name" => "ずっとも電気1", "price" => 18430.1 },
           { "provider_name" => "JXTGでんき(旧myでんき)", "plan_name" => "従量電灯Bたっぷりプラン", "price" => 18149.0 }
+        ])
+      end
+
+      it "usageが0のときの計算結果が正しくなること" do
+        post :calculate_rate, params: zero_usage_params
+        expect(JSON.parse(response.body)).to match_array([
+          { "provider_name" => "東京電力エナジーパートナー", "plan_name" => "従量電灯B", "price" => 858.0 },
+          { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 0.0},
+          { "provider_name" => "東京ガス株式会社", "plan_name" => "ずっとも電気1", "price" => 858.0 },
+          { "provider_name" => "JXTGでんき(旧myでんき)", "plan_name" => "従量電灯Bたっぷりプラン", "price" => 858.0 }
         ])
       end
 

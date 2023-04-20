@@ -12,7 +12,7 @@ class Api::V1::CostsController < ApplicationController
 
   def calculate_rate
     contract_ampere = params[:contract_ampere].to_i
-    usage = params[:usage].to_i unless (params[:usage].nil?)
+    usage = params[:usage].to_i unless params[:usage].nil?
     rates = YAML.load_file(yaml_path)
 
     if contract_ampere.zero? || usage.nil?
