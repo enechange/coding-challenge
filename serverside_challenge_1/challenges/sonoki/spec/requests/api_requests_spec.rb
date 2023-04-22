@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::CostsController, type: :controller do
   describe 'GET #index' do
-    it 'returns http success' do
+    it 'httpステータスがsuccessになること' do
       expect(response).to have_http_status(:success)
     end
   end
@@ -14,86 +14,119 @@ RSpec.describe Api::V1::CostsController, type: :controller do
       allow(YAML).to receive(:load_file).and_return(rates)
     end
 
-    context "with valid contract_ampere and usage" do
-      let(:all_include_params) { { contract_ampere: 30, usage: 200 } }
-      let(:low_contract_ampare_params) { { contract_ampere: 10, usage: 200 } }
+    context "正常なcontract_ampereとusageの値" do
+      let(:params) { { contract_ampere: 30, usage: 100 } }
+      let(:second_step_usage_params) { { contract_ampere: 30, usage: 200 } }
+      let(:third_step_usage_params) { { contract_ampere: 30, usage: 700 } }
+      let(:zero_usage_params) { { contract_ampere: 30, usage: 0 } }
+      let(:low_contract_ampare_params) { { contract_ampere: 10, usage: 100 } }
 
-      it "returns a 200 status code" do
-        post :calculate_rate, params: all_include_params
+      it "httpレスポンス200を返すこと" do
+        post :calculate_rate, params: params
         expect(response).to have_http_status(200)
       end
 
-      it "returns the correct rates for each provider" do
-        post :calculate_rate, params: all_include_params
+      it "1段計算の計算結果が正しくなること" do
+        post :calculate_rate, params: params
         expect(JSON.parse(response.body)).to match_array([
-          { "provider_name" => "東京電力ナジーパートナー", "plan_name" => "従量電灯B", "price" => 5362.0 },
+          { "provider_name" => "東京電力エナジーパートナー", "plan_name" => "従量電灯B", "price" => 2846.0 },
+          { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 2640.0 },
+          { "provider_name" => "東京ガス株式会社", "plan_name" => "ずっとも電気1", "price" => 3225.0 },
+          { "provider_name" => "JXTGでんき(旧myでんき)", "plan_name" => "従量電灯Bたっぷりプラン", "price" => 2846.0 }
+        ])
+      end
+
+      it "2段計算の計算結果が正しくなること" do
+        post :calculate_rate, params: second_step_usage_params
+        expect(JSON.parse(response.body)).to match_array([
+          { "provider_name" => "東京電力エナジーパートナー", "plan_name" => "従量電灯B", "price" => 5362.0 },
           { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 5280.0 },
           { "provider_name" => "東京ガス株式会社", "plan_name" => "ずっとも電気1", "price" => 5604.6 },
           { "provider_name" => "JXTGでんき(旧myでんき)", "plan_name" => "従量電灯Bたっぷりプラン", "price" => 5362.0 }
         ])
       end
 
-      it "returns the correct rates for limited provider" do
+      it "3段計算の計算結果が正しくなること" do
+        post :calculate_rate, params: third_step_usage_params
+        expect(JSON.parse(response.body)).to match_array([
+          { "provider_name" => "東京電力エナジーパートナー", "plan_name" => "従量電灯B", "price" => 20238.0 },
+          { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 18480.0},
+          { "provider_name" => "東京ガス株式会社", "plan_name" => "ずっとも電気1", "price" => 18430.1 },
+          { "provider_name" => "JXTGでんき(旧myでんき)", "plan_name" => "従量電灯Bたっぷりプラン", "price" => 18149.0 }
+        ])
+      end
+
+      it "usageが0のときの計算結果が正しくなること" do
+        post :calculate_rate, params: zero_usage_params
+        expect(JSON.parse(response.body)).to match_array([
+          { "provider_name" => "東京電力エナジーパートナー", "plan_name" => "従量電灯B", "price" => 858.0 },
+          { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 0.0},
+          { "provider_name" => "東京ガス株式会社", "plan_name" => "ずっとも電気1", "price" => 858.0 },
+          { "provider_name" => "JXTGでんき(旧myでんき)", "plan_name" => "従量電灯Bたっぷりプラン", "price" => 858.0 }
+        ])
+      end
+
+      it "契約アンペア数が低い時、計算結果が正しくなること" do
         post :calculate_rate, params: low_contract_ampare_params
         expect(JSON.parse(response.body)).to match_array([
-          { "provider_name" => "東京電力ナジーパートナー", "plan_name" => "従量電灯B", "price" => 4790.0 },
-          { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 5280.0 },
+          { "provider_name" => "東京電力エナジーパートナー", "plan_name" => "従量電灯B", "price" => 2274.0 },
+          { "provider_name" => "LOOPでんき", "plan_name" => "おうちプラン", "price" => 2640.0 },
         ])
       end
 
     end
 
-    context "with non-existing contract_ampere" do
+    context "異常系: 存在しないcontract_ampere" do
       let(:params) { { contract_ampere: 999, usage: 200 } }
 
-      it "returns a 200 status code" do
+      it "httpレスポンス200を返すこと" do
         post :calculate_rate, params: params
         expect(response).to have_http_status(200)
       end
 
-      it "returns empty array" do
+      it "空のJSONを返すこと" do
         post :calculate_rate, params: params
         expect(JSON.parse(response.body)).to be_empty
       end
     end
 
-    context "with missing contract_ampere" do
+    context "異常系: contract_ampereが空欄" do
       let(:params) { { usage: 200 } }
 
-      it "returns a 400 status code" do
+      it "httpレスポンス400を返すこと" do
         post :calculate_rate, params: params
         expect(response).to have_http_status(400)
       end
 
-      it "returns an error message" do
+      it "エラーメッセージを返すこと" do
         post :calculate_rate, params: params
         expect(JSON.parse(response.body)['error']).to eq('Invalid input: contract_ampere and usage are required')
       end
     end
 
-    context "with missing usage" do
+    context "異常系: usageが空欄" do
       let(:params) { { contract_ampere: 30 } }
 
-      it "returns a 400 status code" do
+      it "httpレスポンス400を返すこと" do
         post :calculate_rate, params: params
         expect(response).to have_http_status(400)
       end
 
-      it "returns an error message" do
+      it "エラーメッセージを返すこと" do
         post :calculate_rate, params: params
         expect(JSON.parse(response.body)['error']).to eq('Invalid input: contract_ampere and usage are required')
       end
     end
 
-    context "with missing contract_ampere and usage" do
+    context "異常系: contract_ampereとusageが空欄" do
       let(:params) { {} }
 
-      it "returns a 400 status code" do
+      it "httpレスポンス400を返すこと" do
         post :calculate_rate, params: params
         expect(response).to have_http_status(400)
       end
 
-      it "returns an error message" do
+      it "エラーメッセージを返すこと" do
         post :calculate_rate, params: params
         expect(JSON.parse(response.body)['error']).to eq('Invalid input: contract_ampere and usage are required')
       end

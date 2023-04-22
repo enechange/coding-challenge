@@ -1,5 +1,5 @@
 class SimulationsController < ActionController::Base
-
+  before_action :contract_ampere_options
   require 'net/http'
 
   def input
@@ -10,7 +10,7 @@ class SimulationsController < ActionController::Base
     usage = params[:usage]
 
     if usage == "0"
-      render "input"
+      render :input
     else
       uri = URI("#{ENV['API_URI']}/api/v1/costs/calculate_rate")
       uri.query = URI.encode_www_form({ contract_ampere: contract_ampere, usage: usage })
@@ -20,7 +20,15 @@ class SimulationsController < ActionController::Base
       end
       data = JSON.parse(response.body)
       @results = data
-      render "output"
+      if @results.empty? # TODO モデルでバリデーションする ヒント: オブジェクト指向
+        render :input
+      end
     end
+  end
+
+  private
+
+  def contract_ampere_options
+    @options = [10, 15, 20, 30, 40, 50, 60].freeze
   end
 end
