@@ -20,7 +20,7 @@ class SimulationsController < ActionController::Base
       end
       data = JSON.parse(response.body)
       @results = data
-      if @results.empty?
+      if @results.empty? # TODO モデルでバリデーションする ヒント: オブジェクト指向
         render :input
       end
     end

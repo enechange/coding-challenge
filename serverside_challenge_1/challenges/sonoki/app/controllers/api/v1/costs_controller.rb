@@ -2,7 +2,6 @@ class Api::V1::CostsController < ApplicationController
   require 'yaml'
 
   def index
-    yaml_data = YAML.load_file(yaml_path)
     render json: {
       status: 'SUCCESS',
       message: '電力会社とコスト一覧の取得に成功しました',
@@ -10,10 +9,10 @@ class Api::V1::CostsController < ApplicationController
     }, status: 200
   end
 
-  def calculate_rate
+  def calculate_rate # 10行で収める その他はモデルに移動
     contract_ampere = params[:contract_ampere].to_i
     usage = params[:usage].to_i unless params[:usage].nil?
-    rates = YAML.load_file(yaml_path)
+    rates = yaml_data
 
     if contract_ampere.zero? || usage.nil?
       render json: { error: 'Invalid input: contract_ampere and usage are required' }, status: 400
@@ -51,8 +50,8 @@ class Api::V1::CostsController < ApplicationController
 
   private
 
-  def yaml_path
-    @yaml_path ||= Rails.root.join('config', 'rates.yml')
+  def yaml_data
+    yaml_data ||= YAML.load_file(Rails.root.join('config', 'rates.yml'))
   end
 
 end
