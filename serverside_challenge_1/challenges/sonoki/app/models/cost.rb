@@ -1,6 +1,6 @@
 class Cost
   include ActiveModel::Model
-  # include YamlLoader
+  include YamlLoader
 
   attr_accessor :contract_ampere, :usage
 
@@ -10,7 +10,7 @@ class Cost
   validates :usage,             presence: true
 
   def calculate
-    rates = YAML.load_file(Rails.root.join('config', 'rates.yml'))
+    rates = yaml_data
     costs = []
 
     rates.each do |key, values|
