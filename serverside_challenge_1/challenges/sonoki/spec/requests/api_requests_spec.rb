@@ -79,14 +79,14 @@ RSpec.describe Api::V1::CostsController, type: :controller do
     context "異常系: 存在しないcontract_ampere" do
       let(:params) { { contract_ampere: 999, usage: 200 } }
 
-      it "httpレスポンス200を返すこと" do
+      it "httpレスポンス400を返すこと" do
         post :calculate_rate, params: params
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(400)
       end
 
-      it "空のJSONを返すこと" do
+      it "エラーメッセージを返すこと" do
         post :calculate_rate, params: params
-        expect(JSON.parse(response.body)).to be_empty
+        expect(JSON.parse(response.body)['error']).to eq('Invalid input: contract_ampere and usage are required')
       end
     end
 
