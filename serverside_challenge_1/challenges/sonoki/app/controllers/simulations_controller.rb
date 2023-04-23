@@ -1,5 +1,6 @@
 class SimulationsController < ActionController::Base
   before_action :contract_ampere_options
+  # include YamlLoader
   require 'net/http'
 
   def input
