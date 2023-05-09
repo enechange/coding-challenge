@@ -5,7 +5,7 @@ class Api::V1::CostsController < ApplicationController
     render json: {
       status: 'SUCCESS',
       message: '電力会社とコスト一覧の取得に成功しました',
-      data: yaml_data
+      data: yaml_data # TODO 名前が抽象的
     }, status: 200
   end
 

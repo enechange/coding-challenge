@@ -53,7 +53,7 @@ RSpec.describe Cost, type: :model do
       let(:cost) { Cost.new(contract_ampere: valid_contract_ampere, usage: valid_usage) }
       let(:rates) { cost.send(:yaml_data) }
 
-      it "電力料金の計算結果が全データ数が一致すること" do
+      it "電力料金の計算結果が全データ数と一致すること" do
         calculated_costs = cost.calculate
         expect(calculated_costs.count).to eq(rates.count)
 
