@@ -4,7 +4,7 @@ class Provider < ApplicationRecord
 
   def self.electricity_rate_list(params)
     electricity_rate_list = []
-    Provider.all.each do |provider|
+    Provider.all.find_each do |provider|
       basic_rate = provider.basic_rates.find_by(ampere: params[:ampere].to_i)
       next if basic_rate.nil?
       pay_per_use_rate = provider.pay_per_use_rates.find_by(

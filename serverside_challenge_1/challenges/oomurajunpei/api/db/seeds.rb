@@ -9,7 +9,7 @@
 require 'csv'
 
 CSV.foreach('./app/assets/provider.csv', headers: true) do |r|
-  provider = Provider.find(r['id'])
+  provider = Provider.find_by(id: r['id'])
   if provider.present?
     provider.update!(name: r['name'], plan_name: r['plan_name'])
   else
@@ -18,7 +18,7 @@ CSV.foreach('./app/assets/provider.csv', headers: true) do |r|
 end
 
 CSV.foreach('./app/assets/basic_rate.csv', headers: true) do |r|
-  basic_rate = BasicRate.find(r['id'])
+  basic_rate = BasicRate.find_by(id: r['id'])
   if basic_rate.present?
     basic_rate.update!(provider_id: r['provider_id'], ampere: r['ampere'], price: r['price'])
   else
@@ -27,7 +27,7 @@ CSV.foreach('./app/assets/basic_rate.csv', headers: true) do |r|
 end
 
 CSV.foreach('./app/assets/pay_per_use_rate.csv', headers: true) do |r|
-  pay_per_use_rate = PayPerUseRate.find(r['id'])
+  pay_per_use_rate = PayPerUseRate.find_by(id: r['id'])
   if pay_per_use_rate.present?
     pay_per_use_rate.update!(
       provider_id: r['provider_id'],
