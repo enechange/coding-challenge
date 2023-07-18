@@ -2,9 +2,12 @@ class Provider < ApplicationRecord
   has_many :basic_rates, dependent: :destroy
   has_many :pay_per_use_rates, dependent: :destroy
 
+  validates :name, presence: true
+  validates :plan_name, presence: true
+
   def self.electricity_rate_list(params)
     electricity_rate_list = []
-    Provider.all.find_each do |provider|
+    Provider.all.each do |provider|
       basic_rate = provider.basic_rates.find_by(ampere: params[:ampere].to_i)
       next if basic_rate.nil?
       pay_per_use_rate = provider.pay_per_use_rates.find_by(
