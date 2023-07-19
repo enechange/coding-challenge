@@ -8,17 +8,27 @@ services:
     volumes:
       - postgres_volume:/var/lib/postgresql/data
     restart: always
-  web:
-    build: .
+  api:
+    build: ./api/
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
-      - .:/myapp
+      - .:/api/
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - db
+  front:
+    build: ./front/
+    volumes:
+      - .:/front
+    command: sh -c 'cd front && npm start'
+    ports:
+      - 3000:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
 volumes:
   postgres_volume:
