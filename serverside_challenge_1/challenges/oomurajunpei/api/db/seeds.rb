@@ -9,25 +9,39 @@
 require 'csv'
 
 CSV.foreach('./app/assets/provider.csv', headers: true) do |r|
-  Provider.where(name: r['name'], plan_name: r['plan_name']).first_or_create!(
-    name: r['name'],
-    plan_name: r['plan_name']
-  )
+  provider = Provider.find_by(id: r['id'])
+  if provider.present?
+    provider.update!(name: r['name'], plan_name: r['plan_name'])
+  else
+    Provider.create!(id: r['id'], name: r['name'], plan_name: r['plan_name'])
+  end
 end
 
 CSV.foreach('./app/assets/basic_rate.csv', headers: true) do |r|
-  BasicRate.where(provider_id: r['provider_id'], ampere: r['ampere'], price: r['price']).first_or_create!(
-    provider_id: r['provider_id'],
-    ampere: r['ampere'],
-    price: r['price']
-  )
+  basic_rate = BasicRate.find_by(id: r['id'])
+  if basic_rate.present?
+    basic_rate.update!(provider_id: r['provider_id'], ampere: r['ampere'], price: r['price'])
+  else
+    BasicRate.create!(id: r['id'], provider_id: r['provider_id'], ampere: r['ampere'], price: r['price'])
+  end
 end
 
 CSV.foreach('./app/assets/pay_per_use_rate.csv', headers: true) do |r|
-  PayPerUseRate.where(provider_id: r['provider_id'], unit_price: r['unit_price'], min_electricity_usage: r['min_electricity_usage'], max_electricity_usage: r['max_electricity_usage']).first_or_create!(
-    provider_id: r['provider_id'],
-    unit_price: r['unit_price'],
-    min_electricity_usage: r['min_electricity_usage'],
-    max_electricity_usage: r['max_electricity_usage']
-  )
+  pay_per_use_rate = PayPerUseRate.find_by(id: r['id'])
+  if pay_per_use_rate.present?
+    pay_per_use_rate.update!(
+      provider_id: r['provider_id'],
+      unit_price: r['unit_price'],
+      min_electricity_usage: r['min_electricity_usage'],
+      max_electricity_usage: r['max_electricity_usage']
+    )
+  else
+    PayPerUseRate.create!(
+      id: r['id'],
+      provider_id: r['provider_id'],
+      unit_price: r['unit_price'],
+      min_electricity_usage: r['min_electricity_usage'],
+      max_electricity_usage: r['max_electricity_usage']
+    )
+  end
 end

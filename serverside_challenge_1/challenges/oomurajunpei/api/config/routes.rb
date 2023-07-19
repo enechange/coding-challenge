@@ -3,4 +3,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  get '/electricity_rate_simulation', to: 'providers#electricity_rate_simulation'
 end
