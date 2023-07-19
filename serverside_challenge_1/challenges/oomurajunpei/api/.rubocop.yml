@@ -12,6 +12,7 @@ AllCops:
     - 'bin/**/*'
     - 'db/**/*'
     - 'tmp/**/*'
+    - 'spec/**/*'
 
 Rails:
   Enabled: true
