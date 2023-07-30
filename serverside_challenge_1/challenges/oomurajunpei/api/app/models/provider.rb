@@ -30,7 +30,7 @@ class Provider < ApplicationRecord
   def self.validate_electricity_rate_params!(electricity_rate_params)
     raise ActionController::BadRequest, '必要な値がありません' if electricity_rate_params_blank?(electricity_rate_params)
     raise ActionController::BadRequest, '契約アンペア数は10 / 15 / 20 / 30 / 40 / 50 / 60 のいずれかから選択してください' if ampere_invalid?(electricity_rate_params)
-    raise ActionController::BadRequest, '電力使用量は0以上の整数でご入力ください' if electricity_rate_params[:electricity_usage].to_i.negative?
+    raise ActionController::BadRequest, '電力使用量は0以上の整数でご入力ください' if electricity_rate_params[:electricity_usage] !~ /^[0-9]+$/
   end
 
   def self.electricity_rate_params_blank?(electricity_rate_params)
