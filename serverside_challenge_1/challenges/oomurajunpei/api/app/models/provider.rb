@@ -1,26 +1,42 @@
 class Provider < ApplicationRecord
-  has_many :basic_rates, dependent: :destroy
-  has_many :pay_per_use_rates, dependent: :destroy
+  has_many :plans, dependent: :destroy
 
   validates :name, presence: true
-  validates :plan_name, presence: true
 
-  def self.electricity_rate_list(params)
+  def self.electricity_rate_list(electricity_rate_params)
+    validate_electricity_rate_params!(electricity_rate_params)
     electricity_rate_list = []
     Provider.all.each do |provider|
-      basic_rate = provider.basic_rates.find_by(ampere: params[:ampere].to_i)
-      next if basic_rate.nil?
-      pay_per_use_rate = provider.pay_per_use_rates.find_by(
-        min_electricity_usage: [nil, ..params[:electricity_usage].to_i],
-        max_electricity_usage: [nil, params[:electricity_usage].to_i..]
-      )
-      total_price = basic_rate.price + pay_per_use_rate.unit_price * params[:electricity_usage].to_i
-      electricity_rate_list << {
-        provider_name: provider.name,
-        plan_name: provider.plan_name,
-        price: total_price.floor
-      }
+      provider.plans.each do |plan|
+        basic_rate = plan.basic_rates.find_by(ampere: electricity_rate_params[:ampere].to_i)
+        next if basic_rate.nil?
+        electricity_usage = electricity_rate_params[:electricity_usage].to_i
+        pay_per_use_price = plan.calculate_pay_per_use_price(electricity_usage)
+        total_price = basic_rate.price + pay_per_use_price
+        electricity_rate_list << {
+          provider_name: provider.name,
+          plan_name: plan.name,
+          price: total_price.floor
+        }
+      end
     end
     return electricity_rate_list
+  end
+
+  private
+
+  def self.validate_electricity_rate_params!(electricity_rate_params)
+    raise ActionController::BadRequest, '必要な値がありません' if electricity_rate_params_blank?(electricity_rate_params)
+    raise ActionController::BadRequest, '契約アンペア数は10 / 15 / 20 / 30 / 40 / 50 / 60 のいずれかから選択してください' if ampere_invalid?(electricity_rate_params)
+    raise ActionController::BadRequest, '電力使用量は0以上の整数でご入力ください' if electricity_rate_params[:electricity_usage] !~ /^[0-9]+$/
+  end
+
+  def self.electricity_rate_params_blank?(electricity_rate_params)
+    electricity_rate_params[:ampere].blank? || electricity_rate_params[:electricity_usage].blank?
+  end
+
+  def self.ampere_invalid?(electricity_rate_params)
+    ampere_valid_list = [10, 15, 20, 30, 40, 50, 60]
+    ampere_valid_list.exclude?(electricity_rate_params[:ampere].to_i)
   end
 end

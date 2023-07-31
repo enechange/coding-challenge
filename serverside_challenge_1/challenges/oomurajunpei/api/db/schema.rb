@@ -10,36 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_12_185731) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_27_135300) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "basic_rates", force: :cascade do |t|
-    t.bigint "provider_id", null: false
     t.integer "ampere", null: false
     t.float "price", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["provider_id"], name: "index_basic_rates_on_provider_id"
+    t.bigint "plan_id"
+    t.index ["plan_id"], name: "index_basic_rates_on_plan_id"
   end
 
   create_table "pay_per_use_rates", force: :cascade do |t|
-    t.bigint "provider_id", null: false
     t.float "unit_price", null: false
     t.integer "min_electricity_usage"
     t.integer "max_electricity_usage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["provider_id"], name: "index_pay_per_use_rates_on_provider_id"
+    t.bigint "plan_id"
+    t.index ["plan_id"], name: "index_pay_per_use_rates_on_plan_id"
+  end
+
+  create_table "plans", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "provider_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider_id"], name: "index_plans_on_provider_id"
   end
 
   create_table "providers", force: :cascade do |t|
     t.string "name", null: false
-    t.string "plan_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "basic_rates", "providers"
-  add_foreign_key "pay_per_use_rates", "providers"
+  add_foreign_key "basic_rates", "plans"
+  add_foreign_key "pay_per_use_rates", "plans"
+  add_foreign_key "plans", "providers"
 end

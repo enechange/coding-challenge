@@ -1,5 +1,5 @@
 class BasicRate < ApplicationRecord
-  belongs_to :provider
+  belongs_to :plan
 
   validates :ampere, presence: true
   validates :price, presence: true

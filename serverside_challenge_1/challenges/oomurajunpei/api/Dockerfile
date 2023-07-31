@@ -1,11 +1,11 @@
 FROM ruby:3.2.2
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
-RUN mkdir /myapp
-WORKDIR /myapp
-ADD Gemfile /myapp/Gemfile
-ADD Gemfile.lock /myapp/Gemfile.lock
+RUN mkdir /api
+WORKDIR /api
+ADD Gemfile /api/Gemfile
+ADD Gemfile.lock /api/Gemfile.lock
 RUN bundle install
-ADD . /myapp
+ADD . /api
 
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
