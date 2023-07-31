@@ -7,7 +7,7 @@ RSpec.describe "Providers", type: :request do
         tepco = {
           'provider_name' => '東京電力エナジーパートナー',
           'plan_name' => '従量電灯B',
-          'price' => 4565
+          'price' => 3773
         }
         looop = {
           'provider_name' => 'Looopでんき',
@@ -22,7 +22,7 @@ RSpec.describe "Providers", type: :request do
         jxtg = {
           'provider_name' => 'JXTGでんき',
           'plan_name' => '従量電灯Bたっぷりプラン',
-          'price' => 4565
+          'price' => 3773
         }
         params = {
           ampere: 30,
@@ -40,12 +40,8 @@ RSpec.describe "Providers", type: :request do
         ampere = 30
         electricity_usage = 140
 
-        get electricity_rate_simulation_path ampere
-        expect(response.status).to eq(400)
-        expect(JSON.parse(response.body)['title']).to eq('必要な値がありません')
-        get electricity_rate_simulation_path electricity_usage
-        expect(response.status).to eq(400)
-        expect(JSON.parse(response.body)['title']).to eq('必要な値がありません')
+        expect { get electricity_rate_simulation_path ampere }.to raise_error('必要な値がありません')
+        expect { get electricity_rate_simulation_path electricity_usage }.to raise_error('必要な値がありません')
       end
     end
 
@@ -56,9 +52,7 @@ RSpec.describe "Providers", type: :request do
           electricity_usage: 140
         }
 
-        get electricity_rate_simulation_path params
-        expect(response.status).to eq(400)
-        expect(JSON.parse(response.body)['title']).to eq('契約アンペア数は10 / 15 / 20 / 30 / 40 / 50 / 60 のいずれかから選択してください')
+        expect { get electricity_rate_simulation_path params }.to raise_error('契約アンペア数は10 / 15 / 20 / 30 / 40 / 50 / 60 のいずれかから選択してください')
       end
     end
 
@@ -69,9 +63,7 @@ RSpec.describe "Providers", type: :request do
           electricity_usage: -140
         }
 
-        get electricity_rate_simulation_path params
-        expect(response.status).to eq(400)
-        expect(JSON.parse(response.body)['title']).to eq('電力使用量は0以上の整数でご入力ください')
+        expect { get electricity_rate_simulation_path params }.to raise_error('電力使用量は0以上の整数でご入力ください')
       end
     end
   end

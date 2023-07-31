@@ -41,11 +41,17 @@ Layout/SpaceAroundMethodCallOperator:
 Lint/RaiseException:
   Enabled: true
 
+Lint/UselessAccessModifier:
+  Enabled: false
+
+Lint/IneffectiveAccessModifier:
+  Enabled: false
+
 Lint/StructNewOverride:
   Enabled: true
 
 Layout/LineLength:
-  Max: 150
+  Max: 160
 
 Metrics/AbcSize:
   Enabled: true

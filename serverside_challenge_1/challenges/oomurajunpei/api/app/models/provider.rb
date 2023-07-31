@@ -10,11 +10,9 @@ class Provider < ApplicationRecord
       provider.plans.each do |plan|
         basic_rate = plan.basic_rates.find_by(ampere: electricity_rate_params[:ampere].to_i)
         next if basic_rate.nil?
-        pay_per_use_rate = plan.pay_per_use_rates.find_by(
-          min_electricity_usage: [nil, ..electricity_rate_params[:electricity_usage].to_i],
-          max_electricity_usage: [nil, electricity_rate_params[:electricity_usage].to_i..]
-        )
-        total_price = basic_rate.price + pay_per_use_rate.unit_price * electricity_rate_params[:electricity_usage].to_i
+        electricity_usage = electricity_rate_params[:electricity_usage].to_i
+        pay_per_use_price = plan.calculate_pay_per_use_price(electricity_usage)
+        total_price = basic_rate.price + pay_per_use_price
         electricity_rate_list << {
           provider_name: provider.name,
           plan_name: plan.name,
