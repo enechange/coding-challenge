@@ -1,4 +1,5 @@
 import Head from "next/head";
+import { Form } from "../components/ui/form";
 import styles from "@/styles/Home.module.scss";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
             いくらおトクになるのか今すぐわかります！
           </p>
         </header>
+        <Form />
       </main>
     </>
   );
