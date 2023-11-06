@@ -1,0 +1,15 @@
+.label {
+  font-size: 14px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  align-items: center;
+  font-weight: bold;
+  .required {
+    padding: 2px 4px;
+    color: #fff;
+    font-size: 8px;
+    background-color: #f0566e;
+    letter-spacing: 2px;
+  }
+}

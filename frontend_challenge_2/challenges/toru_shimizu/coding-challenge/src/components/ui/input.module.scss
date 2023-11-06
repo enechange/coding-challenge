@@ -1,0 +1,27 @@
+.inputWrapper {
+  display: grid;
+  gap: 12px;
+
+  .input {
+    font-weight: bold;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+    align-items: center;
+    input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 2px;
+      border: solid 4px #e6e6e6;
+      &:focus {
+        outline: 2px solid #ffdb99;
+        outline-offset: -4px;
+      }
+    }
+  }
+  .attention {
+    font-size: 12px;
+    text-align: right;
+    color: #a8a8a8;
+  }
+}
