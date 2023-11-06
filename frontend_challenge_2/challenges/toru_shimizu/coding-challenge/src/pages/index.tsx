@@ -1,4 +1,5 @@
 import Head from "next/head";
+import styles from "@/styles/Home.module.scss";
 
 export default function Home() {
   return (
@@ -9,7 +10,20 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main></main>
+      <main>
+        <header className={styles.header}>
+          <h1>
+            電気代から
+            <br />
+            かんたんシミュレーション
+          </h1>
+          <p>
+            検針票を用意しなくてもOK
+            <br />
+            いくらおトクになるのか今すぐわかります！
+          </p>
+        </header>
+      </main>
     </>
   );
 }
