@@ -66,13 +66,17 @@ export const Prices = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {prices?.map((item, index) => (
-                        <tr key={index}>
-                            <td>{item.provider_name}</td>
-                            <td>{item.plan_name}</td>
-                            <td>{item.price.toLocaleString()}</td>
-                        </tr>
-                    ))}
+                    {errors.length === 0 && (
+                        <>
+                            {prices?.map((item, index) => (
+                                <tr key={index}>
+                                    <td>{item.provider_name}</td>
+                                    <td>{item.plan_name}</td>
+                                    <td>{item.price.toLocaleString()}</td>
+                                </tr>
+                            ))}
+                        </>
+                    )}
                 </tbody>
             </table>
         </div>
