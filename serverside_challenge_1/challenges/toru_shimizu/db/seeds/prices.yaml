@@ -1,0 +1,96 @@
+companies:
+  - name: "東京電力エナジーパートナー"
+    plans:
+      - name: "従量電灯B"
+        basics:
+          - ampere: 10
+            price: 286.0
+          - ampere: 15
+            price: 429.0
+          - ampere: 20
+            price: 572.0
+          - ampere: 30
+            price: 858.0
+          - ampere: 40
+            price: 1144.0
+          - ampere: 50
+            price: 1430.0
+          - ampere: 60
+            price: 1716.0
+        volumes:
+          - min: 0
+            max: 120
+            price: 19.88
+          - min: 120
+            max: 300
+            price: 26.48
+          - min: 300
+            max: null
+            price: 30.57
+  - name: "Loopでんき"
+    plans:
+      - name: "おうちプラン"
+        basics:
+          - ampere: 10
+            price: 0
+          - ampere: 20
+            price: 0
+          - ampere: 30
+            price: 0
+          - ampere: 40
+            price: 0
+          - ampere: 50
+            price: 0
+          - ampere: 60
+            price: 0
+        volumes:
+          - min: 0
+            max: null
+            price: 26.4
+  - name: "東京ガス株式会社"
+    plans:
+      - name: "ずっとも電気1"
+        basics:
+          - ampere: 30
+            price: 858
+          - ampere: 40
+            price: 1144
+          - ampere: 50
+            price: 1430
+          - ampere: 60
+            price: 1716
+        volumes:
+          - min: 0
+            max: 140
+            price: 23.67
+          - min: 140
+            max: 350
+            price: 23.88
+          - min: 350
+            max: null
+            price: 26.41
+  - name: "JXTGでんき"
+    plans:
+      - name: "従量電灯Bたっぷりプラン"
+        basics:
+          - ampere: 30
+            price: 858
+          - ampere: 40
+            price: 1144
+          - ampere: 50
+            price: 1430
+          - ampere: 60
+            price: 1716
+        volumes:
+          - min: 0
+            max: 120
+            price: 19.88
+          - min: 120
+            max: 300
+            price: 26.48
+          - min: 300
+            max: 600
+            price: 25.08
+          - min: null
+            max: 600
+            price: 26.15
