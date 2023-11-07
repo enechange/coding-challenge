@@ -11,38 +11,41 @@
     display: grid;
     gap: 20px;
   }
-  .buttonWrapper {
-    padding: 0 20px 32px 20px;
-    button {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      width: 100%;
-      align-items: center;
-      padding: 12px;
-      border-radius: 4px;
-      background-color: $dark-blue;
-      color: $white;
-      font-weight: bold;
-      cursor: pointer
-    }
+}
+.buttonWrapper {
+  padding: 32px 20px 32px 20px;
+  background-color: $white;
+  
+
+  button {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    width: 100%;
+    align-items: center;
+    padding: 12px;
+    border-radius: 4px;
+    background-color: $dark-blue;
+    color: $white;
+    font-weight: bold;
+    cursor: pointer
   }
-  .caret {
-    display: inline-block;
-    position: relative;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background-color: $white;
-  }
-  .caret:after {
-    content: "";
-    position: absolute;
-    top: 20%;
-    right: 30%;
-    width: 8px;
-    height: 8px;
-    border-top: 2px solid $dark-blue;
-    border-right: 2px solid $dark-blue;
-    transform: rotate(45deg);
-  }
+}
+.caret {
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: $white;
+}
+.caret:after {
+  content: "";
+  position: absolute;
+  top: 20%;
+  right: 30%;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid $dark-blue;
+  border-right: 2px solid $dark-blue;
+  transform: rotate(45deg);
 }

@@ -39,12 +39,8 @@ export const Select = forwardRef<HTMLSelectElement, ChildProps>(
             <option value="">選択できる{label}がありません</option>
           )}
         </select>
-        {!existsOptions && attention !== "" && (
-          <p className={styles.attention}>{attention}</p>
-        )}
-        {existsOptions && typeof error === "string" && (
-          <ErrorMessage error={error} />
-        )}
+        {existsOptions && error && <ErrorMessage error={error} />}
+        {attention && <p className={styles.attention}>{attention}</p>}
       </div>
     );
   },

@@ -22,12 +22,8 @@ export const Input = forwardRef<HTMLInputElement, ChildProps>(
           <input id={props.name} type={type} {...props} ref={ref} />
           {children}
         </div>
-        {error === undefined && typeof attention === "string" && (
-          <p className={styles.attention}>{attention}</p>
-        )}
-        {error !== undefined && typeof error === "string" && (
-          <ErrorMessage error={error} />
-        )}
+        {attention && <p className={styles.attention}>{attention}</p>}
+        {error && <ErrorMessage error={error} />}
       </div>
     );
   },

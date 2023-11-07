@@ -24,7 +24,9 @@ export default function Home() {
             いくらおトクになるのか今すぐわかります！
           </p>
         </header>
-        <Form />
+        <div className={styles.container}>
+          <Form />
+        </div>
       </main>
     </>
   );

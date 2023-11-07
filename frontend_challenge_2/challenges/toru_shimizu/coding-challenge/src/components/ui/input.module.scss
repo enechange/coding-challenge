@@ -6,8 +6,7 @@
 
   .input {
     font-weight: bold;
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
     gap: 8px;
     align-items: center;
     input {
@@ -22,7 +21,7 @@
     }
   }
   .attention {
-    font-size: 12px;
+    font-size: 10px;
     text-align: right;
     color: $medium-grey;
   }

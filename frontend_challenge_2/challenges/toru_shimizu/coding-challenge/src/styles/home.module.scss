@@ -1,9 +1,14 @@
+@use "./index" as *;
+
+.container  {
+  background-color: $background;
+}
 .header {
   padding: 20px;
   text-align: center;
   display: grid;
   gap: 12px;
-  background-color: #f9f9f9;
+  background-color: $background;
   h1 {
     font-size: 18px;
   }
