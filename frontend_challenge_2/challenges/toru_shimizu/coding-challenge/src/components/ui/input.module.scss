@@ -1,3 +1,5 @@
+@use "../../styles/index" as *;
+
 .inputWrapper {
   display: grid;
   gap: 12px;
@@ -12,9 +14,9 @@
       width: 100%;
       padding: 8px;
       border-radius: 2px;
-      border: solid 4px #e6e6e6;
+      border: solid 4px $light-grey;
       &:focus {
-        outline: 2px solid #ffdb99;
+        outline: 2px solid $light-yellow;
         outline-offset: -4px;
       }
     }
@@ -22,6 +24,6 @@
   .attention {
     font-size: 12px;
     text-align: right;
-    color: #a8a8a8;
+    color: $medium-grey;
   }
 }

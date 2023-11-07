@@ -1,0 +1,27 @@
+@use "../../styles/common/variables" as *;
+
+.selectWrapper {
+  display: grid;
+  gap: 12px;
+  .select {
+    width: 100%;
+    padding: 12px;
+    font-weight: bold;
+    border-radius: 2px;
+    border: solid 4px $light-grey;
+    &:focus {
+      outline: 2px solid $light-yellow;
+      outline-offset: -4px;
+    }
+    cursor: pointer;
+  }
+  .attention {
+    font-size: 12px;
+    text-align: right;
+    color: $medium-grey;
+  }
+  .disabled {
+    color: $medium-grey;
+    cursor: default;
+  }
+}

@@ -1,5 +1,6 @@
+@use "../../styles/index" as *;
+
 .title {
     padding: 8px 16px;
-    font-size: 16px;
-    border-left: 4px solid #ffb73c;
+    border-left: 4px solid $medium-yellow;
 }
