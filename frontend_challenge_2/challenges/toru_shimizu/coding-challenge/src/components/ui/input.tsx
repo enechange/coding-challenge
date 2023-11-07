@@ -1,4 +1,5 @@
 import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import { ErrorMessage } from "./error-message";
 import styles from "./input.module.scss";
 import { Label } from "./label";
 
@@ -23,6 +24,9 @@ export const Input = forwardRef<HTMLInputElement, ChildProps>(
         </div>
         {error === undefined && typeof attention === "string" && (
           <p className={styles.attention}>{attention}</p>
+        )}
+        {error !== undefined && typeof error === "string" && (
+          <ErrorMessage error={error} />
         )}
       </div>
     );

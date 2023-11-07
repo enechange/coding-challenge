@@ -1,8 +1,9 @@
 import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import { ErrorMessage } from "./error-message";
 import { Label } from "./label";
 import styles from "./select.module.scss";
 
-interface Props {
+type Props = {
   attention?: string;
   name: string;
   options: string[];
@@ -40,6 +41,9 @@ export const Select = forwardRef<HTMLSelectElement, ChildProps>(
         </select>
         {!existsOptions && attention !== "" && (
           <p className={styles.attention}>{attention}</p>
+        )}
+        {existsOptions && typeof error === "string" && (
+          <ErrorMessage error={error} />
         )}
       </div>
     );

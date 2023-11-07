@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { Capacity } from "../features/capacity";
 import { Plan } from "../features/plan";
@@ -6,7 +7,7 @@ import { FormContent } from "./form-content";
 import styles from "./form.module.scss";
 import { Input } from "./input";
 import { Select } from "./select";
-
+import { formSchema } from "@/src/schema/form";
 type FormValue = {
   postalCode: string;
   company: string;
@@ -18,9 +19,14 @@ type FormValue = {
 
 export const Form = () => {
   const methods = useForm<FormValue>({
+    resolver: zodResolver(formSchema),
     mode: "onChange",
   });
-  const { register, handleSubmit } = methods;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
 
   // TODO: 送信処理
   const onSubmit: SubmitHandler<FormValue> = (data) => {
@@ -42,6 +48,7 @@ export const Form = () => {
                 options={[]}
                 label="電力会社"
                 attention="※郵便番号入力後に選択できます"
+                error={errors.company?.message}
                 {...register("company")}
               />
             </div>
@@ -54,12 +61,20 @@ export const Form = () => {
           </div>
         </FormContent>
         <FormContent title="現在の電気の使用状況について教えてください">
-          <Input label="先月の電気代は？" {...register("price")}>
+          <Input
+            label="先月の電気代は？"
+            error={errors.price?.message}
+            {...register("price")}
+          >
             <p>円</p>
           </Input>
         </FormContent>
         <FormContent title="メールアドレスを入力してください">
-          <Input label="メールアドレス" {...register("email")} />
+          <Input
+            label="メールアドレス"
+            error={errors.email?.message}
+            {...register("email")}
+          />
         </FormContent>
         <div className={styles.buttonWrapper}>
           <button type="submit">

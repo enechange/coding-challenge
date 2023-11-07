@@ -1,6 +1,6 @@
 import styles from "./error-message.module.scss";
 
-interface Props {
+type Props = {
   error: string;
 }
 
