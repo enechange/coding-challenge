@@ -56,7 +56,7 @@ class PricesService
 
   # 本来はmodelにバリデーションを書くべきだが、今回はサービスクラスに書く
   def validate_params(params)
-    enabled_amperes = [10, 20, 30, 40, 50, 60]
+    enabled_amperes = [10, 15, 20, 30, 40, 50, 60]
     regex = /^[0-9]+$/
     errors = []
 
