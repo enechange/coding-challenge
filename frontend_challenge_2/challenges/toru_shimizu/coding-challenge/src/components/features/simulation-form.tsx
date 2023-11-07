@@ -27,9 +27,21 @@ export const SimulationForm = () => {
     formState: { errors },
   } = methods;
 
-  // TODO: 送信処理
+  // submit時にログを出力しておく
   const onSubmit: SubmitHandler<FormValue> = (data) => {
-    console.log(data);
+    const params = {
+      postalCode: data.postalCode,
+      company: data.company,
+      plan: data.plan,
+      price: data.price,
+      email: data.email,
+    };
+
+    if (data.plan === "従量電灯A" && data.company === "関西電力") {
+      console.log({ params });
+      return;
+    }
+    console.log({ ...params, capacity: data.capacity });
   };
 
   return (
