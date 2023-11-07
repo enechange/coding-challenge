@@ -3,6 +3,7 @@ import { Plan } from "../features/plan";
 import { PostalCode } from "../features/postal-code";
 import { FormContent } from "./form-content";
 import styles from "./form.module.scss";
+import { Input } from "./input";
 import { Select } from "./select";
 
 export const Form = () => {
@@ -30,6 +31,14 @@ export const Form = () => {
             <Capacity />
           </div>
         </div>
+      </FormContent>
+      <FormContent title="現在の電気の使用状況について教えてください">
+        <Input label="先月の電気代は？">
+          <p>円</p>
+        </Input>
+      </FormContent>
+      <FormContent title="メールアドレスを入力してください">
+        <Input label="メールアドレス" />
       </FormContent>
     </form>
   );
