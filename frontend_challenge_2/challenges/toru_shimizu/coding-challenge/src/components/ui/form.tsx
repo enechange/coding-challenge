@@ -40,6 +40,12 @@ export const Form = () => {
       <FormContent title="メールアドレスを入力してください">
         <Input label="メールアドレス" />
       </FormContent>
+      <div className={styles.buttonWrapper}>
+        <button type="submit">
+          結果を見る
+          <span className={styles.caret}></span>
+        </button>
+      </div>
     </form>
   );
 };
