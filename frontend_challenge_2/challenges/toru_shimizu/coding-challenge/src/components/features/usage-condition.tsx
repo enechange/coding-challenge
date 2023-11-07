@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai";
+import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { Select } from "../ui/select";
 import styles from "./usage-condition.module.scss";
@@ -10,13 +11,14 @@ export const UsageCondition = () => {
   const {
     register,
     formState: { errors },
-    getValues,
+    watch,
+    setValue,
   } = useFormContext();
 
+  const company = watch("company");
   const companies = useAtomValue(companiesAtom);
-  const company = getValues("company");
   const plans = getPlans(company);
-  const plan = getValues("plan");
+  const plan = watch("plan");
 
   const capacities = getCapacities({
     company,
@@ -24,6 +26,12 @@ export const UsageCondition = () => {
   });
 
   const enabledCapacity = !(plan === "従量電灯A" && company === "関西電力");
+
+  useEffect(() => {
+    if (!enabledCapacity) {
+      setValue("capacity", "");
+    }
+  }, [enabledCapacity, setValue]);
 
   return (
     <div className={styles.usageCondition}>
@@ -41,14 +49,19 @@ export const UsageCondition = () => {
         error={errors.plan?.message?.toString()}
         {...register("plan")}
       />
-      {enabledCapacity && (
+      {enabledCapacity ? (
         <Select
           options={capacities}
           label="容量"
           attention="※プラン選択後に選択できます"
-          error={errors.plan?.message?.toString()}
+          error={errors.capacity?.message?.toString()}
           {...register("capacity")}
         />
+      ) : (
+        <>
+          <p className={styles.label}>容量</p>
+          <p className={styles.text}>容量の選択は不要です</p>
+        </>
       )}
     </div>
   );
