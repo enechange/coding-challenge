@@ -3,19 +3,10 @@
 .form {
   display: grid;
   gap: 32px;
-  .content {
-    display: grid;
-    gap: 8px;
-  }
-  .usageCondition {
-    display: grid;
-    gap: 20px;
-  }
 }
 .buttonWrapper {
   padding: 32px 20px 32px 20px;
   background-color: $white;
-  
 
   button {
     display: grid;

@@ -1,15 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAtomValue } from "jotai";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
-import { Capacity } from "../features/capacity";
-import { Plan } from "../features/plan";
 import { PostalCode } from "../features/postal-code";
-import { FormContent } from "./form-content";
-import styles from "./form.module.scss";
-import { Input } from "./input";
-import { Select } from "./select";
+import { FormContent } from "../ui/form-content";
+import { Input } from "../ui/input";
+import styles from "./simulation-form.module.scss";
+import { UsageCondition } from "./usage-condition";
 import { formSchema } from "@/src/schema/form";
-import { companiesAtom } from "@/src/states/options";
+
 type FormValue = {
   postalCode: string;
   company: string;
@@ -19,7 +16,7 @@ type FormValue = {
   email: string;
 };
 
-export const Form = () => {
+export const SimulationForm = () => {
   const methods = useForm<FormValue>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
@@ -28,14 +25,7 @@ export const Form = () => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = methods;
-
-  const companies = useAtomValue(companiesAtom);
-  const company = watch("company");
-  const plan = watch("plan");
-
-  const enabledCapacity = !(plan === "従量電灯A" && company === "関西電力");
 
   // TODO: 送信処理
   const onSubmit: SubmitHandler<FormValue> = (data) => {
@@ -46,30 +36,10 @@ export const Form = () => {
     <FormProvider {...methods}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <FormContent title="郵便番号を入力してください">
-          <div className={styles.content}>
-            <PostalCode />
-          </div>
+          <PostalCode />
         </FormContent>
         <FormContent title="電気のご使用状況について教えてください">
-          <div className={styles.usageCondition}>
-            <div className={styles.content}>
-              <Select
-                attention="※郵便番号入力後に選択できます"
-                error={errors.company?.message}
-                label="電力会社"
-                options={companies}
-                {...register("company")}
-              />
-            </div>
-            <div className={styles.content}>
-              <Plan companyName="company" />
-            </div>
-            {enabledCapacity && (
-              <div className={styles.content}>
-                <Capacity company={company} plan={plan} />
-              </div>
-            )}
-          </div>
+          <UsageCondition />
         </FormContent>
         <FormContent title="現在の電気の使用状況について教えてください">
           <Input

@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Form } from "../components/ui/form";
+import { SimulationForm } from "../components/features/simulation-form";
 import styles from "@/styles/Home.module.scss";
 
 export default function Home() {
@@ -25,7 +25,7 @@ export default function Home() {
           </p>
         </header>
         <div className={styles.container}>
-          <Form />
+          <SimulationForm />
         </div>
       </main>
     </>
