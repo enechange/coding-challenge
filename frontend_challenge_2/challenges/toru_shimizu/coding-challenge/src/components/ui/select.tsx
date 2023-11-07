@@ -9,7 +9,7 @@ type Props = {
   options: string[];
   label: string;
   error?: string;
-}
+};
 
 type ChildProps = ComponentPropsWithoutRef<"select"> & Props;
 

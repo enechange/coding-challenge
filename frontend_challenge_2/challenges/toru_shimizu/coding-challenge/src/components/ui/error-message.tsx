@@ -2,7 +2,7 @@ import styles from "./error-message.module.scss";
 
 type Props = {
   error: string;
-}
+};
 
 export const ErrorMessage = ({ error }: Props) => {
   return (
