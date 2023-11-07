@@ -1,7 +1,9 @@
 @use "../../styles/index" as *;
 
 .title {
-    padding: 8px 16px;
-    font-size: 14px;
-    border-left: 4px solid $medium-yellow;
+    h2 {
+        padding: 8px 16px;
+        font-size: 16px;
+        border-left: 4px solid $medium-yellow;
+    }
 }

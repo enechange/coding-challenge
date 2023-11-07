@@ -2,7 +2,6 @@ import { z } from "zod";
 
 const MIN_PRICE = 1000;
 const POSTAL_CODE_REGEX = /^[1,5]/;
-
 export const formSchema = z.object({
   postalCode: z
     .string()
@@ -21,7 +20,7 @@ export const formSchema = z.object({
     .string()
     .min(1, { message: "電気代を入力してください。" })
     .refine((value) => Number(value) >= MIN_PRICE, {
-      message: "電気代を1000円以上で入力してください。",
+      message: "電気代は1000円以上で入力してください。",
     }),
   email: z
     .string()

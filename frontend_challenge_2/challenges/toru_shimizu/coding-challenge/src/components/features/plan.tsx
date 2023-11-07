@@ -1,20 +1,25 @@
 import { useFormContext } from "react-hook-form";
 import { Select } from "../ui/select";
+import { getPlans } from "@/src/utils/get-plans";
 
-type Props = {};
+type Props = {
+  companyName: string;
+};
 
-const DUMMY_OPTIONS = ["A", "B", "C"];
-
-export const Plan = () => {
+export const Plan = ({ companyName }: Props) => {
   const {
     register,
     formState: { errors },
+    getValues,
   } = useFormContext();
+
+  const company = getValues(companyName);
+  const plans = getPlans(company);
 
   return (
     <Select
       label="プラン"
-      options={DUMMY_OPTIONS}
+      options={plans}
       attention="※電力会社選択後に選択できます"
       error={errors.plan?.message?.toString()}
       {...register("plan")}

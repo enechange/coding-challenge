@@ -1,11 +1,25 @@
+import { useSetAtom } from "jotai";
+import { useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 import { Input } from "../ui/input";
+import { companiesAtom } from "@/src/states/options";
+import { getCompanies } from "@/src/utils/get-companies";
 
 export const PostalCode = () => {
+  const setCompanies = useSetAtom(companiesAtom);
+
   const {
     register,
     formState: { errors },
   } = useFormContext();
+
+  const onBlur = useCallback(
+    (event: React.FocusEvent<HTMLInputElement>) => {
+      const companies = getCompanies(event.target.value);
+      setCompanies(companies);
+    },
+    [setCompanies],
+  );
 
   return (
     <Input
@@ -15,6 +29,7 @@ export const PostalCode = () => {
       attention="例) 1040031"
       error={errors.postalCode?.message?.toString()}
       {...register("postalCode")}
+      onBlur={onBlur}
     />
   );
 };

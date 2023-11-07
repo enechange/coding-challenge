@@ -1,19 +1,26 @@
 import { useFormContext } from "react-hook-form";
 import { Select } from "../ui/select";
+import { getCapacities } from "@/src/utils/get-capacities";
 
-type Props = {};
+type Props = {
+  company: string;
+  plan: string;
+};
 
-const DUMMY_CAPACITIES = ["10", "20", "30"];
-
-export const Capacity = () => {
+export const Capacity = ({ company, plan }: Props) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
+  const capacities = getCapacities({
+    company,
+    plan,
+  });
+
   return (
     <Select
-      options={DUMMY_CAPACITIES}
+      options={capacities}
       label="容量"
       attention="※プラン選択後に選択できます"
       error={errors.plan?.message?.toString()}

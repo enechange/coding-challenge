@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAtomValue } from "jotai";
 import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { Capacity } from "../features/capacity";
 import { Plan } from "../features/plan";
@@ -8,6 +9,7 @@ import styles from "./form.module.scss";
 import { Input } from "./input";
 import { Select } from "./select";
 import { formSchema } from "@/src/schema/form";
+import { companiesAtom } from "@/src/states/options";
 type FormValue = {
   postalCode: string;
   company: string;
@@ -26,7 +28,14 @@ export const Form = () => {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = methods;
+
+  const companies = useAtomValue(companiesAtom);
+  const company = watch("company");
+  const plan = watch("plan");
+
+  const enabledCapacity = !(plan === "従量電灯A" && company === "関西電力");
 
   // TODO: 送信処理
   const onSubmit: SubmitHandler<FormValue> = (data) => {
@@ -45,19 +54,21 @@ export const Form = () => {
           <div className={styles.usageCondition}>
             <div className={styles.content}>
               <Select
-                options={[]}
-                label="電力会社"
                 attention="※郵便番号入力後に選択できます"
                 error={errors.company?.message}
+                label="電力会社"
+                options={companies}
                 {...register("company")}
               />
             </div>
             <div className={styles.content}>
-              <Plan />
+              <Plan companyName="company" />
             </div>
-            <div className={styles.content}>
-              <Capacity />
-            </div>
+            {enabledCapacity && (
+              <div className={styles.content}>
+                <Capacity company={company} plan={plan} />
+              </div>
+            )}
           </div>
         </FormContent>
         <FormContent title="現在の電気の使用状況について教えてください">
