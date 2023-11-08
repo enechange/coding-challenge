@@ -8,6 +8,9 @@
   padding: 32px 20px 32px 20px;
   background-color: $white;
 
+  @media screen and (min-width: 768px) {
+    padding: 20px 240px;
+  }
   button {
     display: grid;
     grid-template-columns: 1fr auto;
