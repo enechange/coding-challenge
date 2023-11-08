@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root to: 'prices#index'
+  root to: 'site#index'
 
   namespace :api do
     resources :prices, only: [:index]
