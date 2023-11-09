@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prepare": "cd ../../.. && husky install frontend_challenge_2/challenges/k-taro56/.husky",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -19,6 +20,8 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
     "typescript": "^5"
   }
