@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prepare": "husky install",
+    "prepare": "cd ../../.. && husky install frontend_challenge_2/challenges/k-taro56/.husky",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
