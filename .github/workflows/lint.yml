@@ -43,3 +43,7 @@ jobs:
       - name: Lint
         run: pnpm lint
         working-directory: frontend_challenge_2/challenges/k-taro56
+
+      - name: Check Formatting
+        run: pnpm prettier --check .
+        working-directory: frontend_challenge_2/challenges/k-taro56
