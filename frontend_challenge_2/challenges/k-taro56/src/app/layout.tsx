@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: '電気料金シミュレーション',
-  description: '電気代からかんたんシミュレーション。検針票を用意しなくても OK いくらおトクになるのか今すぐわかります！',
+  description:
+    '電気代からかんたんシミュレーション。検針票を用意しなくても OK いくらおトクになるのか今すぐわかります！',
 };
 
 export default function RootLayout({
