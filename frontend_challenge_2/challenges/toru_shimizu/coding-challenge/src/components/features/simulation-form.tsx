@@ -36,7 +36,7 @@ export const SimulationForm = () => {
   return (
     <FormProvider {...methods}>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <FormContent title="郵便番号を入力してください">
+        <FormContent title="郵便番号をご入力ください">
           <PostalCode />
         </FormContent>
         <FormContent title="電気のご使用状況について教えてください">
