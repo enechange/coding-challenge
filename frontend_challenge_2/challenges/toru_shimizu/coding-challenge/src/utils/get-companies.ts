@@ -1,5 +1,5 @@
-const TOKYO_AREA_REGEX = /^[1]/;
-const KANSAI_AREA_REGEX = /^[5]/;
+const TOKYO_AREA_REGEX = /^1\d{6}$/;
+const KANSAI_AREA_REGEX = /^5\d{6}$/;
 
 /**
  * 電力会社のリストを返す。先頭が1の場合は東京電力、先頭が5の場合は関西電力、それ以外は空配列を返す

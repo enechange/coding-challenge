@@ -7,6 +7,7 @@ export const formSchema = z
     postalCode: z
       .string()
       .min(1, { message: "郵便番号を入力してください。" })
+      .length(7, { message: "郵便番号は7桁で入力してください。" })
       .regex(/\d/, { message: "半角数字で入力してください。" })
       .regex(POSTAL_CODE_REGEX, { message: "サービスエリア対象外です。" }),
     company: z
