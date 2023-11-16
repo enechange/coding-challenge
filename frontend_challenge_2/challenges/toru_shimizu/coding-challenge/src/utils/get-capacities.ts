@@ -11,7 +11,7 @@ import { Company, Plan } from "../types/simulator";
  * createRanges({min: 6, max: 49, range:1, unit:'kVA'}); // => ["6kVA", "7kVA", "8kVA" ... "49kVA""]
  * createRanges({min: 10, max: 60, range:10, unit:'A'}); // => ["10A", "20A", "30A" ... "60A""]
  */
-const createRanges = ({
+export const createRanges = ({
   min,
   max,
   range,
