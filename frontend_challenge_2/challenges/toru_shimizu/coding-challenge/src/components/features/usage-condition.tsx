@@ -36,7 +36,7 @@ export const UsageCondition = () => {
   return (
     <div className={styles.usageCondition}>
       <Select
-        attention="※郵便番号入力後に選択できます"
+        attention="郵便番号入力後に選択できます"
         error={errors.company?.message?.toString()}
         label="電力会社"
         options={companies}
@@ -45,7 +45,7 @@ export const UsageCondition = () => {
       <Select
         label="プラン"
         options={plans}
-        attention="※電力会社選択後に選択できます"
+        attention="電力会社選択後に選択できます"
         error={errors.plan?.message?.toString()}
         {...register("plan")}
       />
@@ -53,7 +53,7 @@ export const UsageCondition = () => {
         <Select
           options={capacities}
           label="容量"
-          attention="※プラン選択後に選択できます"
+          attention="プラン選択後に選択できます"
           error={errors.capacity?.message?.toString()}
           {...register("capacity")}
         />

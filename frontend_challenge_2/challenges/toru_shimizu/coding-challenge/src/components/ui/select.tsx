@@ -1,4 +1,5 @@
 import { forwardRef, type ComponentPropsWithoutRef } from "react";
+import { Attention } from "./attention";
 import { ErrorMessage } from "./error-message";
 import { Label } from "./label";
 import styles from "./select.module.scss";
@@ -20,27 +21,29 @@ export const Select = forwardRef<HTMLSelectElement, ChildProps>(
     return (
       <div className={styles.selectWrapper}>
         <Label name={props.name}>{label}</Label>
-        <select
-          id={props.name}
-          className={`${styles.select} ${
-            !existsOptions ? styles.disabled : ""
-          }`}
-          {...props}
-          ref={ref}
-        >
-          {existsOptions ? (
-            <>
-              <option value="">{label}を選択してください</option>
-              {options.map((option) => (
-                <option key={option}>{option}</option>
-              ))}
-            </>
-          ) : (
-            <option value="">選択できる{label}がありません</option>
-          )}
-        </select>
+        <div>
+          <select
+            id={props.name}
+            className={`${styles.select} ${
+              !existsOptions ? styles.disabled : ""
+            }`}
+            {...props}
+            ref={ref}
+          >
+            {existsOptions ? (
+              <>
+                <option value="">{label}を選択してください</option>
+                {options.map((option) => (
+                  <option key={option}>{option}</option>
+                ))}
+              </>
+            ) : (
+              <option value="">選択できる{label}がありません</option>
+            )}
+          </select>
+          {attention && <Attention text={attention} />}
+        </div>
         {existsOptions && error && <ErrorMessage error={error} />}
-        {attention && <p className={styles.attention}>{attention}</p>}
       </div>
     );
   },

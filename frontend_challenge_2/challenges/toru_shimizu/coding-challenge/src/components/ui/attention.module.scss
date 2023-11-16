@@ -1,0 +1,10 @@
+@use "../../styles/index" as *;
+
+.attention {
+  background-color: $light-grey;
+  margin-top:2px;
+  border-radius: 0 0 2px 2px;
+  padding:4px 8px;
+  font-size:$text-xs;
+  color:$text-grey;
+}
