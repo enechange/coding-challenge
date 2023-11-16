@@ -52,7 +52,7 @@ jobs:
         run: pnpm install --frozen-lockfile
         working-directory: frontend_challenge_2/challenges/k-taro56
 
-      - name: Build and Export
+      - name: Build
         env:
           REPO_NAME: ${{ env.REPO_NAME }}
         run: |
@@ -63,4 +63,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          publish_dir: ./frontend_challenge_2/challenges/k-taro56/out
