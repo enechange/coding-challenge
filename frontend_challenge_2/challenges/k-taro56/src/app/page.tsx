@@ -1,95 +1,192 @@
-import Image from 'next/image';
-import styles from './page.module.css';
+'use client';
 
-export default function Home() {
+import { useState } from 'react';
+import styled from '@emotion/styled';
+
+const Container = styled.div`
+  min-height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (min-width: 640px) { /* sm */
+    max-width: 640px;
+  }
+
+  @media (min-width: 768px) { /* md */
+    max-width: 768px;
+  }
+
+  @media (min-width: 1024px) { /* lg */
+    max-width: 1024px;
+  }
+
+  @media (min-width: 1280px) { /* xl */
+    max-width: 1280px;
+  }
+
+  @media (min-width: 1536px) { /* 2xl */
+    max-width: 1536px;
+  }
+
+  align-items: center;
+  justify-content: center;
+  @media (min-width: 640px) {
+    padding-top: 0px;
+    padding-bottom: 3rem;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    padding-top: 0px;
+    padding-bottom: 3rem;
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+  .dark & {
+    background-color: #1a202c;F
+  }
+`;
+
+const Title = styled.h1`
+  color: #333;
+  text-align: center;
+`;
+
+const SubTitle = styled.h2`
+  color: #666;
+  text-align: center;
+`;
+
+const InputGroup = styled.div`
+  margin-bottom: 20px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+`;
+
+const CheckboxLabel = styled.label`
+  display: flex;
+  align-items: center;
+  color: #666;
+`;
+
+const Checkbox = styled.input`
+  margin-right: 10px;
+`;
+
+const Button = styled.button`
+  width: 100%;
+  padding: 15px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+
+const Home = () => {
+  const [postalCode, setPostalCode] = useState('');
+  const [isTokyoEnergyPartner, setIsTokyoEnergyPartner] = useState(true);
+  const [isTodenETC, setIsTodenETC] = useState(true);
+  const [contractCapacity, setContractCapacity] = useState('');
+  const [currentUsage, setCurrentUsage] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log({
+      postalCode,
+      isTokyoEnergyPartner,
+      isTodenETC,
+      contractCapacity,
+      currentUsage,
+    });
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href='https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            By{' '}
-            <Image
-              src='/vercel.svg'
-              alt='Vercel Logo'
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+    <Container>
+      <Title>
+        電気代から
+        <br />
+        かんたんシミュレーション
+      </Title>
+      <SubTitle>
+        検針票を用意しなくても OK
+        <br />
+        いくらおトクになるのか今すぐわかります！
+      </SubTitle>
+      <form onSubmit={handleSubmit}>
+        <InputGroup>
+          <Label>電気を使用する場所の郵便番号</Label>
+          <Input
+            type='text'
+            placeholder='130 - 0012'
+            value={postalCode}
+            onChange={(e) => setPostalCode(e.target.value)}
+          />
+        </InputGroup>
+
+        <InputGroup>
+          <CheckboxLabel>
+            <Checkbox
+              type='checkbox'
+              checked={isTokyoEnergyPartner}
+              onChange={(e) => setIsTokyoEnergyPartner(e.target.checked)}
             />
-          </a>
-        </div>
-      </div>
+            東京電力エナジーパートナー
+          </CheckboxLabel>
+        </InputGroup>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src='/next.svg'
-          alt='Next.js Logo'
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <InputGroup>
+          <CheckboxLabel>
+            <Checkbox
+              type='checkbox'
+              checked={isTodenETC}
+              onChange={(e) => setIsTodenETC(e.target.checked)}
+            />
+            東電eネ!TC
+          </CheckboxLabel>
+        </InputGroup>
 
-      <div className={styles.grid}>
-        <a
-          href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+        <InputGroup>
+          <Label>契約容量</Label>
+          <Input
+            type='text'
+            placeholder='49kVA'
+            value={contractCapacity}
+            onChange={(e) => setContractCapacity(e.target.value)}
+          />
+        </InputGroup>
 
-        <a
-          href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
+        <InputGroup>
+          <Label>現在の電気の使用状況について教えてください</Label>
+          <Input
+            type='text'
+            placeholder='5000'
+            value={currentUsage}
+            onChange={(e) => setCurrentUsage(e.target.value)}
+          />
+        </InputGroup>
 
-        <a
-          href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-          className={styles.card}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <Button type='submit'>結果を見る</Button>
+      </form>
+    </Container>
   );
-}
+};
+
+export default Home;
