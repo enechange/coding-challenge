@@ -12,6 +12,7 @@ type Props = {
   label: string;
   error?: string;
   inputmode?: HTMLAttributes<HTMLInputElement>["inputMode"];
+  placeholder?: string
   children?: React.ReactNode;
 };
 
@@ -26,6 +27,7 @@ export const Input = forwardRef<HTMLInputElement, ChildProps>(
       error,
       inputmode = "text",
       children,
+      placeholder,
       ...props
     },
     ref,
@@ -34,10 +36,9 @@ export const Input = forwardRef<HTMLInputElement, ChildProps>(
       <div className={styles.inputWrapper}>
         <Label name={props.name}>{label}</Label>
         <div className={styles.input}>
-          <input id={props.name} inputMode={inputmode} {...props} ref={ref} />
+          <input id={props.name} inputMode={inputmode} placeholder={placeholder} {...props} ref={ref} />
           {children}
         </div>
-        {attention && <p className={styles.attention}>{attention}</p>}
         {error && <ErrorMessage error={error} />}
       </div>
     );
