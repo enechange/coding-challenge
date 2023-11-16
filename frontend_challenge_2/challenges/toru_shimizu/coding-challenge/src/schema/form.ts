@@ -21,7 +21,7 @@ export const formSchema = z
       .string()
       .min(1, { message: "電気代を入力してください。" })
       .refine((value) => Number(value) >= MIN_PRICE, {
-        message: "電気代は1000円以上で入力してください。",
+        message: `電気代は${MIN_PRICE}円以上で入力してください。`,
       }),
     email: z
       .string()
