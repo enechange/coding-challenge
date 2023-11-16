@@ -10,9 +10,9 @@
   gap: 12px;
   background-color: $background;
   h1 {
-    font-size: 18px;
+    font-size: $text-lg;
   }
   p {
-    font-size: 14px;
+    font-size: $text-sm;
   }
 }

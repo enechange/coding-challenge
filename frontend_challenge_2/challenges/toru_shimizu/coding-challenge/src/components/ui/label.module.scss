@@ -1,7 +1,7 @@
 @use "../../styles/index" as *;
 
 .label {
-  font-size: 14px;
+  font-size: $text-sm;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 8px;
@@ -10,7 +10,7 @@
   .required {
     padding: 2px 4px;
     color: $white;
-    font-size: 8px;
+    font-size: $text-xxs;
     background-color: $required;
     letter-spacing: 2px;
   }

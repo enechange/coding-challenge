@@ -1,11 +1,13 @@
+@use "../../styles/index" as *;
+
 .usageCondition {
   display: grid;
   gap: 20px;
   .label {
     font-weight: bold;
-    font-size: 14px;
+    font-size: $text-sm;
   }
   .text {
-    font-size: 12px;
+    font-size: $text-xs;
   }
 }
