@@ -23,10 +23,11 @@ export const PostalCode = () => {
 
   return (
     <Input
-      type="numeric"
+      type="number"
       label="電気を使用する場所の郵便番号"
       maxLength={7}
       attention="例) 1040031"
+      inputmode="numeric"
       error={errors.postalCode?.message?.toString()}
       {...register("postalCode")}
       onBlur={onBlur}

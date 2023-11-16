@@ -43,8 +43,10 @@ export const SimulationForm = () => {
         </FormContent>
         <FormContent title="現在の電気の使用状況について教えてください">
           <Input
+            type="number"
             label="先月の電気代は？"
             error={errors.price?.message}
+            inputmode="numeric"
             {...register("price")}
           >
             <p>円</p>
