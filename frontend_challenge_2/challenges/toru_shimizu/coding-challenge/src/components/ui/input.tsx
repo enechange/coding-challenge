@@ -5,7 +5,6 @@ import { Label } from "./label";
 
 type Props = {
   attention?: string;
-  type?: string;
   label: string;
   error?: string;
   children?: React.ReactNode;
