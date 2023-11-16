@@ -1,3 +1,5 @@
+import { Company } from "../types/simulator";
+
 /**
  * 選択可能なプラン一覧を返す
  * @param company 電力会社
@@ -6,7 +8,7 @@
  * getPlans("東京電力"); // => ["従量電灯B", "従量電灯C"]
  * getPlans("関西電力"); // => ["従量電灯A", "従量電灯B"]
  */
-export const getPlans = (company: string): string[] => {
+export const getPlans = (company: Company): string[] => {
   const defaultOptions = ["従量電灯B"];
 
   switch (company) {

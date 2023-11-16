@@ -1,3 +1,5 @@
+import { Company, Plan } from "../types/simulator";
+
 /**
  *
  * @param min 最小値
@@ -40,8 +42,8 @@ export const getCapacities = ({
   company,
   plan,
 }: {
-  company: string;
-  plan: string;
+  company: Company;
+  plan: Plan;
 }): string[] => {
   switch (company) {
     case "東京電力": {

@@ -6,11 +6,12 @@ import { Input } from "../ui/input";
 import styles from "./simulation-form.module.scss";
 import { UsageCondition } from "./usage-condition";
 import { formSchema } from "@/src/schema/form";
+import { Company, Plan } from "@/src/types/simulator";
 
 type FormValue = {
   postalCode: string;
-  company: string;
-  plan: string;
+  company: Company;
+  plan: Plan;
   capacity: string;
   price: string;
   email: string;
