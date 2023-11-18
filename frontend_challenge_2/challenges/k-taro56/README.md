@@ -1,6 +1,7 @@
 [![Lint](https://github.com/k-taro56/coding-challenge/actions/workflows/lint.yml/badge.svg)](https://github.com/k-taro56/coding-challenge/actions/workflows/lint.yml)
 [![CodeQL](https://github.com/k-taro56/coding-challenge/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/k-taro56/coding-challenge/actions/workflows/github-code-scanning/codeql)
 [![Build and Deploy](https://github.com/k-taro56/coding-challenge/actions/workflows/gh-pages.yml/badge.svg)](https://github.com/k-taro56/coding-challenge/actions/workflows/gh-pages.yml)
+[![codecov](https://codecov.io/gh/k-taro56/coding-challenge/graph/badge.svg?token=HZICYBY4NH)](https://codecov.io/gh/k-taro56/coding-challenge)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
