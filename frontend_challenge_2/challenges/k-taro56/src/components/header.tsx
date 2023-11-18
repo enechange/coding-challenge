@@ -10,14 +10,6 @@ const HeaderStyle = styled.header`
   text-align: center;
 `;
 
-const Title = styled.h1`
-  color: #333;
-`;
-
-const SubTitle = styled.p`
-  color: #666;
-`;
-
 const MultiLineText = ({ text }: { text: string }) =>
   text.split('\\n').map((line, i) => (
     <span key={i}>
@@ -28,12 +20,12 @@ const MultiLineText = ({ text }: { text: string }) =>
 
 const Header = ({ title, subTitle }: HeaderProps) => (
   <HeaderStyle>
-    <Title>
+    <h1>
       <MultiLineText text={title} />
-    </Title>
-    <SubTitle>
+    </h1>
+    <p>
       <MultiLineText text={subTitle} />
-    </SubTitle>
+    </p>
   </HeaderStyle>
 );
 
