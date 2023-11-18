@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import styled from '@emotion/styled';
 
+import Header from '@/components/header';
+
 const Container = styled.div`
   min-height: 100vh;
   margin-left: auto;
@@ -120,16 +122,10 @@ const Home = () => {
 
   return (
     <Container>
-      <Title>
-        電気代から
-        <br />
-        かんたんシミュレーション
-      </Title>
-      <SubTitle>
-        検針票を用意しなくても OK
-        <br />
-        いくらおトクになるのか今すぐわかります！
-      </SubTitle>
+      <Header
+        title='電気代から\nかんたんシミュレーション'
+        subTitle='検針票を用意しなくても OK\nいくらおトクになるのか今すぐわかります！'
+      />
       <form onSubmit={handleSubmit}>
         <InputGroup>
           <Label>電気を使用する場所の郵便番号</Label>
