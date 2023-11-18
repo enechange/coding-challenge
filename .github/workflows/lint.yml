@@ -47,3 +47,7 @@ jobs:
       - name: Check Formatting
         run: pnpm prettier --check .
         working-directory: frontend_challenge_2/challenges/k-taro56
+
+      - name: Run tests with coverage
+        run: pnpm test:ci
+        working-directory: frontend_challenge_2/challenges/k-taro56
