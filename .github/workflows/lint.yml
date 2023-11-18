@@ -51,3 +51,12 @@ jobs:
       - name: Run tests with coverage
         run: pnpm test:ci
         working-directory: frontend_challenge_2/challenges/k-taro56
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./frontend_challenge_2/challenges/k-taro56/coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: true
