@@ -1,0 +1,63 @@
+'use client';
+
+import React, { useState } from 'react';
+
+import { FormGroupElementProps } from '@/types/form-grroups-element-props';
+import PostCodeForm from '../form-components/post-code';
+
+interface PostCodeFormContainerProps extends FormGroupElementProps {
+  required: boolean;
+  label: string;
+  postCode: string;
+  setPostCode: (postCode: string) => void;
+}
+
+export const formatPostCode = (value: string) => {
+  if (value.length <= 3) {
+    return value;
+  }
+  return value.slice(0, 3) + ' ' + value.slice(3);
+};
+
+export const validatePostCode = (value: string) => {
+  const regex = /^\d{7}$/;
+  return regex.test(value);
+};
+
+const FormatPostCodeContainer = ({
+  required,
+  label,
+  postCode,
+  setPostCode,
+}: PostCodeFormContainerProps) => {
+  const [inputValue, setInputValue] = useState(
+    formatPostCode(postCode?.toString() || ''),
+  );
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^0-9]/g, '');
+    if (7 < value.length) {
+      return;
+    }
+    setInputValue(formatPostCode(value));
+    if (!validatePostCode(value)) {
+      setErrorMessage('郵便番号を正しく入力してください');
+    } else {
+      setErrorMessage('');
+      setPostCode(value);
+    }
+  };
+
+  return (
+    <PostCodeForm
+      required={required}
+      label={label}
+      inputValue={inputValue}
+      errorMessage={errorMessage}
+      handleInputChange={handleInputChange}
+    />
+  );
+};
+
+export default FormatPostCodeContainer;
