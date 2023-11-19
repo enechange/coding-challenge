@@ -4,34 +4,42 @@ import { useState } from 'react';
 import styled from '@emotion/styled';
 
 import Header from '@/components/header';
+import FormGroups from '@/components/form-groups';
+import PostCodeForm from '@/components/form-containers/post-code';
 
 const Container = styled.div`
   min-height: 100vh;
   margin-left: auto;
   margin-right: auto;
 
-  @media (min-width: 640px) { /* sm */
+  @media (min-width: 640px) {
+    /* sm */
     max-width: 640px;
   }
 
-  @media (min-width: 768px) { /* md */
+  @media (min-width: 768px) {
+    /* md */
     max-width: 768px;
   }
 
-  @media (min-width: 1024px) { /* lg */
+  @media (min-width: 1024px) {
+    /* lg */
     max-width: 1024px;
   }
 
-  @media (min-width: 1280px) { /* xl */
+  @media (min-width: 1280px) {
+    /* xl */
     max-width: 1280px;
   }
 
-  @media (min-width: 1536px) { /* 2xl */
+  @media (min-width: 1536px) {
+    /* 2xl */
     max-width: 1536px;
   }
 
   align-items: center;
   justify-content: center;
+
   @media (min-width: 640px) {
     padding-top: 0px;
     padding-bottom: 3rem;
@@ -44,48 +52,6 @@ const Container = styled.div`
     padding-right: 2rem;
     padding-left: 2rem;
   }
-  .dark & {
-    background-color: #1a202c;F
-  }
-`;
-
-const Title = styled.h1`
-  color: #333;
-  text-align: center;
-`;
-
-const SubTitle = styled.h2`
-  color: #666;
-  text-align: center;
-`;
-
-const InputGroup = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: 5px;
-  color: #666;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 5px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-sizing: border-box;
-`;
-
-const CheckboxLabel = styled.label`
-  display: flex;
-  align-items: center;
-  color: #666;
-`;
-
-const Checkbox = styled.input`
-  margin-right: 10px;
 `;
 
 const Button = styled.button`
@@ -103,7 +69,7 @@ const Button = styled.button`
 `;
 
 const Home = () => {
-  const [postalCode, setPostalCode] = useState('');
+  const [postCode, setPostCode] = useState('');
   const [isTokyoEnergyPartner, setIsTokyoEnergyPartner] = useState(true);
   const [isTodenETC, setIsTodenETC] = useState(true);
   const [contractCapacity, setContractCapacity] = useState('');
@@ -112,7 +78,7 @@ const Home = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log({
-      postalCode,
+      postalCode: postCode,
       isTokyoEnergyPartner,
       isTodenETC,
       contractCapacity,
@@ -127,57 +93,18 @@ const Home = () => {
         subTitle='検針票を用意しなくても OK\nいくらおトクになるのか今すぐわかります！'
       />
       <form onSubmit={handleSubmit}>
-        <InputGroup>
-          <Label>電気を使用する場所の郵便番号</Label>
-          <Input
-            type='text'
-            placeholder='130 - 0012'
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
+        <FormGroups label='郵便番号をご入力ください'>
+          <PostCodeForm
+            required
+            label='電気を使用する場所の郵便番号'
+            postCode={postCode}
+            setPostCode={setPostCode}
           />
-        </InputGroup>
+        </FormGroups>
 
-        <InputGroup>
-          <CheckboxLabel>
-            <Checkbox
-              type='checkbox'
-              checked={isTokyoEnergyPartner}
-              onChange={(e) => setIsTokyoEnergyPartner(e.target.checked)}
-            />
-            東京電力エナジーパートナー
-          </CheckboxLabel>
-        </InputGroup>
+        <FormGroups label='電気のご使用状況について教えてください'></FormGroups>
 
-        <InputGroup>
-          <CheckboxLabel>
-            <Checkbox
-              type='checkbox'
-              checked={isTodenETC}
-              onChange={(e) => setIsTodenETC(e.target.checked)}
-            />
-            東電eネ!TC
-          </CheckboxLabel>
-        </InputGroup>
-
-        <InputGroup>
-          <Label>契約容量</Label>
-          <Input
-            type='text'
-            placeholder='49kVA'
-            value={contractCapacity}
-            onChange={(e) => setContractCapacity(e.target.value)}
-          />
-        </InputGroup>
-
-        <InputGroup>
-          <Label>現在の電気の使用状況について教えてください</Label>
-          <Input
-            type='text'
-            placeholder='5000'
-            value={currentUsage}
-            onChange={(e) => setCurrentUsage(e.target.value)}
-          />
-        </InputGroup>
+        <FormGroups label='現在の電気の使用状況について教えてください'></FormGroups>
 
         <Button type='submit'>結果を見る</Button>
       </form>
