@@ -79,6 +79,18 @@ describe('FormatPostCodeContainer', () => {
     fireEvent.change(input, { target: { value: '123456' } });
 
     expect(getByText('郵便番号を正しく入力してください')).toBeInTheDocument();
+    expect(setPostCode).toHaveBeenCalledWith('');
+  });
+
+  it('should display an error message when the post code is more than 7 digits', () => {
+    const { getByLabelText } = render(
+      <FormatPostCodeContainer {...commonProps} />,
+    );
+    const input = getByLabelText('Post Code');
+
+    fireEvent.change(input, { target: { value: '12345678' } });
+
+    expect(setPostCode).toHaveBeenCalledWith('1234567');
   });
 
   it('should display an error message when the post code is not in the service area', () => {
@@ -90,5 +102,6 @@ describe('FormatPostCodeContainer', () => {
     fireEvent.change(input, { target: { value: '3234567' } });
 
     expect(getByText('サービスエリア対象外です')).toBeInTheDocument();
+    expect(setPostCode).toHaveBeenCalledWith('');
   });
 });
