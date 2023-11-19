@@ -41,14 +41,14 @@ const Container = styled.div`
   justify-content: center;
 
   @media (min-width: 640px) {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
     padding-right: 1.5rem;
     padding-left: 1.5rem;
   }
   @media (min-width: 1024px) {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
     padding-right: 2rem;
     padding-left: 2rem;
   }
