@@ -8,6 +8,11 @@ type HeaderProps = {
 
 const HeaderStyle = styled.header`
   text-align: center;
+  margin: 1.5rem;
+`;
+
+const Title = styled.h1`
+  font-size: 1.5rem;
 `;
 
 const MultiLineText = ({ text }: { text: string }) =>
@@ -20,12 +25,12 @@ const MultiLineText = ({ text }: { text: string }) =>
 
 const Header = ({ title, subTitle }: HeaderProps) => (
   <HeaderStyle>
-    <h1>
+    <Title>
       <MultiLineText text={title} />
-    </h1>
-    <p>
+    </Title>
+    <div>
       <MultiLineText text={subTitle} />
-    </p>
+    </div>
   </HeaderStyle>
 );
 
