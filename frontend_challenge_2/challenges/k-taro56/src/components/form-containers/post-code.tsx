@@ -36,9 +36,9 @@ const FormatPostCodeContainer = ({
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
+    let value = e.target.value.replace(/[^0-9]/g, '');
     if (7 < value.length) {
-      return;
+      value = value.slice(0, 7);
     }
     setInputValue(formatPostCode(value));
     if (!validatePostCode(value)) {
