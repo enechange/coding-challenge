@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import FormatPostCodeContainer, {
   formatPostCode,
+  PostCodeFormContainerProps,
   validatePostCode,
 } from '../../../src/components/form-containers/post-code';
 
@@ -30,19 +31,24 @@ describe('PostCode functions', () => {
 });
 
 describe('FormatPostCodeContainer', () => {
-  const setPostCode = jest.fn();
-  const commonProps = {
-    required: false,
-    label: 'Post Code',
-    postCode: '',
-    setPostCode,
-  };
+  let setPostCode: jest.Mock;
+  let commonProps: PostCodeFormContainerProps;
+
+  beforeEach(() => {
+    setPostCode = jest.fn();
+    commonProps = {
+      required: false,
+      label: 'Post Code',
+      postCode: '',
+      setPostCode,
+    };
+  });
 
   it('should render without crashing', () => {
     render(<FormatPostCodeContainer {...commonProps} />);
   });
 
-  it('should handle input change', () => {
+  it('should update post code when input changes (Tokyo area)', () => {
     const { getByLabelText } = render(
       <FormatPostCodeContainer {...commonProps} />,
     );
@@ -51,6 +57,17 @@ describe('FormatPostCodeContainer', () => {
     fireEvent.change(input, { target: { value: '1234567' } });
 
     expect(setPostCode).toHaveBeenCalledWith('1234567');
+  });
+
+  it('should update post code when input changes (Kansai area)', () => {
+    const { getByLabelText } = render(
+      <FormatPostCodeContainer {...commonProps} />,
+    );
+    const input = getByLabelText('Post Code');
+
+    fireEvent.change(input, { target: { value: '5234567' } });
+
+    expect(setPostCode).toHaveBeenCalledWith('5234567');
   });
 
   it('should display an error message when the post code is less than 7 digits', () => {
@@ -62,6 +79,7 @@ describe('FormatPostCodeContainer', () => {
     fireEvent.change(input, { target: { value: '123456' } });
 
     expect(getByText('郵便番号を正しく入力してください')).toBeInTheDocument();
+    expect(setPostCode).toHaveBeenCalledWith('');
   });
 
   it('should display an error message when the post code is more than 7 digits', () => {
@@ -73,5 +91,17 @@ describe('FormatPostCodeContainer', () => {
     fireEvent.change(input, { target: { value: '12345678' } });
 
     expect(setPostCode).toHaveBeenCalledWith('1234567');
+  });
+
+  it('should display an error message when the post code is not in the service area', () => {
+    const { getByLabelText, getByText } = render(
+      <FormatPostCodeContainer {...commonProps} />,
+    );
+    const input = getByLabelText('Post Code');
+
+    fireEvent.change(input, { target: { value: '3234567' } });
+
+    expect(getByText('サービスエリア対象外です')).toBeInTheDocument();
+    expect(setPostCode).toHaveBeenCalledWith('');
   });
 });

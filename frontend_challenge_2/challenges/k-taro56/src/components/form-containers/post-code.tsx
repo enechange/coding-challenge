@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { FormGroupElementProps } from '@/types/form-grroups-element-props';
 import PostCodeForm from '../form-components/post-code';
 
-interface PostCodeFormContainerProps extends FormGroupElementProps {
+export interface PostCodeFormContainerProps extends FormGroupElementProps {
   required: boolean;
   label: string;
   postCode: string;
@@ -36,17 +36,26 @@ const FormatPostCodeContainer = ({
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.replace(/[^0-9]/g, '');
+    let value = e.target.value.replace(/[^0-9]/g, '');
     if (7 < value.length) {
-      return;
+      value = value.slice(0, 7);
     }
     setInputValue(formatPostCode(value));
     if (!validatePostCode(value)) {
       setErrorMessage('郵便番号を正しく入力してください');
       setPostCode('');
     } else {
-      setErrorMessage('');
-      setPostCode(value);
+      switch (value[0]) {
+        case '1':
+        case '5':
+          setErrorMessage('');
+          setPostCode(value);
+          break;
+        default:
+          setErrorMessage('サービスエリア対象外です');
+          setPostCode('');
+          break;
+      }
     }
   };
 
