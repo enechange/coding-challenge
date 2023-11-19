@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { FormGroupElementProps } from '@/types/form-grroups-element-props';
 import PostCodeForm from '../form-components/post-code';
 
-interface PostCodeFormContainerProps extends FormGroupElementProps {
+export interface PostCodeFormContainerProps extends FormGroupElementProps {
   required: boolean;
   label: string;
   postCode: string;
