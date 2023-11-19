@@ -34,16 +34,17 @@ describe('FormatPostCodeContainer', () => {
   const commonProps = {
     required: false,
     label: 'Post Code',
+    postCode: '',
     setPostCode,
   };
 
   it('should render without crashing', () => {
-    render(<FormatPostCodeContainer {...commonProps} postCode='1234567' />);
+    render(<FormatPostCodeContainer {...commonProps} />);
   });
 
   it('should handle input change', () => {
     const { getByLabelText } = render(
-      <FormatPostCodeContainer {...commonProps} postCode='1234567' />,
+      <FormatPostCodeContainer {...commonProps} />,
     );
     const input = getByLabelText('Post Code');
 
@@ -54,7 +55,7 @@ describe('FormatPostCodeContainer', () => {
 
   it('should display error message for invalid post code', () => {
     const { getByLabelText, getByText } = render(
-      <FormatPostCodeContainer {...commonProps} postCode='123456' />,
+      <FormatPostCodeContainer {...commonProps} />,
     );
     const input = getByLabelText('Post Code');
 
