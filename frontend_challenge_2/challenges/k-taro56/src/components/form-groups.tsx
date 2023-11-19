@@ -40,7 +40,7 @@ const FormGroupChildContainer = styled.div`
 
 type FormGroupProps = {
   label: string;
-  children:
+  children?:
     | React.ReactElement<FormGroupElementProps>
     | React.ReactElement<FormGroupElementProps>[];
 };
