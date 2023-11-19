@@ -7,7 +7,10 @@
 :root {
   color: #444;
   background: #f8f8f8;
-  @media (prefers-color-scheme: dark) {
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
     color: #ccc;
     background: #282c34;
   }
