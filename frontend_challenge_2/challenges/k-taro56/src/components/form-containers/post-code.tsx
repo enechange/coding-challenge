@@ -43,6 +43,7 @@ const FormatPostCodeContainer = ({
     setInputValue(formatPostCode(value));
     if (!validatePostCode(value)) {
       setErrorMessage('郵便番号を正しく入力してください');
+      setPostCode('');
     } else {
       setErrorMessage('');
       setPostCode(value);
