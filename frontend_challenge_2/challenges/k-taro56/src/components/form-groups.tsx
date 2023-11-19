@@ -18,6 +18,9 @@ const FormGroupContainer = styled.div`
 
 const FormGroupRibbon = styled.div`
   background-color: #ed9b38;
+  @media (prefers-color-scheme: dark) {
+    background-color: #935d1d;
+  }
 `;
 
 const FormGroupLabel = styled.div`
