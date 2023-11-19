@@ -45,8 +45,17 @@ const FormatPostCodeContainer = ({
       setErrorMessage('郵便番号を正しく入力してください');
       setPostCode('');
     } else {
-      setErrorMessage('');
-      setPostCode(value);
+      switch (value[0]) {
+        case '1':
+        case '5':
+          setErrorMessage('');
+          setPostCode(value);
+          break;
+        default:
+          setErrorMessage('サービスエリア対象外です');
+          setPostCode('');
+          break;
+      }
     }
   };
 
