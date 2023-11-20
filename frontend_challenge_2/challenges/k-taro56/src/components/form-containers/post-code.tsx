@@ -9,7 +9,9 @@ export interface PostCodeFormContainerProps extends FormGroupElementProps {
   required: boolean;
   label: string;
   postCode: string;
-  setPostCode: (postCode: string) => void;
+  onPostCodeChange: (postCode: string) => void;
+  postCodeErrorMessage: string;
+  setPostCodeErrorMessage: (postCodeErrorMessage: string) => void;
 }
 
 export const formatPostCode = (value: string) => {
@@ -28,12 +30,13 @@ const FormatPostCodeContainer = ({
   required,
   label,
   postCode,
-  setPostCode,
+  onPostCodeChange,
+  postCodeErrorMessage,
+  setPostCodeErrorMessage,
 }: PostCodeFormContainerProps) => {
   const [inputValue, setInputValue] = useState(
     formatPostCode(postCode?.toString() || ''),
   );
-  const [errorMessage, setErrorMessage] = useState('');
 
   const onInputValueChange = (inputValue: string) => {
     let value = inputValue.replace(/[^0-9]/g, '');
@@ -42,20 +45,11 @@ const FormatPostCodeContainer = ({
     }
     setInputValue(formatPostCode(value));
     if (!validatePostCode(value)) {
-      setErrorMessage('郵便番号を正しく入力してください');
-      setPostCode('');
+      setPostCodeErrorMessage('郵便番号を正しく入力してください');
+      onPostCodeChange('');
     } else {
-      switch (value[0]) {
-        case '1':
-        case '5':
-          setErrorMessage('');
-          setPostCode(value);
-          break;
-        default:
-          setErrorMessage('サービスエリア対象外です');
-          setPostCode('');
-          break;
-      }
+      setPostCodeErrorMessage('');
+      onPostCodeChange(value);
     }
   };
 
@@ -64,7 +58,7 @@ const FormatPostCodeContainer = ({
       required={required}
       label={label}
       inputValue={inputValue}
-      errorMessage={errorMessage}
+      errorMessage={postCodeErrorMessage}
       onInputValueChange={onInputValueChange}
     />
   );
