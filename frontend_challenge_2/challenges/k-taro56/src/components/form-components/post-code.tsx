@@ -27,7 +27,7 @@ type PostCodeFormProps = {
   label: string;
   inputValue: string;
   errorMessage: string;
-  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onInputValueChange: (value: string) => void;
 };
 
 const PostCodeForm = ({
@@ -35,8 +35,12 @@ const PostCodeForm = ({
   label,
   inputValue,
   errorMessage,
-  handleInputChange,
+  onInputValueChange,
 }: PostCodeFormProps) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onInputValueChange(e.target.value);
+  };
+
   return (
     <FormBase required={required} label={label} errorMessage={errorMessage}>
       <PostCodeInput

@@ -10,7 +10,7 @@ describe('PostCodeForm', () => {
         label='Post Code'
         inputValue=''
         errorMessage=''
-        handleInputChange={() => {}}
+        onInputValueChange={() => {}}
       />,
     );
 
@@ -25,7 +25,7 @@ describe('PostCodeForm', () => {
         label='Post Code'
         inputValue=''
         errorMessage=''
-        handleInputChange={handleInputChange}
+        onInputValueChange={handleInputChange}
       />,
     );
 
@@ -42,7 +42,7 @@ describe('PostCodeForm', () => {
         label='Post Code'
         inputValue=''
         errorMessage='Invalid post code'
-        handleInputChange={() => {}}
+        onInputValueChange={() => {}}
       />,
     );
 

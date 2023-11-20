@@ -35,8 +35,8 @@ const FormatPostCodeContainer = ({
   );
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/[^0-9]/g, '');
+  const onInputValueChange = (inputValue: string) => {
+    let value = inputValue.replace(/[^0-9]/g, '');
     if (7 < value.length) {
       value = value.slice(0, 7);
     }
@@ -65,7 +65,7 @@ const FormatPostCodeContainer = ({
       label={label}
       inputValue={inputValue}
       errorMessage={errorMessage}
-      handleInputChange={handleInputChange}
+      onInputValueChange={onInputValueChange}
     />
   );
 };
