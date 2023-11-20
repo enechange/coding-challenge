@@ -8,7 +8,6 @@ import FormGroups from '@/components/form-groups';
 import PostCodeForm from '@/components/form-containers/post-code';
 
 const Container = styled.div`
-  min-height: 100vh;
   margin-left: auto;
   margin-right: auto;
 
