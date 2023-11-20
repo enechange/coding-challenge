@@ -19,11 +19,6 @@ const PostCodeInput = styled.input`
       box-shadow: inset 0 0 0.5rem #935d1d;
     }
   }
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
 `;
 
 type PostCodeFormProps = {
