@@ -25,6 +25,7 @@ const PostCodeInput = styled.input`
 type PostCodeFormProps = {
   required: boolean;
   label: string;
+  isVisible?: boolean;
   inputValue: string;
   errorMessage: string;
   onInputValueChange: (value: string) => void;
@@ -33,6 +34,7 @@ type PostCodeFormProps = {
 const PostCodeForm = ({
   required,
   label,
+  isVisible,
   inputValue,
   errorMessage,
   onInputValueChange,
@@ -42,10 +44,15 @@ const PostCodeForm = ({
   };
 
   return (
-    <FormBase required={required} label={label} errorMessage={errorMessage}>
+    <FormBase
+      required={required}
+      label={label}
+      isVisible={isVisible}
+      errorMessage={errorMessage}
+    >
       <PostCodeInput
         type='text'
-        pattern='\d*'
+        pattern='\d{3} \d{4}'
         required={required}
         placeholder='130 0012'
         value={inputValue}

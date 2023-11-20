@@ -42,14 +42,15 @@ const FormGroupChildContainer = styled.div`
 
 type FormGroupProps = {
   label: string;
+  isVisible?: boolean;
   children?:
     | React.ReactElement<FormGroupElementProps>
     | React.ReactElement<FormGroupElementProps>[];
 };
 
-const FormGroup = ({ label, children }: FormGroupProps) => {
+const FormGroup = ({ label, isVisible, children }: FormGroupProps) => {
   return (
-    <FormGroupContainer>
+    <FormGroupContainer hidden={!(isVisible ?? true)}>
       <FormGroupRibbon>
         <FormGroupLabel>{label}</FormGroupLabel>
       </FormGroupRibbon>

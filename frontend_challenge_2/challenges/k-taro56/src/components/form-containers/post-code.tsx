@@ -8,6 +8,7 @@ import PostCodeForm from '../form-components/post-code';
 export interface PostCodeFormContainerProps extends FormGroupElementProps {
   required: boolean;
   label: string;
+  isVisible?: boolean;
   postCode: string;
   onPostCodeChange: (postCode: string) => void;
   postCodeErrorMessage: string;
@@ -29,6 +30,7 @@ export const validatePostCode = (value: string) => {
 const FormatPostCodeContainer = ({
   required,
   label,
+  isVisible,
   postCode,
   onPostCodeChange,
   postCodeErrorMessage,
@@ -57,6 +59,7 @@ const FormatPostCodeContainer = ({
     <PostCodeForm
       required={required}
       label={label}
+      isVisible={isVisible}
       inputValue={inputValue}
       errorMessage={postCodeErrorMessage}
       onInputValueChange={onInputValueChange}
