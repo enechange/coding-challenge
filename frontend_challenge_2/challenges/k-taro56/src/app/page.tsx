@@ -6,6 +6,7 @@ import styled from '@emotion/styled';
 import Header from '@/components/header';
 import FormGroups from '@/components/form-groups';
 import PostCodeForm from '@/components/form-containers/post-code';
+import SubmitButton from '@/components/submit-button';
 
 const Container = styled.div`
   margin-left: auto;
@@ -125,7 +126,7 @@ const Home = () => {
 
         <FormGroups label='現在の電気の使用状況について教えてください'></FormGroups>
 
-        <Button type='submit'>結果を見る</Button>
+        <SubmitButton content='結果を見る' />
       </form>
     </Container>
   );
