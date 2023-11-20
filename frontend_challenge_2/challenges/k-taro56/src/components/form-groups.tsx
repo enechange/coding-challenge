@@ -3,7 +3,7 @@
 import styled from '@emotion/styled';
 
 import { Light, Dark } from '@/colors/theme';
-import { FormGroupElementProps } from '@/types/form-grroups-element-props';
+import { FormGroupElementProps } from '@/types/form-groups-element-props';
 
 const LightThemeBackgroundColor = 'white';
 const DarkThemeBackgroundColor = '#1a202c';

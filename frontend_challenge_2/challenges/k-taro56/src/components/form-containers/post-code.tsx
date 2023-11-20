@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { FormGroupElementProps } from '@/types/form-grroups-element-props';
+import { FormGroupElementProps } from '@/types/form-groups-element-props';
 import PostCodeForm from '../form-components/post-code';
 
 export interface PostCodeFormContainerProps extends FormGroupElementProps {
