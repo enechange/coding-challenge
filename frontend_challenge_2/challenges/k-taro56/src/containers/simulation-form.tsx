@@ -81,17 +81,26 @@ const SimulationFormContainer = () => {
       setElectricCompanySelections([electricCompany, 'その他']);
       setPostCodeCompleted(true);
     } else {
+      setArea('');
       setElectricCompanySelections([]);
       setPostCodeErrorMessage('サービスエリア対象外です');
       setPostCode('');
-      setArea('');
       setPostCodeCompleted(false);
+      setElectricCompanyCompleted(false);
+      setPlanCompleted(false);
+      setContractCapacityCompleted(false);
+      setElectricBillCompleted(false);
+      setMailAddressCompleted(false);
     }
   };
 
   const onElectricCompanyChange = (value: string) => {
     if (value.length === 0) {
       setElectricCompanyCompleted(false);
+      setPlanCompleted(false);
+      setContractCapacityCompleted(false);
+      setElectricBillCompleted(false);
+      setMailAddressCompleted(false);
       return;
     }
     setSelectedElectricCompany(value);
@@ -110,11 +119,18 @@ const SimulationFormContainer = () => {
     }
     setPlanSelections([]);
     setElectricCompanyCompleted(false);
+    setPlanCompleted(false);
+    setContractCapacityCompleted(false);
+    setElectricBillCompleted(false);
+    setMailAddressCompleted(false);
   };
 
   const onPlanChange = (value: string) => {
     if (value.length === 0) {
       setPlanCompleted(false);
+      setContractCapacityCompleted(false);
+      setElectricBillCompleted(false);
+      setMailAddressCompleted(false);
       return;
     }
     setSelectedPlan(value);
@@ -146,6 +162,8 @@ const SimulationFormContainer = () => {
       setContractCapacityCompleted(true);
     } else {
       setContractCapacityCompleted(false);
+      setElectricBillCompleted(false);
+      setMailAddressCompleted(false);
     }
   };
 
@@ -153,6 +171,8 @@ const SimulationFormContainer = () => {
     setContractCapacity(value);
     if (value === undefined) {
       setContractCapacityCompleted(false);
+      setElectricBillCompleted(false);
+      setMailAddressCompleted(false);
     } else {
       setContractCapacityCompleted(true);
     }
@@ -162,6 +182,7 @@ const SimulationFormContainer = () => {
     setElectricBill(value);
     if (value === undefined) {
       setElectricBillCompleted(false);
+      setMailAddressCompleted(false);
     } else {
       setElectricBillCompleted(true);
     }
