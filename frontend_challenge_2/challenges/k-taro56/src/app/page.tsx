@@ -69,6 +69,7 @@ const Button = styled.button`
 
 const Home = () => {
   const [postCode, setPostCode] = useState('');
+  const [postCodeErrorMessage, setPostCodeErrorMessage] = useState('');
   const [isTokyoEnergyPartner, setIsTokyoEnergyPartner] = useState(true);
   const [isTodenETC, setIsTodenETC] = useState(true);
   const [contractCapacity, setContractCapacity] = useState('');
@@ -85,6 +86,20 @@ const Home = () => {
     });
   };
 
+  const onPostCodeChange = (value: string) => {
+    switch (value[0]) {
+      case '1':
+      case '5':
+        setPostCodeErrorMessage('');
+        setPostCode(value);
+        break;
+      default:
+        setPostCodeErrorMessage('サービスエリア対象外です');
+        setPostCode('');
+        break;
+    }
+  };
+
   return (
     <Container>
       <Header
@@ -97,7 +112,9 @@ const Home = () => {
             required
             label='電気を使用する場所の郵便番号'
             postCode={postCode}
-            setPostCode={setPostCode}
+            onPostCodeChange={onPostCodeChange}
+            postCodeErrorMessage={postCodeErrorMessage}
+            setPostCodeErrorMessage={setPostCodeErrorMessage}
           />
         </FormGroups>
 
