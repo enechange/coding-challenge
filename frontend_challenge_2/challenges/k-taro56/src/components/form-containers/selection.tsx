@@ -9,6 +9,7 @@ export interface SelectionFormContainerProps extends FormGroupElementProps {
   isVisible?: boolean;
   selections: string[];
   selected: string;
+  descriptions?: string[];
   onSelectionChange: (selected: string) => void;
   errorMessage: string;
   setErrorMessage: (errorMessage: string) => void;
@@ -20,6 +21,7 @@ const SelectionFormContainer = ({
   isVisible,
   selections,
   selected,
+  descriptions,
   onSelectionChange,
   errorMessage,
   setErrorMessage,
@@ -40,6 +42,7 @@ const SelectionFormContainer = ({
       isVisible={isVisible}
       selections={selections}
       selected={selected}
+      descriptions={descriptions}
       errorMessage={errorMessage}
       onSelectionChange={handleSelectionChange}
     />
