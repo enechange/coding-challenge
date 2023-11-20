@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+import { Light, Dark } from '@/colors/theme';
 import FormBase from './form-base';
 
 const PostCodeInput = styled.input`
@@ -9,14 +10,14 @@ const PostCodeInput = styled.input`
   padding: 0.75rem;
   &:focus {
     outline: none;
-    box-shadow: inset 0 0 0.25rem #ed9b38;
+    box-shadow: inset 0 0 0.25rem ${Light.accent};
   }
   @media (prefers-color-scheme: dark) {
     border: 0.25rem solid #555;
     background-color: #222;
     color: #ddd;
     &:focus {
-      box-shadow: inset 0 0 0.5rem #935d1d;
+      box-shadow: inset 0 0 0.5rem ${Dark.accent};
     }
   }
 `;

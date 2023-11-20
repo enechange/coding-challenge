@@ -1,6 +1,8 @@
 'use client';
 
 import styled from '@emotion/styled';
+
+import { Light, Dark } from '@/colors/theme';
 import { FormGroupElementProps } from '@/types/form-grroups-element-props';
 
 const LightThemeBackgroundColor = 'white';
@@ -17,9 +19,9 @@ const FormGroupContainer = styled.div`
 `;
 
 const FormGroupRibbon = styled.div`
-  background-color: #ed9b38;
+  background-color: ${Light.accent};
   @media (prefers-color-scheme: dark) {
-    background-color: #935d1d;
+    background-color: ${Dark.accent};
   }
 `;
 
