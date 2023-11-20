@@ -1,0 +1,14 @@
+.l-Content {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  flex-flow: row nowrap;
+
+  @include mq() {
+    display: block;
+    width: 100%;
+    min-width: inherit;
+    padding-top: 0;
+  }
+}

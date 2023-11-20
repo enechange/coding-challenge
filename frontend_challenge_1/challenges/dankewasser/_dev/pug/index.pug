@@ -1,0 +1,20 @@
+doctype html
+html(lang='ja')
+  head
+    meta(charset='utf-8')
+    -
+      $imgPath = './assets/images/'
+      $selfURL = 'https://example.com/'
+    include include/_head.pug
+    include include/_script.pug
+  body
+    .l-Wrapper
+      include include/_header.pug
+
+      main.l-Content
+        include section/_kv.pug
+        include section/_case.pug
+        include section/_video.pug
+        include section/_intro.pug
+
+    include include/_footer.pug

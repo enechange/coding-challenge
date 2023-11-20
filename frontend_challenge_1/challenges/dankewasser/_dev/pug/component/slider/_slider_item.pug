@@ -1,0 +1,25 @@
+.c-Slider_Item
+  .c-Slider_Head
+    p.c-Slider_Place #{item.place}
+    p.c-Slider_Type #{item.type}
+  .c-Slider_Image(style=`background-image:url(${item.image});`)
+  .c-Slider_Body
+    p.c-Slider_Plan
+      | 年間
+      span.c-Slider_Plan_Strong #{item.reducePrice}
+      | 万円削減予定(#{item.reducePercent}%↓)
+    .c-Slider_ChangeArea
+      p.c-Slider_ChangeCol
+        | 現在
+        br
+        span.c-Slider_ChangeCol_Strong #{item.before}
+        | 万円
+      .c-Slider_ChangeArrow
+      p.c-Slider_ChangeCol
+        | 削除後(予定)
+        br
+        span.c-Slider_ChangeCol_Strong #{item.after}
+        | 万円
+    .c-Slider_BtnArea
+      a.c-Slider_Btn(href="#{item.link}")
+        span.c-Slider_Btn_Txt 事例詳細を見る
