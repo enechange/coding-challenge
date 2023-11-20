@@ -39,9 +39,18 @@ const FormWithUnitFormContainer = ({
     if (inputValue === '') {
       setErrorMessage('入力してください');
       onValueChange(undefined);
+      return;
+    }
+    const inputNumber = Number(inputValue);
+    if (min && inputNumber < min) {
+      setErrorMessage(`${min} ${unit}以上を入力してください`);
+      onValueChange(undefined);
+    } else if (max && max < inputNumber) {
+      setErrorMessage(`${max} ${unit}以下を入力してください`);
+      onValueChange(undefined);
     } else {
       setErrorMessage('');
-      onValueChange(Number(inputValue));
+      onValueChange(inputNumber);
     }
   };
 
