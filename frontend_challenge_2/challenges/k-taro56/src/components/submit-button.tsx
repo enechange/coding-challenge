@@ -11,7 +11,7 @@ const Button = styled.button`
   cursor: pointer;
   width: calc(100% - 1.5rem);
   background-color: #007bff;
-  color: var(--color);
+  color: white;
   &:hover {
     background-color: #0056b3;
   }
@@ -19,6 +19,7 @@ const Button = styled.button`
     background-color: #004085;
   }
   @media (prefers-color-scheme: dark) {
+    color: var(--color);
     background-color: #0f4a8a;
     &:hover {
       background-color: #0056b3;
