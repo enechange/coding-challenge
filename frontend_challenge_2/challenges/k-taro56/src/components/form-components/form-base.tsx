@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 type FormBaseProps = {
   required: boolean;
   label: string;
+  isVisible?: boolean;
   errorMessage: string;
   children: React.ReactElement;
 };
@@ -62,11 +63,12 @@ const MaterialSymbols = styled.span`
 const FormBase = ({
   required,
   label,
+  isVisible,
   errorMessage,
   children,
 }: FormBaseProps) => {
   return (
-    <Container>
+    <Container hidden={!(isVisible ?? true)}>
       <Label>
         <span>
           {required && (
