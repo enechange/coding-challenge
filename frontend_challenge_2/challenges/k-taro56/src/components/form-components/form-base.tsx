@@ -40,10 +40,19 @@ const Error = styled.div`
   color: white;
   background-color: #e66059;
   border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
   @media (prefers-color-scheme: dark) {
     color: #ddd;
     background-color: #982d27;
   }
+`;
+
+const MaterialSymbols = styled.span`
+  font-size: 1rem;
+  margin-right: 0.5rem;
+  font-family: var(--font-material-symbols);
+  font-variation-settings: 'FILL' 1;
 `;
 
 const FormBase = ({
@@ -65,7 +74,12 @@ const FormBase = ({
         </span>
         {children}
       </Label>
-      {errorMessage.length !== 0 && <Error>{errorMessage}</Error>}
+      {errorMessage.length !== 0 && (
+        <Error>
+          <MaterialSymbols>warning</MaterialSymbols>
+          {errorMessage}
+        </Error>
+      )}
     </div>
   );
 };
