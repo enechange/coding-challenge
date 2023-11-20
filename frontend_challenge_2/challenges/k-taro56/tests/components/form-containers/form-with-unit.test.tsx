@@ -44,4 +44,64 @@ describe('FormWithUnitFormContainer', () => {
 
     expect(mockFn).toHaveBeenCalledWith(12);
   });
+
+  it('validates the range of the input value', () => {
+    const onValueChange = jest.fn();
+    const setErrorMessage = jest.fn();
+
+    const { getByPlaceholderText } = render(
+      <FormWithUnitFormContainer
+        required={true}
+        label='Test Label'
+        isVisible={true}
+        placeholder='Test Placeholder'
+        value={undefined}
+        unit='kg'
+        min={10}
+        max={20}
+        onValueChange={onValueChange}
+        errorMessage=''
+        setErrorMessage={setErrorMessage}
+      />,
+    );
+
+    const input = getByPlaceholderText('Test Placeholder');
+
+    fireEvent.change(input, { target: { value: '5' } });
+    expect(setErrorMessage).toHaveBeenCalledWith('10 kg以上を入力してください');
+    expect(onValueChange).toHaveBeenCalledWith(undefined);
+
+    fireEvent.change(input, { target: { value: '25' } });
+    expect(setErrorMessage).toHaveBeenCalledWith('20 kg以下を入力してください');
+    expect(onValueChange).toHaveBeenCalledWith(undefined);
+
+    fireEvent.change(input, { target: { value: '15' } });
+    expect(setErrorMessage).toHaveBeenCalledWith('');
+    expect(onValueChange).toHaveBeenCalledWith(15);
+  });
+
+  it('validates when the input value is undefined', () => {
+    const onValueChange = jest.fn();
+    const setErrorMessage = jest.fn();
+
+    const { getByPlaceholderText } = render(
+      <FormWithUnitFormContainer
+        required={true}
+        label='Test Label'
+        isVisible={true}
+        placeholder='Test Placeholder'
+        value={0}
+        unit='kg'
+        onValueChange={onValueChange}
+        errorMessage=''
+        setErrorMessage={setErrorMessage}
+      />,
+    );
+
+    const input = getByPlaceholderText('Test Placeholder');
+
+    fireEvent.change(input, { target: { value: '' } });
+    expect(setErrorMessage).toHaveBeenCalledWith('入力してください');
+    expect(onValueChange).toHaveBeenCalledWith(undefined);
+  });
 });
