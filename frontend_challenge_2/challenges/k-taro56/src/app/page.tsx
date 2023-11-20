@@ -87,6 +87,9 @@ const Home = () => {
   };
 
   const onPostCodeChange = (value: string) => {
+    if (value.length === 0) {
+      return;
+    }
     switch (value[0]) {
       case '1':
       case '5':
