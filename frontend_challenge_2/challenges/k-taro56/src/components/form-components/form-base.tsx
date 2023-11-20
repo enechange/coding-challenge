@@ -7,6 +7,10 @@ type FormBaseProps = {
   children: React.ReactElement;
 };
 
+const Container = styled.div`
+  margin-bottom: 2rem;
+`;
+
 const RequiredLabel = styled.span`
   font-size: 0.75rem;
   margin-right: 0.5rem;
@@ -62,7 +66,7 @@ const FormBase = ({
   children,
 }: FormBaseProps) => {
   return (
-    <div>
+    <Container>
       <Label>
         <span>
           {required && (
@@ -80,7 +84,7 @@ const FormBase = ({
           {errorMessage}
         </Error>
       )}
-    </div>
+    </Container>
   );
 };
 
