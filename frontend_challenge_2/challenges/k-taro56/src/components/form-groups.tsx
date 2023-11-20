@@ -10,7 +10,7 @@ const DarkThemeBackgroundColor = '#1a202c';
 
 const FormGroupContainer = styled.div`
   padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0rem;
   margin-bottom: 1rem;
   background-color: ${LightThemeBackgroundColor};
   @media (prefers-color-scheme: dark) {
