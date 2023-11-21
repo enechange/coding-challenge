@@ -16,7 +16,7 @@ export interface MailAddressFormContainerProps extends FormGroupElementProps {
 }
 
 export const validateMailAddress = (value: string) => {
-  const regex = /^[^@]+@[^@]+\.[^@]+$/;
+  const regex = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/;
   return regex.test(value);
 };
 
