@@ -102,6 +102,7 @@ const SimulationFormContainer = () => {
       return;
     }
     setSelectedElectricCompany(value);
+    setSelectedPlan('');
     if (area === TOKYO_AREA && value === TOKYO_ELECTRIC_POWER) {
       setElectricCompanyErrorMessage('');
       setPlanSelections(TOKYO_ELECTRIC_POWER_PLANS);
