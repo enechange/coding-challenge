@@ -147,6 +147,7 @@ const SimulationFormContainer = () => {
       value === '従量電灯 A' &&
       selectedElectricCompany === KANSAI_ELECTRIC_POWER
     ) {
+      setPlanCompleted(false);
       setContractCapacityCompleted(true);
       setContractCapacitySelections([]);
     } else {
