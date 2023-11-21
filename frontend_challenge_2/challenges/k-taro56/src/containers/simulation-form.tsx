@@ -154,7 +154,7 @@ const SimulationFormContainer = () => {
     }
   };
 
-  const onSelectionChange = (value: string) => {
+  const onContractCapacitySelectionChange = (value: string) => {
     setElectricBillCompleted(false);
     setMailAddressCompleted(false);
     setSelectedContractCapacity(value);
@@ -165,7 +165,7 @@ const SimulationFormContainer = () => {
     }
   };
 
-  const onInputValueChange = (value: number | undefined) => {
+  const onContractCapacityValueChange = (value: number | undefined) => {
     setElectricBillCompleted(false);
     setMailAddressCompleted(false);
     setContractCapacity(value);
@@ -223,8 +223,8 @@ const SimulationFormContainer = () => {
       onPostCodeChange={onPostCodeChange}
       onElectricCompanyChange={onElectricCompanyChange}
       onPlanChange={onPlanChange}
-      onSelectionChange={onSelectionChange}
-      onInputValueChange={onInputValueChange}
+      onContractCapacitySelectionChange={onContractCapacitySelectionChange}
+      onContractCapacityValueChange={onContractCapacityValueChange}
       onElectricBillChange={onElectricBillChange}
       onMailAddressChange={onMailAddressChange}
       setPostCodeErrorMessage={setPostCodeErrorMessage}
