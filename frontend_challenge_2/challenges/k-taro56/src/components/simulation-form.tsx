@@ -25,13 +25,13 @@ export type SimulationFormProps = {
   setPlanErrorMessage: (planErrorMessage: string) => void;
   contractCapacitySelections: string[];
   selectedContractCapacity: string;
-  onSelectionChange: (contractCapacity: string) => void;
+  onContractCapacitySelectionChange: (contractCapacity: string) => void;
   contractCapacityErrorMessage: string;
   setContractCapacityErrorMessage: (
     contractCapacityErrorMessage: string,
   ) => void;
   contractCapacity: number | undefined;
-  onInputValueChange: (contractCapacity: number | undefined) => void;
+  onContractCapacityValueChange: (contractCapacity: number | undefined) => void;
   electricBill: number | undefined;
   onElectricBillChange: (electricBill: number | undefined) => void;
   electricBillErrorMessage: string;
@@ -66,11 +66,11 @@ const SimulationForm = ({
   setPlanErrorMessage,
   contractCapacitySelections,
   selectedContractCapacity,
-  onSelectionChange,
+  onContractCapacitySelectionChange,
   contractCapacityErrorMessage,
   setContractCapacityErrorMessage,
   contractCapacity,
-  onInputValueChange,
+  onContractCapacityValueChange,
   electricBill,
   onElectricBillChange,
   electricBillErrorMessage,
@@ -134,7 +134,7 @@ const SimulationForm = ({
             isVisible={planCompleted && contractCapacitySelections.length !== 0}
             selections={contractCapacitySelections}
             selected={selectedContractCapacity}
-            onSelectionChange={onSelectionChange}
+            onSelectionChange={onContractCapacitySelectionChange}
             errorMessage={contractCapacityErrorMessage}
             setErrorMessage={setContractCapacityErrorMessage}
           />
@@ -147,7 +147,7 @@ const SimulationForm = ({
             unit='kVA'
             min={6}
             max={49}
-            onValueChange={onInputValueChange}
+            onValueChange={onContractCapacityValueChange}
             errorMessage={contractCapacityErrorMessage}
             setErrorMessage={setContractCapacityErrorMessage}
           />
