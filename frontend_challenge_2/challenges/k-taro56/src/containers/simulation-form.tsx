@@ -14,8 +14,12 @@ const AREA_TO_ELECTRIC_COMPANY = {
   [KANSAI_AREA]: KANSAI_ELECTRIC_POWER,
 };
 
-const TOKYO_ELECTRIC_POWER_PLANS = ['従量電灯 B', '従量電灯 C'];
-const KANSAI_ELECTRIC_POWER_PLANS = ['従量電灯 A', '従量電灯 B'];
+const PLAN_A = '従量電灯 A';
+const PLAN_B = '従量電灯 B';
+const PLAN_C = '従量電灯 C';
+
+const TOKYO_ELECTRIC_POWER_PLANS = [PLAN_B, PLAN_C];
+const KANSAI_ELECTRIC_POWER_PLANS = [PLAN_A, PLAN_B];
 
 const TOKYO_ELECTRIC_POWER_B_CONTRACT_CAPACITY = [
   '10A',
@@ -130,23 +134,20 @@ const SimulationFormContainer = () => {
     setPlanCompleted(true);
     setSelectedContractCapacity('');
 
-    if (
-      value === '従量電灯 B' &&
-      selectedElectricCompany === TOKYO_ELECTRIC_POWER
-    ) {
+    if (value === PLAN_B && selectedElectricCompany === TOKYO_ELECTRIC_POWER) {
       setContractCapacitySelections(TOKYO_ELECTRIC_POWER_B_CONTRACT_CAPACITY);
     } else if (
-      value === '従量電灯 C' &&
+      value === PLAN_C &&
       selectedElectricCompany === TOKYO_ELECTRIC_POWER
     ) {
       setContractCapacitySelections([]);
     } else if (
-      value === '従量電灯 B' &&
+      value === PLAN_B &&
       selectedElectricCompany === KANSAI_ELECTRIC_POWER
     ) {
       setContractCapacitySelections([]);
     } else if (
-      value === '従量電灯 A' &&
+      value === PLAN_A &&
       selectedElectricCompany === KANSAI_ELECTRIC_POWER
     ) {
       setPlanCompleted(false);
