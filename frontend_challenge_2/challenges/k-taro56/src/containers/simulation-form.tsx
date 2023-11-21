@@ -127,6 +127,7 @@ const SimulationFormContainer = () => {
     }
     setSelectedPlan(value);
     setPlanCompleted(true);
+    setSelectedContractCapacity('');
 
     if (
       value === '従量電灯 B' &&
