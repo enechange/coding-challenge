@@ -66,6 +66,11 @@ const SimulationFormContainer = () => {
   };
 
   const onPostCodeChange = (value: string) => {
+    setElectricCompanyCompleted(false);
+    setPlanCompleted(false);
+    setContractCapacityCompleted(false);
+    setElectricBillCompleted(false);
+    setMailAddressCompleted(false);
     if (value.length === 0) {
       setPostCodeCompleted(false);
       return;
@@ -85,22 +90,15 @@ const SimulationFormContainer = () => {
       setElectricCompanySelections([]);
       setPostCodeErrorMessage('サービスエリア対象外です');
       setPostCode('');
-      setPostCodeCompleted(false);
-      setElectricCompanyCompleted(false);
-      setPlanCompleted(false);
-      setContractCapacityCompleted(false);
-      setElectricBillCompleted(false);
-      setMailAddressCompleted(false);
     }
   };
 
   const onElectricCompanyChange = (value: string) => {
+    setPlanCompleted(false);
+    setContractCapacityCompleted(false);
+    setElectricBillCompleted(false);
+    setMailAddressCompleted(false);
     if (value.length === 0) {
-      setElectricCompanyCompleted(false);
-      setPlanCompleted(false);
-      setContractCapacityCompleted(false);
-      setElectricBillCompleted(false);
-      setMailAddressCompleted(false);
       return;
     }
     setSelectedElectricCompany(value);
@@ -108,29 +106,23 @@ const SimulationFormContainer = () => {
       setElectricCompanyErrorMessage('');
       setPlanSelections(TOKYO_ELECTRIC_POWER_PLANS);
       setElectricCompanyCompleted(true);
-      return;
     } else if (area === KANSAI_AREA && value === KANSAI_ELECTRIC_POWER) {
       setElectricCompanyErrorMessage('');
       setPlanSelections(KANSAI_ELECTRIC_POWER_PLANS);
       setElectricCompanyCompleted(true);
-      return;
     } else if (value === 'その他') {
       setElectricCompanyErrorMessage('シミュレーション対象外です');
+      setPlanSelections([]);
+      setElectricCompanyCompleted(false);
     }
-    setPlanSelections([]);
-    setElectricCompanyCompleted(false);
-    setPlanCompleted(false);
-    setContractCapacityCompleted(false);
-    setElectricBillCompleted(false);
-    setMailAddressCompleted(false);
   };
 
   const onPlanChange = (value: string) => {
+    setContractCapacityCompleted(false);
+    setElectricBillCompleted(false);
+    setMailAddressCompleted(false);
     if (value.length === 0) {
       setPlanCompleted(false);
-      setContractCapacityCompleted(false);
-      setElectricBillCompleted(false);
-      setMailAddressCompleted(false);
       return;
     }
     setSelectedPlan(value);
@@ -151,38 +143,44 @@ const SimulationFormContainer = () => {
       selectedElectricCompany === KANSAI_ELECTRIC_POWER
     ) {
       setContractCapacitySelections([]);
+    } else if (
+      value === '従量電灯 A' &&
+      selectedElectricCompany === KANSAI_ELECTRIC_POWER
+    ) {
+      setContractCapacityCompleted(true);
+      setContractCapacitySelections([]);
     } else {
       setContractCapacitySelections([]);
     }
   };
 
   const onSelectionChange = (value: string) => {
+    setElectricBillCompleted(false);
+    setMailAddressCompleted(false);
     setSelectedContractCapacity(value);
     if (value.length > 0) {
       setContractCapacityCompleted(true);
     } else {
       setContractCapacityCompleted(false);
-      setElectricBillCompleted(false);
-      setMailAddressCompleted(false);
     }
   };
 
   const onInputValueChange = (value: number | undefined) => {
+    setElectricBillCompleted(false);
+    setMailAddressCompleted(false);
     setContractCapacity(value);
     if (value === undefined) {
       setContractCapacityCompleted(false);
-      setElectricBillCompleted(false);
-      setMailAddressCompleted(false);
     } else {
       setContractCapacityCompleted(true);
     }
   };
 
   const onElectricBillChange = (value: number | undefined) => {
+    setMailAddressCompleted(false);
     setElectricBill(value);
     if (value === undefined) {
       setElectricBillCompleted(false);
-      setMailAddressCompleted(false);
     } else {
       setElectricBillCompleted(true);
     }
