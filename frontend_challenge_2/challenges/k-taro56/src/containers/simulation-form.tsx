@@ -83,6 +83,7 @@ const SimulationFormContainer = () => {
       AREA_TO_ELECTRIC_COMPANY[
         value[0] as keyof typeof AREA_TO_ELECTRIC_COMPANY
       ];
+    setSelectedElectricCompany('');
     if (electricCompany) {
       setArea(value[0]);
       setPostCode(value);
