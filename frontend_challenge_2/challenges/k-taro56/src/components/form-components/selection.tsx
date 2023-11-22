@@ -16,6 +16,9 @@ const SelectWrapper = styled.div`
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
+    @media (prefers-color-scheme: dark) {
+      color: ${Dark.accent};
+    }
   }
 `;
 
