@@ -55,7 +55,6 @@ const MailAddressForm = ({
         required={required}
         placeholder='mail@example.com'
         value={inputValue}
-        pattern='[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,}'
         onChange={handleInputChange}
       />
     </FormBase>
