@@ -130,7 +130,7 @@ const SimulationForm = ({
           />
           <SelectionForm
             label='契約容量'
-            required
+            required={contractCapacitySelections.length !== 0}
             isVisible={planCompleted && contractCapacitySelections.length !== 0}
             selections={contractCapacitySelections}
             selected={selectedContractCapacity}
@@ -140,7 +140,7 @@ const SimulationForm = ({
           />
           <FormWithUnit
             label='契約容量'
-            required
+            required={planCompleted && contractCapacitySelections.length === 0}
             isVisible={planCompleted && contractCapacitySelections.length === 0}
             placeholder='24'
             value={contractCapacity}
