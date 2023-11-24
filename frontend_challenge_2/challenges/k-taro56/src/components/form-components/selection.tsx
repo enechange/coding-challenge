@@ -23,9 +23,9 @@ const SelectWrapper = styled.div`
 `;
 
 const SelectionInput = styled.select`
-  border-top: 0.25rem solid #ddd;
-  border-left: 0.25rem solid #ddd;
-  border-right: 0.25rem solid #ddd;
+  border-top: 0.25rem solid ${Light.border};
+  border-left: 0.25rem solid ${Light.border};
+  border-right: 0.25rem solid ${Light.border};
   border-bottom: 0;
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
@@ -42,9 +42,9 @@ const SelectionInput = styled.select`
     box-shadow: inset 0 0 0.25rem ${Light.accent};
   }
   @media (prefers-color-scheme: dark) {
-    border-top: 0.25rem solid #555;
-    border-left: 0.25rem solid #555;
-    border-right: 0.25rem solid #555;
+    border-top: 0.25rem solid ${Dark.border};
+    border-left: 0.25rem solid ${Dark.border};
+    border-right: 0.25rem solid ${Dark.border};
     border-bottom: 0;
     background-color: #222;
     color: #ddd;
@@ -55,9 +55,9 @@ const SelectionInput = styled.select`
 `;
 
 const DottedLine = styled.div`
-  border-top: #ddd dotted 0.1rem;
+  border-top: ${Light.border} dotted 0.1rem;
   @media (prefers-color-scheme: dark) {
-    border-top: #555 dotted 0.1rem;
+    border-top: ${Dark.border} dotted 0.1rem;
   }
 `;
 
@@ -70,19 +70,19 @@ const Description = styled.div`
   padding-bottom: 0.25rem;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
-  background-color: #ddd;
+  background-color: ${Light.border};
   @media (prefers-color-scheme: dark) {
-    background-color: #555;
+    background-color: ${Dark.border};
     color: #ddd;
   }
 `;
 
 const BottomBorder = styled.div`
-  border-bottom: 0.25rem solid #ddd;
+  border-bottom: 0.25rem solid ${Light.border};
   border-bottom-left-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
   @media (prefers-color-scheme: dark) {
-    border-bottom: 0.25rem solid #555;
+    border-bottom: 0.25rem solid ${Dark.border};
   }
 `;
 
