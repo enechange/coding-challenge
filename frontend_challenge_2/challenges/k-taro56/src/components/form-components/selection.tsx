@@ -22,13 +22,7 @@ const SelectWrapper = styled.div`
   }
 `;
 
-const SelectionInput = styled.select`
-  border-top: 0.25rem solid ${Light.border};
-  border-left: 0.25rem solid ${Light.border};
-  border-right: 0.25rem solid ${Light.border};
-  border-bottom: 0;
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
+const SelectionInputBase = styled.select`
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   padding-left: 2.25rem;
@@ -42,15 +36,34 @@ const SelectionInput = styled.select`
     box-shadow: inset 0 0 0.25rem ${Light.accent};
   }
   @media (prefers-color-scheme: dark) {
-    border-top: 0.25rem solid ${Dark.border};
-    border-left: 0.25rem solid ${Dark.border};
-    border-right: 0.25rem solid ${Dark.border};
-    border-bottom: 0;
     background-color: #222;
     color: #ddd;
     &:focus {
       box-shadow: inset 0 0 0.5rem ${Dark.accent};
     }
+  }
+`;
+
+const SelectionInputWithDescription = styled(SelectionInputBase)`
+  border-top: 0.25rem solid ${Light.border};
+  border-left: 0.25rem solid ${Light.border};
+  border-right: 0.25rem solid ${Light.border};
+  border-bottom: 0;
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
+  @media (prefers-color-scheme: dark) {
+    border-top: 0.25rem solid ${Dark.border};
+    border-left: 0.25rem solid ${Dark.border};
+    border-right: 0.25rem solid ${Dark.border};
+    border-bottom: 0;
+  }
+`;
+
+const SelectionInputWithoutDescription = styled(SelectionInputBase)`
+  border: 0.25rem solid ${Light.border};
+  border-radius: 0.25rem;
+  @media (prefers-color-scheme: dark) {
+    border: 0.25rem solid ${Dark.border};
   }
 `;
 
@@ -77,15 +90,6 @@ const Description = styled.div`
   }
 `;
 
-const BottomBorder = styled.div`
-  border-bottom: 0.25rem solid ${Light.border};
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-  @media (prefers-color-scheme: dark) {
-    border-bottom: 0.25rem solid ${Dark.border};
-  }
-`;
-
 type SelectionFromProps = {
   label: string;
   required: boolean;
@@ -95,6 +99,21 @@ type SelectionFromProps = {
   descriptions?: string[];
   errorMessage: string;
   onSelectionChange: (value: string) => void;
+};
+
+const renderOptions = (selections: string[]) => {
+  return (
+    <>
+      <option value='' disabled>
+        選択してください
+      </option>
+      {selections.map((selection) => (
+        <option key={selection} value={selection}>
+          {selection}
+        </option>
+      ))}
+    </>
+  );
 };
 
 const SelectionForm = ({
@@ -117,34 +136,31 @@ const SelectionForm = ({
       isVisible={isVisible}
       errorMessage={errorMessage}
     >
-      <div>
-        <SelectWrapper>
-          <SelectionInput
-            required={required}
-            value={selected}
-            onChange={handleSelectionChange}
-          >
-            <option value='' disabled>
-              選択してください
-            </option>
-            {selections.map((selection) => (
-              <option key={selection} value={selection}>
-                {selection}
-              </option>
-            ))}
-          </SelectionInput>
-        </SelectWrapper>
+      <SelectWrapper>
         {descriptions ? (
           <div>
+            <SelectionInputWithDescription
+              required={required}
+              value={selected}
+              onChange={handleSelectionChange}
+            >
+              {renderOptions(selections)}
+            </SelectionInputWithDescription>
             <DottedLine />
             <Description>
               {descriptions[selections.indexOf(selected)]}
             </Description>
           </div>
         ) : (
-          <BottomBorder />
+          <SelectionInputWithoutDescription
+            required={required}
+            value={selected}
+            onChange={handleSelectionChange}
+          >
+            {renderOptions(selections)}
+          </SelectionInputWithoutDescription>
         )}
-      </div>
+      </SelectWrapper>
     </FormBase>
   );
 };
