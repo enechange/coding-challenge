@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  check-formating:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,7 +39,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
         working-directory: frontend_challenge_2/challenges/k-taro56
-
 
       - name: Check Formatting
         run: pnpm prettier --check .
