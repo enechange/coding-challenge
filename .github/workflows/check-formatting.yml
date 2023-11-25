@@ -1,11 +1,11 @@
-name: Lint
+name: Check Formatting
 
 on:
   push:
   pull_request:
 
 jobs:
-  lint:
+  check-formatting:
     runs-on: ubuntu-latest
 
     steps:
@@ -40,6 +40,6 @@ jobs:
         run: pnpm install --frozen-lockfile
         working-directory: frontend_challenge_2/challenges/k-taro56
 
-      - name: Lint
-        run: pnpm lint
+      - name: Check Formatting
+        run: pnpm prettier --check .
         working-directory: frontend_challenge_2/challenges/k-taro56
