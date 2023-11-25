@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  check-formating:
+  check-formatting:
     runs-on: ubuntu-latest
 
     steps:
