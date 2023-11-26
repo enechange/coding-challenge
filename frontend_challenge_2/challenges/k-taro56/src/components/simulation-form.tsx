@@ -1,5 +1,3 @@
-import styled from '@emotion/styled';
-
 import Header from '@/components/header';
 import FormGroups from '@/components/form-groups';
 import PostCodeForm from '@/components/form-containers/post-code';
