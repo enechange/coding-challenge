@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
-import { Light, Dark } from '@/colors/theme';
+import { Input } from '@/styles/styled-html-tags';
 import FormBase from './form-base';
 
 const Container = styled.div`
@@ -11,23 +11,7 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const FormWithUnitInput = styled.input`
-  width: 100%;
-  border: 0.25rem solid ${Light.border};
-  border-radius: 0.25rem;
-  padding: 0.75rem;
-  &:focus {
-    outline: none;
-    box-shadow: inset 0 0 0.25rem ${Light.accent};
-  }
-  @media (prefers-color-scheme: dark) {
-    border: 0.25rem solid ${Dark.border};
-    background-color: #222;
-    color: #ddd;
-    &:focus {
-      box-shadow: inset 0 0 0.5rem ${Dark.accent};
-    }
-  }
+const FormWithUnitInput = styled(Input)`
   &::-webkit-inner-spin-button,
   &::-webkit-outer-spin-button {
     -webkit-appearance: none;
