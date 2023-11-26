@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { Light, Dark } from '@/colors/theme';
+import { FocusStyle } from '@/styles/focus-styles';
 import FormBase from './form-base';
 
 const SelectWrapper = styled.div`
@@ -31,17 +32,11 @@ const SelectionInputBase = styled.select`
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  &:focus {
-    outline: none;
-    box-shadow: inset 0 0 0.25rem ${Light.accent};
-  }
   @media (prefers-color-scheme: dark) {
     background-color: #222;
     color: #ddd;
-    &:focus {
-      box-shadow: inset 0 0 0.5rem ${Dark.accent};
-    }
   }
+  ${FocusStyle}
 `;
 
 const SelectionInputWithDescription = styled(SelectionInputBase)`

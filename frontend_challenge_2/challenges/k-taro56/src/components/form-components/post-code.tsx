@@ -1,26 +1,7 @@
 import React from 'react';
-import styled from '@emotion/styled';
 
-import { Light, Dark } from '@/colors/theme';
+import { Input } from '@/styles/styled-html-tags';
 import FormBase from './form-base';
-
-const PostCodeInput = styled.input`
-  border: 0.25rem solid ${Light.border};
-  border-radius: 0.25rem;
-  padding: 0.75rem;
-  &:focus {
-    outline: none;
-    box-shadow: inset 0 0 0.25rem ${Light.accent};
-  }
-  @media (prefers-color-scheme: dark) {
-    border: 0.25rem solid ${Dark.border};
-    background-color: #222;
-    color: #ddd;
-    &:focus {
-      box-shadow: inset 0 0 0.5rem ${Dark.accent};
-    }
-  }
-`;
 
 type PostCodeFormProps = {
   required: boolean;
@@ -50,7 +31,7 @@ const PostCodeForm = ({
       isVisible={isVisible}
       errorMessage={errorMessage}
     >
-      <PostCodeInput
+      <Input
         type='text'
         pattern='\d{3} \d{4}'
         required={required}
