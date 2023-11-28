@@ -19,13 +19,14 @@ jobs:
         run: |
           cat frontend_challenge_2/challenges/k-taro56/for-github-workflows.next.config.js > frontend_challenge_2/challenges/k-taro56/next.config.js
 
-      - name: Set repository name
-        id: extract_repo
+      - name: Set enviroments
         run: |
           REPO_NAME=$(echo ${{ github.repository }} | sed -e "s#.*/##")
           echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
-          echo "DEPLOY_PATH=${{ env.REPO_NAME }}/${{ github.event.pull_request.number }}/${{ github.event.pull_request.base.sha }}" >> $GITHUB_ENV
-          echo "DEPLOY_URL=https://${{ github.repository_owner }}.github.io/${{ env.DEPLOY_PATH }}" >> $GITHUB_ENV
+          DEPLOY_PATH=$REPO_NAME/${{ github.event.pull_request.number }}/${{ github.event.pull_request.base.sha }}
+          echo "DEPLOY_PATH=$DEPLOY_PATH" >> $GITHUB_ENV
+          echo "DEPLOY_URL=https://${{ github.repository_owner }}.github.io/$DEPLOY_PATH
+          echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -67,7 +68,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./frontend_challenge_2/challenges/k-taro56/out
-          destination_dir: .${{ env.DEPLOY_PATH }}
+          destination_dir: ${{ env.DEPLOY_PATH }}
 
       - name: Comment PR with Deploy URL
         uses: actions/github-script@v5
