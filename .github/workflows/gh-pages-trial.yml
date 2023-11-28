@@ -1,4 +1,4 @@
-name: Build Trial for GitHub Pages
+name: Sample Deploy for GitHub Pages
 
 on:
   pull_request:
@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout code
@@ -21,6 +23,8 @@ jobs:
         run: |
           REPO_NAME=$(echo ${{ github.repository }} | sed -e "s#.*/##")
           echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+          echo "DEPLOY_PATH=${{ env.REPO_NAME }}/${{ github.event.pull_request.number }}/${{ github.event.pull_request.base.sha }}" >> $GITHUB_ENV
+          echo "DEPLOY_URL=https://${{ github.repository_owner }}.github.io/${{ env.DEPLOY_PATH }}" >> $GITHUB_ENV
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -50,9 +54,30 @@ jobs:
         run: pnpm install --frozen-lockfile
         working-directory: frontend_challenge_2/challenges/k-taro56
 
-      - name: Build and Export
+      - name: Build
         env:
-          REPO_NAME: ${{ env.REPO_NAME }}
+          REPO_NAME: ${{ env.DEPLOY_PATH }}
         run: |
           pnpm build
         working-directory: frontend_challenge_2/challenges/k-taro56
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./frontend_challenge_2/challenges/k-taro56/out
+          destination_dir: ${{ env.DEPLOY_PATH }}
+
+      - name: Comment PR with Deploy URL
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number;
+            const deploy_url = process.env.DEPLOY_URL;
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: `🚀 Deploy preview ready: [${deploy_url}](${deploy_url})`
+            });
