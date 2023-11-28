@@ -12,14 +12,14 @@ const KANSAI_AREA = '5';
 const AREA_TO_ELECTRIC_COMPANY = {
   [TOKYO_AREA]: TOKYO_ELECTRIC_POWER,
   [KANSAI_AREA]: KANSAI_ELECTRIC_POWER,
-};
+} as const;
 
 const PLAN_A = '従量電灯 A';
 const PLAN_B = '従量電灯 B';
 const PLAN_C = '従量電灯 C';
 
-const TOKYO_ELECTRIC_POWER_PLANS = [PLAN_B, PLAN_C];
-const KANSAI_ELECTRIC_POWER_PLANS = [PLAN_A, PLAN_B];
+const TOKYO_ELECTRIC_POWER_PLANS = [PLAN_B, PLAN_C] as const;
+const KANSAI_ELECTRIC_POWER_PLANS = [PLAN_A, PLAN_B] as const;
 
 const TOKYO_ELECTRIC_POWER_B_CONTRACT_CAPACITY = [
   '10A',
@@ -29,7 +29,7 @@ const TOKYO_ELECTRIC_POWER_B_CONTRACT_CAPACITY = [
   '40A',
   '50A',
   '60A',
-];
+] as const;
 
 const SimulationFormContainer = () => {
   const [area, setArea] = useState('');
