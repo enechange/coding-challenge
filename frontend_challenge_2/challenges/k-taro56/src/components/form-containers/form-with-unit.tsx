@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { FormGroupElementProps } from '@/types/form-groups-element-props';
+import type { FormGroupElementProps } from '@/types/form-groups-element-props';
 import FormWithUnit from '../form-components/form-with-unit';
 
 export interface FormWithUnitFormContainerProps extends FormGroupElementProps {

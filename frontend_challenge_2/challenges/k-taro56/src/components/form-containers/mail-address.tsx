@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { FormGroupElementProps } from '@/types/form-groups-element-props';
+import type { FormGroupElementProps } from '@/types/form-groups-element-props';
 import MailAddress from '../form-components/mail-address';
 
 export interface MailAddressFormContainerProps extends FormGroupElementProps {

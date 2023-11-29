@@ -1,6 +1,6 @@
 'use client';
 
-import { FormGroupElementProps } from '@/types/form-groups-element-props';
+import type { FormGroupElementProps } from '@/types/form-groups-element-props';
 import Selection from '../form-components/selection';
 
 export interface SelectionFormContainerProps extends FormGroupElementProps {
