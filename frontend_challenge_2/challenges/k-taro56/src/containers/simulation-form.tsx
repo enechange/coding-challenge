@@ -41,11 +41,11 @@ const SimulationFormContainer = () => {
   const [selectedElectricCompany, setSelectedElectricCompany] = useState('');
   const [electricCompanyErrorMessage, setElectricCompanyErrorMessage] =
     useState('');
-  const [planSelections, setPlanSelections] = useState<string[]>([]);
+  const [planSelections, setPlanSelections] = useState<readonly string[]>([]);
   const [selectedPlan, setSelectedPlan] = useState('');
   const [planErrorMessage, setPlanErrorMessage] = useState('');
   const [contractCapacitySelections, setContractCapacitySelections] = useState<
-    string[]
+    readonly string[]
   >([]);
   const [selectedContractCapacity, setSelectedContractCapacity] = useState('');
   const [contractCapacityErrorMessage, setContractCapacityErrorMessage] =
