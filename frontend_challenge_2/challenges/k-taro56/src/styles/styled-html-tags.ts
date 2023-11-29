@@ -4,6 +4,7 @@ import { Light, Dark } from '@/colors/theme';
 import { FocusStyle } from '@/styles/focus-styles';
 
 export const Input = styled.input`
+  width: 100%;
   border: 0.25rem solid ${Light.border};
   border-radius: 0.25rem;
   padding: 0.75rem;
