@@ -1,4 +1,4 @@
-name: Build Trial for GitHub Pages
+name: Sample Deploy for GitHub Pages
 
 on:
   pull_request:
@@ -7,6 +7,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
@@ -16,11 +19,14 @@ jobs:
         run: |
           cat frontend_challenge_2/challenges/k-taro56/for-github-workflows.next.config.js > frontend_challenge_2/challenges/k-taro56/next.config.js
 
-      - name: Set repository name
-        id: extract_repo
+      - name: Set enviroments
         run: |
           REPO_NAME=$(echo ${{ github.repository }} | sed -e "s#.*/##")
           echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+          DEPLOY_PATH=pr/${{ github.event.pull_request.number }}/${{ github.event.pull_request.base.sha }}
+          echo "DEPLOY_PATH=$DEPLOY_PATH" >> $GITHUB_ENV
+          DEPLOY_URL=https://${{ github.repository_owner }}.github.io/$REPO_NAME/$DEPLOY_PATH
+          echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -50,9 +56,31 @@ jobs:
         run: pnpm install --frozen-lockfile
         working-directory: frontend_challenge_2/challenges/k-taro56
 
-      - name: Build and Export
+      - name: Build
         env:
-          REPO_NAME: ${{ env.REPO_NAME }}
+          REPO_NAME: ${{ secrets.REPO_NAME }}/${{ env.DEPLOY_PATH }}
         run: |
           pnpm build
         working-directory: frontend_challenge_2/challenges/k-taro56
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./frontend_challenge_2/challenges/k-taro56/out
+          destination_dir: ${{ env.DEPLOY_PATH }}
+          keep_files: true
+
+      - name: Comment PR with Deploy URL
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue_number = context.issue.number;
+            const deploy_url = process.env.DEPLOY_URL;
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue_number,
+              body: `🚀 Deploy preview ready: [${deploy_url}](${deploy_url})`
+            });
