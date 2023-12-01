@@ -1,15 +1,15 @@
 'use client';
 
-import { FormGroupElementProps } from '@/types/form-groups-element-props';
+import type { FormGroupElementProps } from '@/types/form-groups-element-props';
 import Selection from '../form-components/selection';
 
 export interface SelectionFormContainerProps extends FormGroupElementProps {
   required: boolean;
   label: string;
   isVisible?: boolean;
-  selections: string[];
+  selections: readonly string[];
   selected: string;
-  descriptions?: string[];
+  descriptions?: readonly string[];
   onSelectionChange: (selected: string) => void;
   errorMessage: string;
   setErrorMessage: (errorMessage: string) => void;

@@ -89,14 +89,14 @@ type SelectionFromProps = {
   label: string;
   required: boolean;
   isVisible?: boolean;
-  selections: string[];
+  selections: readonly string[];
   selected: string;
-  descriptions?: string[];
+  descriptions?: readonly string[];
   errorMessage: string;
   onSelectionChange: (value: string) => void;
 };
 
-const renderOptions = (selections: string[]) => {
+const renderOptions = (selections: readonly string[]) => {
   return (
     <>
       <option value='' disabled>
