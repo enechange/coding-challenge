@@ -6,23 +6,23 @@ describe TokyoGasPlan do
   let(:provider) { '東京ガス株式会社' }
   let(:tokyo_gas_plan) { TokyoGasPlan.new }
   let(:initialize_data) do
-    instance_double('InitializeData', provider:, plan: 'ずっとも電気1',
-                                      basic_charges: {
-                                        10 => nil,
-                                        15 => nil,
-                                        20 => nil,
-                                        30 => 858.00,
-                                        40 => 1144.00,
-                                        50 => 1430.00,
-                                        60 => 1716.00
-                                      },
-                                      tiers: { 140 => 23.67, 210 => 23.88, Float::INFINITY => 26.41 })
+    instance_double('InitializeChargePlan', provider:, plan: 'ずっとも電気1',
+                                            basic_charges: {
+                                              10 => nil,
+                                              15 => nil,
+                                              20 => nil,
+                                              30 => 858.00,
+                                              40 => 1144.00,
+                                              50 => 1430.00,
+                                              60 => 1716.00
+                                            },
+                                            tiers: { 140 => 23.67, 210 => 23.88, Float::INFINITY => 26.41 })
   end
-  let(:expected_charge_30_300) { 7993 }
-  let(:expected_charge_40_1999) { 53_023 }
+  let(:expected_charge_30_300) { 7992 }
+  let(:expected_charge_40_1999) { 53_022 }
 
   before do
-    allow(InitializeData).to receive(:new).with(provider).and_return(initialize_data)
+    allow(InitializeChargePlan).to receive(:new).with(provider).and_return(initialize_data)
   end
 
   it '適切なプロバイダーで初期化される' do

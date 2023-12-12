@@ -1,0 +1,6 @@
+ja:
+  activemodel:
+    attributes:
+      validator:
+        ampere: "アンペア"
+        usage: "使用量"

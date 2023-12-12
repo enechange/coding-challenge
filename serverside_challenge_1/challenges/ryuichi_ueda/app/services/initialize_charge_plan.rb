@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InitializeData
+class InitializeChargePlan
   include Constants
 
   attr_reader :basic_charges, :tiers, :provider, :plan
@@ -41,7 +41,7 @@ class InitializeData
 
   def generate_tiers
     @provider_data['tiers'].transform_keys do |key|
-      ['Infinity', '.inf'].include?(key) ? Float::INFINITY : key
+      ['Infinity'].include?(key) ? Float::INFINITY : key
     end.freeze
   end
 

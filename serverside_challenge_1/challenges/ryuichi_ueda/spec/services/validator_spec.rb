@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-VALID_AMPERES = [10, 15, 20, 30, 40, 50, 60].freeze
 
 RSpec.describe Validator do
   let(:valid_ampere) { 10 } # VALID_AMPERES内の有効な値
@@ -14,12 +13,7 @@ RSpec.describe Validator do
       subject { Validator.new(valid_ampere, valid_usage) }
 
       it 'trueを返す' do
-        expect(subject.validate).to be true
-      end
-
-      it 'エラーメッセージを返さない' do
-        subject.validate
-        expect(subject.error_message).to be_nil
+        expect(subject.valid?).to be true
       end
     end
 
@@ -27,12 +21,12 @@ RSpec.describe Validator do
       subject { Validator.new(invalid_ampere, valid_usage) }
 
       it 'falseを返す' do
-        expect(subject.validate).to be false
+        expect(subject.valid?).to be false
       end
 
-      it 'エラーメッセージ' do
-        subject.validate
-        expect(subject.error_message).to eq("契約アンペア数は#{VALID_AMPERES.join(',')}のいずれかでなければなりません。")
+      it 'エラーメッセージが適切' do
+        subject.valid?
+        expect(subject.errors[:ampere]).to include("は#{Validator::VALID_AMPERES.join(',')}のいずれかでなければなりません。")
       end
     end
 
@@ -40,12 +34,12 @@ RSpec.describe Validator do
       subject { Validator.new(valid_ampere, invalid_usage) }
 
       it 'falseを返す' do
-        expect(subject.validate).to be false
+        expect(subject.valid?).to be false
       end
 
-      it 'エラーメッセージ' do
-        subject.validate
-        expect(subject.error_message).to eq('使用量は0以上の整数でなければなりません。')
+      it 'エラーメッセージが適切' do
+        subject.valid?
+        expect(subject.errors[:usage]).to include('は0以上の整数でなければなりません。')
       end
     end
   end

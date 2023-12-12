@@ -2,11 +2,11 @@
 
 class ElectricPlan
   def initialize(provider)
-    @data = InitializeData.new(provider)
+    @data = InitializeChargePlan.new(provider)
   end
 
   def total_charge(ampere, usage)
-    (basic_charge(ampere) + usage_charge(usage)).round
+    (basic_charge(ampere) + usage_charge(usage)).floor
   end
 
   def provider_info

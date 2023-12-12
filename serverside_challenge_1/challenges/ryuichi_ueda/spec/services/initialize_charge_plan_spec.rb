@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe InitializeData do
+RSpec.describe InitializeChargePlan do
   let(:provider) { '東京ガス株式会社' }
   let(:providers_data) do
     {

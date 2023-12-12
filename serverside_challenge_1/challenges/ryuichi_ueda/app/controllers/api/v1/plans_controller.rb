@@ -25,10 +25,10 @@ module Api
 
       def validate_params
         validator = Validator.new(@ampere, @usage)
-        return if validator.validate
+        return if validator.valid?
 
-        render JsonResponse.unprocessable_entity(validator.error_message)
-        nil
+        error_messages = validator.errors.full_messages.join(', ')
+        render JsonResponse.unprocessable_entity(error_messages)
       end
 
       def generate_data(totals, providers_info)
