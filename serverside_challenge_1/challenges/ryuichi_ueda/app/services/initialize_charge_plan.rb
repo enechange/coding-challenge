@@ -5,28 +5,30 @@ class InitializeChargePlan
 
   attr_reader :basic_charges, :tiers, :provider, :plan
 
-  def initialize(provider)
-    @providers_data = load_providers
+  @providers_data_cache = nil
+
+  def initialize(provider, _plan)
+    @providers_data = self.class.load_providers
     prepared_data = prepare_provider_data(provider)
     @basic_charges = prepared_data[:basic_charges]
     @tiers = prepared_data[:tiers]
+    @plan = prepared_data[:plan]
     @provider = provider
-    @plan = prepared_data[provider]
   end
 
   private
+
+  def self.load_providers
+    @load_providers ||= YAML.load_file(YAML_PATH)['providers']
+  end
 
   def prepare_provider_data(provider)
     load_provider(provider)
     {
       basic_charges: generate_basic_charges,
       tiers: generate_tiers,
-      **{ provider => generate_plan }
+      plan: generate_plan
     }
-  end
-
-  def load_providers
-    YAML.load_file(YAML_PATH)['providers']
   end
 
   def load_provider(provider)

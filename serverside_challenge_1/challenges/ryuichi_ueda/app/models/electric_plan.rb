@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ElectricPlan
-  def initialize(provider)
-    @data = InitializeChargePlan.new(provider)
+  def initialize(provider, plan)
+    @data = InitializeChargePlan.new(provider, plan)
   end
 
   def total_charge(ampere, usage)

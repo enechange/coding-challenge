@@ -4,7 +4,8 @@ require 'rails_helper'
 
 RSpec.describe ElectricPlan do
   let(:provider) { '東京電力エナジーパートナー' }
-  let(:electric_plan) { ElectricPlan.new(provider) }
+  let(:plan) { '従量電灯B' }
+  let(:electric_plan) { ElectricPlan.new(provider, plan) }
   let(:initialize_data) do
     instance_double('InitializeChargePlan', provider:, plan: '従量電灯B', basic_charges: {
                                                                         10 => 286.00,
@@ -23,7 +24,7 @@ RSpec.describe ElectricPlan do
   end
 
   before do
-    allow(InitializeChargePlan).to receive(:new).with(provider).and_return(initialize_data)
+    allow(InitializeChargePlan).to receive(:new).with(provider, plan).and_return(initialize_data)
   end
 
   describe '#total_charge' do

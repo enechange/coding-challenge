@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ElectricPlanFactory
-  def self.create(provider_name)
-    ElectricPlan.new(provider_name)
+  def self.create(provide, plan)
+    ElectricPlan.new(provide, plan)
   end
 end
