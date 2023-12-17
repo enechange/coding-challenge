@@ -19,16 +19,19 @@ module Api
       private
 
       def set_params
-        @ampere = params[:ampere].to_i
-        @usage = params[:usage].to_i
+        @ampere = params[:ampere]
+        @usage = params[:usage]
       end
 
       def validate_params
         validator = Validator.new(@ampere, @usage)
-        return if validator.valid?
-
-        error_messages = validator.errors.full_messages.join(', ')
-        render JsonResponse.unprocessable_entity(error_messages)
+        if validator.valid?
+          @ampere = validator.ampere.to_i
+          @usage = validator.usage.to_i
+        else
+          error_messages = validator.errors.full_messages.join(', ')
+          render JsonResponse.unprocessable_entity(error_messages)
+        end
       end
 
       def generate_data(totals, providers_info)
