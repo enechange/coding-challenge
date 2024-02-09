@@ -58,4 +58,12 @@ ENECHANGEでは各電力会社向けに、電気料金のシミュレーショ�
 2. `/challenges/`内にご自身のアカウント名でフォルダを作成し、`/challenges/template`の中身をコピーしてください。
   - 例: `/challenges/shirakia`
 3. 上記で作成したフォルダの中に実装コードを格納してください。
-3. このRepositoryへのPull Requestを作成してください。
+
+4. 開発には、docker composeを利用いただけます。
+```bash
+$ docker compose up
+$ docker compose exec web bash
+root@0fcf1ebe5546:/app# rails db:create
+``` 
+
+5. このRepositoryへのPull Requestを作成してください。
