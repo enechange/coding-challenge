@@ -1,0 +1,13 @@
+provider_name: 'Looopでんき'
+plan_name: 'おうちプラン'
+basic_charges:
+  10: 0
+  20: 0
+  30: 0
+  40: 0
+  50: 0
+  60: 0
+usage_charges:
+  condition_1:
+    limit: +.inf
+    rate: 26.40
