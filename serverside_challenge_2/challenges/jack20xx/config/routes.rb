@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get 'api/show_charges', to: 'api#show_charges'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  match '*path', to: 'application#not_found', via: :all
 end
