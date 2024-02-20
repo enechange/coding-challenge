@@ -1,0 +1,12 @@
+provider_name: "Test Provider"
+plan_name: "Test Plan"
+basic_charges:
+  50: 1000
+  60: 2000
+usage_charges:
+  condition_1:
+    limit: 100
+    rate: 10
+  condition_2:
+    limit: +.inf
+    rate: 50
