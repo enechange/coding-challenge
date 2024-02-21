@@ -12,14 +12,16 @@ def test_root_api():
 
 
 def test_electric_simurations_api():
-    params = {"contract": 10, "amount": 100}
+    params = {"contract": 10, "usage": 100}
     res = test_client.get("/simurations", params=params)
     assert res.status_code == 200
-    assert res.json() == [
-        {
+    assert res.json() == [{
             "provider": "東京電力エナジーパートナー",
             "plan": "従量電灯B",
-            "price": "3295.24",
+            "price": "2274円",
         },
-        {"provider": "Loopでんき", "plan": "おうちプラン", "price": "2640.0"},
-    ]
+        {
+            "provider": "Loopでんき",
+            "plan": "おうちプラン",
+            "price": "2640円",
+        }]

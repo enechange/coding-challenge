@@ -15,14 +15,14 @@ def get_root():
 
 
 @app.get("/simurations")
-def electric_simurations_api(contract: int, amount: int):
-    if not contract or not amount:
-        raise HTTPException(status_code=404, detail=f"not found parameters: {contract} or {amount}")
+def electric_simurations_api(contract: int, usage: int):
+    if not contract or not usage:
+        raise HTTPException(status_code=404, detail=f"not found parameters: {contract} or {usage}")
     
     if contract not in contracts:
         raise HTTPException(status_code=404, detail=f"target contract is failed: {contract}")
 
-    simurations = calc_electric_simurations(contract, amount)
+    simurations = calc_electric_simurations(contract, usage)
 
     return simurations
 
