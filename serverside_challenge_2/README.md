@@ -42,6 +42,13 @@ ENECHANGEでは各電力会社向けに、電気料金のシミュレーショ�
 
 ### そのほか
 - サーバーサイドは、Ruby on Railsを用いて実装してください。
+  - `/challenge/`のフォルダにテンプレートを用意したので、そちらをご利用ください。
+  - 開発には、`docker compose`を利用いただけます。
+```bash
+$ docker compose up
+$ docker compose exec web bash
+root@0fcf1ebe5546:/app# rails db:create
+```
 - データは、CSVやYAMLなどのファイルで管理して読み込んでください。
 - リクエストやレスポンスの形式は、ご自由に考えてくださって構いません。
 - 同様の料金体系のプランが対象プランに追加された場合も、ロジックを追加せずに済むようにしてください。
@@ -55,15 +62,6 @@ ENECHANGEでは各電力会社向けに、電気料金のシミュレーショ�
 
 ## 提出形式
 1. このRepositoryをForkしてください。
-2. `/challenges/`内にご自身のアカウント名でフォルダを作成し、`/challenges/template`の中身をコピーしてください。
-  - 例: `/challenges/shirakia`
-3. 上記で作成したフォルダの中に実装コードを格納してください。
-
-4. 開発には、docker composeを利用いただけます。
-```bash
-$ docker compose up
-$ docker compose exec web bash
-root@0fcf1ebe5546:/app# rails db:create
-``` 
-
-5. このRepositoryへのPull Requestを作成してください。
+2. `/challenge/`のフォルダに実装コードを格納してください。
+    - テンプレートで用意したファイルは自由に変更して構いません。
+3. このRepositoryへのPull Requestを作成してください。
