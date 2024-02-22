@@ -1,5 +1,5 @@
-from electricity_rate_simulator.core.electric_simurate import (
-    calc_electric_simurations,
+from electricity_rate_simulator.core.electric_simulate import (
+    calc_electric_simulations,
     calc_plan,
     calc_base_rate,
     calc_usage_rate,
@@ -13,12 +13,12 @@ DATA_DIR = BASE_DIR.joinpath("electricity_rate_simulator/data")
 PROVIDER_DIR = DATA_DIR.joinpath("provider")
 
 
-class TestElectricSimurations:
-    def test_calc_electric_simurations_1(self):
+class TestElectricsimulations:
+    def test_calc_electric_simulations_1(self):
         contract = 10
         usage = 100
-        simurations = calc_electric_simurations(contract, usage)
-        assert simurations == [
+        simulations = calc_electric_simulations(contract, usage)
+        assert simulations == [
             {
                 "provider": "東京電力エナジーパートナー",
                 "plan": "従量電灯B",
@@ -31,11 +31,11 @@ class TestElectricSimurations:
             },
         ]
 
-    def test_calc_electric_simurations_2(self):
+    def test_calc_electric_simulations_2(self):
         contract = 30
         usage = 100
-        simurations = calc_electric_simurations(contract, usage)
-        assert simurations == [
+        simulations = calc_electric_simulations(contract, usage)
+        assert simulations == [
             {
                 "provider": "東京電力エナジーパートナー",
                 "plan": "従量電灯B",

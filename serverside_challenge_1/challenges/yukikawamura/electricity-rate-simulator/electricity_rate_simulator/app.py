@@ -2,11 +2,11 @@ from fastapi import FastAPI, HTTPException
 import uvicorn
 
 
-from electricity_rate_simulator.core.electric_simurate import calc_electric_simurations
+from electricity_rate_simulator.core.electric_simulate import calc_electric_simulations
 
 app = FastAPI()
 
-contracts = [10, 15, 20, 30, 40, 50, 60]
+NUM_OF_CONTRACTS = [10, 15, 20, 30, 40, 50, 60]
 
 
 @app.get("/")
@@ -14,17 +14,21 @@ def get_root():
     return {"app": "electricity-rate-simulator"}
 
 
-@app.get("/simurations")
-def electric_simurations_api(contract: int, usage: int):
+@app.get("/simulations")
+def electric_simulations_api(contract: int, usage: int):
     if not contract or not usage:
         raise HTTPException(status_code=404, detail=f"not found parameters: {contract} or {usage}")
     
-    if contract not in contracts:
+    if contract not in NUM_OF_CONTRACTS:
         raise HTTPException(status_code=404, detail=f"target contract is failed: {contract}")
 
-    simurations = calc_electric_simurations(contract, usage)
+    try:
+        simulations = calc_electric_simulations(contract, usage)
+        return simulations
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"{e}")
 
-    return simurations
+    return simulations
 
 
 if __name__ == "__main__":

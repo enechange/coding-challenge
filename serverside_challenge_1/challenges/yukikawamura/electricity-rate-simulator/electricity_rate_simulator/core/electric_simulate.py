@@ -18,13 +18,13 @@ def calc_plan(profile: Path, contract: int, usage: int):
 
         total_price = int(base_price + usage_price)
 
-        simuration = {
+        simulation = {
             "provider": plan["provider"],
             "plan": plan["name"],
             "price": f"{total_price}円",
         }
 
-        return simuration
+        return simulation
 
 
 def calc_base_rate(contracts: list[dict], contract: int):
@@ -52,18 +52,18 @@ def calc_usage_rate(usages: dict, usage: int):
     return usage_price
 
 
-def calc_electric_simurations(contract=10, usage=10):
+def calc_electric_simulations(contract=10, usage=10):
 
-    simurations = []
+    simulations = []
     for profile in PROVIDER_DIR.glob("**/plan.json"):
         try:
-            simuration = calc_plan(profile, contract, usage)
-            simurations.append(simuration)
+            simulation = calc_plan(profile, contract, usage)
+            simulations.append(simulation)
         except Exception as e:
             print(e)
 
-    return simurations
+    return simulations
 
 
 if __name__ == "__main__":
-    calc_electric_simurations()
+    calc_electric_simulations()

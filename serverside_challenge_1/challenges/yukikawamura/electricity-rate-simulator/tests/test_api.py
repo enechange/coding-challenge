@@ -11,9 +11,9 @@ def test_root_api():
     assert res.json() == {"app": "electricity-rate-simulator"}
 
 
-def test_electric_simurations_api():
+def test_electric_simulations_api():
     params = {"contract": 10, "usage": 100}
-    res = test_client.get("/simurations", params=params)
+    res = test_client.get("/simulations", params=params)
     assert res.status_code == 200
     assert res.json() == [{
             "provider": "東京電力エナジーパートナー",
