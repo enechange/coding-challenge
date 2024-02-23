@@ -3,6 +3,7 @@ import uvicorn
 
 
 from electricity_rate_simulator.core.electric_simulate import calc_electric_simulations
+from electricity_rate_simulator.core.exception import ElectricSimulationError
 
 app = FastAPI()
 
@@ -16,19 +17,18 @@ def get_root():
 
 @app.get("/simulations")
 def electric_simulations_api(contract: int, usage: int):
-    if not contract or not usage:
-        raise HTTPException(status_code=404, detail=f"not found parameters: {contract} or {usage}")
-    
-    if contract not in NUM_OF_CONTRACTS:
-        raise HTTPException(status_code=404, detail=f"target contract is failed: {contract}")
+    if not contract or contract not in NUM_OF_CONTRACTS:
+        raise HTTPException(
+            status_code=400, detail=f"Invailed value of contract: {contract}"
+        )
+
+    if usage < 0:
+        raise HTTPException(status_code=400, detail=f"Invailed value of usage: {usage}")
 
     try:
-        simulations = calc_electric_simulations(contract, usage)
-        return simulations
-    except Exception as e:
+        return calc_electric_simulations(contract, usage)
+    except ElectricSimulationError as e:
         raise HTTPException(status_code=500, detail=f"{e}")
-
-    return simulations
 
 
 if __name__ == "__main__":
