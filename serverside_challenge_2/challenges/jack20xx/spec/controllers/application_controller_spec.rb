@@ -7,8 +7,8 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
-  describe 'Logic tests' do
-    context 'not_found method' do
+  describe 'not_found method' do
+    context 'when user access to wrong URL' do
       it 'should return a not_found error' do
         routes.draw { get '/not_found' => 'anonymous#not_found' }
         get :not_found
