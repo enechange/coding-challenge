@@ -21,6 +21,6 @@ class ValidateParamsService
   private
 
   def integer?(param)
-    /\A[-+]?\d+\z/ === param
+    /\A\d+\z/ === param
   end
 end
