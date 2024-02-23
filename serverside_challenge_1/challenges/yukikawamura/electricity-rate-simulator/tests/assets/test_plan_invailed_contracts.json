@@ -1,0 +1,12 @@
+{
+    "provider": "Invailedでんき",
+    "name": "Invailedプラン",
+    "contracts": [
+    ],
+    "usage": [
+      { "over": 0, "until": 100, "price": 10 },
+      { "over": 100, "until": 200, "price": 20 },
+      { "over": 300, "price": 30 }
+    ]
+  }
+  
