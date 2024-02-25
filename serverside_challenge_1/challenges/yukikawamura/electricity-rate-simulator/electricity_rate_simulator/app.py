@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException
 import uvicorn
-
+import logging
 
 from electricity_rate_simulator.core.electric_simulate import ElectricSimulator
 from electricity_rate_simulator.core.exception import ElectricSimulationError
@@ -8,6 +8,9 @@ from electricity_rate_simulator.core.exception import ElectricSimulationError
 app = FastAPI()
 
 NUM_OF_CONTRACTS = [10, 15, 20, 30, 40, 50, 60]
+
+lgr = logging.getLogger("uvicorn.app")
+lgr.setLevel(logging.INFO)
 
 
 @app.get("/")
@@ -29,6 +32,7 @@ def electric_simulations_api(contract: int, usage: int):
         electric_simulator = ElectricSimulator()
         return electric_simulator.simulate(contract, usage)
     except ElectricSimulationError as e:
+        lgr.exception(e)
         raise HTTPException(status_code=500, detail=f"{e}")
 
 

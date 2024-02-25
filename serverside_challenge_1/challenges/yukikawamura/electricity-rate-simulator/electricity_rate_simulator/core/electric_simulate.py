@@ -1,28 +1,41 @@
 import json
+import logging
 from pathlib import Path
 
 from .exception import (
+    ElectricSimulateClientError,
+    ElectricSimulateProviderError,
+    ElectricSimulationError,
+    InvailedPlanError,
+    InvailedProviderError,
+    InvailedUsageOverError,
+    InvailedUsagePriceError,
     InvalidContractError,
     InvalidContractsError,
     InvalidUsageError,
     InvalidUsagesError,
     NotFoundContractError,
-    ElectricSimulationError,
     NotFoundProviderError,
-    InvailedProviderError,
-    InvailedPlanError,
-    InvailedUsageOverError,
-    InvailedUsagePriceError,
-    ElectricSimulateProviderError,
-    ElectricSimulateClientError,
 )
 
-
-BASE_DIR = Path(
-    "/workspaces/coding-challenge/serverside_challenge_1/challenges/yukikawamura/electricity-rate-simulator/electricity_rate_simulator"
-)
+BASE_DIR = Path(__file__).parents[1]
 DATA_DIR = BASE_DIR.joinpath("data")
 PROVIDER_DIR = DATA_DIR.joinpath("provider")
+
+
+def setup_logging(debug_mode=False):
+    lgr = logging.getLogger("uvicorn")
+    log_format = "%(asctime)s:[%(levelname)s] %(message)s"
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(log_format)
+    level = logging.DEBUG if debug_mode else logging.INFO
+
+    lgr.setLevel(level)
+    lgr.addHandler(stream_handler)
+    return lgr
+
+
+lgr = setup_logging()
 
 
 class ElectricSimulator(object):
@@ -44,6 +57,7 @@ class ElectricSimulator(object):
         try:
             self._validate_user_data(contract, usage)
         except ElectricSimulateClientError as e:
+            lgr.exception(e)
             raise e
 
         for profile in PROVIDER_DIR.glob("**/plan.json"):
@@ -51,7 +65,7 @@ class ElectricSimulator(object):
                 simulation = self._calculate_electricity_rate(profile, contract, usage)
                 simulations.append(simulation)
             except ElectricSimulationError as e:
-                print(e)
+                lgr.exception(e)
 
         if not simulations:
             raise NotFoundProviderError("Not Found providers")
@@ -98,6 +112,7 @@ class ElectricSimulator(object):
 
                 return simulation
             except (ElectricSimulateProviderError, ElectricSimulateClientError) as e:
+                lgr.exception(e)
                 raise e
 
     def _calculate_base_rate(self, contracts: list[dict], contract: int):
@@ -118,7 +133,11 @@ class ElectricSimulator(object):
 
         usage_price = 0
         for item in usages:
-            self._validate_usage_data(item)
+            try:
+                self._validate_usage_data(item)
+            except InvalidUsagesError as e:
+                raise e
+
             over: int = item["over"]
             until: int | float = item["until"] if "until" in item else float("inf")
             price = item["price"]
