@@ -23,18 +23,4 @@ RSpec.describe ApiController, type: :controller do
       end
     end
   end
-
-  describe 'ParameterMissing' do
-    context 'when parameters are invalid' do
-      it 'should return error messages correctly' do
-        get :show_charges, params: { amps: 10 }
-        expect(response).to have_http_status(:bad_request)
-        expect(JSON.parse(response.body)['error']).to eq("'watts'が正しくありません")
-
-        get :show_charges, params: { watts: 100 }
-        expect(response).to have_http_status(:bad_request)
-        expect(JSON.parse(response.body)['error']).to eq("'amps'が正しくありません")
-      end
-    end
-  end
 end

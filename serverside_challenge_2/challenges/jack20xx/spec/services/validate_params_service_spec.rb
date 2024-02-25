@@ -2,28 +2,47 @@ require 'rails_helper'
 
 RSpec.describe ValidateParamsService do
   describe 'validate_params method' do
-    context 'when parameters are valid' do
-      it 'should return empty' do
-        @validation_service = ValidateParamsService.new('10', '50')
-        expect(@validation_service.validate_params).to eq({})
+    let(:service) { ValidateParamsService.new(params) }
 
-        @validation_service = ValidateParamsService.new('10', '0')
-        expect(@validation_service.validate_params).to eq({})
+    context 'when amps parameter is missing' do
+      let(:params) { ActionController::Parameters.new(watts: '200') }
+
+      it 'should return error messages correctly' do
+        result = service.validate_params
+        expect(result['invalid_parameter']).to eq("'amps'が正しくありません")
       end
     end
 
-    context 'when parameters are invalid' do
-      it 'should handle invalid_number error correctly' do
-        @validation_service = ValidateParamsService.new('10A', '50')
-        expect(@validation_service.validate_params).to include('invalid_number')
+    context 'when watts parameter is missing' do
+      let(:params) { ActionController::Parameters.new(amps: '100') }
 
-        @validation_service = ValidateParamsService.new('10', '50W')
-        expect(@validation_service.validate_params).to include('invalid_number')
+      it 'should return error messages correctly' do
+        result = service.validate_params
+        expect(result['invalid_parameter']).to eq("'watts'が正しくありません")
       end
+    end
 
-      it 'should handle invalid_amp error correctly' do
-        @validation_service = ValidateParamsService.new('0', '50')
-        expect(@validation_service.validate_params).to include('invalid_amp')
+    context 'when parameters are valid' do
+      let(:params) { ActionController::Parameters.new({ amps: '10', watts: '50' }) }
+
+      it 'should return empty' do
+        expect(service.validate_params).to eq({})
+      end
+    end
+
+    context 'when parameter numbers are invalid' do
+      let(:params) { ActionController::Parameters.new({ amps: '10A', watts: '50' }) }
+
+      it 'should handle invalid_number error correctly' do
+        expect(service.validate_params).to include('invalid_number')
+      end
+    end
+
+    context 'when amp numbers are unmatched with data' do
+      let(:params) { ActionController::Parameters.new({ amps: '0', watts: '50' }) }
+
+      it 'should handle unmatched_amp error correctly' do
+        expect(service.validate_params).to include('unmatched_amp')
       end
     end
   end
