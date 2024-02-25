@@ -9,5 +9,4 @@ basic_charges:
   60: 0
 usage_charges:
   condition_1:
-    limit: +.inf
     rate: 26.40

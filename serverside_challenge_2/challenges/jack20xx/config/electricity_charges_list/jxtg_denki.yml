@@ -16,5 +16,4 @@ usage_charges:
     limit: 600
     rate: 25.08
   condition_4:
-    limit: +.inf
     rate: 26.15

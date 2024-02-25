@@ -7,11 +7,11 @@ class CalculateChargesService
   def calculate_charges
     electricity_files = Dir.glob(ELECTRICITY_CHARGES_PATH)
     electricity_files.map do |file|
-      bill = ElectricityCharges.new(@amps, @watts, file)
-      price = bill.calculate
+      charge = GetChargesService.new(@amps, @watts, file)
+      price = charge.calculate
       {
-        provider_name: bill.provider_name,
-        plan_name: bill.plan_name,
+        provider_name: charge.provider_name,
+        plan_name: charge.plan_name,
         price: price.is_a?(Numeric) ? price.floor : price
       }
     end

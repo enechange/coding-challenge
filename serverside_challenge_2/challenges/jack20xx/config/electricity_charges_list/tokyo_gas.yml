@@ -13,5 +13,4 @@ usage_charges:
     limit: 350
     rate: 23.88
   condition_3:
-    limit: +.inf
     rate: 26.41

@@ -8,5 +8,4 @@ usage_charges:
     limit: 100
     rate: 10
   condition_2:
-    limit: +.inf
     rate: 50
