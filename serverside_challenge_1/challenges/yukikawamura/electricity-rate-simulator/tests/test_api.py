@@ -26,20 +26,20 @@ def test_electric_simulations_api():
         }]
 
 
-def test_electric_simulations_api_invailed_contract():
+def test_electric_simulations_api_invalid_contract():
     contract = 0
     usage = 100
     params = {"contract": contract, "usage": usage}
     res = test_client.get("/simulations", params=params)
     assert res.status_code == 400
-    assert res.json() == {'detail': f'Invailed value of contract: {contract}'}
+    assert res.json() == {'detail': f'Invalid number of contract: {contract}'}
     
 
-def test_electric_simulations_api_invailed_usage():
+def test_electric_simulations_api_invalid_usage():
     contract = 10
     usage = -1
     params = {"contract": contract, "usage": usage}
     res = test_client.get("/simulations", params=params)
     assert res.status_code == 400
-    assert res.json() == {"detail": f"Invailed value of usage: {usage}"}
+    assert res.json() == {"detail": f"Invalid number of usage: {usage}"}
 

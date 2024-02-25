@@ -9,8 +9,8 @@ PROVIDER_DIR = DATA_DIR.joinpath("provider")
 
 TEST_DIR = BASE_DIR.joinpath("tests")
 TEST_PROFILE = TEST_DIR.joinpath("assets", "test_plan.json")
-TEST_PROFILE_INVAILED_CONTRACTS = TEST_DIR.joinpath("assets", "test_plan_invailed_contracts.json")
-TEST_PROFILE_INVAILED_USAGES = TEST_DIR.joinpath("assets", "test_plan_invailed_usages.json")
+TEST_PROFILE_INVAILED_CONTRACTS = TEST_DIR.joinpath("assets", "test_plan_invalid_contracts.json")
+TEST_PROFILE_INVAILED_USAGES = TEST_DIR.joinpath("assets", "test_plan_invalid_usages.json")
 
 
 @pytest.fixture()

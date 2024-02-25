@@ -7,13 +7,13 @@ from electricity_rate_simulator.core.exception import (
     InvalidUsagesError,
     ElectricSimulationError,
     ElectricSimulateProviderError,
-    InvailedProviderError,
-    InvailedPlanError,
+    InvalidProviderError,
+    InvalidPlanError,
     ElectricSimulateClientError,
     NotFoundProviderError,
     NotFoundContractError,
-    InvailedUsageOverError,
-    InvailedUsagePriceError,
+    InvalidUsageOverError,
+    InvalidUsagePriceError,
 )
 
 from .conftest import (
@@ -70,7 +70,7 @@ class TestElectricSimurationExceptions:
     usage = 100
     electric_simuratior = ElectricSimulator()
 
-    def test_simulate_invailed_contract_error(self, mocker: MockerFixture):
+    def test_simulate_invalid_contract_error(self, mocker: MockerFixture):
         err_msg = "dummy InvalidContractError"
         mocker.patch(
             "electricity_rate_simulator.core.electric_simulate.ElectricSimulator.simulate",
@@ -81,7 +81,7 @@ class TestElectricSimurationExceptions:
 
         assert str(e.value) == err_msg
 
-    def test_simulate_invailed_usage_error(self, mocker: MockerFixture):
+    def test_simulate_invalid_usage_error(self, mocker: MockerFixture):
         err_msg = "dummy InvalidUsageError"
         mocker.patch(
             "electricity_rate_simulator.core.electric_simulate.ElectricSimulator.simulate",
@@ -103,7 +103,7 @@ class TestElectricSimurationExceptions:
 
         assert str(e.value) == err_msg
 
-    def test_calculate_electricity_rate_invailed_contracts_error(
+    def test_calculate_electricity_rate_invalid_contracts_error(
         self, mocker: MockerFixture
     ):
         err_msg = "dummy InvalidContractsError"
@@ -115,7 +115,7 @@ class TestElectricSimurationExceptions:
             self.electric_simuratior._calculate_electricity_rate(self.profile)
         assert str(e.value) == err_msg
 
-    def test_calculate_electricity_rate_invailed_usages_error(
+    def test_calculate_electricity_rate_invalid_usages_error(
         self, mocker: MockerFixture
     ):
         err_msg = "dummy InvalidUsagesError"
@@ -127,33 +127,33 @@ class TestElectricSimurationExceptions:
             self.electric_simuratior._calculate_electricity_rate(self.profile)
         assert str(e.value) == err_msg
 
-    def test_calculate_electricity_rate_invailed_provider_error(
+    def test_calculate_electricity_rate_invalid_provider_error(
         self, mocker: MockerFixture
     ):
-        err_msg = "dummy InvailedProviderError"
+        err_msg = "dummy InvalidProviderError"
         mocker.patch(
             "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
-            side_effect=InvailedProviderError(err_msg),
+            side_effect=InvalidProviderError(err_msg),
         )
         with pytest.raises(ElectricSimulateProviderError) as e:
             self.electric_simuratior._calculate_electricity_rate(self.profile)
 
         assert str(e.value) == err_msg
 
-    def test_calculate_electricity_rate_invailed_plan_error(
+    def test_calculate_electricity_rate_invalid_plan_error(
         self, mocker: MockerFixture
     ):
-        err_msg = "dummy InvailedPlanError"
+        err_msg = "dummy InvalidPlanError"
         mocker.patch(
             "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
-            side_effect=InvailedPlanError(err_msg),
+            side_effect=InvalidPlanError(err_msg),
         )
         with pytest.raises(ElectricSimulateProviderError) as e:
             self.electric_simuratior._calculate_electricity_rate(self.profile)
 
         assert str(e.value) == err_msg
 
-    def test_calculate_electricity_rate_invailed_usage_error(
+    def test_calculate_electricity_rate_invalid_usage_error(
         self, mocker: MockerFixture
     ):
         err_msg = "dummy ElectricSimulateProviderError"
@@ -191,30 +191,30 @@ class TestElectricSimurationExceptions:
 
         assert str(e.value) == err_msg
 
-    def test_calculate_usage_rate_invailed_usage_over_error(
+    def test_calculate_usage_rate_invalid_usage_over_error(
         self, mocker: MockerFixture
     ):
-        err_msg = "dummy InvailedUsageOverError"
+        err_msg = "dummy InvalidUsageOverError"
         mocker.patch(
             "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_usage_rate",
-            side_effect=InvailedUsageOverError(err_msg),
+            side_effect=InvalidUsageOverError(err_msg),
         )
         contracts = [{}]
-        with pytest.raises(InvailedUsageOverError) as e:
+        with pytest.raises(InvalidUsageOverError) as e:
             self.electric_simuratior._calculate_usage_rate(contracts)
 
         assert str(e.value) == err_msg
 
-    def test_calculate_usage_rate_invailed_usage_price_error(
+    def test_calculate_usage_rate_invalid_usage_price_error(
         self, mocker: MockerFixture
     ):
-        err_msg = "dummy InvailedUsagePriceError"
+        err_msg = "dummy InvalidUsagePriceError"
         mocker.patch(
             "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_usage_rate",
-            side_effect=InvailedUsagePriceError(err_msg),
+            side_effect=InvalidUsagePriceError(err_msg),
         )
         contracts = [{}]
-        with pytest.raises(InvailedUsagePriceError) as e:
+        with pytest.raises(InvalidUsagePriceError) as e:
             self.electric_simuratior._calculate_usage_rate(contracts)
 
         assert str(e.value) == err_msg

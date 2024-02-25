@@ -6,10 +6,10 @@ from .exception import (
     ElectricSimulateClientError,
     ElectricSimulateProviderError,
     ElectricSimulationError,
-    InvailedPlanError,
-    InvailedProviderError,
-    InvailedUsageOverError,
-    InvailedUsagePriceError,
+    InvalidPlanError,
+    InvalidProviderError,
+    InvalidUsageOverError,
+    InvalidUsagePriceError,
     InvalidContractError,
     InvalidContractsError,
     InvalidUsageError,
@@ -45,7 +45,7 @@ class ElectricSimulator(object):
 
     def _validate_user_data(self, contract: int, usage: int):
         if contract <= 0:
-            raise InvalidContractError(f"Invailed number of contract: {contract}")
+            raise InvalidContractError(f"Invalid number of contract: {contract}")
 
         if usage < 0:
             raise InvalidUsageError(f"Invalid number of usage: {usage}")
@@ -74,16 +74,16 @@ class ElectricSimulator(object):
 
     def _validate_profile(self, profile_data: dict):
         if not profile_data.get("contracts"):
-            raise InvalidContractsError("Invailed contracts data")
+            raise InvalidContractsError("Invalid contracts data")
 
         if not profile_data.get("usage"):
             raise InvalidUsagesError("Invalid usages data")
 
         if not profile_data.get("provider"):
-            raise InvailedProviderError("Invalid provider data")
+            raise InvalidProviderError("Invalid provider data")
 
         if not profile_data.get("name"):
-            raise InvailedPlanError("Invalid plan data")
+            raise InvalidPlanError("Invalid plan data")
 
     def _calculate_electricity_rate(self, profile: Path, contract: int, usage: int):
         with open(profile, "r", encoding="utf-8") as f:
@@ -124,10 +124,10 @@ class ElectricSimulator(object):
 
     def _validate_usage_data(self, item: dict):
         if item.get("over", None) is None:
-            raise InvailedUsageOverError("Invailed over data")
+            raise InvalidUsageOverError("Invalid over data")
 
         if item.get("price", None) is None:
-            raise InvailedUsagePriceError("Invailed price data")
+            raise InvalidUsagePriceError("Invalid price data")
 
     def _calculate_usage_rate(self, usages: dict, usage: int):
 

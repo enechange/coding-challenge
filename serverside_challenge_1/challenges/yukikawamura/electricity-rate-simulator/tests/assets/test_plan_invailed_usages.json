@@ -1,6 +1,6 @@
 {
-    "provider": "Invailedでんき",
-    "name": "Invailedプラン",
+    "provider": "Invalidでんき",
+    "name": "Invalidプラン",
     "contracts": [
       { "contract": "10", "price": 10 },
       { "contract": "15", "price": 15 },
