@@ -18,6 +18,22 @@ class InvalidUsagesError(ElectricSimulateProviderError):
     pass
 
 
+class InvailedProviderError(ElectricSimulateProviderError):
+    pass
+
+
+class InvailedPlanError(ElectricSimulateProviderError):
+    pass
+
+
+class InvailedUsageOverError(InvalidUsagesError):
+    pass
+
+
+class InvailedUsagePriceError(InvalidUsagesError):
+    pass
+
+
 class ElectricSimulateClientError(ElectricSimulationError):
     pass
 

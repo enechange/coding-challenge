@@ -1,9 +1,4 @@
-from electricity_rate_simulator.core.electric_simulate import (
-    calc_electric_simulations,
-    calc_plan,
-    calc_base_rate,
-    calc_usage_rate,
-)
+from electricity_rate_simulator.core.electric_simulate import ElectricSimulator
 
 from electricity_rate_simulator.core.exception import (
     InvalidContractError,
@@ -11,6 +6,14 @@ from electricity_rate_simulator.core.exception import (
     InvalidUsageError,
     InvalidUsagesError,
     ElectricSimulationError,
+    ElectricSimulateProviderError,
+    InvailedProviderError,
+    InvailedPlanError,
+    ElectricSimulateClientError,
+    NotFoundProviderError,
+    NotFoundContractError,
+    InvailedUsageOverError,
+    InvailedUsagePriceError,
 )
 
 from .conftest import (
@@ -21,11 +24,15 @@ from .conftest import (
 )
 
 import pytest
+from pytest_mock.plugin import MockerFixture
 
 
-class TestElectricsimulations:
-    def test_calc_electric_simulations_1(self):
-        simulations = calc_electric_simulations(contract=10, usage=100)
+class TestElectricSimulatior:
+
+    electric_simurator = ElectricSimulator()
+
+    def test_simulate_by_contract_10A(self):
+        simulations = self.electric_simurator.simulate(contract=10, usage=100)
         assert simulations == [
             {
                 "provider": "東京電力エナジーパートナー",
@@ -39,15 +46,15 @@ class TestElectricsimulations:
             },
         ]
 
-    def test_calc_electric_simulations_2(self):
-        simulations = calc_electric_simulations(contract=30, usage=100)
+    def test_simulate_by_contract_30A(self):
+        simulations = self.electric_simurator.simulate(contract=30, usage=100)
         assert simulations == [
             {
                 "provider": "東京電力エナジーパートナー",
                 "plan": "従量電灯B",
                 "price": "2846円",
             },
-            {"provider": "東京ガス", "plan": "ずっとも電気1", "price": "4264円"},
+            {"provider": "東京ガス", "plan": "ずっとも電気1", "price": "3225円"},
             {"provider": "Loopでんき", "plan": "おうちプラン", "price": "2640円"},
             {
                 "provider": "JXTGでんき",
@@ -58,180 +65,409 @@ class TestElectricsimulations:
 
 
 class TestElectricSimurationExceptions:
+    profile = TEST_PROFILE
+    contract = 10
+    usage = 100
+    electric_simuratior = ElectricSimulator()
 
-    def test_calc_electric_simulations_invailed_contract(self):
-        contract = -1
-        usage = 100
+    def test_simulate_invailed_contract_error(self, mocker: MockerFixture):
+        err_msg = "dummy InvalidContractError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator.simulate",
+            side_effect=InvalidContractError(err_msg),
+        )
+        with pytest.raises(ElectricSimulationError) as e:
+            self.electric_simuratior.simulate(self.contract, self.usage)
 
-        with pytest.raises(InvalidContractError) as e:
-            calc_electric_simulations(contract, usage)
+        assert str(e.value) == err_msg
 
-        assert str(e.value) == f"Invailed number of contract: {contract}"
-
-    def test_calc_electric_simulations_invailed_usage(self):
-        contract = 10
-        usage = -1
-
+    def test_simulate_invailed_usage_error(self, mocker: MockerFixture):
+        err_msg = "dummy InvalidUsageError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator.simulate",
+            side_effect=InvalidUsageError(err_msg),
+        )
         with pytest.raises(InvalidUsageError) as e:
-            calc_electric_simulations(contract, usage)
+            self.electric_simuratior.simulate(self.contract, self.usage)
 
-        assert str(e.value) == f"Invalid number of usage: {usage}"
+        assert str(e.value) == err_msg
 
-    def test_calc_plan_invailed_contract(self):
-        profile = TEST_PROFILE
-        contract = -1
-        usage = 100
+    def test_simulate_notfound_provider_error(self, mocker: MockerFixture):
+        err_msg = "dummy NotFoundProviderError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator.simulate",
+            side_effect=NotFoundProviderError("dummy NotFoundProviderError"),
+        )
+        with pytest.raises(NotFoundProviderError) as e:
+            self.electric_simuratior.simulate()
 
-        with pytest.raises(ElectricSimulationError) as e:
-            calc_plan(profile, contract, usage)
+        assert str(e.value) == err_msg
 
-        assert str(e.value) == f"Invailed number of contract: {contract}"
+    def test_calculate_electricity_rate_invailed_contracts_error(
+        self, mocker: MockerFixture
+    ):
+        err_msg = "dummy InvalidContractsError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            side_effect=InvalidContractsError(err_msg),
+        )
+        with pytest.raises(ElectricSimulateProviderError) as e:
+            self.electric_simuratior._calculate_electricity_rate(self.profile)
+        assert str(e.value) == err_msg
 
-    def test_calc_plan_invailed_usage(self):
-        profile = TEST_PROFILE
-        contract = 10
-        usage = -1
+    def test_calculate_electricity_rate_invailed_usages_error(
+        self, mocker: MockerFixture
+    ):
+        err_msg = "dummy InvalidUsagesError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            side_effect=InvalidUsagesError(err_msg),
+        )
+        with pytest.raises(ElectricSimulateProviderError) as e:
+            self.electric_simuratior._calculate_electricity_rate(self.profile)
+        assert str(e.value) == err_msg
 
-        with pytest.raises(ElectricSimulationError) as e:
-            calc_plan(profile, contract, usage)
+    def test_calculate_electricity_rate_invailed_provider_error(
+        self, mocker: MockerFixture
+    ):
+        err_msg = "dummy InvailedProviderError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            side_effect=InvailedProviderError(err_msg),
+        )
+        with pytest.raises(ElectricSimulateProviderError) as e:
+            self.electric_simuratior._calculate_electricity_rate(self.profile)
 
-        assert str(e.value) == f"Invalid number of usage: {usage}"
+        assert str(e.value) == err_msg
 
-    def test_calc_plan_notfound_contract(self):
-        profile = TEST_PROFILE
-        contract = 0
-        usage = 100
+    def test_calculate_electricity_rate_invailed_plan_error(
+        self, mocker: MockerFixture
+    ):
+        err_msg = "dummy InvailedPlanError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            side_effect=InvailedPlanError(err_msg),
+        )
+        with pytest.raises(ElectricSimulateProviderError) as e:
+            self.electric_simuratior._calculate_electricity_rate(self.profile)
 
-        with pytest.raises(ElectricSimulationError) as e:
-            calc_plan(profile, contract, usage)
+        assert str(e.value) == err_msg
 
-        assert str(e.value) == f"Not found number of contract: {contract}"
+    def test_calculate_electricity_rate_invailed_usage_error(
+        self, mocker: MockerFixture
+    ):
+        err_msg = "dummy ElectricSimulateProviderError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            side_effect=ElectricSimulateProviderError(err_msg),
+        )
+        with pytest.raises(ElectricSimulateProviderError) as e:
+            self.electric_simuratior._calculate_electricity_rate(self.profile)
 
-    def test_calc_plan_invailed_contracts_plan(self):
-        profile = TEST_PROFILE_INVAILED_CONTRACTS
-        contract = 10
-        usage = 10
+        assert str(e.value) == err_msg
 
-        with pytest.raises(InvalidContractsError) as e:
-            calc_plan(profile, contract, usage)
+    def test_calculate_electricity_rate_notfound_contract_error(
+        self, mocker: MockerFixture
+    ):
+        err_msg = "dummy ElectricSimulateClientError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            side_effect=ElectricSimulateClientError(err_msg),
+        )
+        with pytest.raises(ElectricSimulateClientError) as e:
+            self.electric_simuratior._calculate_electricity_rate(self.profile)
 
-        assert str(e.value) == "Invailed contracts data"
+        assert str(e.value) == err_msg
 
-    def test_calc_plan_invailed_usages_plan(self):
-        profile = TEST_PROFILE_INVAILED_USAGES
-        contract = 10
-        usage = 10
+    def test_calculate_base_rate_notfound_contract_error(self, mocker: MockerFixture):
+        err_msg = "dummy NotFoundContractError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_base_rate",
+            side_effect=NotFoundContractError(err_msg),
+        )
+        contracts = [{}]
+        with pytest.raises(NotFoundContractError) as e:
+            self.electric_simuratior._calculate_base_rate(contracts)
 
-        with pytest.raises(InvalidUsagesError) as e:
-            calc_plan(profile, contract, usage)
+        assert str(e.value) == err_msg
 
-        assert str(e.value) == "Invalid usages data"
+    def test_calculate_usage_rate_invailed_usage_over_error(
+        self, mocker: MockerFixture
+    ):
+        err_msg = "dummy InvailedUsageOverError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_usage_rate",
+            side_effect=InvailedUsageOverError(err_msg),
+        )
+        contracts = [{}]
+        with pytest.raises(InvailedUsageOverError) as e:
+            self.electric_simuratior._calculate_usage_rate(contracts)
+
+        assert str(e.value) == err_msg
+
+    def test_calculate_usage_rate_invailed_usage_price_error(
+        self, mocker: MockerFixture
+    ):
+        err_msg = "dummy InvailedUsagePriceError"
+        mocker.patch(
+            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_usage_rate",
+            side_effect=InvailedUsagePriceError(err_msg),
+        )
+        contracts = [{}]
+        with pytest.raises(InvailedUsagePriceError) as e:
+            self.electric_simuratior._calculate_usage_rate(contracts)
+
+        assert str(e.value) == err_msg
 
 
 class TestElectricSimurationByTepco:
-    contract = 10
-    usage = 100
-    profile = PROVIDER_DIR.joinpath("tepco", "plan.json")
 
-    def test_calc_plan(self):
+    electric_simuratior = ElectricSimulator()
 
-        simuration = calc_plan(self.profile, self.contract, self.usage)
+    @pytest.mark.parametrize(
+        "test_contract, test_usage, test_price",
+        [
+            (15, 120, 2814),
+            (15, 300, 7581),
+            (15, 350, 9109),
+            (20, 120, 2957),
+            (20, 300, 7724),
+            (20, 350, 9252),
+            (30, 120, 3243),
+            (30, 300, 8010),
+            (30, 350, 9538),
+            (40, 120, 3529),
+            (40, 300, 8296),
+            (40, 350, 9824),
+            (50, 120, 3815),
+            (50, 300, 8582),
+            (50, 350, 10110),
+            (60, 120, 4101),
+            (60, 300, 8868),
+            (60, 350, 10396),
+        ],
+    )
+    def test_calculate_electricity_rate(self, test_contract, test_usage, test_price):
+        profile = PROVIDER_DIR.joinpath("tepco", "plan.json")
+        simuration = self.electric_simuratior._calculate_electricity_rate(
+            profile, test_contract, test_usage
+        )
         assert simuration == {
             "provider": "東京電力エナジーパートナー",
             "plan": "従量電灯B",
-            "price": "2274円",
+            "price": f"{test_price}円",
         }
 
-    def test_calc_base_rate(self, test_plan_by_tepco):
-        plan = test_plan_by_tepco
-        contracts = plan["contracts"]
-        base_price = calc_base_rate(contracts, self.contract)
-        assert base_price == 286
+    @pytest.mark.parametrize(
+        "test_contract, test_price",
+        [
+            (10, 286.0),
+            (15, 429.0),
+            (20, 572.0),
+            (30, 858.0),
+            (40, 1144.0),
+            (50, 1430.0),
+            (60, 1716.0),
+        ],
+    )
+    def test_calculate_base_rate(self, test_plan_by_tepco, test_contract, test_price):
+        contracts = test_plan_by_tepco["contracts"]
+        base_price = self.electric_simuratior._calculate_base_rate(
+            contracts, test_contract
+        )
+        assert base_price == test_price
 
-    def test_calc_usage_rate(self, test_plan_by_tepco):
-        plan = test_plan_by_tepco
-        usages = plan["usage"]
-
-        usage_price = calc_usage_rate(usages, self.usage)
-        assert usage_price == 1988
+    @pytest.mark.parametrize(
+        "test_usage, test_price",
+        [(120, 2385.6), (300, 7152), (350, 8680.5)],
+    )
+    def test_calculate_usage_rate(self, test_plan_by_tepco, test_usage, test_price):
+        usages = test_plan_by_tepco["usage"]
+        usage_price = self.electric_simuratior._calculate_usage_rate(usages, test_usage)
+        assert usage_price == test_price
 
 
 class TestElectricSimurationByLooopElectricity:
-    contract = 10
-    usage = 100
-    profile = PROVIDER_DIR.joinpath("looop", "plan.json")
 
-    def test_calc_plan(self):
-        simuration = calc_plan(self.profile, self.contract, self.usage)
+    electric_simuratior = ElectricSimulator()
+
+    @pytest.mark.parametrize(
+        "test_contract, test_usage, test_price",
+        [
+            (10, 100, 2640),
+            (10, 300, 7920),
+            (10, 500, 13200),
+            (15, 100, 2640),
+            (15, 300, 7920),
+            (15, 500, 13200),
+            (20, 100, 2640),
+            (20, 300, 7920),
+            (20, 500, 13200),
+            (30, 100, 2640),
+            (30, 300, 7920),
+            (30, 500, 13200),
+            (40, 100, 2640),
+            (40, 300, 7920),
+            (40, 500, 13200),
+            (50, 100, 2640),
+            (50, 300, 7920),
+            (50, 500, 13200),
+            (60, 100, 2640),
+            (60, 300, 7920),
+            (60, 500, 13200),
+        ],
+    )
+    def test_calculate_electricity_rate(self, test_contract, test_usage, test_price):
+        profile = PROVIDER_DIR.joinpath("looop", "plan.json")
+        simuration = self.electric_simuratior._calculate_electricity_rate(
+            profile, test_contract, test_usage
+        )
         assert simuration == {
             "provider": "Loopでんき",
             "plan": "おうちプラン",
-            "price": "2640円",
+            "price": f"{test_price}円",
         }
 
-    def test_calc_base_rate(self, test_plan_by_looop):
-        plan = test_plan_by_looop
-        contracts = plan["contracts"]
-        base_price = calc_base_rate(contracts, self.contract)
-        assert base_price == 0
+    @pytest.mark.parametrize(
+        "test_contract, test_price",
+        [(10, 0), (15, 0), (20, 0), (30, 0), (40, 0), (50, 0), (60, 0)],
+    )
+    def test_calculate_base_rate(self, test_plan_by_looop, test_contract, test_price):
+        contracts = test_plan_by_looop["contracts"]
+        base_price = self.electric_simuratior._calculate_base_rate(
+            contracts, test_contract
+        )
+        assert base_price == test_price
 
-    def test_calc_usage_rate(self, test_plan_by_looop):
-        plan = test_plan_by_looop
-        usages = plan["usage"]
-
-        usage_price = calc_usage_rate(usages, self.usage)
-        assert usage_price == 2640
+    @pytest.mark.parametrize(
+        "test_usage, test_price",
+        [(100, 2640), (300, 7920), (500, 13200)],
+    )
+    def test_calculate_usage_rate(self, test_plan_by_looop, test_usage, test_price):
+        usages = test_plan_by_looop["usage"]
+        usage_price = self.electric_simuratior._calculate_usage_rate(usages, test_usage)
+        assert usage_price == test_price
 
 
 class TestElectricSimurationByTokyoGas:
-    contract = 30
-    usage = 100
-    profile = PROVIDER_DIR.joinpath("tokyo-gas", "plan.json")
 
-    def test_calc_plan(self):
-        simuration = calc_plan(self.profile, self.contract, self.usage)
+    electric_simuratior = ElectricSimulator()
+
+    @pytest.mark.parametrize(
+        "test_contract, test_usage, test_price",
+        [
+            (30, 0, 429),
+            (30, 140, 4171),
+            (30, 350, 9186),
+            (30, 400, 10507),
+            (40, 0, 572),
+            (40, 140, 4457),
+            (40, 350, 9472),
+            (40, 400, 10793),
+            (50, 0, 715),
+            (50, 140, 4743),
+            (50, 350, 9758),
+            (50, 400, 11079),
+            (60, 0, 858),
+            (60, 140, 5029),
+            (60, 350, 10044),
+            (60, 400, 11365),
+        ],
+    )
+    def test_calculate_electricity_rate(self, test_contract, test_usage, test_price):
+        profile = PROVIDER_DIR.joinpath("tokyo-gas", "plan.json")
+        simuration = self.electric_simuratior._calculate_electricity_rate(
+            profile, test_contract, test_usage
+        )
         assert simuration == {
             "provider": "東京ガス",
             "plan": "ずっとも電気1",
-            "price": "4264円",
+            "price": f"{test_price}円",
         }
 
-    def test_calc_base_rate(self, test_plan_by_tokyogas):
-        plan = test_plan_by_tokyogas
-        contracts = plan["contracts"]
-        base_price = calc_base_rate(contracts, self.contract)
-        assert base_price == 885.72
+    @pytest.mark.parametrize(
+        "test_contract, test_price",
+        [(30, 858.00), (40, 1144.00), (50, 1430.00), (60, 1716.00)],
+    )
+    def test_calculate_base_rate(
+        self, test_plan_by_tokyogas, test_contract, test_price
+    ):
+        contracts = test_plan_by_tokyogas["contracts"]
+        base_price = self.electric_simuratior._calculate_base_rate(
+            contracts, test_contract
+        )
+        assert base_price == test_price
 
-    def test_calc_usage_rate(self, test_plan_by_tokyogas):
-        plan = test_plan_by_tokyogas
-        usages = plan["usage"]
-
-        usage_price = calc_usage_rate(usages, self.usage)
-        assert usage_price == 3379
+    @pytest.mark.parametrize(
+        "test_usage, test_price",
+        [(0, 0), (140, 3313.8), (350, 8328.6), (400, 9649.1)],
+    )
+    def test_calculate_usage_rate(self, test_plan_by_tokyogas, test_usage, test_price):
+        usages = test_plan_by_tokyogas["usage"]
+        usage_price = self.electric_simuratior._calculate_usage_rate(usages, test_usage)
+        assert usage_price == test_price
 
 
 class TestElectricSimurationByJxtgElectricity:
-    contract = 30
-    usage = 100
-    profile = PROVIDER_DIR.joinpath("jxtg-electric", "plan.json")
 
-    def test_calc_plan(self):
-        simuration = calc_plan(self.profile, self.contract, self.usage)
+    electric_simuratior = ElectricSimulator()
+
+    @pytest.mark.parametrize(
+        "test_contract, test_usage, test_price",
+        [
+            (30, 0, 429),
+            (30, 120, 3243),
+            (30, 300, 8010),
+            (30, 600, 15534),
+            (30, 650, 16841),
+            (40, 0, 572),
+            (40, 120, 3529),
+            (40, 300, 8296),
+            (40, 600, 15820),
+            (40, 650, 17127),
+            (50, 0, 715),
+            (50, 120, 3815),
+            (50, 300, 8582),
+            (50, 600, 16106),
+            (50, 650, 17413),
+            (60, 0, 858),
+            (60, 120, 4102),
+            (60, 300, 8868),
+            (60, 600, 16392),
+            (60, 650, 17700),
+        ],
+    )
+    def test_calculate_electricity_rate(self, test_contract, test_usage, test_price):
+        profile = PROVIDER_DIR.joinpath("jxtg-electric", "plan.json")
+        simuration = self.electric_simuratior._calculate_electricity_rate(
+            profile, test_contract, test_usage
+        )
         assert simuration == {
             "provider": "JXTGでんき",
             "plan": "従量電灯Bたっぷりプラン",
-            "price": "2846円",
+            "price": f"{test_price}円",
         }
 
-    def test_calc_base_rate(self, test_plan_by_jxtg_electricity):
-        plan = test_plan_by_jxtg_electricity
-        contracts = plan["contracts"]
-        base_price = calc_base_rate(contracts, self.contract)
-        assert base_price == 858.00
+    @pytest.mark.parametrize(
+        "test_contract, test_price",
+        [(30, 858.00), (40, 1144.00), (50, 1430.00), (60, 1716.80)],
+    )
+    def test_calculate_base_rate(
+        self, test_plan_by_jxtg_electricity, test_contract, test_price
+    ):
+        contracts = test_plan_by_jxtg_electricity["contracts"]
+        base_price = self.electric_simuratior._calculate_base_rate(
+            contracts, test_contract
+        )
+        assert base_price == test_price
 
-    def test_calc_usage_rate(self, test_plan_by_jxtg_electricity):
-        plan = test_plan_by_jxtg_electricity
-        usages = plan["usage"]
-
-        usage_price = calc_usage_rate(usages, self.usage)
-        assert usage_price == 1988
+    @pytest.mark.parametrize(
+        "test_usage, test_price",
+        [(0, 0), (120, 2385.6), (300, 7152), (600, 14676), (650, 15983.5)],
+    )
+    def test_calculate_usage_rate(
+        self, test_plan_by_jxtg_electricity, test_usage, test_price
+    ):
+        usages = test_plan_by_jxtg_electricity["usage"]
+        usage_price = self.electric_simuratior._calculate_usage_rate(usages, test_usage)
+        assert usage_price == test_price

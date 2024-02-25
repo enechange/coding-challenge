@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 import uvicorn
 
 
-from electricity_rate_simulator.core.electric_simulate import calc_electric_simulations
+from electricity_rate_simulator.core.electric_simulate import ElectricSimulator
 from electricity_rate_simulator.core.exception import ElectricSimulationError
 
 app = FastAPI()
@@ -26,7 +26,8 @@ def electric_simulations_api(contract: int, usage: int):
         raise HTTPException(status_code=400, detail=f"Invailed value of usage: {usage}")
 
     try:
-        return calc_electric_simulations(contract, usage)
+        electric_simulator = ElectricSimulator()
+        return electric_simulator.simulate(contract, usage)
     except ElectricSimulationError as e:
         raise HTTPException(status_code=500, detail=f"{e}")
 

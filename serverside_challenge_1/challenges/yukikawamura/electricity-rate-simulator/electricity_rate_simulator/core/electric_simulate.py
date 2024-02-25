@@ -8,8 +8,15 @@ from .exception import (
     InvalidUsagesError,
     NotFoundContractError,
     ElectricSimulationError,
-    NotFoundProviderError
+    NotFoundProviderError,
+    InvailedProviderError,
+    InvailedPlanError,
+    InvailedUsageOverError,
+    InvailedUsagePriceError,
+    ElectricSimulateProviderError,
+    ElectricSimulateClientError,
 )
+
 
 BASE_DIR = Path(
     "/workspaces/coding-challenge/serverside_challenge_1/challenges/yukikawamura/electricity-rate-simulator/electricity_rate_simulator"
@@ -18,90 +25,108 @@ DATA_DIR = BASE_DIR.joinpath("data")
 PROVIDER_DIR = DATA_DIR.joinpath("provider")
 
 
-def calc_plan(profile: Path, contract: int, usage: int):
-    with open(profile, "r", encoding="utf-8") as f:
-        plan = json.load(f)
+class ElectricSimulator(object):
 
-        if not plan.get("contracts"):
-            raise InvalidContractsError("Invailed contracts data")
-        contracts = plan["contracts"]
+    def __init__(self):
+        pass
 
-        if not plan.get("usage"):
-            raise InvalidUsagesError("Invalid usages data")
-        usages = plan["usage"]
+    def _validate_user_data(self, contract: int, usage: int):
+        if contract <= 0:
+            raise InvalidContractError(f"Invailed number of contract: {contract}")
 
-        base_price = calc_base_rate(contracts, contract)
-        usage_price = calc_usage_rate(usages, usage)
-        total_price = int(base_price + usage_price)
+        if usage < 0:
+            raise InvalidUsageError(f"Invalid number of usage: {usage}")
 
-        simulation = {
-            "provider": plan["provider"],
-            "plan": plan["name"],
-            "price": f"{total_price}円",
-        }
+    def simulate(self, contract: int, usage: int):
 
-        return simulation
+        simulations = []
 
-
-def calc_base_rate(contracts: list[dict], contract: int):
-
-    if not contracts:
-        raise InvalidContractsError("Invailed contracts data")
-
-    if contract < 0:
-        raise InvalidContractError(f"Invailed number of contract: {contract}")
-
-    for row in contracts:
-        if contract == int(row["contract"]):
-            return float(row["price"])
-    else:
-        raise NotFoundContractError(f"Not found number of contract: {contract}")
-
-
-def calc_usage_rate(usages: dict, usage: int):
-
-    if not usages:
-        raise InvalidUsagesError("Invalid usages data")
-
-    if usage < 0:
-        raise InvalidUsageError(f"Invalid number of usage: {usage}")
-
-    usage_price = 0
-    for row in usages:
-        over = row["over"]
-        until = row["until"] if "until" in row else float("inf")
-        price = row["price"]
-
-        if over <= usage:
-            if usage < until:
-                usage_price += (usage - over) * price
-            else:  # usage >= until
-                usage_price += (until - over) * price
-
-    return usage_price
-
-
-def calc_electric_simulations(contract: int, usage: int):
-
-    if contract < 0:
-        raise InvalidContractError(f"Invailed number of contract: {contract}")
-
-    if usage < 0:
-        raise InvalidUsageError(f"Invalid number of usage: {usage}")
-
-    simulations = []
-    for profile in PROVIDER_DIR.glob("**/plan.json"):
         try:
-            simulation = calc_plan(profile, contract, usage)
-            simulations.append(simulation)
-        except ElectricSimulationError as e:
-            print(e)
-    
-    if not simulations:
-        raise NotFoundProviderError("Not Found providers")
+            self._validate_user_data(contract, usage)
+        except ElectricSimulateClientError as e:
+            raise e
 
-    return simulations
+        for profile in PROVIDER_DIR.glob("**/plan.json"):
+            try:
+                simulation = self._calculate_electricity_rate(profile, contract, usage)
+                simulations.append(simulation)
+            except ElectricSimulationError as e:
+                print(e)
 
+        if not simulations:
+            raise NotFoundProviderError("Not Found providers")
 
-if __name__ == "__main__":
-    calc_electric_simulations()
+        return simulations
+
+    def _validate_profile(self, profile_data: dict):
+        if not profile_data.get("contracts"):
+            raise InvalidContractsError("Invailed contracts data")
+
+        if not profile_data.get("usage"):
+            raise InvalidUsagesError("Invalid usages data")
+
+        if not profile_data.get("provider"):
+            raise InvailedProviderError("Invalid provider data")
+
+        if not profile_data.get("name"):
+            raise InvailedPlanError("Invalid plan data")
+
+    def _calculate_electricity_rate(self, profile: Path, contract: int, usage: int):
+        with open(profile, "r", encoding="utf-8") as f:
+            profile_data = json.load(f)
+
+            try:
+                self._validate_profile(profile_data)
+                contracts = profile_data["contracts"]
+                usages = profile_data["usage"]
+                provider: str = profile_data["provider"]
+                plan: str = profile_data["name"]
+
+                base_price = self._calculate_base_rate(contracts, contract)
+                usage_price = self._calculate_usage_rate(usages, usage)
+
+                if usage_price == 0:
+                    total_price = int(base_price / 2)
+                else:
+                    total_price = int(base_price + usage_price)
+
+                simulation = {
+                    "provider": provider,
+                    "plan": plan,
+                    "price": f"{total_price}円",
+                }
+
+                return simulation
+            except (ElectricSimulateProviderError, ElectricSimulateClientError) as e:
+                raise e
+
+    def _calculate_base_rate(self, contracts: list[dict], contract: int):
+        for row in contracts:
+            if contract == int(row["contract"]):
+                return float(row["price"])
+        else:
+            raise NotFoundContractError(f"Not found number of contract: {contract}")
+
+    def _validate_usage_data(self, item: dict):
+        if item.get("over", None) is None:
+            raise InvailedUsageOverError("Invailed over data")
+
+        if item.get("price", None) is None:
+            raise InvailedUsagePriceError("Invailed price data")
+
+    def _calculate_usage_rate(self, usages: dict, usage: int):
+
+        usage_price = 0
+        for item in usages:
+            self._validate_usage_data(item)
+            over: int = item["over"]
+            until: int | float = item["until"] if "until" in item else float("inf")
+            price = item["price"]
+
+            if over <= usage:
+                if usage < until:
+                    usage_price += (usage - over) * price
+                else:  # usage >= until
+                    usage_price += (until - over) * price
+
+        return usage_price
