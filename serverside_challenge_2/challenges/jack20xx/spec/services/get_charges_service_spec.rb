@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe GetChargesService, type: :model do
   before do
-    @charges_file = Rails.root.join('spec', 'test_data', 'charges.yml')
+    @charges_file = TEST_CHARGES_PATH
   end
 
   describe 'Methods related to provider information' do
@@ -27,10 +27,10 @@ RSpec.describe GetChargesService, type: :model do
 
       it 'should calculate charges and change conditions correctly' do
         charge = GetChargesService.new(50, 500, @charges_file)
-        expect(charge.calculate).to eq 22000
+        expect(charge.calculate).to eq 10200
 
         charge = GetChargesService.new(60, 500, @charges_file)
-        expect(charge.calculate).to eq 23000
+        expect(charge.calculate).to eq 11200
       end
 
       it 'should show "no_data" when amp_numbers is not matched with data' do
