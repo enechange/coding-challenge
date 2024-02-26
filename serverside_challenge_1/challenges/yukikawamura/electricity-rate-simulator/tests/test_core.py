@@ -1,5 +1,5 @@
 import pytest
-from electricity_rate_simulator.core.electric_simulate import ElectricSimulator
+from electricity_rate_simulator.core import ElectricSimulator
 from electricity_rate_simulator.exception import (
     ElectricSimulateClientError,
     ElectricSimulateProviderError,
@@ -67,7 +67,7 @@ class TestElectricSimurationExceptions:
     def test_simulate_invalid_contract_error(self, mocker: MockerFixture):
         err_msg = "dummy InvalidContractError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator.simulate",
+            "electricity_rate_simulator.core.ElectricSimulator.simulate",
             side_effect=InvalidContractError(err_msg),
         )
         with pytest.raises(ElectricSimulationError) as e:
@@ -78,7 +78,7 @@ class TestElectricSimurationExceptions:
     def test_simulate_invalid_usage_error(self, mocker: MockerFixture):
         err_msg = "dummy InvalidUsageError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator.simulate",
+            "electricity_rate_simulator.core.ElectricSimulator.simulate",
             side_effect=InvalidUsageError(err_msg),
         )
         with pytest.raises(InvalidUsageError) as e:
@@ -89,7 +89,7 @@ class TestElectricSimurationExceptions:
     def test_simulate_notfound_provider_error(self, mocker: MockerFixture):
         err_msg = "dummy NotFoundProviderError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator.simulate",
+            "electricity_rate_simulator.core.ElectricSimulator.simulate",
             side_effect=NotFoundProviderError("dummy NotFoundProviderError"),
         )
         with pytest.raises(NotFoundProviderError) as e:
@@ -102,7 +102,7 @@ class TestElectricSimurationExceptions:
     ):
         err_msg = "dummy InvalidContractsError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            "electricity_rate_simulator.core.ElectricSimulator._calculate_electricity_rate",
             side_effect=InvalidContractsError(err_msg),
         )
         with pytest.raises(ElectricSimulateProviderError) as e:
@@ -114,7 +114,7 @@ class TestElectricSimurationExceptions:
     ):
         err_msg = "dummy InvalidUsagesError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            "electricity_rate_simulator.core.ElectricSimulator._calculate_electricity_rate",
             side_effect=InvalidUsagesError(err_msg),
         )
         with pytest.raises(ElectricSimulateProviderError) as e:
@@ -126,7 +126,7 @@ class TestElectricSimurationExceptions:
     ):
         err_msg = "dummy ElectricSimulateProviderError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            "electricity_rate_simulator.core.ElectricSimulator._calculate_electricity_rate",
             side_effect=ElectricSimulateProviderError(err_msg),
         )
         with pytest.raises(ElectricSimulateProviderError) as e:
@@ -139,7 +139,7 @@ class TestElectricSimurationExceptions:
     ):
         err_msg = "dummy ElectricSimulateClientError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_electricity_rate",
+            "electricity_rate_simulator.core.ElectricSimulator._calculate_electricity_rate",
             side_effect=ElectricSimulateClientError(err_msg),
         )
         with pytest.raises(ElectricSimulateClientError) as e:
@@ -150,7 +150,7 @@ class TestElectricSimurationExceptions:
     def test_calculate_base_rate_notfound_contract_error(self, mocker: MockerFixture):
         err_msg = "dummy NotFoundContractError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_base_rate",
+            "electricity_rate_simulator.core.ElectricSimulator._calculate_base_rate",
             side_effect=NotFoundContractError(err_msg),
         )
         contracts = [{}]
@@ -162,7 +162,7 @@ class TestElectricSimurationExceptions:
     def test_calculate_usage_rate_invalid_usage_over_error(self, mocker: MockerFixture):
         err_msg = "dummy InvalidUsageOverError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_usage_rate",
+            "electricity_rate_simulator.core.ElectricSimulator._calculate_usage_rate",
             side_effect=InvalidUsageOverError(err_msg),
         )
         contracts = [{}]
@@ -176,7 +176,7 @@ class TestElectricSimurationExceptions:
     ):
         err_msg = "dummy InvalidUsagePriceError"
         mocker.patch(
-            "electricity_rate_simulator.core.electric_simulate.ElectricSimulator._calculate_usage_rate",
+            "electricity_rate_simulator.core.ElectricSimulator._calculate_usage_rate",
             side_effect=InvalidUsagePriceError(err_msg),
         )
         contracts = [{}]

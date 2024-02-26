@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 import uvicorn
 import logging
 
-from electricity_rate_simulator.core.electric_simulate import ElectricSimulator
+from electricity_rate_simulator.core import ElectricSimulator
 from electricity_rate_simulator.exception import ElectricSimulationError
 from electricity_rate_simulator.model import UserData
 

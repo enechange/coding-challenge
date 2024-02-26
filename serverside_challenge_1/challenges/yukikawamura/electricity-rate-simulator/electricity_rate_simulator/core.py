@@ -4,8 +4,8 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
-from ..model import PlanContract, PlanUsage, ProFile, UserData
-from ..exception import (
+from .model import PlanContract, PlanUsage, ProFile, UserData
+from .exception import (
     ElectricSimulateClientError,
     ElectricSimulateProviderError,
     ElectricSimulationError,
@@ -13,7 +13,7 @@ from ..exception import (
     NotFoundProviderError,
 )
 
-BASE_DIR = Path(__file__).parents[1]
+BASE_DIR = Path(__file__).parents[0]
 DATA_DIR = BASE_DIR.joinpath("data")
 PROVIDER_DIR = DATA_DIR.joinpath("provider")
 
