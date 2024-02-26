@@ -1,12 +1,13 @@
 class CalculateChargesService
+  @@electricity_files = Dir.glob(ELECTRICITY_CHARGES_PATH)
+
   def initialize(amps, watts)
     @amps = amps.to_i
     @watts = watts.to_i
   end
 
   def calculate_charges
-    electricity_files = Dir.glob(ELECTRICITY_CHARGES_PATH)
-    electricity_files.map do |file|
+    @@electricity_files.map do |file|
       charge = GetChargesService.new(@amps, @watts, file)
       price = charge.calculate
       {
