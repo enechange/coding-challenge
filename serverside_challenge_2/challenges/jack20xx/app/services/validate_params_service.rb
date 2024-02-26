@@ -10,16 +10,16 @@ class ValidateParamsService
       amps = @params.require(:amps)
       watts = @params.require(:watts)
     rescue ActionController::ParameterMissing => e
-      errors['invalid_parameter'] = "'#{e.param}'が正しくありません"
+      errors['invalid_parameter'] = I18n.t('errors.invalid_parameter', param: e.param)
       return errors
     end
 
     unless integer?(amps) && integer?(watts)
-      errors['invalid_number'] = INVALID_NUMBER_ERROR
+      errors['invalid_number'] = I18n.t('errors.invalid_number')
     end
 
     unless AMP_NUMBERS.include?(amps.to_i)
-      errors['unmatched_amp'] = INVALID_AMP_ERROR
+      errors['unmatched_amp'] = I18n.t('errors.unmatched_amp', amps: AMP_NUMBERS.join(', '))
     end
 
     errors

@@ -9,7 +9,7 @@ RSpec.describe ValidateParamsService do
 
       it 'should return error messages correctly' do
         result = service.validate_params
-        expect(result['invalid_parameter']).to eq("'amps'が正しくありません")
+        expect(result['invalid_parameter']).to eq("'ampsが正しくありません'")
       end
     end
 
@@ -18,7 +18,7 @@ RSpec.describe ValidateParamsService do
 
       it 'should return error messages correctly' do
         result = service.validate_params
-        expect(result['invalid_parameter']).to eq("'watts'が正しくありません")
+        expect(result['invalid_parameter']).to eq("'wattsが正しくありません'")
       end
     end
 
