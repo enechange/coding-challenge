@@ -2,7 +2,7 @@ from electricity_rate_simulator.model import UserData, PlanUsage, PlanContract
 
 import pytest
 
-from electricity_rate_simulator.core.exception import (
+from electricity_rate_simulator.exception import (
     InvalidContractError,
     InvalidContractsError,
     InvalidUsageError,

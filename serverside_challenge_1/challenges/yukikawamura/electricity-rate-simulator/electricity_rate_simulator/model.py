@@ -1,5 +1,5 @@
 from pydantic import BaseModel, field_validator
-from .core.exception import (
+from .exception import (
     InvalidContractError,
     InvalidUsageError,
     InvalidContractsError,

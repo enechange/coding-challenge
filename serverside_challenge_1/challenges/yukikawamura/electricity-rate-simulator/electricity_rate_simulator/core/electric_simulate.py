@@ -5,7 +5,7 @@ from pathlib import Path
 from pydantic import ValidationError
 
 from ..model import PlanContract, PlanUsage, ProFile, UserData
-from .exception import (
+from ..exception import (
     ElectricSimulateClientError,
     ElectricSimulateProviderError,
     ElectricSimulationError,

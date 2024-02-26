@@ -3,7 +3,7 @@ import uvicorn
 import logging
 
 from electricity_rate_simulator.core.electric_simulate import ElectricSimulator
-from electricity_rate_simulator.core.exception import ElectricSimulationError
+from electricity_rate_simulator.exception import ElectricSimulationError
 from electricity_rate_simulator.model import UserData
 
 NUM_OF_CONTRACTS = [10, 15, 20, 30, 40, 50, 60]
