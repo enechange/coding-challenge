@@ -2,18 +2,13 @@ import json
 import logging
 from pathlib import Path
 
+from pydantic import ValidationError
+
+from ..model import PlanContract, PlanUsage, ProFile, UserData
 from .exception import (
     ElectricSimulateClientError,
     ElectricSimulateProviderError,
     ElectricSimulationError,
-    InvalidPlanError,
-    InvalidProviderError,
-    InvalidUsageOverError,
-    InvalidUsagePriceError,
-    InvalidContractError,
-    InvalidContractsError,
-    InvalidUsageError,
-    InvalidUsagesError,
     NotFoundContractError,
     NotFoundProviderError,
 )
@@ -24,7 +19,7 @@ PROVIDER_DIR = DATA_DIR.joinpath("provider")
 
 
 def setup_logging(debug_mode=False):
-    lgr = logging.getLogger("uvicorn")
+    lgr = logging.getLogger("uvicorn.app")
     log_format = "%(asctime)s:[%(levelname)s] %(message)s"
     stream_handler = logging.StreamHandler()
     stream_handler.setFormatter(log_format)
@@ -43,29 +38,21 @@ class ElectricSimulator(object):
     def __init__(self):
         pass
 
-    def _validate_user_data(self, contract: int, usage: int):
-        if contract <= 0:
-            raise InvalidContractError(f"Invalid number of contract: {contract}")
-
-        if usage < 0:
-            raise InvalidUsageError(f"Invalid number of usage: {usage}")
-
-    def simulate(self, contract: int, usage: int):
+    def simulate(self, user_data: UserData):
 
         simulations = []
 
-        try:
-            self._validate_user_data(contract, usage)
-        except ElectricSimulateClientError as e:
-            lgr.exception(e)
-            raise e
-
         for profile in PROVIDER_DIR.glob("**/plan.json"):
-            try:
-                simulation = self._calculate_electricity_rate(profile, contract, usage)
-                simulations.append(simulation)
-            except ElectricSimulationError as e:
-                lgr.exception(e)
+            with open(profile, "r", encoding="utf-8") as f:
+                provider_data = json.load(f)
+                try:
+                    provider_data = self._validate_profile(provider_data)
+                    simulation = self._calculate_electricity_rate(
+                        provider_data, user_data
+                    )
+                    simulations.append(simulation)
+                except ElectricSimulationError as e:
+                    lgr.exception(e)
 
         if not simulations:
             raise NotFoundProviderError("Not Found providers")
@@ -73,79 +60,76 @@ class ElectricSimulator(object):
         return simulations
 
     def _validate_profile(self, profile_data: dict):
-        if not profile_data.get("contracts"):
-            raise InvalidContractsError("Invalid contracts data")
+        try:
+            contracts = [
+                PlanContract(
+                    contract=contracts.get("contract"), price=contracts.get("price")
+                )
+                for contracts in profile_data.get("contracts")
+            ]
+            usages = [
+                PlanUsage(
+                    over=usage.get("over"),
+                    until=usage.get("until"),
+                    price=usage.get("price"),
+                )
+                for usage in profile_data.get("usage")
+            ]
+            return ProFile(
+                provider=profile_data.get("provider"),
+                plan=profile_data.get("name"),
+                contracts=contracts,
+                usage=usages,
+            )
+        except ValidationError as e:
+            raise ElectricSimulationError(e)
+            
+        except ElectricSimulateProviderError as e:
+            raise e
 
-        if not profile_data.get("usage"):
-            raise InvalidUsagesError("Invalid usages data")
+    def _calculate_electricity_rate(self, provider_data: ProFile, user_data: UserData):
+        try:
+            base_price = self._calculate_base_rate(
+                provider_data.contracts, user_data.contract
+            )
+            usage_price = self._calculate_usage_rate(
+                provider_data.usage, user_data.usage
+            )
 
-        if not profile_data.get("provider"):
-            raise InvalidProviderError("Invalid provider data")
+            if usage_price == 0:
+                total_price = int(base_price / 2)
+            else:
+                total_price = int(base_price + usage_price)
 
-        if not profile_data.get("name"):
-            raise InvalidPlanError("Invalid plan data")
+            simulation = {
+                "provider": provider_data.provider,
+                "plan": provider_data.plan,
+                "price": f"{total_price}円",
+            }
 
-    def _calculate_electricity_rate(self, profile: Path, contract: int, usage: int):
-        with open(profile, "r", encoding="utf-8") as f:
-            profile_data = json.load(f)
+            return simulation
+        except (ElectricSimulateProviderError, ElectricSimulateClientError) as e:
+            lgr.exception(e)
+            raise e
 
-            try:
-                self._validate_profile(profile_data)
-                contracts = profile_data["contracts"]
-                usages = profile_data["usage"]
-                provider: str = profile_data["provider"]
-                plan: str = profile_data["name"]
-
-                base_price = self._calculate_base_rate(contracts, contract)
-                usage_price = self._calculate_usage_rate(usages, usage)
-
-                if usage_price == 0:
-                    total_price = int(base_price / 2)
-                else:
-                    total_price = int(base_price + usage_price)
-
-                simulation = {
-                    "provider": provider,
-                    "plan": plan,
-                    "price": f"{total_price}円",
-                }
-
-                return simulation
-            except (ElectricSimulateProviderError, ElectricSimulateClientError) as e:
-                lgr.exception(e)
-                raise e
-
-    def _calculate_base_rate(self, contracts: list[dict], contract: int):
-        for row in contracts:
-            if contract == int(row["contract"]):
-                return float(row["price"])
+    def _calculate_base_rate(self, contracts: list[PlanContract], contract: int):
+        for item in contracts:
+            if contract == item.contract:
+                return item.price
         else:
             raise NotFoundContractError(f"Not found number of contract: {contract}")
 
-    def _validate_usage_data(self, item: dict):
-        if item.get("over", None) is None:
-            raise InvalidUsageOverError("Invalid over data")
-
-        if item.get("price", None) is None:
-            raise InvalidUsagePriceError("Invalid price data")
-
-    def _calculate_usage_rate(self, usages: dict, usage: int):
+    def _calculate_usage_rate(self, usages: list[PlanUsage], usage: int):
 
         usage_price = 0
-        for item in usages:
-            try:
-                self._validate_usage_data(item)
-            except InvalidUsagesError as e:
-                raise e
+        for plan_usage in usages:
 
-            over: int = item["over"]
-            until: int | float = item["until"] if "until" in item else float("inf")
-            price = item["price"]
-
-            if over <= usage:
-                if usage < until:
-                    usage_price += (usage - over) * price
+            if plan_usage.over <= usage:
+                if usage < plan_usage.until:
+                    usage_price += (usage - plan_usage.over) * plan_usage.price
                 else:  # usage >= until
-                    usage_price += (until - over) * price
+                    usage_price += (
+                        plan_usage.until - plan_usage.over
+                    ) * plan_usage.price
 
         return usage_price

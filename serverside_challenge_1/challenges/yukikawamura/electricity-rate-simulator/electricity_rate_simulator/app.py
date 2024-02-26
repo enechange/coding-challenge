@@ -4,10 +4,11 @@ import logging
 
 from electricity_rate_simulator.core.electric_simulate import ElectricSimulator
 from electricity_rate_simulator.core.exception import ElectricSimulationError
-
-app = FastAPI()
+from electricity_rate_simulator.model import UserData
 
 NUM_OF_CONTRACTS = [10, 15, 20, 30, 40, 50, 60]
+
+app = FastAPI()
 
 lgr = logging.getLogger("uvicorn.app")
 lgr.setLevel(logging.INFO)
@@ -20,17 +21,17 @@ def get_root():
 
 @app.get("/simulations")
 def electric_simulations_api(contract: int, usage: int):
-    if not contract or contract not in NUM_OF_CONTRACTS:
+    
+    try:
+        user_data = UserData(contract=contract, usage=usage)
+    except ElectricSimulationError as e:
         raise HTTPException(
-            status_code=400, detail=f"Invailed value of contract: {contract}"
-        )
-
-    if usage < 0:
-        raise HTTPException(status_code=400, detail=f"Invailed value of usage: {usage}")
+                status_code=400, detail=f"{e}"
+            )
 
     try:
         electric_simulator = ElectricSimulator()
-        return electric_simulator.simulate(contract, usage)
+        return electric_simulator.simulate(user_data)
     except ElectricSimulationError as e:
         lgr.exception(e)
         raise HTTPException(status_code=500, detail=f"{e}")

@@ -14,19 +14,19 @@ class InvalidContractsError(ElectricSimulateProviderError):
     pass
 
 
+class InvalidContractPriceError(ElectricSimulateProviderError):
+    pass
+
+
 class InvalidUsagesError(ElectricSimulateProviderError):
     pass
 
 
-class InvalidProviderError(ElectricSimulateProviderError):
-    pass
-
-
-class InvalidPlanError(ElectricSimulateProviderError):
-    pass
-
-
 class InvalidUsageOverError(InvalidUsagesError):
+    pass
+
+
+class InvalidUsageUntilError(InvalidUsagesError):
     pass
 
 
