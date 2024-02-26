@@ -8,4 +8,4 @@ usage_charges:
     limit: 100
     rate: 10
   condition_2:
-    rate: 50
+    rate: 20.50
