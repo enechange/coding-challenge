@@ -1,16 +1,14 @@
-from electricity_rate_simulator.model import UserData, PlanUsage, PlanContract
-
 import pytest
-
 from electricity_rate_simulator.exception import (
     InvalidContractError,
+    InvalidContractPriceError,
     InvalidContractsError,
     InvalidUsageError,
     InvalidUsageOverError,
-    InvalidUsageUntilError,
     InvalidUsagePriceError,
-    InvalidContractPriceError,
+    InvalidUsageUntilError,
 )
+from electricity_rate_simulator.model import PlanContract, PlanUsage, UserData
 
 
 class TestUserData:
@@ -109,4 +107,3 @@ class TestProFile:
             PlanUsage(over=100, until=200, price=20),
             PlanUsage(over=300, until=None, price=30),
         ]
-

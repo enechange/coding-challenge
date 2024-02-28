@@ -1,9 +1,13 @@
 import uvicorn
 from electricity_rate_simulator.core import ElectricSimulator
-from electricity_rate_simulator.exception import ElectricSimulationError
+from electricity_rate_simulator.exception import (
+    ElectricSimulateClientError,
+    ElectricSimulationError,
+)
 from electricity_rate_simulator.model import UserData
 from electricity_rate_simulator.utils import setup_logging
 from fastapi import FastAPI, HTTPException
+from pydantic import ValidationError
 
 app = FastAPI()
 
@@ -20,7 +24,7 @@ def electric_simulations_api(contract: int, usage: int):
 
     try:
         user_data = UserData(contract=contract, usage=usage)
-    except ElectricSimulationError as e:
+    except (ElectricSimulateClientError, ValidationError) as e:
         raise HTTPException(status_code=400, detail=f"{e}")
 
     try:

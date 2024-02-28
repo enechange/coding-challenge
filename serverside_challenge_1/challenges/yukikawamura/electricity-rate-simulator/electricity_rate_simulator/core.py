@@ -42,21 +42,11 @@ class ElectricSimulator(object):
         return simulations
 
     def _validate_profile(self, profile_data: dict):
+
         try:
-            contracts = [
-                PlanContract(
-                    contract=contracts.get("contract"), price=contracts.get("price")
-                )
-                for contracts in profile_data.get("contracts")
-            ]
-            usages = [
-                PlanUsage(
-                    over=usage.get("over"),
-                    until=usage.get("until"),
-                    price=usage.get("price"),
-                )
-                for usage in profile_data.get("usage")
-            ]
+            contracts = self._validate_plan_contract(profile_data.get("contracts"))
+            usages = self._validate_plan_usage(profile_data.get("usage"))
+
             return ProFile(
                 provider=profile_data.get("provider"),
                 plan=profile_data.get("name"),
@@ -64,10 +54,41 @@ class ElectricSimulator(object):
                 usage=usages,
             )
         except ValidationError as e:
-            raise ElectricSimulationError(e)
+            raise ElectricSimulateProviderError(e)
 
         except ElectricSimulateProviderError as e:
             raise e
+
+    def _validate_plan_contract(self, contracts: list[dict]):
+        plan_contracts = []
+        for contract in contracts:
+            try:
+                plan_contract = PlanContract(
+                    contract=contract.get("contract"), price=contract.get("price")
+                )
+                plan_contracts.append(plan_contract)
+            except ValidationError as e:
+                raise ElectricSimulateProviderError(e)
+
+        if not plan_contracts:
+            raise ElectricSimulateProviderError("Not Found plan contracts.")
+
+        return plan_contracts
+
+    def _validate_plan_usage(self, usage):
+        plan_usages = []
+        for item in usage:
+            plan_usage = PlanUsage(
+                over=item.get("over"),
+                until=item.get("until"),
+                price=item.get("price"),
+            )
+            plan_usages.append(plan_usage)
+
+        if not plan_usages:
+            raise ElectricSimulateProviderError("Not found plan usages.")
+
+        return plan_usages
 
     def _calculate_electricity_rate(self, provider_data: ProFile, user_data: UserData):
         try:

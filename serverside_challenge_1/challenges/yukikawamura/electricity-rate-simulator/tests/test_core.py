@@ -3,17 +3,10 @@ from electricity_rate_simulator.core import ElectricSimulator
 from electricity_rate_simulator.exception import (
     ElectricSimulateClientError,
     ElectricSimulateProviderError,
-    ElectricSimulationError,
-    InvalidContractError,
-    InvalidContractsError,
-    InvalidUsageError,
-    InvalidUsageOverError,
-    InvalidUsagePriceError,
-    InvalidUsagesError,
     NotFoundContractError,
     NotFoundProviderError,
 )
-from electricity_rate_simulator.model import UserData
+from electricity_rate_simulator.model import PlanContract, UserData
 from pytest_mock.plugin import MockerFixture
 
 from .conftest import TEST_PROFILE
@@ -64,126 +57,85 @@ class TestElectricSimurationExceptions:
     usage = 100
     electric_simuratior = ElectricSimulator()
 
-    def test_simulate_invalid_contract_error(self, mocker: MockerFixture):
-        err_msg = "dummy InvalidContractError"
+    def test_simulate_notfound_provider_error_by_validate_profile(
+        self, mocker: MockerFixture
+    ):
         mocker.patch(
-            "electricity_rate_simulator.core.ElectricSimulator.simulate",
-            side_effect=InvalidContractError(err_msg),
-        )
-        with pytest.raises(ElectricSimulationError) as e:
-            self.electric_simuratior.simulate(self.contract, self.usage)
-
-        assert str(e.value) == err_msg
-
-    def test_simulate_invalid_usage_error(self, mocker: MockerFixture):
-        err_msg = "dummy InvalidUsageError"
-        mocker.patch(
-            "electricity_rate_simulator.core.ElectricSimulator.simulate",
-            side_effect=InvalidUsageError(err_msg),
-        )
-        with pytest.raises(InvalidUsageError) as e:
-            self.electric_simuratior.simulate(self.contract, self.usage)
-
-        assert str(e.value) == err_msg
-
-    def test_simulate_notfound_provider_error(self, mocker: MockerFixture):
-        err_msg = "dummy NotFoundProviderError"
-        mocker.patch(
-            "electricity_rate_simulator.core.ElectricSimulator.simulate",
-            side_effect=NotFoundProviderError("dummy NotFoundProviderError"),
+            "electricity_rate_simulator.core.ElectricSimulator._validate_profile",
+            side_effect=ElectricSimulateProviderError(
+                "dummy ElectricSimulateProviderError"
+            ),
         )
         with pytest.raises(NotFoundProviderError) as e:
-            self.electric_simuratior.simulate()
+            user_data = UserData(contract=10, usage=10)
+            self.electric_simuratior.simulate(user_data)
 
-        assert str(e.value) == err_msg
+        assert str(e.value) == "Not Found providers"
 
-    def test_calculate_electricity_rate_invalid_contracts_error(
+    def test_simulate_notfound_provider_error_by_calculate_electricity_rate(
         self, mocker: MockerFixture
     ):
-        err_msg = "dummy InvalidContractsError"
         mocker.patch(
             "electricity_rate_simulator.core.ElectricSimulator._calculate_electricity_rate",
-            side_effect=InvalidContractsError(err_msg),
+            side_effect=ElectricSimulateClientError(
+                "dummy ElectricSimulateClientError"
+            ),
         )
-        with pytest.raises(ElectricSimulateProviderError) as e:
-            self.electric_simuratior._calculate_electricity_rate(self.profile)
-        assert str(e.value) == err_msg
+        with pytest.raises(NotFoundProviderError) as e:
+            user_data = UserData(contract=10, usage=10)
+            self.electric_simuratior.simulate(user_data)
 
-    def test_calculate_electricity_rate_invalid_usages_error(
-        self, mocker: MockerFixture
-    ):
-        err_msg = "dummy InvalidUsagesError"
-        mocker.patch(
-            "electricity_rate_simulator.core.ElectricSimulator._calculate_electricity_rate",
-            side_effect=InvalidUsagesError(err_msg),
-        )
-        with pytest.raises(ElectricSimulateProviderError) as e:
-            self.electric_simuratior._calculate_electricity_rate(self.profile)
-        assert str(e.value) == err_msg
+        assert str(e.value) == "Not Found providers"
 
-    def test_calculate_electricity_rate_invalid_usage_error(
-        self, mocker: MockerFixture
+    def test_validate_profile_by_validation_error_plan_contract(
+        self, mocker: MockerFixture, test_profile
     ):
         err_msg = "dummy ElectricSimulateProviderError"
         mocker.patch(
-            "electricity_rate_simulator.core.ElectricSimulator._calculate_electricity_rate",
+            "electricity_rate_simulator.core.ElectricSimulator._validate_plan_contract",
             side_effect=ElectricSimulateProviderError(err_msg),
         )
         with pytest.raises(ElectricSimulateProviderError) as e:
-            self.electric_simuratior._calculate_electricity_rate(self.profile)
+            self.electric_simuratior._validate_profile(test_profile)
 
         assert str(e.value) == err_msg
 
-    def test_calculate_electricity_rate_notfound_contract_error(
-        self, mocker: MockerFixture
+    def test_validate_profile_by_validation_error_plan_usage(
+        self, mocker: MockerFixture, test_profile
     ):
-        err_msg = "dummy ElectricSimulateClientError"
+        err_msg = "dummy ElectricSimulateProviderError"
         mocker.patch(
-            "electricity_rate_simulator.core.ElectricSimulator._calculate_electricity_rate",
-            side_effect=ElectricSimulateClientError(err_msg),
+            "electricity_rate_simulator.core.ElectricSimulator._validate_plan_usage",
+            side_effect=ElectricSimulateProviderError(err_msg),
         )
-        with pytest.raises(ElectricSimulateClientError) as e:
-            self.electric_simuratior._calculate_electricity_rate(self.profile)
+        with pytest.raises(ElectricSimulateProviderError) as e:
+            self.electric_simuratior._validate_profile(test_profile)
 
         assert str(e.value) == err_msg
 
-    def test_calculate_base_rate_notfound_contract_error(self, mocker: MockerFixture):
+    def test_calculate_electricity_rate_Not_found_contract_error(
+        self, mocker: MockerFixture, test_plan, test_user_data
+    ):
         err_msg = "dummy NotFoundContractError"
         mocker.patch(
             "electricity_rate_simulator.core.ElectricSimulator._calculate_base_rate",
             side_effect=NotFoundContractError(err_msg),
         )
-        contracts = [{}]
+        with pytest.raises(ElectricSimulateClientError) as e:
+            self.electric_simuratior._calculate_electricity_rate(
+                test_plan, test_user_data
+            )
+        assert str(e.value) == err_msg
+
+    def test_calculate_base_rate_notfound_contract_error(self):
+        test_contract = 10
+        contracts = [PlanContract(contract=20, price=100)]
         with pytest.raises(NotFoundContractError) as e:
-            self.electric_simuratior._calculate_base_rate(contracts)
+            self.electric_simuratior._calculate_base_rate(
+                contracts, contract=test_contract
+            )
 
-        assert str(e.value) == err_msg
-
-    def test_calculate_usage_rate_invalid_usage_over_error(self, mocker: MockerFixture):
-        err_msg = "dummy InvalidUsageOverError"
-        mocker.patch(
-            "electricity_rate_simulator.core.ElectricSimulator._calculate_usage_rate",
-            side_effect=InvalidUsageOverError(err_msg),
-        )
-        contracts = [{}]
-        with pytest.raises(InvalidUsageOverError) as e:
-            self.electric_simuratior._calculate_usage_rate(contracts)
-
-        assert str(e.value) == err_msg
-
-    def test_calculate_usage_rate_invalid_usage_price_error(
-        self, mocker: MockerFixture
-    ):
-        err_msg = "dummy InvalidUsagePriceError"
-        mocker.patch(
-            "electricity_rate_simulator.core.ElectricSimulator._calculate_usage_rate",
-            side_effect=InvalidUsagePriceError(err_msg),
-        )
-        contracts = [{}]
-        with pytest.raises(InvalidUsagePriceError) as e:
-            self.electric_simuratior._calculate_usage_rate(contracts)
-
-        assert str(e.value) == err_msg
+        assert str(e.value) == f"Not found number of contract: {test_contract}"
 
 
 class TestElectricSimurationByTepco:
