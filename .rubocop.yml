@@ -10,3 +10,17 @@ Style/Documentation:
 # https://docs.rubocop.org/rubocop/1.31/versioning.html#pending-cops
 AllCops:
   NewCops: disable
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 20
+  Exclude:
+    - spec/**/*
+
+Metrics/ParameterLists:
+  Exclude:
+    - spec/**/*
+
+RSpec/ContextWording:
+  AllowedPatterns:
+    - とき$
