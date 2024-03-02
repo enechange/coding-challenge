@@ -46,5 +46,12 @@ RSpec.describe EnergyUseChargeTable, type: :model do
         expect(energy_use_charge_table.calculate_charge(999)).to eq(100 * 1000 + 50 * 2000 + (999 - 150) * 3000)
       end
     end
+
+    context '範囲が1つだけのとき' do
+      it '消費電力が300ならば、単価をかけて料金を返す' do
+        energy_use_charge_table_with_one_price = described_class.new([EnergyUseChargeUnitPrice.new(0.., 1500)])
+        expect(energy_use_charge_table_with_one_price.calculate_charge(300)).to eq(300 * 1500)
+      end
+    end
   end
 end

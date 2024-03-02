@@ -3,19 +3,21 @@
 require 'yaml'
 
 class LoadElectricityPlansService
-  def self.call
-    new.call
-  end
-
-  def call
-    electricity_plans_data = load_electricity_plans_data
+  def call(file_path = 'config/electricity_plans.yml')
+    electricity_plans_data = load_electricity_plans_data(file_path)
     build_electricity_plans(electricity_plans_data)
   end
 
   private
 
-  def load_electricity_plans_data
-    YAML.load_file(Rails.root.join('config/electricity_plans.yml'))
+  def load_electricity_plans_data(file_path)
+    full_path = Rails.root.join(file_path)
+
+    raise "ファイルが存在しません: #{file_path}" unless File.exist?(full_path)
+
+    raise "ファイルが空です: #{file_path}" if File.zero?(full_path)
+
+    YAML.load_file(full_path)
   end
 
   def build_electricity_plans(data)
@@ -25,7 +27,7 @@ class LoadElectricityPlansService
         ElectricityPlan.new(
           provider,
           plan_data['plan_name'],
-          plan_data['basic_charge'],
+          BasicChargeTable.new(plan_data['basic_charge']),
           EnergyUseChargeTable.new(
             build_energy_use_charge_unit_prices(plan_data['enery_use_charge'])
           )
