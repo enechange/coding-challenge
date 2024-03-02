@@ -32,11 +32,10 @@ class GetChargesService
 
     conditions.each_with_index do |condition, index|
       prev_limit = index.zero? ? 0 : usage_charges[conditions[index - 1]]['limit']
-      curr_condition = usage_charges[condition]
-      curr_limit = curr_condition['limit'] || @watts
-      rate = curr_condition['rate']
-
       if @watts > prev_limit
+        curr_condition = usage_charges[condition]
+        rate = curr_condition['rate']
+        curr_limit = curr_condition['limit'] || @watts
         charge += rate * ([curr_limit, @watts].min - prev_limit)
       end
     end
