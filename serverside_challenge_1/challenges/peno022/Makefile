@@ -23,7 +23,10 @@ login:
 help:
 	@echo "Usage: make [target]"
 	@echo ""
+	@echo "Targets:"
 	@echo "  up: Start docker container"
 	@echo "  down: Stop docker container"
+	@echo "  reset: Restart docker container"
+	@echo "  log: Show docker container log"
 	@echo "  login: Login docker container"
 	@echo "  help: Show this help message"
