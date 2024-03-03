@@ -2,26 +2,10 @@
 
 require 'yaml'
 
-class LoadElectricityPlansService
-  def call(file_path = 'config/electricity_plans.yml')
-    electricity_plans_data = load_electricity_plans_data(file_path)
-    build_electricity_plans(electricity_plans_data)
-  end
-
-  private
-
-  def load_electricity_plans_data(file_path)
-    full_path = Rails.root.join(file_path)
-
-    raise "ファイルが存在しません: #{file_path}" unless File.exist?(full_path)
-
-    raise "ファイルが空です: #{file_path}" if File.zero?(full_path)
-
-    YAML.load_file(full_path)
-  end
-
-  def build_electricity_plans(data)
-    data.map do |provider_data|
+class BuildElectricityPlansService
+  # yamlファイルから読み込まれたデータを元に、電力会社のプランをElectricityPlanのインスタンスの配列で返す。
+  def call(electricity_plans_data)
+    electricity_plans_data.map do |provider_data|
       provider = Provider.new(provider_data['provider_name'])
       provider_data['plans'].map do |plan_data|
         ElectricityPlan.new(
@@ -35,6 +19,8 @@ class LoadElectricityPlansService
       end
     end.flatten
   end
+
+  private
 
   def build_energy_use_charge_unit_prices(energy_use_charges)
     energy_use_charges.map do |charge|

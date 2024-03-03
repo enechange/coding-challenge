@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'ElectricityPlanSimulations', type: :request do
-  let(:plans) { LoadElectricityPlansService.new.call }
+  let(:plans) { BuildElectricityPlansService.new.call(::PLANS) }
 
   describe 'GET /api/electricity_plan_simulations' do
     context 'リクエストのパラメータが適切なとき' do
