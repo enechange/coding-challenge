@@ -1,6 +1,6 @@
 ja:
   errors:
     invalid_number: '値は半角数字で入力してください。小数点や記号は使用できません。'
-    invalid_parameter: "'%{param}が正しくありません'"
+    invalid_parameter: "%{param} が正しくありません"
     invalid_url: 'URLが間違っています'
-    unmatched_amp: "'正しいアンペア数(%{amps})を入力してください'"
+    unmatched_amp: "正しいアンペア数(%{amps})を入力してください"

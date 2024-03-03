@@ -8,7 +8,7 @@ RSpec.describe ValidateParamsService do
       let(:params) { ActionController::Parameters.new(watts: '200') }
 
       it 'should return error messages correctly' do
-        expect(subject['invalid_parameter']).to eq("'ampsが正しくありません'")
+        expect(subject['invalid_parameter']).to eq(["amps が正しくありません"])
       end
     end
 
@@ -16,7 +16,15 @@ RSpec.describe ValidateParamsService do
       let(:params) { ActionController::Parameters.new(amps: '100') }
 
       it 'should return error messages correctly' do
-        expect(subject['invalid_parameter']).to eq("'wattsが正しくありません'")
+        expect(subject['invalid_parameter']).to eq(["watts が正しくありません"])
+      end
+    end
+
+    context 'when several parameters are missing' do
+      let(:params) { ActionController::Parameters.new }
+
+      it 'should return error messages correctly' do
+        expect(subject['invalid_parameter']).to eq(["amps が正しくありません","watts が正しくありません"])
       end
     end
 

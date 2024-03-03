@@ -1,6 +1,6 @@
 en:
   errors:
     invalid_number: 'Please enter numbers only. Decimal points or symbols cannot be used.'
-    invalid_parameter: '%{param}is wrong.'
+    invalid_parameter: "%{param} is wrong."
     invalid_url: 'URL is wrong.'
     unmatched_amp: 'Please enter a valid amp number(%{amps}).'
