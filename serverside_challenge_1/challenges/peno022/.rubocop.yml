@@ -1,0 +1,37 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+# ドキュメントの無い public class を許可する
+Style/Documentation:
+  Enabled: false
+
+# Enabling/Disabling Pending Cops in Bulk
+# https://docs.rubocop.org/rubocop/1.31/versioning.html#pending-cops
+AllCops:
+  NewCops: disable
+
+Metrics/MethodLength:
+  CountComments: false
+  Max: 20
+  Exclude:
+    - spec/**/*
+
+Metrics/ParameterLists:
+  Exclude:
+    - spec/**/*
+
+# 1つのテストケースあたりの行数
+RSpec/ExampleLength:
+  Enabled: true
+  Max: 10 # default: 5
+  CountAsOne: ["array", "hash", "heredoc"]
+
+# 1つのexampleで複数のアサーションを許可する
+RSpec/MultipleExpectations:
+  Enabled: true
+  Max: 5 # default: 1
+
+RSpec/ContextWording:
+  AllowedPatterns:
+    - とき$
