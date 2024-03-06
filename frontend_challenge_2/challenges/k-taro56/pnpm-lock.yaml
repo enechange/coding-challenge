@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   material-symbols:
-    specifier: ^0.14.7
-    version: 0.14.7
+    specifier: ^0.16.0
+    version: 0.16.0
   next:
     specifier: 14.1.2
     version: 14.1.2(@babel/core@7.23.3)(react-dom@18.2.0)(react@18.2.0)
@@ -3886,8 +3886,8 @@ packages:
       tmpl: 1.0.5
     dev: true
 
-  /material-symbols@0.14.7:
-    resolution: {integrity: sha512-65aJAnHtKx98tm41vz9gS6fQfUo+8pCg2sETOC/linpHKEv6gw7U+iHN5Bha6tfM8hDSGfjCwaKOWb+Rs/XyDg==}
+  /material-symbols@0.16.0:
+    resolution: {integrity: sha512-ZgX0TEQQnaAPvy9jSg6WEoBfkkL95URJ5dGHsqU9cIdXVB3K6/T+IH8l7E1ZAl4HFmaZ0hMPBBQz8DoBkoaygg==}
     dev: false
 
   /merge-stream@2.0.0:
