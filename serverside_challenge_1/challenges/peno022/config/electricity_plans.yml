@@ -1,0 +1,86 @@
+- provider_name: "東京電力エナジーパートナー"
+  plans:
+    - plan_name: "従量電灯B"
+      basic_charge:
+        10: 28600
+        15: 42900
+        20: 57200
+        30: 85800
+        40: 114400
+        50: 143000
+        60: 171600
+      enery_use_charge:
+        - range:
+            - 0
+            - 120
+          rate: 1988
+        - range:
+            - 121
+            - 300
+          rate: 2648
+        - range:
+            - 301
+            - null
+          rate: 3057
+- provider_name: "Loopでんき"
+  plans:
+    - plan_name: "おうちプラン"
+      basic_charge:
+        10: 0
+        15: 0
+        20: 0
+        30: 0
+        40: 0
+        50: 0
+        60: 0
+      enery_use_charge:
+        - range:
+            - 0
+            - null
+          rate: 2640
+- provider_name: "東京ガス"
+  plans:
+    - plan_name: "ずっとも電気1"
+      basic_charge:
+        30: 85800
+        40: 114400
+        50: 143000
+        60: 171600
+      enery_use_charge:
+        - range:
+            - 0
+            - 140
+          rate: 2367
+        - range:
+            - 141
+            - 350
+          rate: 2388
+        - range:
+            - 351
+            - null
+          rate: 2641
+- provider_name: "JXTGでんき"
+  plans:
+    - plan_name: "従量電灯Bたっぷりプラン"
+      basic_charge:
+        30: 85800
+        40: 114400
+        50: 143000
+        60: 171680
+      enery_use_charge:
+        - range:
+            - 0
+            - 120
+          rate: 1988
+        - range:
+            - 121
+            - 300
+          rate: 2648
+        - range:
+            - 301
+            - 600
+          rate: 2508
+        - range:
+            - 601
+            - null
+          rate: 2615

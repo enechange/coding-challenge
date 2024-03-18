@@ -1,0 +1,56 @@
+- provider_name: "電力会社A"
+  plans:
+    - plan_name: "プランA1"
+      basic_charge:
+        10: 100
+        15: 200
+        20: 300
+        30: 400
+        40: 500
+        50: 600
+        60: 700
+      enery_use_charge:
+        - range:
+            - 0
+            - 120
+          rate: 1988
+        - range:
+            - 121
+            - 300
+          rate: 2648
+        - range:
+            - 301
+            - null
+          rate: 3057
+    - plan_name: "プランA2"
+      basic_charge:
+        10: 30000
+        15: 50000
+        20: 60000
+      enery_use_charge:
+        - range:
+            - 0
+            - 150
+          rate: 1800
+        - range:
+            - 151
+            - null
+          rate: 2000
+- provider_name: "電力会社B"
+  plans:
+    - plan_name: "プランB1"
+      basic_charge:
+        10: 0
+        15: 0
+        20: 0
+        30: 0
+        40: 0
+        50: 0
+        60: 0
+      enery_use_charge:
+        - range:
+            - 0
+            - null
+          rate: 2640
+- provider_name: "電力会社C"
+  plans: []
