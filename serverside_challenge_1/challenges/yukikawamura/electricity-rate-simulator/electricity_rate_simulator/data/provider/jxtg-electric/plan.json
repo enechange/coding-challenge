@@ -1,0 +1,16 @@
+{
+	"provider": "JXTGでんき",
+	"name": "従量電灯Bたっぷりプラン",
+	"contracts": [
+		{	"contract": "30",	"price": 858.00},
+		{	"contract": "40",	"price": 1144.00},
+		{	"contract": "50",	"price": 1430.00},
+		{	"contract": "60",	"price": 1716.80}
+	],
+	"usage": [
+		{ "over": 0,   "until": 120, "price": 19.88},
+		{ "over": 120, "until": 300, "price": 26.48},
+		{ "over": 300, "until": 600, "price": 25.08},
+        { "over": 600, "price": 26.15}
+	]
+}

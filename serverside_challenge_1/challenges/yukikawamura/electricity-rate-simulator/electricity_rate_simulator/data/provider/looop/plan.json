@@ -1,0 +1,17 @@
+{
+    "provider": "Loopでんき",
+    "name": "おうちプラン",
+    "contracts": [
+      { "contract": "10", "price": 0 },
+      { "contract": "15", "price": 0 },
+      { "contract": "20", "price": 0 },
+      { "contract": "30", "price": 0 },
+      { "contract": "40", "price": 0 },
+      { "contract": "50", "price": 0 },
+      { "contract": "60", "price": 0 }
+    ],
+    "usage": [
+      { "over": 0, "price": 26.4 }
+    ]
+  }
+  

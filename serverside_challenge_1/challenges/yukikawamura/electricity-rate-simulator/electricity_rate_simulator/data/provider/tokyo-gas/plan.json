@@ -1,0 +1,15 @@
+{
+	"provider": "東京ガス",
+	"name": "ずっとも電気1",
+	"contracts": [
+		{	"contract": "30",	"price": 858.00},
+		{	"contract": "40",	"price": 1144.00},
+		{	"contract": "50",	"price": 1430.00},
+		{	"contract": "60",	"price": 1716.00}
+	],
+	"usage": [
+		{	"over": 0,   "until": 140, "price": 23.67},
+		{ "over": 140, "until": 350, "price": 23.88},
+		{ "over": 350, "price": 26.41}
+	]
+}

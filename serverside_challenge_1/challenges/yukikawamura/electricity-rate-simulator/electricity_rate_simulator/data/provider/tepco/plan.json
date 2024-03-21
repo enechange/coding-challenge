@@ -1,0 +1,18 @@
+{
+    "provider": "東京電力エナジーパートナー",
+    "name": "従量電灯B",
+    "contracts": [
+        { "contract": "10", "price": 286.0 },
+        { "contract": "15", "price": 429.0 },
+        { "contract": "20", "price": 572.0 },
+        { "contract": "30", "price": 858.0 },
+        { "contract": "40", "price": 1144.0 },
+        { "contract": "50", "price": 1430.0 },
+        { "contract": "60", "price": 1716.0 }
+    ],
+    "usage": [
+        { "over": 0, "until": 120, "price": 19.88 },
+        { "over": 120, "until": 300, "price": 26.48},
+        { "over": 300, "price": 30.57  }
+    ]
+}

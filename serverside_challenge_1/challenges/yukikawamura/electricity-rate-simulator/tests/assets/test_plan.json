@@ -1,0 +1,19 @@
+{
+    "provider": "Testでんき",
+    "name": "Testプラン",
+    "contracts": [
+      { "contract": "10", "price": 10 },
+      { "contract": "15", "price": 15 },
+      { "contract": "20", "price": 20 },
+      { "contract": "30", "price": 30 },
+      { "contract": "40", "price": 40 },
+      { "contract": "50", "price": 50 },
+      { "contract": "60", "price": 60 }
+    ],
+    "usage": [
+      { "over": 0, "until": 100, "price": 10 },
+      { "over": 100, "until": 200, "price": 20 },
+      { "over": 300, "price": 30 }
+    ]
+  }
+  
