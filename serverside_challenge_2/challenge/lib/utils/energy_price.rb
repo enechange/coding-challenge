@@ -11,18 +11,15 @@ module Utils
       def load_csv
         csv_file = File.read(csv_path)
         encoding = NKF.guess(csv_file)
-
         CSV.read(csv_path, encoding: encoding, headers: true)
       end
 
       def each_prices(csv_data, anperes, consumption = 0)
-        plan_names.map do |name|
+        plan_names(csv_data).map do |name|
           rows = csv_data.select { |r| r['plan_name'] == name }
           basic_price = find_basic_price(rows, name, anperes)
           consumption_price = find_consumption_price(rows, name, consumption)
           total_price = basic_price + consumption_price
-          next if total_price.zero?
-
           row = rows[0]
           {
             provider_name: row['provider_name'],
@@ -66,8 +63,8 @@ module Utils
         end
       end
 
-      def plan_names
-        load_csv.map {|r| r['plan_name']}.uniq
+      def plan_names(csv_data)
+        csv_data.map {|r| r['plan_name']}.uniq
       end
 
       def csv_path

@@ -1,0 +1,28 @@
+provider_name,plan_name_ja,plan_name,amperes_greater_than,amperes_up_to,unit,price,type,amount_greater_than,amount_up_to
+サンプル電力,従量電灯B,juryo-dento-x,0,10,contract,286.00,basic,,
+サンプル電力,従量電灯B,juryo-dento-x,10,15,contract,429.00,basic,,
+サンプル電力,従量電灯B,juryo-dento-x,15,20,contract,572.00,basic,,
+サンプル電力,従量電灯B,juryo-dento-x,20,30,contract,858.00,basic,,
+サンプル電力,従量電灯B,juryo-dento-x,30,40,contract,1144.00,basic,,
+サンプル電力,従量電灯B,juryo-dento-x,40,50,contract,1430.00,basic,,
+サンプル電力,従量電灯B,juryo-dento-x,50,60,contract,1716.00,basic,,
+サンプル電力,従量電灯B,juryo-dento-x,,,1kWh,19.88,consumption_fee,0,120
+サンプル電力,従量電灯B,juryo-dento-x,,,1kWh,26.48,consumption_fee,120,300
+サンプル電力,従量電灯B,juryo-dento-x,,,1kWh,30.57,consumption_fee,300,
+テストでんき,おうちプラン,sample-plan,0,60,contract,0.00,basic,,
+テストでんき,おうちプラン,sample-plan,,,1kWh,26.40,consumption_fee,0,
+試験ガス株式会社,ずっとも電気1,test-denki-1,0,30,contract,858.00,basic,,
+試験ガス株式会社,ずっとも電気1,test-denki-1,30,40,contract,1144.00,basic,,
+試験ガス株式会社,ずっとも電気1,test-denki-1,40,50,contract,1430.00,basic,,
+試験ガス株式会社,ずっとも電気1,test-denki-1,50,60,contract,1716.00,basic,,
+試験ガス株式会社,ずっとも電気1,test-denki-1,,,1kWh,23.67,consumption_fee,0,140
+試験ガス株式会社,ずっとも電気1,test-denki-1,,,1kWh,23.88,consumption_fee,140,350
+試験ガス株式会社,ずっとも電気1,test-denki-1,,,1kWh,26.41,consumption_fee,350,
+SAMPLEでんき（旧名）,従量電灯B　たっぷりプラン,sample-denki,0,30,contract,858.00,basic,,
+SAMPLEでんき（旧名）,従量電灯B　たっぷりプラン,sample-denki,30,40,contract,1144.00,basic,,
+SAMPLEでんき（旧名）,従量電灯B　たっぷりプラン,sample-denki,40,50,contract,1430.00,basic,,
+SAMPLEでんき（旧名）,従量電灯B　たっぷりプラン,sample-denki,50,60,contract,1716.80,basic,,
+SAMPLEでんき（旧名）,従量電灯B　たっぷりプラン,sample-denki,,,1kWh,19.88,consumption_fee,0,120
+SAMPLEでんき（旧名）,従量電灯B　たっぷりプラン,sample-denki,,,1kWh,26.48,consumption_fee,120,300
+SAMPLEでんき（旧名）,従量電灯B　たっぷりプラン,sample-denki,,,1kWh,25.08,consumption_fee,300,600
+SAMPLEでんき（旧名）,従量電灯B　たっぷりプラン,sample-denki,,,1kWh,26.15,consumption_fee,600,
