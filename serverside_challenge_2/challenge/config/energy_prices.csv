@@ -1,0 +1,28 @@
+provider_name,plan_name_ja,plan_name,amperes_greater_than,amperes_up_to,unit,price,type,amount_greater_than,amount_up_to
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,0,10,contract,286.00,basic,,
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,10,15,contract,429.00,basic,,
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,15,20,contract,572.00,basic,,
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,20,30,contract,858.00,basic,,
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,30,40,contract,1144.00,basic,,
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,40,50,contract,1430.00,basic,,
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,50,60,contract,1716.00,basic,,
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,,,1kWh,19.88,consumption_fee,0,120
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,,,1kWh,26.48,consumption_fee,120,300
+東京電力エナジーパートナー,従量電灯B,juryo-dento-b,,,1kWh,30.57,consumption_fee,300,
+Looopでんき,おうちプラン,ouchi-plan,0,60,contract,0.00,basic,,
+Looopでんき,おうちプラン,ouchi-plan,,,1kWh,26.40,consumption_fee,0,
+東京ガス株式会社,ずっとも電気1,zuttomo-denki-1,0,30,contract,858.00,basic,,
+東京ガス株式会社,ずっとも電気1,zuttomo-denki-1,30,40,contract,1144.00,basic,,
+東京ガス株式会社,ずっとも電気1,zuttomo-denki-1,40,50,contract,1430.00,basic,,
+東京ガス株式会社,ずっとも電気1,zuttomo-denki-1,50,60,contract,1716.00,basic,,
+東京ガス株式会社,ずっとも電気1,zuttomo-denki-1,,,1kWh,23.67,consumption_fee,0,140
+東京ガス株式会社,ずっとも電気1,zuttomo-denki-1,,,1kWh,23.88,consumption_fee,140,350
+東京ガス株式会社,ずっとも電気1,zuttomo-denki-1,,,1kWh,26.41,consumption_fee,350,
+JXTGでんき（旧myでんき）,従量電灯B たっぷりプラン,jxtg-denki,0,30,contract,858.00,basic,,
+JXTGでんき（旧myでんき）,従量電灯B たっぷりプラン,jxtg-denki,30,40,contract,1144.00,basic,,
+JXTGでんき（旧myでんき）,従量電灯B たっぷりプラン,jxtg-denki,40,50,contract,1430.00,basic,,
+JXTGでんき（旧myでんき）,従量電灯B たっぷりプラン,jxtg-denki,50,60,contract,1716.80,basic,,
+JXTGでんき（旧myでんき）,従量電灯B たっぷりプラン,jxtg-denki,,,1kWh,19.88,consumption_fee,0,120
+JXTGでんき（旧myでんき）,従量電灯B たっぷりプラン,jxtg-denki,,,1kWh,26.48,consumption_fee,120,300
+JXTGでんき（旧myでんき）,従量電灯B たっぷりプラン,jxtg-denki,,,1kWh,25.08,consumption_fee,300,600
+JXTGでんき（旧myでんき）,従量電灯B たっぷりプラン,jxtg-denki,,,1kWh,26.15,consumption_fee,600,
