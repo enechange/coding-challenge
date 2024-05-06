@@ -1,0 +1,3 @@
+[submodule "serverside_challenge_1/challenges/big-noble/laradock"]
+	path = serverside_challenge_1/challenges/big-noble/laradock
+	url = https://github.com/laradock/laradock.git
