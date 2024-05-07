@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Service\PlanCalculateService;
+use App\Service\PlanCalculateServiceInterface;
+use App\Service\PlanService;
+use App\Service\PlanServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        app()->bind(PlanServiceInterface::class, PlanService::class);
+        app()->bind(PlanCalculateServiceInterface::class, PlanCalculateService::class);
     }
 
     /**
