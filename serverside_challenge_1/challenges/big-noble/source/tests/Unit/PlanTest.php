@@ -14,7 +14,7 @@ class PlanTest extends TestCase
      */
     public function test_basic_test(int $ampere, int $usePower, array $expect): void
     {
-        $yamlPath = storage_path('app/private/yaml/plans.yaml');
+        $yamlPath = database_path('yaml/plans.yaml');
 
         $service = app()->make(PlanService::class);
         $service->setYamlPath($yamlPath);

@@ -52,7 +52,7 @@ class PlanService implements PlanServiceInterface
     {
         $yamlPath = $this->yamlPath;
         if (empty($yamlPath)) {
-            $yamlPath = storage_path('app/private/yaml/plans.yaml');
+            $yamlPath = database_path('yaml/plans.yaml');
         }
         return Yaml::parseFile($yamlPath);
     }
