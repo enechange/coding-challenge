@@ -1,0 +1,20 @@
+company: 東京電力エナジーパートナー
+plan: 従量電灯B
+basic_charge:
+  10: 286.00
+  15: 429.00
+  20: 572.00
+  30: 858.00
+  40: 1144.00
+  50: 1430.00
+  60: 1716.00
+usage_charge:
+  level_1:
+    limit: 120
+    rate: 19.88
+  level_2:
+    limit: 300
+    rate: 26.48
+  level_3:
+    limit:
+    rate: 30.57

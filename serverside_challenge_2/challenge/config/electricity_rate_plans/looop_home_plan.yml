@@ -1,0 +1,14 @@
+company: Looopでんき
+plan: おうちプラン
+basic_charge:
+  10: 0.00
+  15: 0.00
+  20: 0.00
+  30: 0.00
+  40: 0.00
+  50: 0.00
+  60: 0.00
+usage_charge:
+  level_1:
+    limit:
+    rate: 28.8
