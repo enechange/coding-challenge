@@ -1,5 +1,5 @@
-company: Looopでんき
-plan: おうちプラン
+provider_name: Looopでんき
+plan_name: おうちプラン
 basic_charge:
   10: 0.00
   15: 0.00

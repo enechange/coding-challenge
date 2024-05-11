@@ -1,5 +1,5 @@
-company: 東京ガス
-plan: ずっとも電気1
+provider_name: 東京ガス
+plan_name: ずっとも電気1
 basic_charge:
   30: 858.00
   40: 1144.00
