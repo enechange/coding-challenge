@@ -1,11 +1,11 @@
 provider_name: 東京ガス
 plan_name: ずっとも電気1
-basic_charge:
+basic_rate:
   30: 858.00
   40: 1144.00
   50: 1430.00
   60: 1716.00
-usage_charge:
+usage_rate:
   level_1:
     limit: 140
     rate: 23.67

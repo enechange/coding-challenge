@@ -1,6 +1,6 @@
 provider_name: Looopでんき
 plan_name: おうちプラン
-basic_charge:
+basic_rate:
   10: 0.00
   15: 0.00
   20: 0.00
@@ -8,7 +8,7 @@ basic_charge:
   40: 0.00
   50: 0.00
   60: 0.00
-usage_charge:
+usage_rate:
   level_1:
     limit:
     rate: 28.8

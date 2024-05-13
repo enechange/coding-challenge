@@ -1,25 +1,20 @@
 module Api
   class ElectricityRateSimulationsController < ApplicationController
     def index
-      return bad_request_error if electricity_rate_simulation_params[:amperage].blank? || electricity_rate_simulation_params[:usage_kwh].blank?
+      electricity_rate_simulation = ElectricityRateSimulation.new(electricity_rate_simulation_params['amperage'], electricity_rate_simulation_params['usage_kwh'])
 
-      render json: [
-        {
-          provider_name: 'Provider A',
-          plan_name: 'Plan A',
-          price: 1000
-        }
-      ]
+      raise ActiveModel::ValidationError, electricity_rate_simulation if electricity_rate_simulation.invalid?
+
+      simulation_result = electricity_rate_simulation.execute(electricity_rate_simulation_params)
+
+      render json: simulation_result
     end
 
     private
 
     def electricity_rate_simulation_params
+      params.require(%i[amperage usage_kwh])
       params.permit(:amperage, :usage_kwh)
-    end
-
-    def bad_request_error
-      render json: { error: 'Bad Request' }, status: :bad_request
     end
   end
 end

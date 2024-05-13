@@ -1,6 +1,6 @@
-provider_name: 東京電力エナジーパートナー ]
+provider_name: 東京電力エナジーパートナー
 plan_name: スタンダードS
-basic_charge:
+basic_rate:
   10: 311.75
   15: 467.63
   20: 623.50
@@ -8,7 +8,7 @@ basic_charge:
   40: 1247.00
   50: 1558.75
   60: 1716.00
-usage_charge:
+usage_rate:
   level_1:
     limit: 120
     rate: 29.80
