@@ -7,7 +7,7 @@ module Api
 
       raise ActiveModel::ValidationError, electricity_rate_simulation if electricity_rate_simulation.invalid?
 
-      simulation_result = electricity_rate_simulation.execute(electricity_rate_simulation_params)
+      simulation_result = electricity_rate_simulation.execute
 
       render json: simulation_result
     end

@@ -15,16 +15,13 @@ class ElectricityRateSimulation
     super(amperage:, usage_kwh:)
   end
 
-  def execute(params)
-    amperage = params[:amperage].to_i
-    usage_kwh = params[:usage_kwh].to_i
-
+  def execute
     provider_plans.map do |plan|
-      calculate_rate_plan(plan, amperage, usage_kwh)
+      calculate_rate_plan(plan)
     end
   end
 
-  def calculate_rate_plan(plan, amperage, usage_kwh)
+  def calculate_rate_plan(plan)
     calculated_kwh = 0
     total_price = 0
 
