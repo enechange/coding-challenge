@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SimulationResult
   attr_reader :provider_name, :plan_name, :price, :error_message
 

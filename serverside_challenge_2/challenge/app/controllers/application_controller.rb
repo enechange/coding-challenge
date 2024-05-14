@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::API
   rescue_from ActionController::ParameterMissing, with: :parameter_missing
   rescue_from ActiveModel::ValidationError, with: :validation_error
@@ -9,7 +11,6 @@ class ApplicationController < ActionController::API
   end
 
   def validation_error(error)
-    debugger
     render json: { error: error.model.errors.full_messages }, status: :unprocessable_entity
   end
 end

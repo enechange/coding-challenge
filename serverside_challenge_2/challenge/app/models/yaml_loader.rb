@@ -1,4 +1,6 @@
-class YamlLoader #provider data loader
+# frozen_string_literal: true
+
+class YamlLoader
   class << self
     def tepco_metered_light_b
       load_electricity_rate_plan('tepco_energy_partner_metered_light_b.yml')
@@ -8,8 +10,8 @@ class YamlLoader #provider data loader
       load_electricity_rate_plan('tepco_energy_partner_standard_s.yml')
     end
 
-    def tokyo_gas_more_electricity_1
-      load_electricity_rate_plan('tokyo_gas_more_electricity_1.yml')
+    def tokyo_gas_more_electricity1
+      load_electricity_rate_plan('tokyo_gas_more_electricity1.yml')
     end
 
     def looop_home_plan
@@ -22,9 +24,9 @@ class YamlLoader #provider data loader
       path = Rails.root.join('config', 'electricity_rate_plans', file_name)
 
       raise 'ファイルが存在しません' unless File.exist?(path)
-      raise 'ファイルが空です' if File.zero?(path)
+      raise 'ファイルが空です' if File.empty?(path)
 
       YAML.load_file(path)
     end
-  end 
+  end
 end

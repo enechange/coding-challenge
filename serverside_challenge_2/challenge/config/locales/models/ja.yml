@@ -1,0 +1,8 @@
+ja:
+  activemodel:
+    errors:
+      models:
+        electricity_rate_simulation:
+          attributes:
+            amperage:
+              inclusion: アンペア数は[10, 15, 20, 30, 40, 50, 60]のいずれかを指定してください
