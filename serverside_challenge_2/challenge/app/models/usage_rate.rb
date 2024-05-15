@@ -1,0 +1,2 @@
+class UsageRate < ApplicationRecord
+end

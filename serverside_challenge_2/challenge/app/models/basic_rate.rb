@@ -1,0 +1,2 @@
+class BasicRate < ApplicationRecord
+end

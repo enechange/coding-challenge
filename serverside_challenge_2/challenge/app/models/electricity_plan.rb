@@ -1,0 +1,2 @@
+class ElectricityPlan < ApplicationRecord
+end
