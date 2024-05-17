@@ -6,4 +6,6 @@ class BasicRate < ApplicationRecord
   validates :amperage, presence: true, uniqueness: { scope: :electricity_plan_id }
   validates :rate, presence: true
   validates :rate, numericality: { greater_than_or_equal_to: 0 }
+
+  scope :find_rate_by_amperage, ->(amperage) { find_by(amperage:).rate }
 end

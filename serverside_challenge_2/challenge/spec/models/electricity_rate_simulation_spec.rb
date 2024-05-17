@@ -3,8 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe ElectricityRateSimulation, type: :model do
-  let(:params) { { amperage: 30, usage_kwh: 150 } }
+  let(:params) { { amperage: 10, usage_kwh: 100 } }
   let(:electricity_rate_simulation) { build(:electricity_rate_simulation, params) }
+  let(:provider) { create(:provider) }
+  let!(:electricity_plan) { create(:electricity_plan, provider:) }
+  let!(:basic_rate) { create(:basic_rate, electricity_plan:, amperage: 10, rate: 10.10) }
+
+  before do
+    create(:usage_rate, electricity_plan:, limit_kwh: 120, rate: 20.10)
+    create(:usage_rate, electricity_plan:, limit_kwh: 300, rate: 30.20)
+    create(:usage_rate, electricity_plan:, limit_kwh: nil, rate: 40.30)
+  end
 
   describe 'validations' do
     subject { electricity_rate_simulation }
@@ -45,38 +54,14 @@ RSpec.describe ElectricityRateSimulation, type: :model do
   end
 
   describe '#calculate_rate_plan' do
-    let(:plan) do
-      {
-        'provider_name' => 'example_provider',
-        'plan_name' => 'example_plan',
-        'basic_rate' => { 30 => 100 },
-        'usage_rate' => {
-          'level_1' => { 'limit' => 100, 'rate' => 10.10 },
-          'level_2' => { 'limit' => nil, 'rate' => 20.20 }
-        }
-      }
-    end
-
-    subject { electricity_rate_simulation.calculate_rate_plan(plan) }
+    subject { electricity_rate_simulation.calculate_rate_plan(electricity_plan) }
 
     it 'SimulationResultオブジェクトを返すこと' do
       is_expected.to be_a(SimulationResult)
     end
 
-    it 'provider_name, plan_name, priceが含まれること' do
-      is_expected.to have_attributes(provider_name: 'example_provider', plan_name: 'example_plan', price: 2120)
-    end
-
-    it 'priceが整数になること' do
-      expect(subject.price).to be_an(Integer)
-    end
-  end
-
-  describe '#provider_plans' do
-    subject { electricity_rate_simulation.provider_plans }
-
-    it 'Arrayオブジェクトを返すこと' do
-      is_expected.to be_an(Array)
+    it 'provider_name, plan_name, total_amountが含まれること' do
+      is_expected.to have_attributes(provider_name: provider.name, plan_name: electricity_plan.name, total_amount: 2020)
     end
   end
 end
