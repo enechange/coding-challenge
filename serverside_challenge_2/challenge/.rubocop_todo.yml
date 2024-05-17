@@ -56,7 +56,6 @@ Style/Documentation:
     - 'app/models/provider.rb'
     - 'app/models/simulation_result.rb'
     - 'app/models/usage_rate.rb'
-    - 'app/models/yaml_loader.rb'
 
 # Offense count: 6
 # This cop supports unsafe autocorrection (--autocorrect-all).
