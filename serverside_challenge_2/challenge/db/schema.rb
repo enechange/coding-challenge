@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_05_14_140359) do
+ActiveRecord::Schema[7.0].define(version: 2024_05_14_140360) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "basic_rates", force: :cascade do |t|
     t.bigint "electricity_plan_id", null: false
-    t.integer "amperage"
-    t.decimal "rate", precision: 6, scale: 2
+    t.integer "amperage", null: false
+    t.decimal "rate", precision: 6, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["electricity_plan_id"], name: "index_basic_rates_on_electricity_plan_id"
@@ -25,14 +25,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_14_140359) do
 
   create_table "electricity_plans", force: :cascade do |t|
     t.bigint "provider_id", null: false
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["provider_id"], name: "index_electricity_plans_on_provider_id"
   end
 
   create_table "providers", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_05_14_140359) do
   create_table "usage_rates", force: :cascade do |t|
     t.bigint "electricity_plan_id", null: false
     t.integer "limit_kwh"
-    t.decimal "rate", precision: 4, scale: 2
+    t.decimal "rate", precision: 4, scale: 2, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["electricity_plan_id"], name: "index_usage_rates_on_electricity_plan_id"
