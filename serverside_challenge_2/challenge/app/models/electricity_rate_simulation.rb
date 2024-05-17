@@ -3,6 +3,7 @@
 class ElectricityRateSimulation
   include ActiveModel::Model
   include ActiveModel::Attributes
+  include ActiveRecord::AttributeMethods::BeforeTypeCast
 
   attribute :amperage, :integer
   attribute :usage_kwh, :integer

@@ -32,21 +32,79 @@ describe 'Api::ElectricityRateSimulations', type: :request do
       )
     end
 
-    context '無効なパラメータを指定したとき' do
-      let(:params) { { dummy: 10 } }
+    context '不正なパラメータを指定したとき' do
+      context '存在しないパラメータを指定したとき' do
+        let(:params) { { dummy: 10 } }
 
-      it 'HTTPステータスコード400を返すこと' do
-        subject
-        expect(response).to have_http_status(:bad_request)
+        it 'HTTPステータスコード400を返すこと' do
+          subject
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      context 'パラメータが空のとき' do
+        let(:params) { {} }
+
+        it 'HTTPステータスコード400を返すこと' do
+          subject
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      context 'amperageがnilのとき' do
+        let(:params) { { amperage: nil, usage_kwh: 100 } }
+
+        it 'HTTPステータスコード400を返すこと' do
+          subject
+          expect(response).to have_http_status(:bad_request)
+        end
+      end
+
+      context 'usage_kwhがnilのとき' do
+        let(:params) { { amperage: 10, usage_kwh: nil } }
+
+        it 'HTTPステータスコード400を返すこと' do
+          subject
+          expect(response).to have_http_status(:bad_request)
+        end
       end
     end
 
     context 'バリデーションエラーとなる値を指定したとき' do
-      let(:params) { { amperage: 999, usage_kwh: 100 } }
+      context 'amperage文字列のとき' do
+        let(:params) { { amperage: 'dummy', usage_kwh: 100 } }
 
-      it 'HTTPステータスコード422を返すこと' do
-        subject
-        expect(response).to have_http_status(:unprocessable_entity)
+        it 'HTTPステータスコード422を返すこと' do
+          subject
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      context 'amperageが負数のとき' do
+        let(:params) { { amperage: -1, usage_kwh: 100 } }
+
+        it 'HTTPステータスコード422を返すこと' do
+          subject
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      context 'usage_kwh文字列のとき' do
+        let(:params) { { amperage: 10, usage_kwh: 'dummy' } }
+
+        it 'HTTPステータスコード422を返すこと' do
+          subject
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      context 'usage_kwhが負数のとき' do
+        let(:params) { { amperage: 10, usage_kwh: -1 } }
+
+        it 'HTTPステータスコード422を返すこと' do
+          subject
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
       end
     end
 
