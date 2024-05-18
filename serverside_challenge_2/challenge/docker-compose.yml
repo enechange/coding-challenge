@@ -23,5 +23,16 @@ services:
     stdin_open: true
     depends_on:
       - db
+  frontend:
+    build: ../frontend
+    command: /bin/sh -c "npm install && npm run build && PORT=3001 npm run dev"
+    volumes:
+      - ../frontend:/var/frontend
+      - ../frontend/node_modules:/var/frontend/node_modules
+    ports:
+      - "3001:3001"
+    restart: always
+    tty: true
+    stdin_open: true
 volumes:
   postgres_volume:
