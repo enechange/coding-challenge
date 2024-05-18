@@ -13,5 +13,15 @@ AllCops:
     - 'spec/spec_helper.rb'
     - 'Gemfile'
     - 'Rakefile'
-
   NewCops: enable
+
+Style/Documentation:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Exclude:
+    - 'spec/factories/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'

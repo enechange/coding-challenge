@@ -28,7 +28,11 @@ describe 'Api::ElectricityRateSimulations', type: :request do
     it 'JSONレスポンスを返すこと' do
       subject
       expect(response.parsed_body).to include(
-        { 'provider_name' => provider.name, 'plan_name' => electricity_plan.name, 'total_amount' => 2020, 'error_message' => nil }
+        {
+          'provider_name' => provider.name,
+          'plan_name' => electricity_plan.name, 'total_amount' => 2020,
+          'error_message' => nil
+        }
       )
     end
 
@@ -114,7 +118,12 @@ describe 'Api::ElectricityRateSimulations', type: :request do
       it 'total_priceがnilでerror_messageが「アンペア数に対応する基本料金が見つからないため料金を計算できません」であること' do
         subject
         expect(response.parsed_body).to include(
-          { 'provider_name' => provider.name, 'plan_name' => electricity_plan.name, 'total_amount' => nil, 'error_message' => 'アンペア数に対応する基本料金が見つからないため料金を計算できません' }
+          {
+            'provider_name' => provider.name,
+            'plan_name' => electricity_plan.name,
+            'total_amount' => nil,
+            'error_message' => 'アンペア数に対応する基本料金が見つからないため料金を計算できません'
+          }
         )
       end
     end
