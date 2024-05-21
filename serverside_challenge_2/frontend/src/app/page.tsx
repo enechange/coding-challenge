@@ -1,94 +1,81 @@
-import Image from "next/image";
+"use client";
 import styles from "./page.module.css";
+import axios from "axios";
+import React, { useState } from "react";
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+interface Inputs {
+  amperage: number;
+  usage_kwh: number;
+};
 
 export default function Home() {
+  const [simulationResult, setSimulationResult] = useState([] as any);
+
+  const getElectricityRateSimulationApi = (amperage: number, usage_kwh: number) => {
+    axios.get(`http://localhost:3000/api/electricity_rate_simulations?amperage=${amperage}&usage_kwh=${usage_kwh}`,
+    ).then(function (response) { // handle success
+      setSimulationResult(response.data);
+    })
+    .catch(function (error) { // handle error
+    })
+    .finally(function () { // always executed
+    });
+  }
+
+  const {
+    register,
+    getValues,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const executeSimulation: SubmitHandler<Inputs> = (e) => {
+    getElectricityRateSimulationApi(getValues("amperage"), getValues("usage_kwh"));
+  };
+
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+      <div>
+        <form onSubmit={handleSubmit(executeSimulation)}>
+          <div>
+            <label>
+              契約アンペア数:
+              <select {...register("amperage")}>
+                <option value={10}>10</option>
+                <option value={15}>15</option>
+                <option value={20}>20</option>
+                <option value={30}>30</option>
+                <option value={40}>40</option>
+                <option value={50}>50</option>
+                <option value={60}>60</option>
+              </select>A
+            </label>
+          </div>
+          <div>
+            <label>
+              使用量:
+              <input type="number" {...register("usage_kwh")} />kWh
+            </label>
+          </div>
+
+          <button type="submit">送信</button>
+        </form>
         </div>
-      </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        {
+          simulationResult.map((result: any, i: any) => {
+            return (
+              <div key={i}>
+                <p>電力会社: {result.provider_name}</p>
+                <p>プラン: {result.provider_name}</p>
+                <p>料金: {result.total_amount != null ? result.total_amount : '-'}</p>
+              </div>
+            )
+          })
+        }
+        <div>
       </div>
     </main>
   );
