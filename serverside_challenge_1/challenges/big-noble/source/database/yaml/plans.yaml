@@ -1,0 +1,89 @@
+- provider_name: 東京電力エナジーパートナー
+  plan_name: 従量電灯B
+  basic_charge:
+    10: 286.00
+    15: 429.00
+    20: 572.00
+    30: 858.00
+    40: 1144.00
+    50: 1430.00
+    60: 1716.00
+
+  electric_use_charge:
+    - range:
+        - 0
+        - 120
+      rate: 19.88
+    - range:
+        - 121
+        - 300
+      rate: 26.48
+    - range:
+        - 301
+        - null
+      rate: 30.57
+
+- provider_name: Looopでんき
+  plan_name: おうちプラン
+  basic_charge:
+    10: 0
+    15: 0
+    20: 0
+    30: 0
+    40: 0
+    50: 0
+    60: 0
+
+  electric_use_charge:
+    - range:
+        - 0
+        - null
+      rate: 26.40
+
+- provider_name: 東京ガス
+  plan_name: ずっとも電気1
+  basic_charge:
+    30: 858.00
+    40: 1144.00
+    50: 1430.00
+    60: 1716.00
+
+  electric_use_charge:
+    - range:
+        - 0
+        - 140
+      rate: 23.67
+    - range:
+        - 141
+        - 350
+      rate: 23.88
+    - range:
+        - 351
+        - null
+      rate: 26.41
+
+- provider_name: JXTGでんき
+  plan_name: 従量電灯Bたっぷりプラン
+  basic_charge:
+    30: 858.00
+    40: 1144.00
+    50: 1430.00
+    60: 1716.80
+
+  electric_use_charge:
+    - range:
+        - 0
+        - 120
+      rate: 19.88
+    - range:
+        - 121
+        - 300
+      rate: 26.48
+    - range:
+        - 301
+        - 600
+      rate: 25.08
+    - range:
+        - 601
+        - null
+      rate: 26.15
