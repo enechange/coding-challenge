@@ -17,7 +17,7 @@ class ElectricityRateSimulation
   end
 
   def execute
-    ElectricityPlan.all.map do |plan|
+    ElectricityPlan.preload(:provider, :basic_rates, :usage_rates).map do |plan|
       calculate_rate_plan(plan)
     end
   end

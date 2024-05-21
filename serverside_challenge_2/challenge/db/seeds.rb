@@ -94,13 +94,8 @@ ActiveRecord::Base.transaction do
     provider_plan[:plans].each do |plan|
       electricity_plan = provider.electricity_plans.create!(name: plan[:name])
 
-      plan[:basic_rates].each do |basic_rate|
-        electricity_plan.basic_rates.create!(amperage: basic_rate[:amperage], rate: basic_rate[:rate])
-      end
-
-      plan[:usage_rates].each do |usage_rate|
-        electricity_plan.usage_rates.create!(limit_kwh: usage_rate[:limit_kwh], rate: usage_rate[:rate])
-      end
+      electricity_plan.basic_rates.insert_all!(plan[:basic_rates])
+      electricity_plan.usage_rates.insert_all!(plan[:usage_rates])
     end
   end
 end
