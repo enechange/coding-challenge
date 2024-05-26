@@ -27,6 +27,6 @@ class ElectricityRateSimulation
 
     total_amount = plan.calculate_total_amount(amperage, usage_kwh)
 
-    SimulationResult.new(plan.provider.name, plan.name, total_amount)
+    SimulationResult.new(plan, total_amount)
   end
 end
