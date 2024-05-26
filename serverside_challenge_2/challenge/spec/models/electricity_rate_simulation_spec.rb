@@ -29,13 +29,11 @@ RSpec.describe ElectricityRateSimulation, type: :model do
 
     context 'numericality' do
       context 'amperage' do
-        let(:params) { { amperage: -1, usage_kwh: 100 } }
-        it { is_expected.to be_invalid }
+        it { should validate_numericality_of(:amperage).only_integer }
       end
 
       context 'usage_kwh' do
-        let(:params) { { amperage: 10, usage_kwh: -1 } }
-        it { is_expected.to be_invalid }
+        it { should validate_numericality_of(:usage_kwh).only_integer.is_greater_than_or_equal_to(0) }
       end
     end
   end

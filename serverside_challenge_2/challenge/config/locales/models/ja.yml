@@ -1,8 +1,16 @@
 ja:
   activemodel:
+    attributes:
+      electricity_rate_simulation:
+        amperage: アンペア数(A)
+        usage_kwh: 使用量(kWh)
     errors:
       models:
         electricity_rate_simulation:
           attributes:
             amperage:
-              inclusion: アンペア数は[10, 15, 20, 30, 40, 50, 60]のいずれかを指定してください
+              inclusion: は[10, 15, 20, 30, 40, 50, 60]のいずれかを指定してください
+              not_a_number: は数値で入力してください
+            usage_kwh:
+              greater_than_or_equal_to: は0以上の値を入力してください
+              not_a_number: は数値で入力してください
