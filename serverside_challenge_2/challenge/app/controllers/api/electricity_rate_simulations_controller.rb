@@ -3,8 +3,8 @@
 module Api
   class ElectricityRateSimulationsController < ApplicationController
     def index
-      electricity_rate_simulation = ElectricityRateSimulation.new(electricity_rate_simulation_params['amperage'],
-                                                                  electricity_rate_simulation_params['usage_kwh'])
+      params = electricity_rate_simulation_params
+      electricity_rate_simulation = ElectricityRateSimulation.new(params['amperage'], params['usage_kwh'])
 
       raise ActiveModel::ValidationError, electricity_rate_simulation if electricity_rate_simulation.invalid?
 
