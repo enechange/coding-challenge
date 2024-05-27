@@ -15,7 +15,8 @@ import {
   NumberDecrementStepper,
   Container,
   Box,
-  Text
+  Text,
+  FormErrorMessage
 } from '@chakra-ui/react'
 
 interface Inputs {
@@ -49,6 +50,14 @@ export default function Home() {
     getElectricityRateSimulationApi(getValues("amperage"), getValues("usage_kwh"));
   };
 
+  const usageKwhValidationRules = {
+    required: "使用量は必須です",
+    pattern: {
+      value: /^\d+$/,
+      message: "使用量は整数で入力してください"
+    }
+  };
+
   return (
     <div>
     <Container>
@@ -58,7 +67,7 @@ export default function Home() {
       </Box>
       <Box mt='10'>
         <form onSubmit={handleSubmit(executeSimulation)}>
-          <FormControl>
+          <FormControl >
             <FormLabel htmlFor='amperage'>契約アンペア数（単位: A）</FormLabel>
             <Select id='amperage' {...register("amperage")}>
               <option value={10}>10</option>
@@ -69,14 +78,19 @@ export default function Home() {
               <option value={50}>50</option>
               <option value={60}>60</option>
             </Select>
+          </FormControl>
+          <FormControl isInvalid={Boolean(errors.usage_kwh)}>
             <FormLabel htmlFor='usage_kwh' mt='5'>使用量（単位: kWh）</FormLabel>
             <NumberInput defaultValue={0} min={0}>
-              <NumberInputField id='usage_kwh' {...register("usage_kwh")} />
+              <NumberInputField id='usage_kwh' {...register("usage_kwh", usageKwhValidationRules)} />
               <NumberInputStepper>
                 <NumberIncrementStepper />
                 <NumberDecrementStepper />
               </NumberInputStepper>
             </NumberInput>
+            <FormErrorMessage>
+              {errors.usage_kwh && <p>{errors.usage_kwh.message}</p>}
+            </FormErrorMessage>
           </FormControl>
           <Button mt={5} colorScheme='teal' type='submit'>
             決定
