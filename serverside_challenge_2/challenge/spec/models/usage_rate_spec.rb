@@ -39,26 +39,26 @@ RSpec.describe UsageRate, type: :model do
       is_expected.to eq(2010)
     end
 
-    it 'calculate_rate_and_check_finishメソッドが呼ばれること' do
-      allow_any_instance_of(UsageRate).to receive(:calculate_rate_and_check_finish).and_return([BigDecimal(0), true])
+    it 'calculate_price_and_calcuable_kwhメソッドが呼ばれること' do
+      allow_any_instance_of(UsageRate).to receive(:calculate_price_and_calcuable_kwh).and_return([BigDecimal(0)])
 
       allow(UsageRate).to receive(:sort_limit_kwh_asc_nulls_last).and_return([usage_rate1])
-      allow(usage_rate1).to receive(:calculate_rate_and_check_finish).and_return([BigDecimal(0), true, BigDecimal(0)])
+      allow(usage_rate1).to receive(:calculate_price_and_calcuable_kwh).and_return([BigDecimal(0)])
 
       subject
-      expect(usage_rate1).to have_received(:calculate_rate_and_check_finish)
+      expect(usage_rate1).to have_received(:calculate_price_and_calcuable_kwh)
     end
   end
 
-  describe '#calculate_rate_and_check_finish' do
-    subject { usage_rate.calculate_rate_and_check_finish(usage_kwh, calculated_kwh) }
+  describe '#calculate_price_and_calcuable_kwh' do
+    subject { usage_rate.calculate_price_and_calcuable_kwh(usage_kwh, calculated_kwh) }
 
     context 'limit_kwhがnilのとき' do
       let(:usage_rate) { usage_rate3 }
       let(:calculated_kwh) { 0 }
 
-      it '未計算使用量を従量料金単価で計算し終了フラグがtrueになること' do
-        is_expected.to eq([usage_kwh * usage_rate.rate, true])
+      it '未計算使用量を従量料金単価で計算し計算可能使用量は返らないこと' do
+        is_expected.to eq([usage_kwh * usage_rate.rate])
       end
     end
 
@@ -67,8 +67,8 @@ RSpec.describe UsageRate, type: :model do
         let(:usage_rate) { usage_rate1 }
         let(:calculated_kwh) { 0 }
 
-        it '未計算使用量を従量料金単価で計算し終了フラグがtrueになること' do
-          is_expected.to eq([usage_kwh * usage_rate.rate, true])
+        it '未計算使用量を従量料金単価で計算し計算可能使用量は返らないこと' do
+          is_expected.to eq([usage_kwh * usage_rate.rate])
         end
       end
 
@@ -78,8 +78,8 @@ RSpec.describe UsageRate, type: :model do
         let(:calculated_kwh) { usage_rate1.limit_kwh }
         let(:calcuable_kwh) { BigDecimal(usage_rate.limit_kwh.to_i) - BigDecimal(calculated_kwh) }
 
-        it '計算可能使用量を従量料金単価で計算し終了フラグがfalseになること' do
-          is_expected.to eq([calcuable_kwh * usage_rate.rate, false, calcuable_kwh])
+        it '計算可能使用量を従量料金単価で計算し計算可能使用量が返ること' do
+          is_expected.to eq([calcuable_kwh * usage_rate.rate, calcuable_kwh])
         end
       end
     end
