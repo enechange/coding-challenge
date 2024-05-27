@@ -24,6 +24,13 @@ interface Inputs {
   usage_kwh: number;
 };
 
+interface SimulationResult {
+  provider_name: string;
+  plan_name: string;
+  total_amount: number | null;
+  error_message?: string;
+}
+
 export default function Home() {
   const [simulationResult, setSimulationResult] = useState([] as any);
 
@@ -100,7 +107,7 @@ export default function Home() {
 
       <Box mt='10'>
         {
-          simulationResult.map((result: any, i: any) => {
+          simulationResult.map((result: SimulationResult, i: number) => {
             return (
               <Box key={i} mb='5'>
                 <p>電力会社: {result.provider_name}</p>
