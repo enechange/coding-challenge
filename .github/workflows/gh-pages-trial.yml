@@ -23,7 +23,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version-file: 'frontend_challenge_2/challenges/k-taro56/.nvmrc'
           cache: 'pnpm'
           cache-dependency-path: frontend_challenge_2/challenges/k-taro56
 
