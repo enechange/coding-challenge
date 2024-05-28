@@ -24,6 +24,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
 
       - name: Replace entire content of next.config.js for-github-workflows.next.config.js
         run: |
@@ -37,19 +38,6 @@ jobs:
           echo "DEPLOY_PATH=$DEPLOY_PATH" >> $GITHUB_ENV
           DEPLOY_URL=https://${{ github.repository_owner }}.github.io/$REPO_NAME/$DEPLOY_PATH
           echo "DEPLOY_URL=$DEPLOY_URL" >> $GITHUB_ENV
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - uses: actions/cache@v4
-        name: Set up pnpm cache
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
