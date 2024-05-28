@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+          cache-dependency-path: frontend_challenge_2/challenges/k-taro56
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

@@ -25,6 +25,7 @@ jobs:
         with:
           node-version: 20
           cache: 'pnpm'
+          cache-dependency-path: frontend_challenge_2/challenges/k-taro56
 
       - name: Replace entire content of next.config.js for-github-workflows.next.config.js
         run: |
