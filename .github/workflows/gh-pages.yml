@@ -33,7 +33,6 @@ jobs:
         name: Set up pnpm
         with:
           version: 9
-          run_install: false
 
       - name: Get pnpm store directory
         shell: bash
