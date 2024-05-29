@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       material-symbols:
-        specifier: ^0.17.0
-        version: 0.17.0
+        specifier: ^0.18.0
+        version: 0.18.0
       next:
         specifier: 14.2.3
         version: 14.2.3(@babel/core@7.23.3)(babel-plugin-macros@3.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -277,9 +277,6 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
-
-  '@emotion/serialize@1.1.2':
-    resolution: {integrity: sha512-zR6a/fkFP4EAcCMQtLOhIgpprZOwNmCldtpaISpvz348+DP4Mz8ZoKaGGCQpbzepNIUWbq4w6hNZkwDyKoS+HA==}
 
   '@emotion/serialize@1.1.4':
     resolution: {integrity: sha512-RIN04MBT8g+FnDwgvIUi8czvr1LU1alUMI05LekWB5DGyTm8cCBMCRpq3GqaiyEDRptEXOyXnvZ58GZYu4kBxQ==}
@@ -1942,8 +1939,8 @@ packages:
   makeerror@1.0.12:
     resolution: {integrity: sha512-JmqCvUhmt43madlpFzG4BQzG2Z3m6tvQDNKdClZnO3VbIudJYmxsT0FNJMeiB2+JTSlTQTSbU8QdesVmwJcmLg==}
 
-  material-symbols@0.17.0:
-    resolution: {integrity: sha512-CwDddz58cIH/svt8/wjAegQTp9bfNNIkIPjkkr0MAmA1oMlmUkG+C2ss2/yR22mlDzUX4DnXIq5MrgcpKTXoyA==}
+  material-symbols@0.18.0:
+    resolution: {integrity: sha512-U+b96KpXsN+sA9Y3b/50t6Z1rJPfh2UvHCvwsZRJtB6IlbYMhZw6E6kvfelhlOhm32qX43SSlVIemqDFkPjh/Q==}
 
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -2959,7 +2956,7 @@ snapshots:
       '@babel/runtime': 7.23.2
       '@emotion/babel-plugin': 11.11.0
       '@emotion/cache': 11.11.0
-      '@emotion/serialize': 1.1.2
+      '@emotion/serialize': 1.1.4
       '@emotion/use-insertion-effect-with-fallbacks': 1.0.1(react@18.2.0)
       '@emotion/utils': 1.2.1
       '@emotion/weak-memoize': 0.3.1
@@ -2967,14 +2964,6 @@ snapshots:
       react: 18.2.0
     optionalDependencies:
       '@types/react': 18.2.67
-
-  '@emotion/serialize@1.1.2':
-    dependencies:
-      '@emotion/hash': 0.9.1
-      '@emotion/memoize': 0.8.1
-      '@emotion/unitless': 0.8.1
-      '@emotion/utils': 1.2.1
-      csstype: 3.1.2
 
   '@emotion/serialize@1.1.4':
     dependencies:
@@ -5131,7 +5120,7 @@ snapshots:
     dependencies:
       tmpl: 1.0.5
 
-  material-symbols@0.17.0: {}
+  material-symbols@0.18.0: {}
 
   merge-stream@2.0.0: {}
 
