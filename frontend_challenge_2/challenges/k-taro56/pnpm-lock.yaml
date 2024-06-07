@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       material-symbols:
-        specifier: ^0.19.0
-        version: 0.19.0
+        specifier: ^0.20.0
+        version: 0.20.0
       next:
         specifier: 14.2.3
         version: 14.2.3(@babel/core@7.23.3)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1948,8 +1948,8 @@ packages:
   makeerror@1.0.12:
     resolution: {integrity: sha512-JmqCvUhmt43madlpFzG4BQzG2Z3m6tvQDNKdClZnO3VbIudJYmxsT0FNJMeiB2+JTSlTQTSbU8QdesVmwJcmLg==}
 
-  material-symbols@0.19.0:
-    resolution: {integrity: sha512-/iWffKJzk8QZw2Wg6QjSS8f4oRbnesbU1Eodje1+jzBCtNYJupJwArjnXpiFeWBANkW0gvOx6AdQpnj9wsgAmA==}
+  material-symbols@0.20.0:
+    resolution: {integrity: sha512-bTxLbVDimYqe1+iY0qcWXJSqoxKfQhzfdVLlvi8DegHAuSJ93oXhMjHY95zOVcgKUsLjszR2heIYhLWjobE1BQ==}
 
   merge-stream@2.0.0:
     resolution: {integrity: sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==}
@@ -5139,7 +5139,7 @@ snapshots:
     dependencies:
       tmpl: 1.0.5
 
-  material-symbols@0.19.0: {}
+  material-symbols@0.20.0: {}
 
   merge-stream@2.0.0: {}
 
