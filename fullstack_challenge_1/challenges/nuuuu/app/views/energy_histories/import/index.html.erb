@@ -1,0 +1,45 @@
+<main>
+  <section class="section has-background-grey-lighter">
+    <div class="container">
+      <h1 class="title">データインポート (発電状況）</h1>
+    </div>
+  </section>
+
+  <% flash.each do |message_type, message| %>
+    <% if message_type == "alert" %>
+      <section class="section">
+        <div class="container">
+          <div class="notification is-danger">
+            <%= message %>
+          </div>
+        </div>
+      </section>
+    <% else %>
+      <section class="section">
+        <div class="container">
+          <div class="notification is-success">
+            <%= message %>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  <% end %>
+
+  <section class="section">
+    <%= form_with url: '/energy_histories/import', method: 'post', multipart: true do %>
+      <div class="container">
+        <div class="box">
+          <label class="label">発電状況データファイル(CSV)を参照</label>
+          <%= file_field :energy_history_file, :file, class: 'file' %>
+        </div>
+      </div>
+      <div class="container">
+        <div class="box">
+          <label class="label">データインポート</label>
+          <%= submit_tag '実行', class: 'button' %>
+        </div>
+      </div>
+      </div>
+    <% end %>
+  </section>
+</main>
