@@ -1,0 +1,34 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    restart: always
+  api:
+    build: ./api
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./api:/api
+    ports:
+      - "3001:3000"
+    depends_on:
+      - db
+  front:
+    build: ./front/
+    volumes:
+      - ./front:/front
+    command: sh -c 'npm start'
+    ports:
+      - 3000:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
+volumes:
+  postgres_volume:
