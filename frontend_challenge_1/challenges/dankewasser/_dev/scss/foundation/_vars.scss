@@ -1,0 +1,16 @@
+/* z-index */
+$z-showLeft: 101;
+$z-showLeftPopup: 102;
+$z-notification: 103;
+
+// レスポンシブ対応
+$imgPath-pc: '../images/';
+$imgPath-sp: '../images/sp/';
+$breakpoints: (
+  'sp': 'screen and (max-width: 699px)',
+  'pc': 'screen and (min-width: 700px)',
+) !default;
+$ctsWidth-pc: 1024px;
+
+// animation
+$ease-out-cubic: cubic-bezier(0.215, 0.61, 0.355, 1);

@@ -1,0 +1,48 @@
+.l-Footer {
+  @extend %CommonSection;
+
+  background: #3b9e77;
+}
+
+.l-Footer_Inner {
+  @extend %CommonSection_Inner;
+
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 76px 36px;
+
+  @include mq() {
+    display: block;
+    padding: 40px 20px;
+  }
+}
+
+.l-Footer_LogoCol {
+  width: 50%;
+
+  @include mq() {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.l-Footer_Logo {
+  @include mq() {
+    width: 200px;
+  }
+}
+
+.l-Footer_CopyCol {
+  width: 50%;
+  text-align: right;
+  color: #fff;
+  font-size: 1.6rem;
+
+  @include mq() {
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+  }
+}

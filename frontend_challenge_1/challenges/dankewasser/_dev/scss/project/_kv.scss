@@ -1,0 +1,57 @@
+.p-KV {
+  @extend %CommonSection;
+
+  background: rgba(#e0f7fd, 0.93) url(#{$imgPath-pc}kv_bg.jpg) center no-repeat;
+  background-size: cover;
+
+  @include mq() {
+    background-image: url(#{$imgPath-sp}kv_bg.jpg);
+  }
+}
+
+.p-KV_Inner {
+  @extend %CommonSection_Inner;
+
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+
+  @include mq() {
+    display: block;
+  }
+}
+
+.p-KV_TtlArea {
+  flex: 0 0 auto;
+  width: 535px;
+  padding-top: 139px;
+  padding-left: 40px;
+
+  @include mq() {
+    padding: 12px 10px 0;
+    width: auto;
+  }
+}
+
+.p-KV_Ttl {
+  @include mq() {
+    text-align: center;
+  }
+}
+
+.p-KV_TtlImg {
+  @include mq() {
+    width: 300px;
+  }
+}
+
+.p-KV_FormArea {
+  flex: 0 0 auto;
+  padding: 65px 59px 39px 0;
+
+  @include mq() {
+    margin-top: 32px;
+    padding: 0 10px 12px;
+    width: auto;
+  }
+}
