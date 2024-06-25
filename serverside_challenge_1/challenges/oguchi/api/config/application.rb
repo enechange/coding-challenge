@@ -40,5 +40,9 @@ module Api
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # schema validation
+    schema_path = Rails.root.join('..', 'schema', 'openapi.yaml').to_s
+    config.middleware.use Committee::Middleware::RequestValidation, schema_path: schema_path
   end
 end

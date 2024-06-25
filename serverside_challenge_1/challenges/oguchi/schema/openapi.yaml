@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: 電気料金シミュレーションAPI
+  version: 1.0.0
+  description: 電気料金をシミュレーションするAPIです。
+paths:
+  '/billings:calculate':
+    post:
+      operationId: calculateBillings
+      summary: プランごとの電気料金をシミュレーションします。
+      tags:
+        - billing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amperage:
+                  type: integer
+                  description: 契約アンペア数
+                  enum: [10, 15, 20, 30, 40, 50, 60]
+                  example: 30
+                used_kwh:
+                  type: integer
+                  description: 使用量（kWh）
+                  example: 300
+              required:
+                - amperage
+                - used_kwh
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    provider_name:
+                      type: string
+                      description: 電力会社名
+                    plan_name:
+                      type: string
+                      description: プラン名
+                    price:
+                      type: float
+                      description: 電気料金
+                  required:
+                    - provider_name
+                    - plan_name
+                    - price
