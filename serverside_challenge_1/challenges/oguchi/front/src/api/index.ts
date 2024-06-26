@@ -1,7 +1,6 @@
 import { BillingApi, Configuration } from './generated'
 
-// TODO: 環境変数などから取得する
-const API_HOST = 'http://localhost:3000'
+const API_HOST = process.env.NEXT_PUBLIC_API_HOST
 
 const conf = new Configuration({
   basePath: API_HOST,
