@@ -1,0 +1,83 @@
+- provider_name: 東京電力エナジーパートナー
+  plan_name: 従量電灯B
+  categories:
+    - amperage: 10
+      base_charge: 286.00
+    - amperage: 15
+      base_charge: 429.00
+    - amperage: 20
+      base_charge: 572.00
+    - amperage: 30
+      base_charge: 858.00
+    - amperage: 40
+      base_charge: 1144.00
+    - amperage: 50
+      base_charge: 1430.00
+    - amperage: 60
+      base_charge: 1716.00
+  prices:
+    - price_per_kwh: 19.88
+      threshold: 120
+    - price_per_kwh: 26.48
+      threshold: 300
+    - price_per_kwh: 30.57
+
+- provider_name: Loopでんき
+  plan_name: おうちプラン
+  categories:
+    - amperage: 10
+      base_charge: 0.0
+    - amperage: 15
+      base_charge: 0.0
+    - amperage: 20
+      base_charge: 0.0
+    - amperage: 30
+      base_charge: 0.0
+    - amperage: 40
+      base_charge: 0.0
+    - amperage: 50
+      base_charge: 0.0
+    - amperage: 60
+      base_charge: 0.0
+  prices:
+    - price_per_kwh: 26.40
+
+- provider_name: 東京ガス
+  plan_name: ずっとも電気1
+  categories:
+    - amperage: 30
+      base_charge: 858.00
+    - amperage: 40
+      base_charge: 1144.00
+    - amperage: 50
+      base_charge: 1430.00
+    - amperage: 60
+      base_charge: 1716.00
+  prices:
+    - price_per_kwh: 23.67
+      threshold: 140
+    - price_per_kwh: 23.88
+      threshold: 350
+    - price_per_kwh: 26.41
+
+- provider_name: JXTGでんき
+  plan_name: 従量電灯Bたっぷりプラン
+  categories:
+    # - description: 10A
+    #   base_charge: 286.00
+    - amperage: 30
+      base_charge: 858.00
+    - amperage: 40
+      base_charge: 1144.00
+    - amperage: 50
+      base_charge: 1430.00
+    - amperage: 60
+      base_charge: 1716.00
+  prices:
+    - price_per_kwh: 19.88
+      threshold: 120
+    - price_per_kwh: 26.48
+      threshold: 300
+    - price_per_kwh: 25.08
+      threshold: 600
+    - price_per_kwh: 26.15
