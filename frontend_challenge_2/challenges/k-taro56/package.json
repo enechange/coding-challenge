@@ -13,7 +13,7 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "material-symbols": "^0.21.1",
+    "material-symbols": "^0.21.2",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"
