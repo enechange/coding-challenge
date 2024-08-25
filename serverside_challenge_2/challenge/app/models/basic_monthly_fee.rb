@@ -18,6 +18,5 @@
 #  fk_rails_...  (plan_id => plans.id)
 #
 class BasicMonthlyFee < ApplicationRecord
-    belongs_to :plan
-  end
-  
+  belongs_to :plan
+end
