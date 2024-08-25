@@ -7,15 +7,15 @@
 #  price(電気料金) :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  providers_id    :bigint           not null
+#  provider_id     :bigint           not null
 #
 # Indexes
 #
-#  index_plans_on_providers_id  (providers_id)
+#  index_plans_on_provider_id  (provider_id)
 #
 # Foreign Keys
 #
-#  fk_rails_...  (providers_id => providers.id)
+#  fk_rails_...  (provider_id => providers.id)
 #
 class Plan < ApplicationRecord
   belongs_to :provider

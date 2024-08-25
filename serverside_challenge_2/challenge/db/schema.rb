@@ -17,20 +17,20 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_25_100227) do
   create_table "electricity_usages", force: :cascade do |t|
     t.integer "from", default: 0, null: false, comment: "電気使用量(開始値)"
     t.integer "to", default: 0, comment: "電気使用量時(終了値)"
-    t.integer "unit_price", default: 0, null: false, comment: "従量料金単価(円/kWh)"
-    t.bigint "provider_id", null: false
+    t.money "unit_price", scale: 2, default: "0.0", null: false, comment: "従量料金単価(円/kWh)"
+    t.bigint "plan_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["provider_id"], name: "index_electricity_usages_on_provider_id"
+    t.index ["plan_id"], name: "index_electricity_usages_on_plan_id"
   end
 
   create_table "plans", force: :cascade do |t|
     t.string "name", null: false, comment: "プラン名"
     t.integer "price", comment: "電気料金"
-    t.bigint "providers_id", null: false
+    t.bigint "provider_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["providers_id"], name: "index_plans_on_providers_id"
+    t.index ["provider_id"], name: "index_plans_on_provider_id"
   end
 
   create_table "providers", force: :cascade do |t|
@@ -39,6 +39,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_25_100227) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "electricity_usages", "providers"
-  add_foreign_key "plans", "providers", column: "providers_id"
+  add_foreign_key "electricity_usages", "plans"
+  add_foreign_key "plans", "providers"
 end
