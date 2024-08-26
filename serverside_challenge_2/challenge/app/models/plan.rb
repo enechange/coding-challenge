@@ -20,4 +20,7 @@
 #
 class Plan < ApplicationRecord
   belongs_to :provider
+
+  has_many :electricity_usages
+  has_many :basic_monthly_fees
 end
