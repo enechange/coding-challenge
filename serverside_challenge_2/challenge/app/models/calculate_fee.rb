@@ -17,7 +17,7 @@ class CalculateFee
       next if price.blank?
 
       array.push({ provider_name: plan.provider.name, plan_name: plan.name,
-                   price: price})
+                   price: })
     end
     array
   end
@@ -38,6 +38,6 @@ class CalculateFee
     # 電気代が存在しないパターンもあり、nil ガードのため
     return if electricity_usage.blank?
 
-    (basic_price.price + electricity_usage.unit_price * usage).to_i
+    (basic_price.price + electricity_usage.unit_price * usage.to_i).to_i
   end
 end
