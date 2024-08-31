@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: basic_monthly_fees
@@ -20,7 +22,7 @@
 FactoryBot.define do
   factory :basic_monthly_fee do
     contract_amperage { [10, 15, 20, 30, 40, 50, 60].sample }
-    price { 10000 }
+    price { 10_000 }
     plan { create(:plan) }
   end
 end
