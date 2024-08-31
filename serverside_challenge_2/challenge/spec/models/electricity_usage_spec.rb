@@ -27,7 +27,7 @@ RSpec.describe ElectricityUsage, type: :model do
     let(:plan) { create(:plan) }
     let(:from) { 100 }
     let(:to) { 200 }
-    before { create(:electricity_usage, from:, to: ,plan:) }
+    before { create(:electricity_usage, from:, to:, plan:) }
 
     context '別のplan と紐づく場合' do
       it '同一の電気使用量でもvalidation エラーとならないこと' do
@@ -64,7 +64,7 @@ RSpec.describe ElectricityUsage, type: :model do
           expect(electricity_usage.valid?).to eq false
         end
       end
-      
+
       context '終端値が nil の場合で開始値の範囲が重複する場合' do
         it 'validation エラーとなること' do
           electricity_usage = build(:electricity_usage, from: 110, to: nil, plan:)
