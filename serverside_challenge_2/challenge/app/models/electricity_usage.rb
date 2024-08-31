@@ -27,5 +27,5 @@ class ElectricityUsage < ApplicationRecord
   validates :from, uniqueness: { scope: :plan, message: '同一プランにて同じ値を設定することはできません' }
 
   include ActiveModel::Validations
-  validates_with Validator::PeriodValidator
+  validates_with ::PeriodValidator, fields: %i[from to plan_id]
 end
