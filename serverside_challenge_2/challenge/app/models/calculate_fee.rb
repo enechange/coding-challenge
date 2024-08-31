@@ -38,6 +38,8 @@ class CalculateFee
     # 電気代が存在しないパターンもあり、nil ガードのため
     return if electricity_usage.blank?
 
-    (basic_price.price + electricity_usage.unit_price * usage.to_i).to_i
+    # 電気の従量料金に関しては、各会社でも一律で切り捨てにしているため、切り捨てにする
+    # 参考: https://www.tepco.co.jp/ep/corporate/plan_h/pdf/2024minaoshisiryou_2.pdf
+    (basic_price.price + electricity_usage.unit_price * usage.to_i).round
   end
 end
