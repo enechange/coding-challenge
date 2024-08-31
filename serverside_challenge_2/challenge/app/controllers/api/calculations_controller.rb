@@ -11,7 +11,6 @@ module Api
     private
 
     def validate_params!
- 
       if params[:ampere].blank?
         raise ApplicationError::BadRequestError, '契約アンペア数が入力されていません'
       elsif (Regexp.new('^(10|15|20|30|40|50|60)$') =~ params[:ampere]) != 0
