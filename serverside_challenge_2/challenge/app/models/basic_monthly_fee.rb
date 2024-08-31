@@ -21,4 +21,6 @@
 #
 class BasicMonthlyFee < ApplicationRecord
   belongs_to :plan
+
+  validates :contract_amperage, uniqueness: { scope: :plan, message: '同一プランにて同じ値を設定することはできません' }
 end
