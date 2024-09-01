@@ -16,7 +16,7 @@ class CalculateFee
       price = calculate_price(plan)
       next if price.blank?
 
-      array.push({ provider_name: plan.provider.name, plan_name: plan.name,
+      array.push({ providerName: plan.provider.name, planName: plan.name,
                    price: })
     end
     array
