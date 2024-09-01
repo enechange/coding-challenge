@@ -25,9 +25,9 @@ RSpec.describe CalculateFee, type: :model do
         let!(:electricity_usage) { create(:electricity_usage, plan:, from: 1, to: 100) }
 
         it do
-          is_expected.to eq [{ plan_name: plan.name,
+          is_expected.to eq [{ planName: plan.name,
                                price: basic_monthly_fee.price + electricity_usage.unit_price * usage,
-                               provider_name: plan.provider.name }]
+                               providerName: plan.provider.name }]
         end
       end
 
@@ -38,9 +38,31 @@ RSpec.describe CalculateFee, type: :model do
         before { create(:basic_monthly_fee, contract_amperage: 20, plan:) }
 
         it do
-          is_expected.to eq [{ plan_name: plan.name,
+          is_expected.to eq [{ planName: plan.name,
                                price: basic_monthly_fee.price + electricity_usage.unit_price * usage,
-                               provider_name: plan.provider.name }]
+                               providerName: plan.provider.name }]
+        end
+      end
+
+      context '従量金額が0円のプランのみが登録されている場合' do
+        let!(:basic_monthly_fee) { create(:basic_monthly_fee, contract_amperage: 10, plan:) }
+        let!(:electricity_usage) { create(:electricity_usage, plan:, from: 1, to: 100, unit_price: 0.00) }
+
+        it do
+          is_expected.to eq [{ planName: plan.name,
+                               price: basic_monthly_fee.price,
+                               providerName: plan.provider.name }]
+        end
+      end
+
+      context '従量金額で少数点第一位が5以上の金額が出るプランのみが登録されている場合' do
+        let!(:basic_monthly_fee) { create(:basic_monthly_fee, contract_amperage: 10, plan:) }
+        let!(:electricity_usage) { create(:electricity_usage, plan:, from: 1, to: 100, unit_price: 140.05) }
+
+        it do
+          is_expected.to eq [{ planName: plan.name,
+                               price: (basic_monthly_fee.price + electricity_usage.unit_price * usage).round,
+                               providerName: plan.provider.name }]
         end
       end
     end
@@ -54,9 +76,9 @@ RSpec.describe CalculateFee, type: :model do
         let!(:electricity_usage) { create(:electricity_usage, plan:, from: 1, to: 100) }
 
         it do
-          is_expected.to eq [{ plan_name: plan.name,
+          is_expected.to eq [{ planName: plan.name,
                                price: basic_monthly_fee.price + electricity_usage.unit_price * usage,
-                               provider_name: plan.provider.name }]
+                               providerName: plan.provider.name }]
         end
       end
 
@@ -67,12 +89,12 @@ RSpec.describe CalculateFee, type: :model do
         let!(:other_electricity_usage) { create(:electricity_usage, plan: other_plan, from: 1, to: 100) }
 
         it do
-          is_expected.to eq [{ plan_name: plan.name,
+          is_expected.to eq [{ planName: plan.name,
                                price: basic_monthly_fee.price + electricity_usage.unit_price * usage,
-                               provider_name: plan.provider.name },
-                             { plan_name: other_plan.name,
+                               providerName: plan.provider.name },
+                             { planName: other_plan.name,
                                price: other_basic_monthly_fee.price + other_electricity_usage.unit_price * usage,
-                               provider_name: other_plan.provider.name }]
+                               providerName: other_plan.provider.name }]
         end
       end
     end
