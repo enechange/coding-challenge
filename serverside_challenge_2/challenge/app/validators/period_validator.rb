@@ -3,10 +3,10 @@
 class PeriodValidator < ActiveModel::Validator
   def validate(record)
     if record.from.present? && [record.to, record.from].compact.max == record.from
-      record.errors.add(:base, '終了値が、開始値よりも小さくなっています')
+      record.errors.add(:to, :cannot_assign_short_value_to_from)
     elsif record.from.present? && ElectricityUsage.exists?(from: ..record.from, to: record.to..,
                                                            plan_id: record.plan_id)
-      record.errors.add(:base, '同一プランで重複した値が登録されています')
+      record.errors.add(:base, :not_unique)
     end
   end
 end

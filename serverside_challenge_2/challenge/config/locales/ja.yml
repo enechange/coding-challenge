@@ -1,0 +1,42 @@
+ja:
+  activerecord:
+    models:
+      plan: プラン
+      basic_monthly_fee: 月額料金
+      electricity_usage: 従量料金
+      provider: プロバイダー
+    attributes:
+      plan:
+        name: プラン名
+        provider_id: プロバイダーID
+      basic_monthly_fee:
+        contract_amperage: 契約アンペア数
+        price: 基本料金(円)
+      electricity_usage:
+        from: 電気使用量(開始値)
+        to: 電気使用量(終了値)
+        unit_price: 従量料金単価
+      provider:
+        name: 会社名
+    errors:
+      messages:
+        not_unique: 同じ値を設定することはできません
+      models:
+        electricity_usage:
+          attributes:
+            to:
+              cannot_assign_short_value_to_from: 開始値よりも小さくなっています
+        basic_monthly_fee:
+          attributes:
+            contract_amperage:
+              unique_value: 同一プランにて同じ値を設定することはできません
+  errors:
+    contract_amperage:
+      blank: 契約アンペア数が入力されていません
+      invalid: 契約アンペア数に不正な値が設定されています
+    usage:
+      blank: 電気使用量が入力されていません
+      invalid: 電気使用量に不正な値が設定されています
+
+
+      
