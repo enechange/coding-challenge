@@ -78,6 +78,22 @@ RSpec.describe ElectricityUsage, type: :model do
           expect(electricity_usage.valid?).to eq true
         end
       end
+
+      context '終端値がnil である場合' do
+        it 'validation エラーとならないこと' do
+          electricity_usage = build(:electricity_usage, from: 201, to: nil, plan:)
+          expect(electricity_usage.valid?).to eq true
+        end
+      end
+
+      context '複数登録されており、ちょうど間の値を登録する場合' do
+        before { create(:electricity_usage, from: 301, to: nil, plan:) }
+
+        it 'validation エラーとならないこと' do
+          electricity_usage = build(:electricity_usage, from: 201, to: 300, plan:)
+          expect(electricity_usage.valid?).to eq true
+        end
+      end
     end
   end
 end
