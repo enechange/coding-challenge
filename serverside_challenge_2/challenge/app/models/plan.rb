@@ -4,11 +4,12 @@
 #
 # Table name: plans
 #
-#  id             :bigint           not null, primary key
-#  name(プラン名) :string           not null
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  provider_id    :bigint           not null
+#  id                                                 :bigint           not null, primary key
+#  name(プラン名)                                     :string           not null
+#  usage_tier(段階料金が導入されているのかを保持する) :boolean          default(FALSE)
+#  created_at                                         :datetime         not null
+#  updated_at                                         :datetime         not null
+#  provider_id                                        :bigint           not null
 #
 # Indexes
 #

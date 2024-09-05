@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_25_162048) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_05_142210) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_25_162048) do
     t.bigint "provider_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "usage_tier", default: false, comment: "段階料金が導入されているのかを保持する"
     t.index ["provider_id"], name: "index_plans_on_provider_id"
   end
 
