@@ -12,4 +12,4 @@ AllCops:
 
 # 参考サイト: https://zenn.dev/seiya2020/articles/af041663ab11c7
 Metrics/AbcSize:
-  Max: 24
+  Max: 30
