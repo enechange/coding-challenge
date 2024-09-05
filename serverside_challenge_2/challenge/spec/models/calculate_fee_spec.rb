@@ -15,6 +15,7 @@ RSpec.describe CalculateFee, type: :model do
 
     context 'plan が一件だけ登録されている場合' do
       let(:plan) { create(:plan) }
+
       context '契約アンペアが一致するプランが存在しない場合' do
         before { create(:basic_monthly_fee, contract_amperage: 20, plan:) }
         it { is_expected.to eq [] }
@@ -61,8 +62,59 @@ RSpec.describe CalculateFee, type: :model do
 
         it do
           is_expected.to eq [{ planName: plan.name,
-                               price: (basic_monthly_fee.price + electricity_usage.unit_price * usage).round,
+                               price: (basic_monthly_fee.price + electricity_usage.unit_price * usage).floor,
                                providerName: plan.provider.name }]
+        end
+      end
+
+      context '段階金額が設定されている場合' do
+        let(:plan) { create(:plan, usage_tier: true) }
+        let!(:basic_monthly_fee) { create(:basic_monthly_fee, contract_amperage: 10, plan:) }
+        let!(:first_electricity_usage) { create(:electricity_usage, plan:, from: 1, to: 120) }
+        let!(:second_electricity_usage) { create(:electricity_usage, plan:, from: 121, to: 300) }
+        let!(:thrid_electricity_usage) { create(:electricity_usage, plan:, from: 301, to: nil) }
+
+        context '電気使用量が120以下の場合' do
+          let(:usage) { 120 }
+
+          it do
+            is_expected.to eq [{ planName: plan.name,
+                                 price: basic_monthly_fee.price + first_electricity_usage.unit_price * usage,
+                                 providerName: plan.provider.name }]
+          end
+        end
+
+        context '電気使用量が120よりも大きい場合' do
+          let(:usage) { 121 }
+
+          it do
+            is_expected.to eq [{ planName: plan.name,
+                                 price: basic_monthly_fee.price + first_electricity_usage.unit_price * 120 +
+                                        second_electricity_usage.unit_price,
+                                 providerName: plan.provider.name }]
+          end
+        end
+
+        context '電気使用量が300の場合' do
+          let(:usage) { 300 }
+
+          it do
+            is_expected.to eq [{ planName: plan.name,
+                                 price: basic_monthly_fee.price + first_electricity_usage.unit_price * 120 +
+                                        second_electricity_usage.unit_price * 180,
+                                 providerName: plan.provider.name }]
+          end
+        end
+
+        context '電気使用量が301の場合' do
+          let(:usage) { 301 }
+
+          it do
+            is_expected.to eq [{ planName: plan.name,
+                                 price: basic_monthly_fee.price + first_electricity_usage.unit_price * 120 +
+                                        second_electricity_usage.unit_price * 180 + thrid_electricity_usage.unit_price,
+                                 providerName: plan.provider.name }]
+          end
         end
       end
     end
