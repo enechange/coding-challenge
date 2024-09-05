@@ -8,7 +8,7 @@ class PeriodValidator < ActiveModel::Validator
       record.errors.add(:to, :cannot_assign_short_value_to_from)
     elsif ElectricityUsage.exists?(from: ..record.from, to: record.to..,
                                    plan_id: record.plan_id)
-                                   record.errors.add(:base, :not_unique)
+      record.errors.add(:base, :not_unique)
     end
   end
 
