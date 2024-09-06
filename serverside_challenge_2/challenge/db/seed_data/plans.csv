@@ -1,5 +1,5 @@
 id,name,provider_id,usage_tier
 1,従量電灯B,1,true
-2,スタンダードS,1,false
-3,ずっとも電気1,2,false
+2,スタンダードS,1,true
+3,ずっとも電気1,2,true
 4,おうちプラン,3,false
