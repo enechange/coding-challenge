@@ -30,8 +30,6 @@ class CalculateFee
     basic_price, unit_price = find_base_price(plan)
     return nil if basic_price.blank?
 
-    return (basic_price + unit_price * usage.to_i).floor unless plan.usage_tier?
-
     usage_tier_price(basic_price, unit_price, plan)
   end
 
@@ -51,15 +49,18 @@ class CalculateFee
   end
 
   def usage_tier_price(basic_price, unit_price, plan)
-    # 三段階料金 が従量電灯B のみ設定されているため、従量電灯B には対応する
+    first_usage = plan.electricity_usages.first
     # MEMO: https://denki.docomo.ne.jp/article/26_calculation.html#:~:text=%E9%9B%BB%E5%8A%9B%E4%BC%9A%E7%A4%BE%E3%81%AB%E3%82%88%E3%81%A3%E3%81%A6%E3%81%AF%E3%80%811kWh%E3%81%94%E3%81%A8%E3%81%AB%E5%AE%9A%E3%82%81%E3%82%89%E3%82%8C%E3%82%8B%E9%9B%BB%E5%8A%9B%E9%87%8F%E6%96%99%E9%87%91%E3%81%AE%E5%8D%98%E4%BE%A1%E3%82%923%E6%AE%B5%E9%9A%8E%E3%81%AB%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B%E3%80%8C%E4%B8%89%E6%AE%B5%E9%9A%8E%E6%96%99%E9%87%91%E3%80%8D%E3%81%AE%E4%BB%95%E7%B5%84%E3%81%BF%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E5%A0%B4%E5%90%88%E3%82%82%E3%81%82%E3%82%8B
-    return (basic_price + unit_price * usage.to_i).floor if usage <= 120
+    # MEMO: 段階料金がないプランも存在するため、ガードのために入れてます
+    # TODO: 段階料金がないプランを登録するときのバリデーションが入れば、`first_usage.to.blank?` は削除する
+    return (basic_price + unit_price * usage.to_i).floor if first_usage.to.blank? || usage <= first_usage.to
 
-    first_price = plan.electricity_usages.find_by(to: 120).unit_price * 120
-    return (basic_price + first_price + (usage - 120) * unit_price).floor if usage <= 300
+    first_price = first_usage.unit_price * first_usage.to
+    second_usage = plan.electricity_usages[1]
+    return (basic_price + first_price + (usage - first_usage.to) * unit_price).floor if usage <= second_usage.to
 
-    second_price = plan.electricity_usages.find_by(to: 300).unit_price * 180
+    second_price = second_usage.unit_price * (second_usage.to - first_usage.to)
 
-    (basic_price + first_price + second_price + (usage - 300) * unit_price).floor
+    (basic_price + first_price + second_price + (usage - second_usage.to) * unit_price).floor
   end
 end
