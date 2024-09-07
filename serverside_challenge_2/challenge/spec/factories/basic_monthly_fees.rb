@@ -19,8 +19,10 @@
 #
 #  fk_rails_...  (plan_id => plans.id)
 #
-class BasicMonthlyFee < ApplicationRecord
-  belongs_to :plan
-
-  validates :contract_amperage, uniqueness: { scope: :plan, message: :unique_value }
+FactoryBot.define do
+  factory :basic_monthly_fee do
+    contract_amperage { [10, 15, 20, 30, 40, 50, 60].sample }
+    price { 10_000 }
+    plan { create(:plan) }
+  end
 end

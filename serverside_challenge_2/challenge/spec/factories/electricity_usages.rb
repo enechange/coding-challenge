@@ -20,12 +20,11 @@
 #
 #  fk_rails_...  (plan_id => plans.id)
 #
-class ElectricityUsage < ApplicationRecord
-  belongs_to :plan
-
-  validates :to, uniqueness: { scope: :plan, message: :not_unique_range }, allow_nil: true
-  validates :from, uniqueness: { scope: :plan, message: :not_unique_range }
-
-  include ActiveModel::Validations
-  validates_with ::PeriodValidator, fields: %i[from to plan_id]
+FactoryBot.define do
+  factory :electricity_usage do
+    from { 100 }
+    to { 200 }
+    unit_price { 100 }
+    plan { create(:plan) }
+  end
 end

@@ -26,6 +26,9 @@ module App
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    # 日本で使うことが主目的になるため、日本語化しておく
+    config.i18n.default_locale = :ja
+
     config.autoload_paths += Dir["#{config.root}/lib/errors/"]
   end
 end
