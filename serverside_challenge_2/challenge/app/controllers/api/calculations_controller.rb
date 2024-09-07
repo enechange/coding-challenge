@@ -12,15 +12,15 @@ module Api
 
     def validate_params!
       if params[:ampere].blank?
-        raise ApplicationError::BadRequestError, '契約アンペア数が入力されていません'
+        raise ApplicationError::BadRequestError, I18n.t('errors.contract_amperage.blank')
       elsif (Regexp.new('^(10|15|20|30|40|50|60)$') =~ params[:ampere]) != 0
-        raise ApplicationError::BadRequestError, '契約アンペア数に不正な値が設定されています'
+        raise ApplicationError::BadRequestError, I18n.t('errors.contract_amperage.invalid')
       end
 
       if params[:usage].blank?
-        raise ApplicationError::BadRequestError, '電気使用量が入力されていません'
+        raise ApplicationError::BadRequestError, I18n.t('errors.usage.blank')
       elsif (Regexp.new('^[0-9]+*$') =~ params[:usage]) != 0
-        raise ApplicationError::BadRequestError, '電気使用量が指定されておりません'
+        raise ApplicationError::BadRequestError, I18n.t('errors.usage.invalid')
       end
     end
   end
