@@ -50,4 +50,5 @@ group :development do
   gem "rubocop-rails-omakase", require: false
   gem "rubocop-rspec"
   gem 'brakeman', require: false
+  gem 'rails-erd', '~> 1.7', '>= 1.7.2'
 end
