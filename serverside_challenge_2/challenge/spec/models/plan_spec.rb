@@ -57,6 +57,14 @@ RSpec.describe Plan, type: :model do
         end
       end
     end
+
+    context ':electric_power_company' do
+      it 'nilの場合無効であること' do
+        instance = build(:plan, electric_power_company: nil)
+        expect(instance).to be_invalid
+        instance.errors[:electric_power_company].include?("must exist")
+      end
+    end
   end
 
   describe 'associations' do
