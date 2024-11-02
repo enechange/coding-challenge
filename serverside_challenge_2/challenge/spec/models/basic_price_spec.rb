@@ -43,42 +43,6 @@ RSpec.describe BasicPrice, type: :model do
         instance.errors[:amperage].include?("is not included in the list")
       end
 
-      context 'price' do
-        it 'nilの場合無効であること' do
-          instance = build(:basic_price, plan: plan, price: nil)
-          expect(instance).to be_invalid
-          instance.errors[:price].include?("can't be blank")
-        end
-
-        it '空文字の場合無効であること' do
-          instance = build(:basic_price, plan: plan, price: '')
-          expect(instance).to be_invalid
-          instance.errors[:price].include?("is not a number")
-        end
-
-        it '文字列の場合無効であること' do
-          instance = build(:basic_price, plan: plan, price: 'a')
-          expect(instance).to be_invalid
-          instance.errors[:price].include?("is not a number")
-        end
-
-        it '0の場合有効であること' do
-          instance = build(:basic_price, plan: plan, price: 0)
-          expect(instance).to be_valid
-        end
-
-        it '99999.99の場合有効であること' do
-          instance = build(:basic_price, plan: plan, price: 99999.99)
-          expect(instance).to be_valid
-        end
-
-        it '100000.00の場合無効であること' do
-          instance = build(:basic_price, plan: plan, price: 100000.00)
-          expect(instance).to be_invalid
-          instance.errors[:price].include?("must be less than or equal to 99999.99")
-        end
-      end
-
       context 'uniqueness' do
         it '異なるplan_idの場合有効であること' do
           create(:basic_price, plan: plan, amperage: 10)
@@ -98,6 +62,42 @@ RSpec.describe BasicPrice, type: :model do
       end
     end
 
+    context 'price' do
+      it 'nilの場合無効であること' do
+        instance = build(:basic_price, plan: plan, price: nil)
+        expect(instance).to be_invalid
+        instance.errors[:price].include?("can't be blank")
+      end
+
+      it '空文字の場合無効であること' do
+        instance = build(:basic_price, plan: plan, price: '')
+        expect(instance).to be_invalid
+        instance.errors[:price].include?("is not a number")
+      end
+
+      it '文字列の場合無効であること' do
+        instance = build(:basic_price, plan: plan, price: 'a')
+        expect(instance).to be_invalid
+        instance.errors[:price].include?("is not a number")
+      end
+
+      it '0の場合有効であること' do
+        instance = build(:basic_price, plan: plan, price: 0)
+        expect(instance).to be_valid
+      end
+
+      it '99999.99の場合有効であること' do
+        instance = build(:basic_price, plan: plan, price: 99999.99)
+        expect(instance).to be_valid
+      end
+
+      it '100000.00の場合無効であること' do
+        instance = build(:basic_price, plan: plan, price: 100000.00)
+        expect(instance).to be_invalid
+        instance.errors[:price].include?("must be less than or equal to 99999.99")
+      end
+    end
+
     context 'plan' do
       it 'nilの場合無効であること' do
         instance = build(:basic_price, plan: nil)
@@ -110,7 +110,7 @@ RSpec.describe BasicPrice, type: :model do
   describe 'created' do
     context 'price' do
       it '小数点以下2桁のまで保存される' do
-        instance = create(:basic_price, plan: plan, price: 1.01)
+        instance = create(:basic_price, plan: plan, price: 1.011)
         expect(instance.price).to eq 1.01
       end
     end
