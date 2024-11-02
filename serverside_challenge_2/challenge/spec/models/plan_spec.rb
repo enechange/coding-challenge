@@ -68,6 +68,8 @@ RSpec.describe Plan, type: :model do
   end
 
   describe 'associations' do
+    let(:plan) { create(:plan, electric_power_company: electric_power_company) }
+
     context 'electric_power_company' do
       it '関連の設定が正しいか' do
         association = described_class.reflect_on_association(:electric_power_company)
@@ -76,7 +78,6 @@ RSpec.describe Plan, type: :model do
       end
 
       it '関連が参照できること' do
-        plan = create(:plan, electric_power_company: electric_power_company)
         expect(plan.electric_power_company).to eq electric_power_company
       end
     end
@@ -89,9 +90,21 @@ RSpec.describe Plan, type: :model do
       end
 
       it '関連が参照できること' do
-        plan = create(:plan, electric_power_company: electric_power_company)
         basic_price = create(:basic_price, plan: plan)
         expect(plan.basic_prices).to eq [ basic_price ]
+      end
+    end
+
+    context "measured_rates" do
+      it "関連の設定が正しいか" do
+        association = described_class.reflect_on_association(:measured_rates)
+        expect(association.macro).to eq :has_many
+        expect(association.options[:dependent]).to eq :destroy
+      end
+
+      it "関連が参照できること" do
+        measured_rate = create(:measured_rate, plan: plan)
+        expect(plan.measured_rates).to eq [ measured_rate ]
       end
     end
   end
