@@ -130,4 +130,48 @@ RSpec.describe BasicPrice, type: :model do
       end
     end
   end
+
+  describe 'class methods' do
+    describe 'check_amperage?' do
+      it 'AMPERAGE_LISTに存在する値はis_error=falseとなる' do
+        BasicPrice::AMPERAGE_LIST.each do |amperage|
+          res = BasicPrice.check_amperage?(amperage)
+          expect(res[:is_error]).to be_falsey
+          expect(res[:error_object]).to be_nil
+        end
+      end
+
+      it 'nilの場合はis_error=trueとなる' do
+        res = BasicPrice.check_amperage?(nil)
+        expect(res[:is_error]).to be_truthy
+        expect(res[:error_object][:field]).to eq 'amperage'
+        expect(res[:error_object][:message]).to eq "#{BasicPrice::AMPERAGE_LIST.join('/')}のいずれかを指定してください。"
+      end
+    end
+
+    describe 'calculate_prices' do
+      let(:provider1) { create(:provider, name: 'provider1') }
+      let(:provider2) { create(:provider, name: 'provider2') }
+      let(:plan1_provider1) { create(:plan, name: 'plan1', provider: provider1) }
+      let(:plan1_amp_10) { create(:basic_price, plan: plan1_provider1, amperage: 10, price: 110.00) }
+      let(:plan2_provider1) { create(:plan, name: 'plan2', provider: provider1) }
+      let(:plan2_amp_10) { create(:basic_price, plan: plan2_provider1, amperage: 10, price: 210.00) }
+      let(:plan3_provider2) { create(:plan, name: 'plan3', provider: provider2) }
+      let(:plan1_amp_15) { create(:basic_price, plan: plan3_provider2, amperage: 15, price: 315.00) }
+
+      before do
+        plan1_amp_10
+        plan2_amp_10
+        plan1_amp_15
+      end
+
+      it 'amperageに対応するプランの料金を取得できる' do
+        res = BasicPrice.calculate_prices(10)
+
+        expect(res.keys.size).to eq 2
+        expect(res[plan1_provider1.id]).to eq 110.00
+        expect(res[plan2_provider1.id]).to eq 210.00
+      end
+    end
+  end
 end
