@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe BasicPrice, type: :model do
-  let(:electric_power_company) { create(:electric_power_company) }
-  let(:plan) { create(:plan, electric_power_company: electric_power_company) }
+  let(:provider) { create(:provider) }
+  let(:plan) { create(:plan, provider: provider) }
 
   describe 'FactoryBot' do
     it '有効なファクトリを持つこと' do
@@ -46,7 +46,7 @@ RSpec.describe BasicPrice, type: :model do
       context 'uniqueness' do
         it '異なるplan_idの場合有効であること' do
           create(:basic_price, plan: plan, amperage: 10)
-          plan2 = create(:plan, name: 'プラン2', electric_power_company: electric_power_company)
+          plan2 = create(:plan, name: 'プラン2', provider: provider)
 
           instance = build(:basic_price, plan: plan2, amperage: 10)
           expect(instance).to be_valid

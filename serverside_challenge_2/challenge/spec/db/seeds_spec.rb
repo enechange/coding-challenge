@@ -6,10 +6,10 @@ describe 'Seedデータ作成', type: :helper do
     Rails.application.load_seed
   end
 
-  it 'ElectricPowerCompanyが作成されること' do
+  it 'Providerが作成されること' do
     CSV.foreach(basic_prices_csv_path, headers: true) do |row|
-      company = ElectricPowerCompany.find_by!(name: row[0])
-      expect(company).to be_present
+      provider = Provider.find_by!(name: row[0])
+      expect(provider).to be_present
     end
   end
 
@@ -18,7 +18,7 @@ describe 'Seedデータ作成', type: :helper do
       plan = Plan.find_by!(name: row[1])
       expect(plan).to be_present
 
-      expect(plan.electric_power_company.name).to eq row[0]
+      expect(plan.provider.name).to eq row[0]
     end
   end
 

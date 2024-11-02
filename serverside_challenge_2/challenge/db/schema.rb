@@ -24,13 +24,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_27_072347) do
     t.index ["plan_id"], name: "index_basic_prices_on_plan_id"
   end
 
-  create_table "electric_power_companies", force: :cascade do |t|
-    t.string "name", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_electric_power_companies_on_name", unique: true
-  end
-
   create_table "measured_rates", force: :cascade do |t|
     t.integer "electricity_usage_min", limit: 2, null: false
     t.integer "electricity_usage_max", limit: 2, null: false
@@ -43,14 +36,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_27_072347) do
 
   create_table "plans", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "electric_power_company_id", null: false
+    t.integer "provider_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["electric_power_company_id", "name"], name: "index_plans_on_electric_power_company_id_and_name", unique: true
-    t.index ["electric_power_company_id"], name: "index_plans_on_electric_power_company_id"
+    t.index ["provider_id", "name"], name: "index_plans_on_provider_id_and_name", unique: true
+    t.index ["provider_id"], name: "index_plans_on_provider_id"
+  end
+
+  create_table "providers", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_providers_on_name", unique: true
   end
 
   add_foreign_key "basic_prices", "plans", on_delete: :cascade
   add_foreign_key "measured_rates", "plans", on_delete: :cascade
-  add_foreign_key "plans", "electric_power_companies", on_delete: :cascade
+  add_foreign_key "plans", "providers", on_delete: :cascade
 end

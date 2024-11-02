@@ -1,8 +1,8 @@
 require "rails_helper"
 
 RSpec.describe MeasuredRate, type: :model do
-  let(:electric_power_company) { create(:electric_power_company) }
-  let(:plan) { create(:plan, electric_power_company: electric_power_company) }
+  let(:provider) { create(:provider) }
+  let(:plan) { create(:plan, provider: provider) }
 
   describe 'FactoryBot' do
     it '有効なファクトリを持つこと' do
