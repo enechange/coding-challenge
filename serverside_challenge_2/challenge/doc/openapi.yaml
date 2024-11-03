@@ -1,0 +1,123 @@
+---
+openapi: 3.0.3
+info:
+  title: app
+  version: 1.0.0
+servers: []
+paths:
+  "/api/electricity/calculate":
+    post:
+      summary: create
+      tags:
+      - Api::Electricity::Calculate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amperage:
+                  type: integer
+                electricity_usage_kwh:
+                  type: integer
+              required:
+              - amperage
+              - electricity_usage_kwh
+            example:
+              amperage: 10
+              electricity_usage_kwh: 1
+      responses:
+        '200':
+          description: 正常
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        provider:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                          required:
+                          - id
+                          - name
+                        plan:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            price:
+                              type: integer
+                          required:
+                          - id
+                          - name
+                          - price
+                      required:
+                      - provider
+                      - plan
+                required:
+                - data
+              example:
+                data:
+                - provider:
+                    id: 108
+                    name: 東京電力エナジーパートナー
+                  plan:
+                    id: 107
+                    name: 従量電灯B
+                    price: 305
+                - provider:
+                    id: 108
+                    name: 東京電力エナジーパートナー
+                  plan:
+                    id: 108
+                    name: スタンダードS
+                    price: 341
+                - provider:
+                    id: 110
+                    name: Looopでんき
+                  plan:
+                    id: 110
+                    name: おうちプラン
+                    price: 28
+        '400':
+          description: パラメータ不正
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  details:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        field:
+                          type: string
+                        message:
+                          type: string
+                      required:
+                      - field
+                      - message
+                required:
+                - message
+                - details
+              example:
+                message: リクエストパラメーターが正しくありません。
+                details:
+                - field: amperage
+                  message: 10/15/20/30/40/50/60のいずれかを指定してください。
+                - field: electricity_usage_kwh
+                  message: 整数を指定してください。

@@ -199,6 +199,10 @@ GEM
     rspec-mocks (3.13.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
+    rspec-openapi (0.18.3)
+      actionpack (>= 5.2.0)
+      rails-dom-testing
+      rspec-core
     rspec-rails (7.0.1)
       actionpack (>= 7.0)
       activesupport (>= 7.0)
@@ -271,6 +275,7 @@ DEPENDENCIES
   rack-timeout (~> 0.7.0)
   rails (~> 7.0.8)
   rails-erd (~> 1.7, >= 1.7.2)
+  rspec-openapi
   rspec-rails
   rubocop-rails-omakase
   rubocop-rspec

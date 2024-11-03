@@ -12,7 +12,9 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
   let(:plan2_amp_10) { create(:basic_price, plan: plan2_provider2, amperage: 10, price: 200.01) }
   let(:plan2_rate_0) { create(:measured_rate, plan: plan2_provider2, electricity_usage_min: 0, electricity_usage_max: nil, price: 20.03) }
 
-  describe 'create' do
+  describe 'create', openapi: {
+    summary: '電気料金を計算する'
+  } do
     let(:params) do
       {
         amperage: 10,
@@ -51,7 +53,9 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
         expect(data[1][:plan][:price]).to eq 220
       end
 
-      it 'Seedデータを使用して計算可能であること' do
+      it 'Seedデータを使用して計算可能であること', openapi: {
+        description: '正常'
+      } do
         Rails.application.load_seed
         post '/api/electricity/calculate', headers: headers, params: params.to_json
 
@@ -130,6 +134,25 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
           expect(body[:details].size).to eq 1
           expect(body[:details][0][:field]).to eq 'electricity_usage_kwh'
           expect(body[:details][0][:message]).to eq '整数を指定してください。'
+        end
+
+        it 'amperage,electricity_usage_kwhが両方不正の場合、エラーとなる', openapi: {
+          description: 'パラメータ不正'
+        } do
+          post '/api/electricity/calculate', headers: headers, params: {
+            amperage: '10',
+            electricity_usage_kwh: '20.0'
+          }.to_json
+
+          expect(response).to have_http_status(400)
+          body = JSON.parse(response.body, symbolize_names: true)
+          expect(body[:message]).to include('リクエストパラメーターが正しくありません。')
+
+          expect(body[:details].size).to eq 2
+          expect(body[:details][0][:field]).to eq 'amperage'
+          expect(body[:details][0][:message]).to include('いずれかを指定してください。')
+          expect(body[:details][1][:field]).to eq 'electricity_usage_kwh'
+          expect(body[:details][1][:message]).to eq '整数を指定してください。'
         end
       end
     end

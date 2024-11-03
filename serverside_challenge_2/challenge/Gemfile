@@ -45,6 +45,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "database_cleaner-active_record"
   gem "dotenv-rails"
+  gem "rspec-openapi"
 end
 
 group :development do
