@@ -13,13 +13,15 @@ services:
     restart: always
   web:
     container_name: challenge-api
-    build: .
+    build:
+      context: ./api
+      dockerfile: Dockerfile
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
-      - .:/app
+      - ./api:/app
     ports:
       - "3000:3000"
     restart: always
