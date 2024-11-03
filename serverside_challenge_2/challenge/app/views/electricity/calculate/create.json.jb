@@ -1,0 +1,14 @@
+data = @prices[:plans].map do |row|
+  {
+    provider: {
+      id: row[:provider].id,
+      name: row[:provider].name
+    },
+    plan: {
+      id: row[:plan].id,
+      name: row[:plan].name,
+      price: row[:price]
+    }
+  }
+end
+{ data: data }
