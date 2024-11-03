@@ -21,7 +21,7 @@ class Plan < ApplicationRecord
       plans = Plan.all.includes(:provider)
       basic_prices_hash = BasicPrice.calc_prices(amperage)
       measured_rates_hash = MeasuredRate.calc_prices(electricity_usage_kwh)
-      response = plans.map do |plan|
+      response = plans.filter_map do |plan|
         basic_price = basic_prices_hash[plan.id]
         next if basic_price.nil?
 

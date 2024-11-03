@@ -18,7 +18,7 @@ class MeasuredRate < ApplicationRecord
 
   class << self
     def calc_prices(electricity_usage_kwh)
-      rows = MeasuredRate.where("electricity_usage_min <= ?", electricity_usage_kwh).includes(:plan)
+      rows = MeasuredRate.where("electricity_usage_min <= ?", electricity_usage_kwh)
       rows.inject({}) do |sum, row|
         sum[row.plan_id] ||= { price: 0 }
         sum[row.plan_id][:price] += row.calc_row_price(electricity_usage_kwh)

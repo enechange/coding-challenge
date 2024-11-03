@@ -185,7 +185,7 @@ RSpec.describe Plan, type: :model do
           res = Plan.calc_prices(10, 1)
 
           expect(res[:errors]).to be_nil
-          expect(res[:plans].size).to eq 2
+          expect(res[:plans].size).to eq 1
 
           plans = res[:plans]
           expect(plans[0][:plan]).to eq plan1_provider1

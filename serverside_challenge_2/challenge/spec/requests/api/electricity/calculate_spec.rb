@@ -50,6 +50,17 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
         expect(data[1][:plan][:name]).to eq plan2_provider2.name
         expect(data[1][:plan][:price]).to eq 220
       end
+
+      it 'Seedデータを使用して計算可能であること' do
+        Rails.application.load_seed
+        post '/api/electricity/calculate', headers: headers, params: params.to_json
+
+        expect(response).to have_http_status(200)
+        body = JSON.parse(response.body, symbolize_names: true)
+
+        expect(body[:errors]).to be_nil
+        expect(body[:data]).to be_present
+      end
     end
 
     context 'リクエストパラメータ不正' do
