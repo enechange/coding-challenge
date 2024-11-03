@@ -4,9 +4,6 @@ info:
   title: Challenge API
   version: 1.0.0
   description: ''
-  license:
-    name: Apache 2.0
-    url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers: []
 paths:
   "/api/electricity/calculate":
@@ -74,24 +71,24 @@ paths:
               example:
                 data:
                 - provider:
-                    id: 5
+                    id: 108
                     name: 東京電力エナジーパートナー
                   plan:
-                    id: 5
+                    id: 107
                     name: 従量電灯B
                     price: 305
                 - provider:
-                    id: 5
+                    id: 108
                     name: 東京電力エナジーパートナー
                   plan:
-                    id: 6
+                    id: 108
                     name: スタンダードS
                     price: 341
                 - provider:
-                    id: 7
+                    id: 110
                     name: Looopでんき
                   plan:
-                    id: 8
+                    id: 110
                     name: おうちプラン
                     price: 28
         '400':
