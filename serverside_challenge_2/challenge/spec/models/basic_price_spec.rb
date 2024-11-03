@@ -166,7 +166,7 @@ RSpec.describe BasicPrice, type: :model do
       end
 
       it 'amperageに対応するプランの料金を取得できる' do
-        res = BasicPrice.calculate_prices(10)
+        res = BasicPrice.calc_prices(10)
 
         expect(res.keys.size).to eq 2
         expect(res[plan1_provider1.id]).to eq 110.00

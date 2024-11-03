@@ -10,7 +10,7 @@ class BasicPrice < ApplicationRecord
   validates :plan, presence: true, uniqueness: { scope: :amperage }
 
   class << self
-    def calculate_prices(amperage)
+    def calc_prices(amperage)
       rows = BasicPrice.where(amperage: amperage)
       rows.inject({}) do |sum, row|
         sum[row.plan_id] = row.price
