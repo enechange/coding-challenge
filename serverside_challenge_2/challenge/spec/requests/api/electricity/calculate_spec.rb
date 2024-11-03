@@ -13,6 +13,7 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
   let(:plan2_rate_0) { create(:measured_rate, plan: plan2_provider2, electricity_usage_min: 0, electricity_usage_max: nil, price: 20.03) }
 
   describe 'create', openapi: {
+    tags: [ '電気料金' ],
     summary: '電気料金を計算する'
   } do
     let(:params) do

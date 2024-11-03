@@ -1,15 +1,19 @@
 ---
 openapi: 3.0.3
 info:
-  title: app
+  title: Challenge API
   version: 1.0.0
+  description: ''
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
 servers: []
 paths:
   "/api/electricity/calculate":
     post:
-      summary: create
+      summary: 電気料金を計算する
       tags:
-      - Api::Electricity::Calculate
+      - 電気料金
       requestBody:
         content:
           application/json:
@@ -70,24 +74,24 @@ paths:
               example:
                 data:
                 - provider:
-                    id: 108
+                    id: 5
                     name: 東京電力エナジーパートナー
                   plan:
-                    id: 107
+                    id: 5
                     name: 従量電灯B
                     price: 305
                 - provider:
-                    id: 108
+                    id: 5
                     name: 東京電力エナジーパートナー
                   plan:
-                    id: 108
+                    id: 6
                     name: スタンダードS
                     price: 341
                 - provider:
-                    id: 110
+                    id: 7
                     name: Looopでんき
                   plan:
-                    id: 110
+                    id: 8
                     name: おうちプラン
                     price: 28
         '400':
