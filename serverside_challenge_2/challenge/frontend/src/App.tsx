@@ -19,6 +19,7 @@ function App() {
   const [amperage, setAmperage] = useState<number | undefined>(undefined);
   const [prices, setPrices] = useState<ResponseData[]>([]);
 
+  const formatPrice = (val: number) => (val.toLocaleString('ja-JP', { style: 'currency', currency: 'JPY' }));
   const requestCalcPrices = async () => {
     if (amperage === undefined) return;
     try {
@@ -34,18 +35,18 @@ function App() {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        throw new Error('電力計算に失敗しました。');
       }
 
       const data: { data: ResponseData[] } = await response.json();
       setPrices(data.data);
     } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
+      console.error('エラー:', error);
     }
   };
 
-   return (
-    <>
+  return (
+    <div className="container">
       <h1>電力料金計算</h1>
       <div>
         <div>
@@ -64,16 +65,17 @@ function App() {
           </select>
         </div>
         <div>
-          <label htmlFor="amperage-select">電気使用量(kwh)</label>
+          <label htmlFor="electricity-usage">電気使用量(kwh)</label>
           <input
-              type="text"
-              maxLength={4}
-              value={electricityUsageKwh}
-              onChange={(event) => {
-                const found = event.target.value.match(/\d/g)
-                const text = found ? found.join('') : '';
-                setElectricityUsageKwh(parseInt(text.length ? text : '0', 10))
-              }}
+            type="text"
+            id="electricity-usage"
+            maxLength={4}
+            value={electricityUsageKwh}
+            onChange={(event) => {
+              const found = event.target.value.match(/\d/g)
+              const text = found ? found.join('') : '';
+              setElectricityUsageKwh(parseInt(text.length ? text : '0', 10))
+            }}
           />
         </div>
         <div>
@@ -81,18 +83,18 @@ function App() {
         </div>
       </div>
 
-      <div>
+      <div className="price-list">
         {prices.map((price) => {
           return (
-            <div key={price.plan.id}>
+            <div key={price.plan.id} className="price-item">
               <h2>{price.provider.name}</h2>
-              <span>{price.plan.name}</span><span>{price.plan.price}円</span>
+              <span>{price.plan.name}</span><span>{formatPrice(price.plan.price)}円</span>
             </div>
           );
         })}
       </div>
-    </>
-    )
-  }
+    </div>
+  )
+}
 
 export default App
