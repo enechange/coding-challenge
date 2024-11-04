@@ -11,7 +11,7 @@ services:
     volumes:
       - postgres_volume:/var/lib/postgresql/data
     restart: always
-  web:
+  api:
     container_name: challenge-api
     build:
       context: ./api
@@ -29,5 +29,16 @@ services:
     stdin_open: true
     depends_on:
       - db
+  frontend:
+    container_name: challenge-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
+    restart: always
+    ports:
+      - "5173:5173"
 volumes:
   postgres_volume:
