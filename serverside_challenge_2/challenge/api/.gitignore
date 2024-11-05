@@ -30,3 +30,4 @@
 
 # Application
 .env
+/config/credentials/production.key
