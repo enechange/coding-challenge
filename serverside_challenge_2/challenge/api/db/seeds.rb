@@ -1,5 +1,6 @@
 require 'csv'
 
+puts '* Start BasicPrice data'
 BasicPrice.delete_all
 CSV.foreach(Rails.root.join('db/seeds/basic_prices.csv'), headers: true) do |row|
   provider = Provider.find_or_create_by(name: row[0])
@@ -8,6 +9,7 @@ CSV.foreach(Rails.root.join('db/seeds/basic_prices.csv'), headers: true) do |row
   plan.basic_prices.create!(amperage: row[2], price: row[3])
 end
 
+puts '* Start MeasuredRate data'
 MeasuredRate.delete_all
 CSV.foreach(Rails.root.join('db/seeds/measured_rates.csv'), headers: true) do |row|
   provider = Provider.find_or_create_by(name: row[0])
