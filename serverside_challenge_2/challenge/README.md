@@ -1,24 +1,19 @@
-# README
+## 環境構築
+- Dockerの起動
+```sh
+$ cd serverside_challenge_2/challenge
+$ docker compose build
+$ docker compose up
+$ docker exec -it challenge-api /bin/bash
+```
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+- データベースの初期化
+```sh
+root@a35275a66e97:/app# rails db:create
+root@a35275a66e97:/app# rails db:migrate
+root@a35275a66e97:/app# rails db:seed
+```
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- アプリケーションの実行
+  ブラウザにて以下のURLにアクセス  
+  http://localhost:5173/
