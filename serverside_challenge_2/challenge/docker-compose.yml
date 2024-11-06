@@ -14,13 +14,13 @@ services:
   api:
     container_name: challenge-api
     build:
-      context: ./api
+      context: ./
       dockerfile: Dockerfile
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
-      - ./api:/app
+      - ./:/app
     ports:
       - "3000:3000"
     restart: always
