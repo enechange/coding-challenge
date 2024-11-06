@@ -69,12 +69,12 @@ function App() {
           <input
             type="text"
             id="electricity-usage"
-            maxLength={4}
+            maxLength={5}
             value={electricityUsageKwh}
             onChange={(event) => {
               const found = event.target.value.match(/\d/g)
-              const text = found ? found.join('') : '';
-              setElectricityUsageKwh(parseInt(text.length ? text : '0', 10))
+              const text = found ? found.join('') : '0';
+              setElectricityUsageKwh(parseInt(text, 10))
             }}
           />
         </div>
