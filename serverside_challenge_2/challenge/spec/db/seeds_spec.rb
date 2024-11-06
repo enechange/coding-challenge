@@ -15,10 +15,9 @@ describe 'Seedデータ作成', type: :helper do
 
   it 'Planが作成されること' do
     CSV.foreach(basic_prices_csv_path, headers: true) do |row|
-      plan = Plan.find_by!(name: row[1])
+      provider = Provider.find_by!(name: row[0])
+      plan = Plan.find_by!(name: row[1], provider: provider)
       expect(plan).to be_present
-
-      expect(plan.provider.name).to eq row[0]
     end
   end
 
