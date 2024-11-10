@@ -7,6 +7,4 @@ ADD Gemfile.lock /app/Gemfile.lock
 RUN bundle install
 ADD . /app
 
-CMD ["rm", "f", "tmp/pids/server"]
-EXPOSE 3000
-CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
+CMD ["./start-api.sh"]
