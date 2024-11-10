@@ -36,6 +36,8 @@ class Plan < ApplicationRecord
       { plans: response }
     end
 
+    private
+
     def check_parameters(amperage, electricity_usage_kwh)
       errors = [
         BasicPrice.check_amperage?(amperage),

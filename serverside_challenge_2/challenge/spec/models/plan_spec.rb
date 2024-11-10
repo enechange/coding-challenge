@@ -113,11 +113,11 @@ RSpec.describe Plan, type: :model do
     describe 'check_parameters' do
       context 'amperage' do
         it '正常な場合、レスポンスにエラーが含まれないこと' do
-          expect(Plan.check_parameters(20, 1000)).to be_empty
+          expect(Plan.send(:check_parameters, 20, 1000)).to be_empty
         end
 
         it 'エラーの場合、レスポンスにエラーが含まれること' do
-          res = Plan.check_parameters(0, 1000)
+          res = Plan.send(:check_parameters, 0, 1000)
           expect(res.size).to eq 1
           expect(res[0][:field]).to eq 'amperage'
           expect(res[0][:message]).to eq "#{BasicPrice::AMPERAGE_LIST.join('/')}のいずれかを指定してください。"
@@ -126,7 +126,7 @@ RSpec.describe Plan, type: :model do
 
       context 'electricity_usage_kwh' do
         it 'エラーの場合、レスポンスにエラーが含まれること' do
-          res = Plan.check_parameters(20, nil)
+          res = Plan.send(:check_parameters, 20, nil)
           expect(res.size).to eq 1
           expect(res[0][:field]).to eq 'electricity_usage_kwh'
           expect(res[0][:message]).to eq '整数を指定してください。'
