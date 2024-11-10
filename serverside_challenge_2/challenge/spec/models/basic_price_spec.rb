@@ -131,6 +131,20 @@ RSpec.describe BasicPrice, type: :model do
     end
   end
 
+  describe 'Constants' do
+    context 'AMPERAGE_LIST' do
+      it '10, 15, 20, 30, 40, 50, 60が含まれる' do
+        expect(BasicPrice::AMPERAGE_LIST).to eq [ 10, 15, 20, 30, 40, 50, 60 ]
+      end
+    end
+
+    context 'ERR_MESS_INVALID_AMPERAGE' do
+      it 'AMPERAGE_LISTの値を含む' do
+        expect(BasicPrice::ERR_MESS_INVALID_AMPERAGE).to eq '10/15/20/30/40/50/60のいずれかを指定してください。'
+      end
+    end
+  end
+
   describe 'class methods' do
     describe 'check_amperage?' do
       it 'AMPERAGE_LISTに存在する値はis_error=falseとなる' do
@@ -145,7 +159,7 @@ RSpec.describe BasicPrice, type: :model do
         res = BasicPrice.check_amperage?(nil)
         expect(res[:is_error]).to be_truthy
         expect(res[:error_object][:field]).to eq 'amperage'
-        expect(res[:error_object][:message]).to eq "#{BasicPrice::AMPERAGE_LIST.join('/')}のいずれかを指定してください。"
+        expect(res[:error_object][:message]).to eq BasicPrice::ERR_MESS_INVALID_AMPERAGE
       end
     end
 

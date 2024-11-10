@@ -120,7 +120,7 @@ RSpec.describe Plan, type: :model do
           res = Plan.send(:check_parameters, 0, 1000)
           expect(res.size).to eq 1
           expect(res[0][:field]).to eq 'amperage'
-          expect(res[0][:message]).to eq "#{BasicPrice::AMPERAGE_LIST.join('/')}のいずれかを指定してください。"
+          expect(res[0][:message]).to eq BasicPrice::ERR_MESS_INVALID_AMPERAGE
         end
       end
 
@@ -159,7 +159,7 @@ RSpec.describe Plan, type: :model do
           expect(res[:errors][:message]).to eq 'リクエストパラメーターが正しくありません。'
           expect(res[:errors][:details].size).to eq 1
           expect(res[:errors][:details][0][:field]).to eq 'amperage'
-          expect(res[:errors][:details][0][:message]).to include "のいずれかを指定してください。"
+          expect(res[:errors][:details][0][:message]).to eq BasicPrice::ERR_MESS_INVALID_AMPERAGE
         end
       end
 

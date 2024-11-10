@@ -76,11 +76,11 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
 
           expect(response).to have_http_status(400)
           body = JSON.parse(response.body, symbolize_names: true)
-          expect(body[:message]).to include('リクエストパラメーターが正しくありません。')
+          expect(body[:message]).to eq('リクエストパラメーターが正しくありません。')
 
           expect(body[:details].size).to eq 1
           expect(body[:details][0][:field]).to eq 'amperage'
-          expect(body[:details][0][:message]).to include('のいずれかを指定してください。')
+          expect(body[:details][0][:message]).to eq BasicPrice::ERR_MESS_INVALID_AMPERAGE
         end
 
         it '文字列の場合、エラーとなる' do
@@ -89,11 +89,11 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
 
           expect(response).to have_http_status(400)
           body = JSON.parse(response.body, symbolize_names: true)
-          expect(body[:message]).to include('リクエストパラメーターが正しくありません。')
+          expect(body[:message]).to eq('リクエストパラメーターが正しくありません。')
 
           expect(body[:details].size).to eq 1
           expect(body[:details][0][:field]).to eq 'amperage'
-          expect(body[:details][0][:message]).to include('のいずれかを指定してください。')
+          expect(body[:details][0][:message]).to eq BasicPrice::ERR_MESS_INVALID_AMPERAGE
         end
       end
 
@@ -104,7 +104,7 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
 
           expect(response).to have_http_status(400)
           body = JSON.parse(response.body, symbolize_names: true)
-          expect(body[:message]).to include('リクエストパラメーターが正しくありません。')
+          expect(body[:message]).to eq('リクエストパラメーターが正しくありません。')
 
           expect(body[:details].size).to eq 1
           expect(body[:details][0][:field]).to eq 'electricity_usage_kwh'
@@ -117,7 +117,7 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
 
           expect(response).to have_http_status(400)
           body = JSON.parse(response.body, symbolize_names: true)
-          expect(body[:message]).to include('リクエストパラメーターが正しくありません。')
+          expect(body[:message]).to eq('リクエストパラメーターが正しくありません。')
 
           expect(body[:details].size).to eq 1
           expect(body[:details][0][:field]).to eq 'electricity_usage_kwh'
@@ -130,7 +130,7 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
 
           expect(response).to have_http_status(400)
           body = JSON.parse(response.body, symbolize_names: true)
-          expect(body[:message]).to include('リクエストパラメーターが正しくありません。')
+          expect(body[:message]).to eq('リクエストパラメーターが正しくありません。')
 
           expect(body[:details].size).to eq 1
           expect(body[:details][0][:field]).to eq 'electricity_usage_kwh'
@@ -147,7 +147,7 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
 
           expect(response).to have_http_status(400)
           body = JSON.parse(response.body, symbolize_names: true)
-          expect(body[:message]).to include('リクエストパラメーターが正しくありません。')
+          expect(body[:message]).to eq('リクエストパラメーターが正しくありません。')
 
           expect(body[:details].size).to eq 2
           expect(body[:details][0][:field]).to eq 'amperage'
