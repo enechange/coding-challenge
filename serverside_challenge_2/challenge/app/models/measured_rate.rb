@@ -2,6 +2,7 @@
 
 class MeasuredRate < ApplicationRecord
   MAX_SMALL_INT_VALUE = 32767
+  ERR_MESS_INVALID_ELECTRICITY_USAGE = "電気使用量の範囲が重複しています".freeze
 
   belongs_to :plan
 
@@ -53,7 +54,7 @@ class MeasuredRate < ApplicationRecord
     return if electricity_usage_max.nil? || electricity_usage_min.nil?
 
     if electricity_usage_max < electricity_usage_min
-      errors.add(:electricity_usage_max, "must be greater than or equal to electricity_usage_min")
+      errors.add(:electricity_usage_max, "電気使用量の上限値を下限値より大きくしてください")
     end
   end
 
@@ -68,19 +69,19 @@ class MeasuredRate < ApplicationRecord
 
   def validate_electricity_usage_min(rates)
     if rates.find { |rate| rate.electricity_usage_min <= electricity_usage_min && electricity_usage_min <= rate.electricity_usage_max }.present?
-      errors.add(:electricity_usage_min, "range overlaps with an existing range")
+      errors.add(:electricity_usage_min, ERR_MESS_INVALID_ELECTRICITY_USAGE)
     end
   end
 
   def validate_electricity_usage_max(rates)
     if rates.find { |rate| rate.electricity_usage_min <= electricity_usage_max && electricity_usage_max <= rate.electricity_usage_max }.present?
-      errors.add(:electricity_usage_max, "range overlaps with an existing range")
+      errors.add(:electricity_usage_max, ERR_MESS_INVALID_ELECTRICITY_USAGE)
     end
   end
 
   def validate_electricity_usage_contain(rates)
     if rates.find { |rate| electricity_usage_min <= rate.electricity_usage_min && rate.electricity_usage_max <= electricity_usage_max }.present?
-      errors.add(:electricity_usage_max, "range overlaps with an existing range")
+      errors.add(:electricity_usage_max, ERR_MESS_INVALID_ELECTRICITY_USAGE)
     end
   end
 end

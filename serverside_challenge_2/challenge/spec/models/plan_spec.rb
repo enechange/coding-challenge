@@ -24,19 +24,19 @@ RSpec.describe Plan, type: :model do
       it 'nilの場合無効であること' do
         instance = build(:plan, provider: provider, name: nil)
         expect(instance).to be_invalid
-        instance.errors[:name].include?("can't be blank")
+        expect(instance.errors[:name]).to include("を入力してください")
       end
 
       it '空文字の場合無効であること' do
         instance = build(:plan, provider: provider, name: '')
         expect(instance).to be_invalid
-        instance.errors[:name].include?("can't be blank")
+        expect(instance.errors[:name]).to include("を入力してください")
       end
 
       it '256文字の場合無効であること' do
         instance = build(:plan, provider: provider, name: 'a' * 256)
         expect(instance).to be_invalid
-        instance.errors[:name].include?("is too long (maximum is 255 characters)")
+        expect(instance.errors[:name]).to include("は255文字以内で入力してください")
       end
 
       context 'uniqueness' do
@@ -53,7 +53,7 @@ RSpec.describe Plan, type: :model do
 
           instance = build(:plan, provider: provider, name: 'プラン')
           expect(instance).to be_invalid
-          instance.errors[:name].include?("has already been taken")
+          expect(instance.errors[:provider]).to include("はすでに存在します")
         end
       end
     end
@@ -62,7 +62,7 @@ RSpec.describe Plan, type: :model do
       it 'nilの場合無効であること' do
         instance = build(:plan, provider: nil)
         expect(instance).to be_invalid
-        instance.errors[:provider].include?("must exist")
+        expect(instance.errors[:provider]).to include("を入力してください")
       end
     end
   end

@@ -22,25 +22,25 @@ RSpec.describe BasicPrice, type: :model do
       it 'nilの場合無効であること' do
         instance = build(:basic_price, plan: plan, amperage: nil)
         expect(instance).to be_invalid
-        instance.errors[:amperage].include?("can't be blank")
+        expect(instance.errors[:amperage]).to include("は一覧にありません")
       end
 
       it '空文字の場合無効であること' do
         instance = build(:basic_price, plan: plan, amperage: '')
         expect(instance).to be_invalid
-        instance.errors[:amperage].include?("can't be blank")
+        expect(instance.errors[:amperage]).to include("は一覧にありません")
       end
 
       it '文字列の場合無効であること' do
         instance = build(:basic_price, plan: plan, amperage: 'a')
         expect(instance).to be_invalid
-        instance.errors[:amperage].include?("is not a number")
+        expect(instance.errors[:amperage]).to include("は一覧にありません")
       end
 
       it 'AMPERAGE_LISTに定義されない値の場合無効であること' do
         instance = build(:basic_price, plan: plan, amperage: 1)
         expect(instance).to be_invalid
-        instance.errors[:amperage].include?("is not included in the list")
+        expect(instance.errors[:amperage]).to include("は一覧にありません")
       end
 
       context 'uniqueness' do
@@ -57,7 +57,7 @@ RSpec.describe BasicPrice, type: :model do
 
           instance = build(:basic_price, plan: plan, amperage: 10)
           expect(instance).to be_invalid
-          instance.errors[:plan].include?("has already been taken")
+          expect(instance.errors[:plan]).to include("はすでに存在します")
         end
       end
     end
@@ -66,19 +66,19 @@ RSpec.describe BasicPrice, type: :model do
       it 'nilの場合無効であること' do
         instance = build(:basic_price, plan: plan, price: nil)
         expect(instance).to be_invalid
-        instance.errors[:price].include?("can't be blank")
+        expect(instance.errors[:price]).to include("は数値で入力してください")
       end
 
       it '空文字の場合無効であること' do
         instance = build(:basic_price, plan: plan, price: '')
         expect(instance).to be_invalid
-        instance.errors[:price].include?("is not a number")
+        expect(instance.errors[:price]).to include("は数値で入力してください")
       end
 
       it '文字列の場合無効であること' do
         instance = build(:basic_price, plan: plan, price: 'a')
         expect(instance).to be_invalid
-        instance.errors[:price].include?("is not a number")
+        expect(instance.errors[:price]).to include("は数値で入力してください")
       end
 
       it '0の場合有効であること' do
@@ -94,7 +94,7 @@ RSpec.describe BasicPrice, type: :model do
       it '100000.00の場合無効であること' do
         instance = build(:basic_price, plan: plan, price: 100000.00)
         expect(instance).to be_invalid
-        instance.errors[:price].include?("must be less than or equal to 99999.99")
+        expect(instance.errors[:price]).to include("は99999.99以下の値にしてください")
       end
     end
 
@@ -102,7 +102,7 @@ RSpec.describe BasicPrice, type: :model do
       it 'nilの場合無効であること' do
         instance = build(:basic_price, plan: nil)
         expect(instance).to be_invalid
-        instance.errors[:plan].include?("must exist")
+        expect(instance.errors[:plan]).to include("を入力してください")
       end
     end
   end

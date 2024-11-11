@@ -22,19 +22,19 @@ RSpec.describe Provider, type: :model do
       it 'nilの場合無効であること' do
         instance = build(:provider, name: nil)
         expect(instance).to be_invalid
-        instance.errors[:name].include?("can't be blank")
+        expect(instance.errors[:name]).to include("を入力してください")
       end
 
       it '空文字の場合無効であること' do
         instance = build(:provider, name: '')
         expect(instance).to be_invalid
-        instance.errors[:name].include?("can't be blank")
+        expect(instance.errors[:name]).to include("を入力してください")
       end
 
       it '256文字の場合無効であること' do
         instance = build(:provider, name: 'a' * 256)
         expect(instance).to be_invalid
-        instance.errors[:name].include?("is too long (maximum is 255 characters)")
+        expect(instance.errors[:name]).to include("は255文字以内で入力してください")
       end
 
       it '重複する場合無効であること' do
@@ -42,7 +42,7 @@ RSpec.describe Provider, type: :model do
 
         instance = build(:provider, name: '電力会社')
         expect(instance).to be_invalid
-        instance.errors[:name].include?("has already been taken")
+        expect(instance.errors[:name]).to include("はすでに存在します")
       end
     end
   end

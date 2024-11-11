@@ -15,25 +15,26 @@ RSpec.describe MeasuredRate, type: :model do
       it 'nilの場合無効であること' do
         instance = build(:measured_rate, plan: plan, electricity_usage_min: nil)
         expect(instance).to be_invalid
-        expect(instance.errors[:electricity_usage_min]).to include("is not a number")
+
+        expect(instance.errors[:electricity_usage_min]).to eq [ "は数値で入力してください" ]
       end
 
       it 'マイナス値の場合無効であること' do
         instance = build(:measured_rate, plan: plan, electricity_usage_min: -1)
         expect(instance).to be_invalid
-        expect(instance.errors[:electricity_usage_min]).to include("must be greater than or equal to 0")
+        expect(instance.errors[:electricity_usage_min]).to eq [ 'は0以上の値にしてください' ]
       end
 
       it '空文字の場合無効であること' do
         instance = build(:measured_rate, plan: plan, electricity_usage_min: '')
         expect(instance).to be_invalid
-        expect(instance.errors[:electricity_usage_min]).to include("is not a number")
+        expect(instance.errors[:electricity_usage_min]).to eq [ 'は数値で入力してください' ]
       end
 
       it '文字列の場合無効であること' do
         instance = build(:measured_rate, plan: plan, electricity_usage_min: 'a')
         expect(instance).to be_invalid
-        expect(instance.errors[:electricity_usage_min]).to include("is not a number")
+        expect(instance.errors[:electricity_usage_min]).to eq [ 'は数値で入力してください' ]
       end
 
       it '1以上の場合有効であること' do
@@ -53,7 +54,7 @@ RSpec.describe MeasuredRate, type: :model do
                          electricity_usage_min: MeasuredRate::MAX_SMALL_INT_VALUE + 1,
                          electricity_usage_max: MeasuredRate::MAX_SMALL_INT_VALUE + 1)
         expect(instance).not_to be_valid
-        expect(instance.errors[:electricity_usage_min]).to include("must be less than or equal to 32767")
+        expect(instance.errors[:electricity_usage_min]).to eq [ 'は32767以下の値にしてください' ]
       end
     end
 
@@ -67,19 +68,19 @@ RSpec.describe MeasuredRate, type: :model do
       it 'マイナス値の場合無効であること' do
         instance = build(:measured_rate, plan: plan, electricity_usage_max: -1)
         expect(instance).to be_invalid
-        expect(instance.errors[:electricity_usage_max]).to include("must be greater than or equal to 1")
+        expect(instance.errors[:electricity_usage_max]).to include('は1以上の値にしてください')
       end
 
       it '空文字の場合無効であること' do
         instance = build(:measured_rate, plan: plan, electricity_usage_max: '')
         expect(instance).to be_invalid
-        expect(instance.errors[:electricity_usage_max]).to include("is not a number")
+        expect(instance.errors[:electricity_usage_max]).to eq [ 'は数値で入力してください' ]
       end
 
       it '文字列の場合無効であること' do
         instance = build(:measured_rate, plan: plan, electricity_usage_max: 'a')
         expect(instance).to be_invalid
-        expect(instance.errors[:electricity_usage_max]).to include("is not a number")
+        expect(instance.errors[:electricity_usage_max]).to eq [ 'は数値で入力してください' ]
       end
 
       it '1以上の場合有効であること' do
@@ -99,7 +100,7 @@ RSpec.describe MeasuredRate, type: :model do
                          electricity_usage_min: MeasuredRate::MAX_SMALL_INT_VALUE + 1,
                          electricity_usage_max: MeasuredRate::MAX_SMALL_INT_VALUE + 1)
         expect(instance).not_to be_valid
-        expect(instance.errors[:electricity_usage_max]).to include("must be less than or equal to 32767")
+        expect(instance.errors[:electricity_usage_max]).to eq [ 'は32767以下の値にしてください' ]
       end
     end
 
@@ -107,7 +108,7 @@ RSpec.describe MeasuredRate, type: :model do
       it 'electricity_usage_max < electricity_usage_minの場合無効であること' do
         instance = build(:measured_rate, plan: plan, electricity_usage_min: 2, electricity_usage_max: 1)
         expect(instance).to be_invalid
-        expect(instance.errors[:electricity_usage_max]).to include("must be greater than or equal to electricity_usage_min")
+        expect(instance.errors[:electricity_usage_max]).to include("電気使用量の上限値を下限値より大きくしてください")
       end
     end
 
@@ -119,7 +120,7 @@ RSpec.describe MeasuredRate, type: :model do
 
             instance = build(:measured_rate, plan: plan, electricity_usage_min: 2, electricity_usage_max: 3)
             expect(instance).to be_invalid
-            expect(instance.errors[:electricity_usage_min]).to include("range overlaps with an existing range")
+            expect(instance.errors[:electricity_usage_min]).to include('電気使用量の範囲が重複しています')
           end
         end
 
@@ -129,7 +130,7 @@ RSpec.describe MeasuredRate, type: :model do
 
             instance = build(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 2)
             expect(instance).to be_invalid
-            expect(instance.errors[:electricity_usage_max]).to include("range overlaps with an existing range")
+            expect(instance.errors[:electricity_usage_max]).to include('電気使用量の範囲が重複しています')
           end
         end
 
@@ -139,7 +140,7 @@ RSpec.describe MeasuredRate, type: :model do
 
             instance = build(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 4)
             expect(instance).to be_invalid
-            expect(instance.errors[:electricity_usage_max]).to include("range overlaps with an existing range")
+            expect(instance.errors[:electricity_usage_max]).to include('電気使用量の範囲が重複しています')
           end
         end
       end
@@ -181,19 +182,19 @@ RSpec.describe MeasuredRate, type: :model do
       it 'nilの場合無効であること' do
         instance = build(:measured_rate, plan: plan, price: nil)
         expect(instance).to be_invalid
-        instance.errors[:price].include?("can't be blank")
+        expect(instance.errors[:price]).to include("は数値で入力してください")
       end
 
       it '空文字の場合無効であること' do
         instance = build(:measured_rate, plan: plan, price: '')
         expect(instance).to be_invalid
-        instance.errors[:price].include?("is not a number")
+        expect(instance.errors[:price]).to include("は数値で入力してください")
       end
 
       it '文字列の場合無効であること' do
         instance = build(:measured_rate, plan: plan, price: 'a')
         expect(instance).to be_invalid
-        instance.errors[:price].include?("is not a number")
+        expect(instance.errors[:price]).to include("は数値で入力してください")
       end
 
       it '0の場合有効であること' do
@@ -209,7 +210,7 @@ RSpec.describe MeasuredRate, type: :model do
       it '100000.00の場合無効であること' do
         instance = build(:measured_rate, plan: plan, price: 100000.00)
         expect(instance).to be_invalid
-        instance.errors[:price].include?("must be less than or equal to 99999.99")
+        expect(instance.errors[:price]).to include("は99999.99以下の値にしてください")
       end
     end
 
@@ -217,7 +218,7 @@ RSpec.describe MeasuredRate, type: :model do
       it 'nilの場合無効であること' do
         instance = build(:measured_rate, plan: nil)
         expect(instance).to be_invalid
-        instance.errors[:plan].include?("must exist")
+        expect(instance.errors[:plan]).to include("を入力してください")
       end
     end
   end
