@@ -62,26 +62,12 @@ class MeasuredRate < ApplicationRecord
     return if electricity_usage_max.nil? || electricity_usage_min.nil?
 
     rates = self.class.where(plan: plan).where.not(id: id)
-    validate_electricity_usage_min(rates)
-    validate_electricity_usage_max(rates)
-    validate_electricity_usage_contain(rates)
-  end
 
-  def validate_electricity_usage_min(rates)
-    if rates.find { |rate| rate.electricity_usage_min <= electricity_usage_min && electricity_usage_min <= rate.electricity_usage_max }.present?
-      errors.add(:electricity_usage_min, ERR_MESS_INVALID_ELECTRICITY_USAGE)
+    a = electricity_usage_min..electricity_usage_max
+    is_error = rates.any? do |rate|
+      b = rate.electricity_usage_min..rate.electricity_usage_max
+      b.include?(a.min) || b.include?(a.max) || a.include?(b.min) || a.include?(b.max)
     end
-  end
-
-  def validate_electricity_usage_max(rates)
-    if rates.find { |rate| rate.electricity_usage_min <= electricity_usage_max && electricity_usage_max <= rate.electricity_usage_max }.present?
-      errors.add(:electricity_usage_max, ERR_MESS_INVALID_ELECTRICITY_USAGE)
-    end
-  end
-
-  def validate_electricity_usage_contain(rates)
-    if rates.find { |rate| electricity_usage_min <= rate.electricity_usage_min && rate.electricity_usage_max <= electricity_usage_max }.present?
-      errors.add(:electricity_usage_max, ERR_MESS_INVALID_ELECTRICITY_USAGE)
-    end
+    errors.add(:electricity_usage_min, ERR_MESS_INVALID_ELECTRICITY_USAGE) if is_error
   end
 end

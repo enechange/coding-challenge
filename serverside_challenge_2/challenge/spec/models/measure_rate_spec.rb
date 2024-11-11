@@ -114,33 +114,59 @@ RSpec.describe MeasuredRate, type: :model do
 
     context 'uniqueness' do
       context 'create時' do
-        context 'electricity_usage_min' do
-          it '他のrateに重複する場合無効であること' do
+        context '電気使用量の範囲重複' do
+          it 'A.electricity_usage_minとB.electricity_usage_maxの数値が一致しない場合、有効であること' do
+            create(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 2)
+
+            instance = build(:measured_rate, plan: plan, electricity_usage_min: 3, electricity_usage_max: 4)
+            expect(instance).to be_valid
+          end
+
+          it 'A.electricity_usage_maxとB.electricity_usage_minの数値が一致しない場合、有効であること' do
+            create(:measured_rate, plan: plan, electricity_usage_min: 4, electricity_usage_max: 5)
+
+            instance = build(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 3)
+            expect(instance).to be_valid
+          end
+
+          it 'A.electricity_usage_minがBの範囲に含まれる場合、無効であること' do
             create(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 2)
 
             instance = build(:measured_rate, plan: plan, electricity_usage_min: 2, electricity_usage_max: 3)
             expect(instance).to be_invalid
             expect(instance.errors[:electricity_usage_min]).to include('電気使用量の範囲が重複しています')
           end
-        end
 
-        context 'electricity_usage_max' do
-          it '他のrateに重複する場合無効であること' do
+          it 'A.electricity_usage_maxがBの範囲に含まれる場合、無効であること' do
             create(:measured_rate, plan: plan, electricity_usage_min: 2, electricity_usage_max: 3)
 
             instance = build(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 2)
             expect(instance).to be_invalid
-            expect(instance.errors[:electricity_usage_max]).to include('電気使用量の範囲が重複しています')
+            expect(instance.errors[:electricity_usage_min]).to include('電気使用量の範囲が重複しています')
           end
-        end
 
-        context 'electricity_usage_min, electricity_usage_maxのoverlap' do
-          it '他のrateに重複する場合無効であること' do
+          it 'Aの範囲内にBのmin,maxが含まれる場合、無効であること' do
             create(:measured_rate, plan: plan, electricity_usage_min: 2, electricity_usage_max: 3)
 
             instance = build(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 4)
             expect(instance).to be_invalid
-            expect(instance.errors[:electricity_usage_max]).to include('電気使用量の範囲が重複しています')
+            expect(instance.errors[:electricity_usage_min]).to include('電気使用量の範囲が重複しています')
+          end
+
+          it 'Bの範囲内にAのminが含まれる場合、無効であること' do
+            create(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 3)
+
+            instance = build(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 4)
+            expect(instance).to be_invalid
+            expect(instance.errors[:electricity_usage_min]).to include('電気使用量の範囲が重複しています')
+          end
+
+          it 'Bの範囲内にAのmaxが含まれる場合、無効であること' do
+            create(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 3)
+
+            instance = build(:measured_rate, plan: plan, electricity_usage_min: 1, electricity_usage_max: 4)
+            expect(instance).to be_invalid
+            expect(instance.errors[:electricity_usage_min]).to include('電気使用量の範囲が重複しています')
           end
         end
       end
