@@ -151,7 +151,7 @@ RSpec.describe 'API /api/electricity/calculate', type: :request do
 
           expect(body[:details].size).to eq 2
           expect(body[:details][0][:field]).to eq 'amperage'
-          expect(body[:details][0][:message]).to include('いずれかを指定してください。')
+          expect(body[:details][0][:message]).to eq BasicPrice::ERR_MESS_INVALID_AMPERAGE
           expect(body[:details][1][:field]).to eq 'electricity_usage_kwh'
           expect(body[:details][1][:message]).to eq '整数を指定してください。'
         end
