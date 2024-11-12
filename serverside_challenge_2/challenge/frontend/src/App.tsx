@@ -79,7 +79,7 @@ function App() {
           />
         </div>
         <div>
-          <button onClick={requestCalcPrices} disabled={amperage == undefined}>計算</button>
+          <button onClick={requestCalcPrices} disabled={amperage === undefined}>計算</button>
         </div>
       </div>
 
