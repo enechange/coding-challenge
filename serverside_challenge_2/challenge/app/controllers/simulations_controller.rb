@@ -7,11 +7,7 @@ class SimulationsController < ApplicationController
       return render json: { error: 'リクエストが不正です' }, status: :bad_request
     end
 
-    begin
-      result = Plan.simulate(ampere, usage_kwh)
-      render json: result
-    rescue ArgumentError => e
-      render json: { error: e.message }, status: :bad_request
-    end
+    result = Plan.simulate(ampere, usage_kwh)
+    render json: result
   end
 end
