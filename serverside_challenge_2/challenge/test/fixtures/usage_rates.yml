@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plan: one
+  min_kwh: 1
+  max_kwh: 1
+  price_per_kwh: 9.99
+
+two:
+  plan: two
+  min_kwh: 1
+  max_kwh: 1
+  price_per_kwh: 9.99

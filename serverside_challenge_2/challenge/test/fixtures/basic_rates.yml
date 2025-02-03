@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  plan: one
+  ampere: 1
+  price: 9.99
+
+two:
+  plan: two
+  ampere: 1
+  price: 9.99
