@@ -1,0 +1,33 @@
+name: Lint
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          package_json_file: 'frontend_challenge_2/challenges/k-taro56/package.json'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'frontend_challenge_2/challenges/k-taro56/.nvmrc'
+          cache: 'pnpm'
+          cache-dependency-path: frontend_challenge_2/challenges/k-taro56
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        working-directory: frontend_challenge_2/challenges/k-taro56
+
+      - name: Lint
+        run: pnpm lint
+        working-directory: frontend_challenge_2/challenges/k-taro56
