@@ -23,7 +23,7 @@ class Plan < ApplicationRecord
   # @return [Array<Hash>] 各プランのプロバイダー名、プラン名、および計算された料金を含むハッシュの配列
   #
   def self.simulate(ampere, usage_kwh)
-    Plan.includes(:provider, basic_rates: :plan, usage_rates: :plan).map do |plan|
+    Plan.includes(:provider, :basic_rates, :usage_rates).map do |plan|
       {
         provider_name: plan.provider.name,
         plan_name: plan.name,
