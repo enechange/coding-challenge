@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## API
 
-Things you may want to cover:
+- [openapi.yml](https://github.com/takaheraw/coding-challenge/tree/feature/serverside_challenge_2_simulate_api/serverside_challenge_2/challenge/doc/openapi/openapi3_0.yaml)
+- [swagger-ui](https://github.com/takaheraw/coding-challenge/tree/feature/serverside_challenge_2_simulate_api/serverside_challenge_2/challenge/doc/openapi/dist/index.html)
 
-* Ruby version
+![swagger-ui](https://i.gyazo.com/7d38c39800f38a4dd45fdd170293ab01.png)
 
-* System dependencies
+## Setup
 
-* Configuration
+- development
 
-* Database creation
+```sh
+bundle install
+bundle exec rails db:setup
+bundle exec rails s -b 0.0.0.0
+```
 
-* Database initialization
+- test
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+RAILS_ENV=test bundle exec rails db:setup
+RAILS_ENV=test bundle exec rspec spec/
+```
