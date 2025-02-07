@@ -45,10 +45,17 @@ ActiveRecord::Schema[7.0].define(version: 2025_02_07_080505) do
   end
 
   create_table "usage_charges", force: :cascade do |t|
+    t.bigint "plan_id", null: false
+    t.integer "lower_limit", null: false
+    t.integer "upper_limit"
+    t.decimal "charge", precision: 10, scale: 2, null: false
+    t.integer "state", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["plan_id"], name: "index_usage_charges_on_plan_id"
   end
 
   add_foreign_key "basic_charges", "plans", on_delete: :cascade
   add_foreign_key "plans", "providers", on_delete: :cascade
+  add_foreign_key "usage_charges", "plans", on_delete: :cascade
 end
