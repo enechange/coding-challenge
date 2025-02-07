@@ -1,0 +1,63 @@
+plans:
+  - provider_name: "東京電力エナジーパートナー"
+    provider_type: "tepco"
+    plan_name: "従量電灯B"
+    plan_type: "metered_lighting_b"
+    basic_charges:
+      10: 286.00
+      15: 429.00
+      20: 572.00
+      30: 858.00
+      40: 1144.00
+      50: 1430.00
+      60: 1716.00
+    usage_charges:
+      - { lower_limit: 0,   upper_limit: 120,  charge: 19.88 }
+      - { lower_limit: 121, upper_limit: 300,  charge: 26.48 }
+      - { lower_limit: 301, upper_limit: null, charge: 30.57 }
+
+  - provider_name: "東京電力エナジーパートナー"
+    provider_type: "tepco"
+    plan_name: "スタンダードS"
+    plan_type: "standard_s"
+    basic_charges:
+      10: 311.75
+      15: 467.63
+      20: 623.50
+      30: 935.25
+      40: 1247.00
+      50: 1558.75
+      60: 1870.50
+    usage_charges:
+      - { lower_limit: 0,   upper_limit: 120,  charge: 29.80 }
+      - { lower_limit: 121, upper_limit: 300,  charge: 36.40 }
+      - { lower_limit: 301, upper_limit: null, charge: 40.49 }
+
+  - provider_name: "東京ガス"
+    provider_type: "tokyo_gass"
+    plan_name: "ずっとも電気1"
+    plan_type: "zuttomo1"
+    basic_charges:
+      30: 858.00
+      40: 1144.00
+      50: 1430.00
+      60: 1716.00
+    usage_charges:
+      - { lower_limit: 0,   upper_limit: 140,  charge: 23.67 }
+      - { lower_limit: 141, upper_limit: 350,  charge: 23.88 }
+      - { lower_limit: 351, upper_limit: null, charge: 26.41 }
+
+  - provider_name: "Looopでんき"
+    provider_type: "loop_denki"
+    plan_name: "おうちプラン"
+    plan_type: "ouchi"
+    basic_charges:
+      10: 0.00
+      15: 0.00
+      20: 0.00
+      30: 0.00
+      40: 0.00
+      50: 0.00
+      60: 0.00
+    usage_charges:
+      - { lower_limit: 0, upper_limit: null, charge: 28.80 }
