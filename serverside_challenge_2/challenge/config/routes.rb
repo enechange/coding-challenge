@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    resources :electricity_providers, only: [:index] do
+      resources :electricity_plans, only: [:index]
+    end
     resources :electricity_plans, only: [] do
       collection do
         post :upload_csv
