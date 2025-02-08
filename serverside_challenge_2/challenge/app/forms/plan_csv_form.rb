@@ -16,6 +16,7 @@ class PlanCsvForm
     end
 
     true
+  # FIXME: StandardErrorではなく、具体的な例外を指定する
   rescue StandardError => e
     errors.add(:base, e.message)
     false

@@ -34,16 +34,13 @@ class ElectricityFeeCalculatorService
       next unless usage_kwh > current_fee.min_usage
 
       # 現在の区間の使用量を計算
-      applicable_kwh = [usage_kwh, next_fee.min_usage].min - current_fee.min_usage
+      applicable_kwh = next_fee.min_usage - current_fee.min_usage
       # 現在の区間の料金を合計に追加
       total_fee += applicable_kwh * current_fee.fee
     end
 
-    # 最後の区間を計算
-    if usage_kwh > usage_fees.last.min_usage
-      # 最後の区間の料金を合計に追加
-      total_fee += (usage_kwh - usage_fees.last.min_usage) * usage_fees.last.fee
-    end
+    # 最後の区間の料金を合計に追加
+    total_fee += (usage_kwh - usage_fees.last.min_usage) * usage_fees.last.fee
 
     total_fee
   end
