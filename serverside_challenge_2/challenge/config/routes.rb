@@ -9,4 +9,12 @@ Rails.application.routes.draw do
   namespace :user do
     resources :electricity_fees, only: [:index]
   end
+
+  namespace :admin do
+    resources :electricity_plans, only: [] do
+      collection do
+        post :upload_csv
+      end
+    end
+  end
 end
