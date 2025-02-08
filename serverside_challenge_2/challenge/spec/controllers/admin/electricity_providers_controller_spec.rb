@@ -19,26 +19,28 @@ RSpec.describe Admin::ElectricityProvidersController do
       expect(response).to have_http_status(:ok)
       expect(response.parsed_body).to eq(
         [
-          'id' => provider.id,
-          'name' => 'Test Provider',
-          'electricity_plans' => [
-            {
-              'id' => plan.id,
-              'name' => 'Test Plan',
-              'electricity_plan_basic_fees' => [
-                {
-                  'ampere' => 30,
-                  'fee' => '1000.0'
-                }
-              ],
-              'electricity_plan_usage_fees' => [
-                {
-                  'min_usage' => 0,
-                  'fee' => '20.0'
-                }
-              ]
-            }
-          ]
+          {
+            'id' => provider.id,
+            'name' => 'Test Provider',
+            'electricity_plans' => [
+              {
+                'id' => plan.id,
+                'name' => 'Test Plan',
+                'electricity_plan_basic_fees' => [
+                  {
+                    'ampere' => 30,
+                    'fee' => '1000.0'
+                  }
+                ],
+                'electricity_plan_usage_fees' => [
+                  {
+                    'min_usage' => 0,
+                    'fee' => '20.0'
+                  }
+                ]
+              }
+            ]
+          }
         ]
       )
     end
