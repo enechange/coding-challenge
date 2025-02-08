@@ -147,3 +147,50 @@ $ docker compose up
 $ docker compose exec web bash
 root@0fcf1ebe5546:/app# rails db:create
 ```
+
+# 実装方針
+
+- バックエンドは既存challengeディレクトリのrails
+- フロントエンドはchallengeと同じ階層にchallenge_frontディレクトリを作成し、astroで作成する
+
+## 機能仕様
+
+### 管理画面
+
+#### csvアップロード機能
+
+- 電力会社・プランの一覧、プランの詳細を見れる
+- 電力会社・プランの一覧、プランの詳細を更新できる
+
+### ユーザー画面
+
+#### 電気料金シミュレーション機能
+
+- フォームに契約アンペア数(A)と1ヶ月の使用量(kWh)を入力して、プランごとの電気料金を表示する
+
+### その他
+
+- 今回は詳細の実装を省くため、管理画面とユーザー画面をリンクで行き来できるようにする
+
+## テーブル設計
+
+### ElectricityProviders (電力会社)
+
+- name varchar not null
+
+### ElectricityPlans (電力プラン)
+
+- name varchar not null
+- electricity_provider_id int not null
+
+### ElectricityPlanBasicFees (基本料金)
+
+- ampere int not null
+- fee decimal not null
+- electricity_plan_id int not null
+
+### ElectricityPlanUsageFees (従量料金)
+
+- min_usage int not null
+- fee decimal not null
+- electricity_plan_id int not null
