@@ -5,7 +5,7 @@ class ElectricityFeeCalculatorService
     results = []
 
     ElectricityPlan
-      .joins(
+      .includes(
         :electricity_provider,
         :electricity_plan_basic_fees,
         :electricity_plan_usage_fees
