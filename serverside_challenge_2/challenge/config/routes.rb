@@ -5,4 +5,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  namespace :user do
+    resources :electricity_fees, only: [:index]
+  end
 end
