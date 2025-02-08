@@ -3,14 +3,19 @@
 require 'rails_helper'
 
 RSpec.describe Admin::ElectricityProvidersController do
+  subject { get :index }
+
+  let(:provider) { create(:electricity_provider, name: 'Test Provider') }
+  let(:plan) { create(:electricity_plan, electricity_provider: provider, name: 'Test Plan') }
+
+  before do
+    create(:electricity_plan_basic_fee, electricity_plan: plan, ampere: 30, fee: 1000)
+    create(:electricity_plan_usage_fee, electricity_plan: plan, min_usage: 0, fee: 20)
+  end
+
   describe 'GET #index' do
     it 'returns a list of electricity plans with fees' do
-      provider = ElectricityProvider.create!(name: 'Test Provider')
-      plan = provider.electricity_plans.create!(name: 'Test Plan')
-      plan.electricity_plan_basic_fees.create!(ampere: 30, fee: 1000)
-      plan.electricity_plan_usage_fees.create!(min_usage: 0, fee: 20)
-
-      get :index
+      subject
       expect(response).to have_http_status(:ok)
       expect(response.parsed_body).to eq(
         [

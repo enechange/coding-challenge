@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe Admin::ElectricityPlansController do
+  subject { post :upload_csv, params: { basic_fee_file: basic_fee_file, usage_fee_file: usage_fee_file } }
+
   describe 'POST #upload_csv' do
     let(:basic_fee_file_path) { Rails.root.join('test/fixtures/files/electricity_plans.csv') }
     let(:usage_fee_file_path) { Rails.root.join('test/fixtures/files/electricity_plan_usage_fees.csv') }
@@ -10,7 +12,7 @@ RSpec.describe Admin::ElectricityPlansController do
     let(:usage_fee_file) { fixture_file_upload(usage_fee_file_path, 'text/csv') }
 
     it 'uploads the CSV files and updates the database' do
-      post :upload_csv, params: { basic_fee_file: basic_fee_file, usage_fee_file: usage_fee_file }
+      subject
 
       expect(response).to have_http_status(:ok)
 
