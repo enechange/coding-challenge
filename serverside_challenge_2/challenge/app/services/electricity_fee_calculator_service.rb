@@ -11,11 +11,8 @@ class ElectricityFeeCalculatorService
         :electricity_plan_usage_fees
       )
       .find_each do |plan|
-
       basic_fee = plan.electricity_plan_basic_fees.find_by(ampere: contract_ampere.to_s)&.fee
-      if basic_fee.nil?
-        next
-      end
+      next if basic_fee.nil?
 
       usage_fee = if usage_kwh.zero?
                     0
@@ -33,9 +30,12 @@ class ElectricityFeeCalculatorService
   end
 
   def self.calculate_usage_fee(plan, usage_kwh)
-    total_fee = 0
-
     usage_fees = plan.electricity_plan_usage_fees.where(min_usage: ...usage_kwh).order(min_usage: :asc)
+
+    # 従量料金設定が1つしかない場合はそのまま掛け算すれば良い
+    return usage_kwh * usage_fees.last.fee if usage_fees.size == 1
+
+    total_fee = 0
 
     # 従量料金が変動する区間ごとに計算して合計に追加
     # 現在と次の値のセットのループ
@@ -56,12 +56,7 @@ class ElectricityFeeCalculatorService
     end
 
     # 最後の区間の料金を合計に追加
-    total_fee += if usage_fees.size == 1
-                   # 料金の区間が1つのみの場合、ループ内処理が実行されずapplicable_kwhから1を引く調整が入っていないため、ここでは調整を行わない
-                   (usage_kwh - usage_fees.last.min_usage) * usage_fees.last.fee
-                 else
-                   (usage_kwh - usage_fees.last.min_usage + 1) * usage_fees.last.fee
-                 end
+    total_fee += (usage_kwh - usage_fees.last.min_usage + 1) * usage_fees.last.fee
 
     total_fee
   end
