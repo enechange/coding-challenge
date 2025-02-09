@@ -14,7 +14,7 @@ RSpec.describe User::ElectricityFeesController do
       create(:electricity_plan_basic_fee, electricity_plan: plan, ampere: 30, fee: 1000)
       create(:electricity_plan_basic_fee, electricity_plan: plan, ampere: 40, fee: 2000)
       create(:electricity_plan_usage_fee, electricity_plan: plan, min_usage: 0, fee: 10)
-      create(:electricity_plan_usage_fee, electricity_plan: plan, min_usage: 150, fee: 15)
+      create(:electricity_plan_usage_fee, electricity_plan: plan, min_usage: 151, fee: 15)
     end
 
     context 'when usage is 100 kWh' do
@@ -94,6 +94,33 @@ RSpec.describe User::ElectricityFeesController do
         expect(response).to have_http_status(:bad_request)
         json_response = response.parsed_body
         expect(json_response['error']).to eq('Invalid contract_ampere value')
+      end
+    end
+  end
+  context '実際の値を使ったテスト' do
+    context 'when usage is 500 kWh' do
+      let(:provider) { create(:electricity_provider, name: 'Test Provider') }
+      let(:plan) { create(:electricity_plan, electricity_provider: provider, name: 'Test Plan') }
+      let(:params) { { contract_ampere: contract_ampere, usage_kwh: usage_kwh } }
+      let(:usage_kwh) { 500 }
+      let(:contract_ampere) { 40 }
+
+      before do
+        create(:electricity_plan_basic_fee, electricity_plan: plan, ampere: 40, fee: 1144)
+        create(:electricity_plan_usage_fee, electricity_plan: plan, min_usage: 0, fee: 19.88)
+        create(:electricity_plan_usage_fee, electricity_plan: plan, min_usage: 121, fee: 26.48)
+        create(:electricity_plan_usage_fee, electricity_plan: plan, min_usage: 301, fee: 30.57)
+      end
+
+      it 'returns correct fee calculation' do
+        subject
+        expect(response).to have_http_status(:ok)
+        json_response = response.parsed_body
+        expect(json_response.first).to include(
+          'provider_name' => 'Test Provider',
+          'plan_name' => 'Test Plan',
+          'price' => '14410.0' # 1144 (basic fee) + 13266 (usage fee)
+        )
       end
     end
   end
