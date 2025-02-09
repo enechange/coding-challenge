@@ -21,6 +21,9 @@ services:
     restart: always
     tty: true
     stdin_open: true
+    # wsl用 ホストの UID と GID を環境変数から設定
+    # UID_GID="$(id -u):$(id -g)" docker-compose up
+    user: "${UID_GID}"
     depends_on:
       - db
 volumes:
