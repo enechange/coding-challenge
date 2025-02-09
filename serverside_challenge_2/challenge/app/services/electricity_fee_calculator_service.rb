@@ -11,7 +11,12 @@ class ElectricityFeeCalculatorService
         :electricity_plan_usage_fees
       )
       .find_each do |plan|
-      basic_fee = plan.electricity_plan_basic_fees.find_by!(ampere: contract_ampere.to_s).fee
+
+      basic_fee = plan.electricity_plan_basic_fees.find_by(ampere: contract_ampere.to_s)&.fee
+      if basic_fee.nil?
+        next
+      end
+
       usage_fee = if usage_kwh.zero?
                     0
                   else
