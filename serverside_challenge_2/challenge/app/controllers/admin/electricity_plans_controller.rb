@@ -4,7 +4,7 @@ module Admin
   class ElectricityPlansController < ApplicationController
     def upload_csv
       if params[:basic_fee_file].present? && params[:usage_fee_file].present?
-        form = PlanCsvForm.new(basic_fee_file: params[:basic_fee_file], usage_fee_file: params[:usage_fee_file])
+        form = ::PlanCsvForm.new(basic_fee_file: params[:basic_fee_file], usage_fee_file: params[:usage_fee_file])
         if form.save
           render json: {}, status: :ok
         else
