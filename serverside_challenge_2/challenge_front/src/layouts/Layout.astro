@@ -1,0 +1,18 @@
+---
+import { ClientRouter } from "astro:transitions";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>電気料金シミュレーション</title>
+
+    <ClientRouter />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

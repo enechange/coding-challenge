@@ -1,0 +1,81 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const { searchParams } = Astro.url;
+const contractAmpere = searchParams.get("contract_ampere") || "";
+const usageKwh = searchParams.get("usage_kwh") || "";
+
+let results: {
+  provider_name: string;
+  plan_name: string;
+  price: number;
+}[] = [];
+let error = null;
+if (searchParams) {
+  const response = await fetch(
+    `http://localhost:3000/user/electricity_fees?${searchParams.toString()}`
+  );
+  if (!response.ok) {
+    error = (await response.json()).error;
+
+    return new Response(null, {
+      status: response.status,
+      statusText: response.statusText,
+    });
+  }
+  results = await response.json();
+}
+---
+
+<Layout>
+  <body>
+    <h1>電気料金シミュレーション</h1>
+    <form method="GET" action="/users">
+      <label for="contract-ampere">契約アンペア数 (A):</label>
+      <input
+        type="number"
+        id="contract-ampere"
+        name="contract_ampere"
+        value={contractAmpere}
+        required
+      />
+
+      <label for="usage-kwh">使用量 (kWh):</label>
+      <input
+        type="number"
+        id="usage-kwh"
+        name="usage_kwh"
+        value={usageKwh}
+        required
+      />
+
+      <button type="submit">シミュレーション</button>
+    </form>
+    {
+      error && (
+        <div>
+          <h2>エラー</h2>
+          <p>{error}</p>
+        </div>
+      )
+    }
+    {
+      results && (
+        <div>
+          <h2>シミュレーション結果</h2>
+          <ul>
+            {results.map((result) => (
+              <li>
+                <strong>電力会社名:</strong> {result.provider_name}
+                <br />
+                <strong>プラン名:</strong> {result.plan_name}
+                <br />
+                <strong>電気料金:</strong> {result.price} 円
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </body>
+</Layout>
