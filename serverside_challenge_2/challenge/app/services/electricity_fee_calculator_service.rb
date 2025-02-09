@@ -12,14 +12,14 @@ class ElectricityFeeCalculatorService
       )
       .find_each do |plan|
       basic_fee = plan.electricity_plan_basic_fees.find_by!(ampere: contract_ampere.to_s).fee
-      usage_fee = if usage_kwh == 0
-        0
-      else 
-        calculate_usage_fee(
-          plan,
-          usage_kwh
-        )
-      end
+      usage_fee = if usage_kwh.zero?
+                    0
+                  else
+                    calculate_usage_fee(
+                      plan,
+                      usage_kwh
+                    )
+                  end
 
       total_fee = basic_fee + usage_fee
       results << { provider_name: plan.electricity_provider.name, plan_name: plan.name, price: total_fee }
@@ -39,24 +39,24 @@ class ElectricityFeeCalculatorService
       next unless usage_kwh > current_fee.min_usage
 
       # 現在の区間の使用量を計算
-      if current_fee.min_usage == 0
-        # データ上区間が0-121のように表現されるため、この区間は120kWh分を計算したいが、単純に引き算をすると121kWhとなりズレる
-        # そのため、この区間の料金は1kWh少なく計算する調整を入れる
-        applicable_kwh = next_fee.min_usage - current_fee.min_usage - 1
-      else
-        applicable_kwh = next_fee.min_usage - current_fee.min_usage
-      end
+      applicable_kwh = if current_fee.min_usage.zero?
+                         # データ上区間が0-121のように表現されるため、この区間は120kWh分を計算したいが、単純に引き算をすると121kWhとなりズレる
+                         # そのため、この区間の料金は1kWh少なく計算する調整を入れる
+                         next_fee.min_usage - current_fee.min_usage - 1
+                       else
+                         next_fee.min_usage - current_fee.min_usage
+                       end
       # 現在の区間の料金を合計に追加
       total_fee += applicable_kwh * current_fee.fee
     end
 
     # 最後の区間の料金を合計に追加
-    if usage_fees.size == 1
-      # 料金の区間が1つのみの場合、ループ内処理が実行されずapplicable_kwhから1を引く調整が入っていないため、ここでは調整を行わない
-      total_fee += (usage_kwh - usage_fees.last.min_usage) * usage_fees.last.fee
-    else
-      total_fee += (usage_kwh - usage_fees.last.min_usage + 1) * usage_fees.last.fee
-    end
+    total_fee += if usage_fees.size == 1
+                   # 料金の区間が1つのみの場合、ループ内処理が実行されずapplicable_kwhから1を引く調整が入っていないため、ここでは調整を行わない
+                   (usage_kwh - usage_fees.last.min_usage) * usage_fees.last.fee
+                 else
+                   (usage_kwh - usage_fees.last.min_usage + 1) * usage_fees.last.fee
+                 end
 
     total_fee
   end

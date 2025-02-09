@@ -97,6 +97,7 @@ RSpec.describe User::ElectricityFeesController do
       end
     end
   end
+
   context '実際の値を使ったテスト' do
     context 'when usage is 500 kWh' do
       let(:provider) { create(:electricity_provider, name: 'Test Provider') }

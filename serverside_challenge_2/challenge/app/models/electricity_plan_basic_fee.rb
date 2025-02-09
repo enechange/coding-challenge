@@ -5,5 +5,5 @@ class ElectricityPlanBasicFee < ApplicationRecord
 
   VALID_AMPERES = [10, 15, 20, 30, 40, 50, 60].freeze
 
-  validates :ampere, inclusion: { in: VALID_AMPERES, message: "%{value} is not a valid ampere" }
+  validates :ampere, inclusion: { in: VALID_AMPERES, message: '%<value>s is not a valid ampere' }
 end
