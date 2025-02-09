@@ -84,5 +84,17 @@ RSpec.describe User::ElectricityFeesController do
         expect(json_response['error']).to eq('Both contract_ampere and usage_kwh are required')
       end
     end
+
+    context 'when contract_ampere is invalid' do
+      let(:usage_kwh) { 100 }
+      let(:contract_ampere) { 25 }
+
+      it 'returns error' do
+        subject
+        expect(response).to have_http_status(:bad_request)
+        json_response = response.parsed_body
+        expect(json_response['error']).to eq('Invalid contract_ampere value')
+      end
+    end
   end
 end

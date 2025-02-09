@@ -8,8 +8,10 @@ RSpec.describe Admin::ElectricityPlansController do
   describe 'POST #upload_csv' do
     let(:basic_fee_file_path) { Rails.root.join('test/fixtures/files/electricity_plans.csv') }
     let(:usage_fee_file_path) { Rails.root.join('test/fixtures/files/electricity_plan_usage_fees.csv') }
+    let(:invalid_basic_fee_file_path) { Rails.root.join('test/fixtures/files/invalid_electricity_plans.csv') }
     let(:basic_fee_file) { fixture_file_upload(basic_fee_file_path, 'text/csv') }
     let(:usage_fee_file) { fixture_file_upload(usage_fee_file_path, 'text/csv') }
+    let(:invalid_basic_fee_file) { fixture_file_upload(invalid_basic_fee_file_path, 'text/csv') }
 
     it 'uploads the CSV files and updates the database' do
       subject
@@ -27,6 +29,14 @@ RSpec.describe Admin::ElectricityPlansController do
 
       usage_fee = plan.electricity_plan_usage_fees.find_by!(min_usage: 0)
       expect(usage_fee.fee).to eq(19.88)
+    end
+
+    it 'returns error for invalid ampere values in CSV' do
+      post :upload_csv, params: { basic_fee_file: invalid_basic_fee_file, usage_fee_file: usage_fee_file }
+
+      expect(response).to have_http_status(:unprocessable_entity)
+      json_response = response.parsed_body
+      expect(json_response['error']).to include('Ampere 5 is not a valid ampere')
     end
   end
 end

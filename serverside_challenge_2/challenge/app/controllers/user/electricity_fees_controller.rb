@@ -11,6 +11,11 @@ module User
         return
       end
 
+      unless ElectricityPlanBasicFee::VALID_AMPERES.include?(contract_ampere)
+        render json: { error: 'Invalid contract_ampere value' }, status: :bad_request
+        return
+      end
+
       if contract_ampere.negative? || usage_kwh.negative?
         render json: { error: 'Invalid input' }, status: :bad_request
         return
