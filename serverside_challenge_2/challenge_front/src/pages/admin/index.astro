@@ -1,0 +1,119 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+let uploadSuccess = false;
+let error = null;
+
+if (Astro.request.method === "POST") {
+  const data = await Astro.request.formData();
+  const response = await fetch(
+    "http://localhost:3000/admin/electricity_plans/upload_csv",
+    {
+      method: "POST",
+      body: data,
+    }
+  );
+  if (response.ok) {
+    uploadSuccess = true;
+  } else {
+    error = (await response.json()).error;
+  }
+}
+
+let providers: {
+  name: string;
+  electricity_plans: {
+    name: string;
+    electricity_plan_basic_fees: {
+      ampere: number;
+      fee: number;
+    }[];
+    electricity_plan_usage_fees: {
+      min_usage: number;
+      fee: number;
+    }[];
+  }[];
+}[] = [];
+const response = await fetch(
+  "http://localhost:3000/admin/electricity_providers"
+);
+if (response.ok) {
+  providers = await response.json();
+} else {
+  error = (await response.json()).error;
+}
+---
+
+<Layout>
+  <h1>電力会社とプラン</h1>
+
+  {
+    uploadSuccess && (
+      <div>
+        <h2>アップロード成功</h2>
+        <p>CSVファイルが正常にアップロードされました。</p>
+      </div>
+    )
+  }
+  {
+    error && (
+      <div>
+        <h2>エラー</h2>
+        <p>{error}</p>
+      </div>
+    )
+  }
+  <table>
+    <thead>
+      <tr>
+        <th>電力会社名</th>
+        <th>プラン名</th>
+        <th>基本料金</th>
+        <th>従量料金</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        providers.map((provider) => (
+          <tr>
+            <td>{provider.name}</td>
+            <td>
+              {provider.electricity_plans.map((plan) => (
+                <div>
+                  <strong>{plan.name}</strong>
+                  <ul>
+                    <li>
+                      基本料金:{" "}
+                      {plan.electricity_plan_basic_fees
+                        .map((fee) => `${fee.ampere}A: ${fee.fee}円`)
+                        .join(", ")}
+                    </li>
+                    <li>
+                      従量料金:{" "}
+                      {plan.electricity_plan_usage_fees
+                        .map((fee) => `${fee.min_usage}kWh: ${fee.fee}円`)
+                        .join(", ")}
+                    </li>
+                  </ul>
+                </div>
+              ))}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+
+  <h2>CSVファイルのアップロード</h2>
+  <form method="POST" enctype="multipart/form-data">
+    <div>
+      <label for="basic_fee_file">基本料金CSV:</label>
+      <input type="file" id="basic_fee_file" name="basic_fee_file" required />
+    </div>
+    <div>
+      <label for="usage_fee_file">従量料金CSV:</label>
+      <input type="file" id="usage_fee_file" name="usage_fee_file" required />
+    </div>
+    <button type="submit">アップロード</button>
+  </form>
+</Layout>

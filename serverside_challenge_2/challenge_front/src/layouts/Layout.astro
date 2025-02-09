@@ -13,6 +13,13 @@ import { ClientRouter } from "astro:transitions";
     <ClientRouter />
   </head>
   <body>
+    <nav>
+      <ul>
+        <li><a href="/">ホーム</a></li>
+        <li><a href="/admin">管理画面</a></li>
+        <li><a href="/users">ユーザー画面</a></li>
+      </ul>
+    </nav>
     <slot />
   </body>
 </html>

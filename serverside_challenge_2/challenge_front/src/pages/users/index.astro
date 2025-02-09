@@ -5,25 +5,21 @@ const { searchParams } = Astro.url;
 const contractAmpere = searchParams.get("contract_ampere") || "";
 const usageKwh = searchParams.get("usage_kwh") || "";
 
-let results: {
-  provider_name: string;
-  plan_name: string;
-  price: number;
-}[] = [];
+let results:
+  | {
+      provider_name: string;
+      plan_name: string;
+      price: number;
+    }[]
+  | undefined;
 let error = null;
-if (searchParams) {
+if (searchParams.size > 0) {
   const response = await fetch(
     `http://localhost:3000/user/electricity_fees?${searchParams.toString()}`
   );
-  if (!response.ok) {
-    error = (await response.json()).error;
-
-    return new Response(null, {
-      status: response.status,
-      statusText: response.statusText,
-    });
-  }
-  results = await response.json();
+  const body = await response.json();
+  error = body.error;
+  results = body;
 }
 ---
 
@@ -60,7 +56,7 @@ if (searchParams) {
       )
     }
     {
-      results && (
+      results?.length && (
         <div>
           <h2>シミュレーション結果</h2>
           <ul>
