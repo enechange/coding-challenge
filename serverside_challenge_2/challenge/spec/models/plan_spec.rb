@@ -42,18 +42,23 @@ RSpec.describe Plan, type: :model do
 
   describe "instance methods" do
     describe "#calculate_service_class" do
+
+      let!(:test_plan) { create(:plan, :with_charges) }
+
       it do
+        expect(test_plan.calculate_service_class).to eq(ElectricityChargeCalculator::BaseService)
+
         metered_lighting_b = Plan.find_by(plan_type: "metered_lighting_b")
-        expect(metered_lighting_b.calculate_service_class).to eq("ElectricityChargeCalculator::Tepco::MeteredLightingBService")
+        expect(metered_lighting_b.calculate_service_class).to eq(ElectricityChargeCalculator::Tepco::MeteredLightingBService)
 
         standard_s = Plan.find_by(plan_type: "standard_s")
-        expect(standard_s.calculate_service_class).to eq("ElectricityChargeCalculator::Tepco::StandardSService")
+        expect(standard_s.calculate_service_class).to eq(ElectricityChargeCalculator::Tepco::StandardSService)
 
         zuttomo1 = Plan.find_by(plan_type: "zuttomo1")
-        expect(zuttomo1.calculate_service_class).to eq("ElectricityChargeCalculator::TokyoGass::Zuttomo1Service")
+        expect(zuttomo1.calculate_service_class).to eq(ElectricityChargeCalculator::TokyoGass::Zuttomo1Service)
 
         ouchi = Plan.find_by(plan_type: "ouchi")
-        expect(ouchi.calculate_service_class).to eq("ElectricityChargeCalculator::LoopDenki::OuchiService")
+        expect(ouchi.calculate_service_class).to eq(ElectricityChargeCalculator::LoopDenki::OuchiService)
       end
     end
   end

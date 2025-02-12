@@ -20,7 +20,7 @@ class FetchElectricityChargeService
 
   def fetch_electricity_charges
     target_plans.map do |plan|
-      calculator_service = plan.calculate_service_class.constantize
+      calculator_service = plan.calculate_service_class
       calculator_service.new(
         plan:   plan,
         ampere: simulate_form.ampere.to_i,

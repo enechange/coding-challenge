@@ -164,5 +164,23 @@ RSpec.describe FetchElectricityChargeService, type: :service do
         )
       end
     end
+
+    context "the base service class is called" do
+      let!(:test_plan)    { create(:plan, :with_charges) }
+      let!(:ampere)       { test_plan.basic_charges.first.ampere }
+      let!(:usage)        { test_plan.usage_charges.first.upper_limit }
+      let(:simulate_form) { Form::Simulate.new({ ampere: ampere.to_s, usage: usage.to_s }) }
+
+      it "returns the result of electricity charge" do
+        results = subject.call
+        target_plan = results.find { |item| item[:plan_name] == test_plan.name }
+        expect(target_plan).to eq(
+          status:        :success,
+          provider_name: test_plan.provider.name,
+          plan_name:     test_plan.name,
+          price:         2671.6
+        )
+      end
+    end
   end
 end

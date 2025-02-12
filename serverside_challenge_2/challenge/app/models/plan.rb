@@ -39,6 +39,12 @@ class Plan < ApplicationRecord
       "electricity_charge_calculator".classify,
       provider.provider_type.classify,
       "#{plan_type}_service".classify
-    ].join("::")
+    ].join("::").constantize
+  rescue NameError => e
+    logger.warn("#{e.name} service class is not defined. Using the base service class.")
+    [
+      "electricity_charge_calculator".classify,
+      "base_service".classify
+    ].join("::").constantize
   end
 end
