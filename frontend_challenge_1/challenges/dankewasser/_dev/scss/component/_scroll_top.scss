@@ -1,0 +1,17 @@
+.c-ScrollTop {
+  display: block;
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  width: 57px;
+  height: 57px;
+  background: rgba(#000, 0.2) url(#{$imgPath-pc}top_btn_icn.svg) center no-repeat;
+  background-size: 32px 19px;
+  box-shadow: 2px 2px 4px 0 rgba(#000, 0.5);
+
+  @include mq() {
+    right: 2px;
+    bottom: 2px;
+    transform: scale(0.526);
+  }
+}

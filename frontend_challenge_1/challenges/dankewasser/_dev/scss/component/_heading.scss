@@ -1,0 +1,31 @@
+.c-Heading {
+  position: relative;
+  font-size: 3rem;
+  text-align: center;
+  padding-bottom: 27px;
+  line-height: 1.3;
+
+  @include mq() {
+    padding-bottom: 25px;
+    font-size: 2.6rem;
+  }
+
+  &.t-ML {
+    @include mq() {
+      padding-bottom: 16px;
+    }
+  }
+
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 100px;
+    height: 10px;
+    background: #3f51b5;
+  }
+}

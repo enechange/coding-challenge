@@ -1,0 +1,71 @@
+%CommonSection {
+  display: block;
+}
+
+%CommonSection_Inner {
+  margin: 0 auto;
+  width: $ctsWidth-pc;
+
+  @include mq() {
+    width: auto;
+  }
+}
+
+%CommonInput {
+  padding: 5px 13px;
+  width: 100%;
+  border: 2px solid #3b9e77;
+  border-radius: 2px;
+  background: #fff;
+  font-size: 1.4rem;
+  color: #414141;
+
+  @include mq() {
+    padding: 3px 8px;
+  }
+
+  &::placeholder {
+    color: #d2d2d2;
+  }
+}
+
+%CommonSelect {
+  @extend %CommonInput;
+
+  padding-left: 25px;
+
+  @include mq() {
+    padding-left: 19px;
+  }
+
+  &::-ms-expand {
+    display: none;
+  }
+}
+
+%CommonSelect_Arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 12px;
+  margin: auto;
+  width: 8px;
+  height: 5px;
+  pointer-events: none;
+  z-index: 2;
+
+  @include mq() {
+    left: 8px;
+  }
+
+  &::after {
+    content: "";
+    position: relative;
+    top: 5px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 5px 4px 0 4px;
+    border-color: #3b9e77 transparent transparent transparent;
+  }
+}

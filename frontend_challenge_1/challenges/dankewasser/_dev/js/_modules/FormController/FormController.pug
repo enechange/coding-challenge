@@ -1,0 +1,83 @@
+form.c-Form.js-FormController_Main(@submit.prevent="onSubmit")
+  h2.c-Form_Ttl
+    | 電気代一括見積りフォーム
+  p.c-Form_Desc
+    | 全国15社以上の電力会社の見積りから
+    br
+    | 自社に合うものを選ぶだけ！
+  p.c-Form_RequiredSP
+    | すべて入力必須
+
+  .c-Form_Body
+    Select(
+      :name="'provider'",
+      :heading=`'ご契約中の<br class="u-SP">電力会社'`,
+      :list="getProviderList",
+      :error-message="'選択してください'",
+      :child-list="'pref'",
+      :current-value="sendValues.provider",
+      :is-valid="validateStatus.provider.isValid",
+      @change-value="changeSendValue",
+      @change-list="onChangeList"
+    )
+
+    Select(
+      :name="'pref'",
+      :heading="'都道府県'",
+      :list="getPrefList",
+      :error-message="'選択してください'",
+      :child-list="null",
+      :current-value="sendValues.pref",
+      :is-valid="validateStatus.pref.isValid",
+      @change-value="changeSendValue"
+    )
+
+    InputText(
+      :name="'company'",
+      :type="'text'",
+      :heading="'貴社名'",
+      :placeholder="'○○株式会社'",
+      :error-message="'正しく入力してください'",
+      :current-value="sendValues.company",
+      :is-valid="validateStatus.company.isValid",
+      @change-value="changeSendValue",
+    )
+
+    InputText(
+      :name="'name'",
+      :type="'text'",
+      :heading="'ご担当者'",
+      :placeholder="'ご入力ください'",
+      :error-message="'正しく入力してください'",
+      :current-value="sendValues.name",
+      :is-valid="validateStatus.name.isValid",
+      @change-value="changeSendValue",
+    )
+
+    InputText(
+      :name="'phone'",
+      :type="'tel'",
+      :heading="'電話番号'",
+      :placeholder="'03-1234-5678'",
+      :error-message="'正しく入力してください'",
+      :current-value="sendValues.phone",
+      :is-valid="validateStatus.phone.isValid",
+      @change-value="changeSendValue",
+    )
+
+    InputText(
+      :name="'email'",
+      :type="'text'",
+      :heading="'メールアドレス'",
+      :placeholder="'メールアドレス'",
+      :error-message="'正しいメールアドレスの形式で入力してください'",
+      :current-value="sendValues.email",
+      :is-valid="validateStatus.email.isValid",
+      @change-value="changeSendValue",
+    )
+
+  .c-Form_BtnArea
+    button.c-Form_Btn 一括見積もりしてみる
+
+  p.c-Form_Notice
+    | 利用規約・個人情報に同意の上送信ください
