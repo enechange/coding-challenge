@@ -1,0 +1,65 @@
+basic_price:
+  - provider_name: 東京電力エナジーパートナー
+    plans:
+      - plan: 従量電灯B
+        amperes:
+          10: 286.00
+          15: 429.00
+          20: 572.00
+          30: 858.00
+          40: 1144.00
+          50: 1430.00
+          60: 1716.00
+      - plan: スタンダードS
+        amperes:
+          10: 311.75
+          15: 467.63
+          20: 623.50
+          30: 935.25
+          40: 1247.00
+          50: 1558.75
+          60: 1870.50
+  - provider_name: 東京ガス
+    plans:
+      - plan: ずっとも電気1
+        amperes:
+          30: 858.00
+          40: 1144.00
+          50: 1430.00
+          60: 1716.00
+  - provider_name: Looopでんき
+    plans:
+      - plan: おうちプラン
+        amperes:
+          10: 0.00
+          15: 0.00
+          20: 0.00
+          30: 0.00
+          40: 0.00
+          50: 0.00
+          60: 0.00
+usage_price:
+  - provider_name: 東京電力エナジーパートナー
+    plans:
+      - plan: 従量電灯B
+        thresholds:
+          0: 19.88
+          121: 26.48
+          301: 30.57
+      - plan: スタンダードS
+        thresholds:
+          0: 29.80
+          121: 36.40
+          301: 40.49
+  - provider_name: 東京ガス
+    plans:
+      - plan: ずっとも電気1
+        thresholds:
+          0: 23.67
+          141: 23.88
+          351: 26.41
+  - provider_name: Looopでんき
+    plans:
+      - plan: おうちプラン
+        thresholds:
+          0: 28.8

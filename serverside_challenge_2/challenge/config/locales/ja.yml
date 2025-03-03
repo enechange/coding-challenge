@@ -30,4 +30,11 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  errors:
+    empty_parameter: 'リクエストパラメータにampereとusageを設定してください'
+    invalid_parameter_type: 'ampereとusageはいずれも数値を設定してください'
+    invalid_contract_ampere: 'ampereの値が正しくありません'
+    invalid_usage: 'usageは0以上の整数を設定してください'
+  message:
+    empty_result_by_ampere: 'ampereに一致するプランが登録されていません'
+
