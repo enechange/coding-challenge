@@ -1,0 +1,57 @@
+providers:
+  - name: "東京電力エナジーパートナー"
+    plans:
+      - name: "従量電灯B"
+        basic_rates:
+          - { ampere: 10, basic_rate: 286.00 }
+          - { ampere: 15, basic_rate: 429.00 }
+          - { ampere: 20, basic_rate: 572.00 }
+          - { ampere: 30, basic_rate: 858.00 }
+          - { ampere: 40, basic_rate: 1144.00 }
+          - { ampere: 50, basic_rate: 1430.00 }
+          - { ampere: 60, basic_rate: 1716.00 }
+        usage_rates:
+          - { min_usage: 0, max_usage: 120, unit_rate: 19.88 }
+          - { min_usage: 120, max_usage: 300, unit_rate: 26.48 }
+          - { min_usage: 300, max_usage: null, unit_rate: 30.57 }
+
+      - name: "スタンダードS"
+        basic_rates:
+          - { ampere: 10, basic_rate: 311.75 }
+          - { ampere: 15, basic_rate: 467.63 }
+          - { ampere: 20, basic_rate: 623.50 }
+          - { ampere: 30, basic_rate: 935.25 }
+          - { ampere: 40, basic_rate: 1247.00 }
+          - { ampere: 50, basic_rate: 1558.75 }
+          - { ampere: 60, basic_rate: 1870.50 }
+        usage_rates:
+          - { min_usage: 0, max_usage: 120, unit_rate: 29.80 }
+          - { min_usage: 120, max_usage: 300, unit_rate: 36.40 }
+          - { min_usage: 300, max_usage: null, unit_rate: 40.49 }
+
+  - name: "東京ガス"
+    plans:
+      - name: "ずっとも電気1"
+        basic_rates:
+          - { ampere: 30, basic_rate: 858.00 }
+          - { ampere: 40, basic_rate: 1144.00 }
+          - { ampere: 50, basic_rate: 1430.00 }
+          - { ampere: 60, basic_rate: 1716.00 }
+        usage_rates:
+          - { min_usage: 0, max_usage: 140, unit_rate: 23.67 }
+          - { min_usage: 140, max_usage: 350, unit_rate: 23.88 }
+          - { min_usage: 350, max_usage: null, unit_rate: 26.41 }
+
+  - name: "Looopでんき"
+    plans:
+      - name: "おうちプラン"
+        basic_rates:
+          - { ampere: 10, basic_rate: 0.00 }
+          - { ampere: 15, basic_rate: 0.00 }
+          - { ampere: 20, basic_rate: 0.00 }
+          - { ampere: 30, basic_rate: 0.00 }
+          - { ampere: 40, basic_rate: 0.00 }
+          - { ampere: 50, basic_rate: 0.00 }
+          - { ampere: 60, basic_rate: 0.00 }
+        usage_rates:
+          - { min_usage: 0, max_usage: null, unit_rate: 28.8 }
