@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 2px 2px;
+  background-color: #ddd;
+  border-radius: 4px;
+}
+.hyphen {
+  text-align: center;
+  margin: 0 8px;
+}
+.input {
+  border: 4px solid theme('colors.main-gray');
+  padding: 0.5rem;
+  width: 100%;
+  font-size: 14px;
+  background-color: theme('colors.white');
+  text-align: center;
+  appearance: none;
+
+  &::placeholder {
+    color: theme('colors.main-gray');
+  }
+
+  &:focus {
+    outline: none;
+    border: 4px solid theme('colors.accent');
+  }
+
+  &:disabled {
+    background-color: theme('colors.secondary-gray');
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  &.hasError {
+    border-color: theme('colors.warning');
+  }
+}

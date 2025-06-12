@@ -1,0 +1,15 @@
+.header {
+  width: 100%;
+  padding: 48px 0;
+  text-align: center;
+  .title {
+    margin: 0;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: bold;
+  }
+  .description {
+    font-size: 16px;
+    color: #666;
+  }
+}

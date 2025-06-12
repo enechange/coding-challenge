@@ -1,0 +1,31 @@
+.formField {
+  display: grid;
+  gap: 8px;
+}
+.label {
+  display: flex;
+  align-items: center;
+  color: theme('colors.black');
+  font-weight: bold;
+  margin-top: 16px;
+}
+
+.required {
+  background-color: theme('colors.warning');
+  letter-spacing: 4px;
+  color: theme('colors.white');
+  font-size: 12px;
+  margin-right: 8px;
+  padding: 2px 8px 2px 12px;
+}
+.inputWrapper {
+  display: flex;
+  align-items: center;
+}
+.inputContainer {
+  flex-grow: 1;
+}
+.endAdornment {
+  margin-left: 8px;
+  font-size: 14px;
+}
