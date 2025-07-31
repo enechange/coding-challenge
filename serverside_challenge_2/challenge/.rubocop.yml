@@ -1,0 +1,10 @@
+Documentation:
+  Enabled: false
+MethodLength:
+  CountComments: true 
+  Max: 25 
+  Style/FrozenStringLiteralComment:
+  Enabled: false
+Metrics:
+  Enabled: false
+  
