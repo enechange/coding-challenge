@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  get "api/get_price", to: "electricity_api#get_price"     # JSON API
+  get "api/get_price_db", to: "electricity_api#get_price_db"     # JSON API
 end

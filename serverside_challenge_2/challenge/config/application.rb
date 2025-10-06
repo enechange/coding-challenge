@@ -1,7 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
-
+require "logger"
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -23,5 +23,11 @@ module App
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+	# API モードから復帰させるミドルウェアを明示的に追加
+	config.middleware.use ActionDispatch::Cookies
+	config.middleware.use ActionDispatch::Session::CookieStore
+	config.middleware.use ActionDispatch::Flash    
+
   end
 end

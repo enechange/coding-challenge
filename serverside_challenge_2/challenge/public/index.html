@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>電気料金計算テスト</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container py-5">
+    <h1 class="mb-4 text-center">電気料金計算テスト</h1>
+
+    <div class="card p-4 mb-4">
+      <form id="calcForm" class="row g-3">
+        <div class="col-md-6">
+          <label for="ampere" class="form-label">契約アンペア</label>
+          <select class="form-select" id="ampere">
+            <option value="10">10A</option>
+            <option value="15">15A</option>
+            <option value="20">20A</option>
+            <option value="30">30A</option>
+            <option value="40">40A</option>
+            <option value="50">50A</option>
+            <option value="60">60A</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label for="usage_kwh" class="form-label">使用量 (kWh)</label>
+          <input type="number" class="form-control" id="usage_kwh" value="100" min="0">
+        </div>
+        <div class="col-12 text-center">
+          <button type="button" id="calcDb" class="btn btn-primary mt-3 me-2">DBで計算</button>
+          <button type="button" id="calcYaml" class="btn btn-secondary mt-3">YAMLで計算</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="card p-4">
+      <h5>結果</h5>
+      <pre id="result" class="bg-light p-3 rounded">-- 結果 ----</pre>
+    </div>
+  </div>
+
+  <script>
+    const resultEl = document.getElementById("result");
+
+    async function callApi(endpoint) {
+      const ampere = document.getElementById("ampere").value;
+      const usage_kwh = document.getElementById("usage_kwh").value;
+
+      try {
+        const response = await fetch(`${endpoint}?ampere=${ampere}&usage_kwh=${usage_kwh}`);
+        const data = await response.json();
+        resultEl.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        resultEl.textContent = "Error: " + err;
+      }
+    }
+
+    document.getElementById("calcDb").addEventListener("click", () => {
+      callApi("/api/get_price_db");
+    });
+
+    document.getElementById("calcYaml").addEventListener("click", () => {
+      callApi("/api/get_price");
+    });
+  </script>
+</body>
+</html>
