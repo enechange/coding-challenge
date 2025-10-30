@@ -1,0 +1,32 @@
+# NOTE: https://github.com/svenfuchs/rails-i18n/blob/master/rails/locale/ja.yml
+ja:
+  api:
+    v1:
+      electricity_charges:
+        errors:
+          missing_parameters: 契約アンペア数(A)と使用量(kWh)は必須です。
+          internal_server_error: エラーが発生しました。
+  electricity_charge_calculator:
+    errors:
+      plan_required: planは必須です
+      invalid_input: 契約アンペア数(A)と使用量(kWh)は数値で指定してください。
+      invalid_usage: 使用量(kWh)は0以上を指定してください。
+      invalid_ampere: 契約アンペア数(A)は%{target_amperes}のいずれかを指定してください。
+  activerecord:
+    errors:
+      messages:
+        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+    attributes:
+      provider:
+        code: コード
+        name: 名前
+      usage_charge:
+        from_kwh: 使用量(kwh)の下限
+        to_kwh: 使用量(kwh)の上限
+        unit_price: 単価
+  errors:
+    format: "%{attribute}%{message}"
+

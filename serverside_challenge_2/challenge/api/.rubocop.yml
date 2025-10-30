@@ -1,0 +1,33 @@
+inherit_gem:
+  rubocop-shopify: rubocop.yml
+
+plugins:
+  - rubocop-rails
+
+Style/MethodCallWithoutArgsParentheses:
+  Enabled: true
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/WordArray:
+  EnforcedStyle: percent
+
+AllCops:
+  SuggestExtensions: false
+  Exclude:
+    - 'db/**/*'
+    - 'lib/tasks/**/*'
+    - 'config/application.rb'
+    - 'config/environments/**/*'
+    - 'config/initializers/**/*'
+    - 'bin/**/*'
+    - 'vendor/**/*'
+    - 'Rakefile'
+    - 'config.ru'

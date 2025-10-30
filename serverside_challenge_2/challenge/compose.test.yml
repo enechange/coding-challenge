@@ -1,0 +1,23 @@
+services:
+  test-db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_volume:/var/lib/postgresql/18/docker
+  test-api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    command: tail -f /dev/null
+    env_file:
+      - ./api/.env.test
+    volumes:
+      - ./api:/app
+    tty: true
+    stdin_open: true
+    depends_on:
+      - test-db
+volumes:
+  postgres_volume:

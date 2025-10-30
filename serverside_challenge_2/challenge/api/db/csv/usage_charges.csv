@@ -1,0 +1,11 @@
+plan_code,from_kwh,to_kwh,unit_price
+juuryouB,0,120,19.88
+juuryouB,121,300,26.48
+juuryouB,301,,30.57
+standardS,0,120,29.80
+standardS,121,300,36.40
+standardS,301,,40.49
+zuttomo1,0,140,23.67
+zuttomo1,141,350,23.88
+zuttomo1,351,,26.41
+ouchiplan,0,,28.8
