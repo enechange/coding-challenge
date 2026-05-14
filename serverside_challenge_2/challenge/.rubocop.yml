@@ -1,0 +1,81 @@
+plugins:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+
+AllCops:
+  TargetRubyVersion: 3.1
+  TargetRailsVersion: 7.0
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - "bin/**/*"
+    - "db/schema.rb"
+    - "vendor/**/*"
+    - "tmp/**/*"
+    - "log/**/*"
+    - "storage/**/*"
+    - "node_modules/**/*"
+
+# rspec:install で生成される rails_helper.rb のテンプレ抜粋
+Rails/Exit:
+  Exclude:
+    - "spec/rails_helper.rb"
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always
+
+Layout/LineLength:
+  Max: 120
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"
+    - "config/routes.rb"
+    - "config/environments/*.rb"
+    - "db/seeds.rb"
+
+# マイグレーションは生成 DSL で長くなりがちなため除外する
+Metrics/AbcSize:
+  Exclude:
+    - "db/migrate/**/*.rb"
+
+Metrics/MethodLength:
+  Exclude:
+    - "db/migrate/**/*.rb"
+
+RSpec/ExampleLength:
+  Max: 10
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+# ActiveHash モデルは ActiveRecord 用の cop が前提とする挙動を持たないため除外する
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Exclude:
+    - "app/models/ampere_based_rate.rb"
+    - "app/models/plan.rb"
+    - "app/models/usage_based_rate.rb"
+
+Rails/HasManyOrHasOneDependent:
+  Exclude:
+    - "app/models/plan.rb"
+    - "app/models/provider.rb"
+
+# ActiveHash には find_each が無く、データ整合性 spec はクラス単位ではなくデータ全体を対象とするため除外する
+Rails/FindEach:
+  Exclude:
+    - "spec/data_consistency_spec.rb"
+
+RSpec/DescribeClass:
+  Exclude:
+    - "spec/data_consistency_spec.rb"
+    - "spec/requests/**/*"
+
+RSpec/IteratedExpectation:
+  Exclude:
+    - "spec/data_consistency_spec.rb"

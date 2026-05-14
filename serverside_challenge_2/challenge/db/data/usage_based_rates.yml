@@ -1,0 +1,42 @@
+# 0 始まり境界共有形式。kilowatt_hour_high: null は ElectricityBillConstants::MAX_KWH で埋める
+- slug: tepco_001
+  rates:
+    - kilowatt_hour_low: 0
+      kilowatt_hour_high: 120
+      rate: "19.88"
+    - kilowatt_hour_low: 120
+      kilowatt_hour_high: 300
+      rate: "26.48"
+    - kilowatt_hour_low: 300
+      kilowatt_hour_high: null
+      rate: "30.57"
+
+- slug: tepco_002
+  rates:
+    - kilowatt_hour_low: 0
+      kilowatt_hour_high: 120
+      rate: "29.80"
+    - kilowatt_hour_low: 120
+      kilowatt_hour_high: 300
+      rate: "36.40"
+    - kilowatt_hour_low: 300
+      kilowatt_hour_high: null
+      rate: "40.49"
+
+- slug: tokyogas_001
+  rates:
+    - kilowatt_hour_low: 0
+      kilowatt_hour_high: 140
+      rate: "23.67"
+    - kilowatt_hour_low: 140
+      kilowatt_hour_high: 350
+      rate: "23.88"
+    - kilowatt_hour_low: 350
+      kilowatt_hour_high: null
+      rate: "26.41"
+
+- slug: looop_001
+  rates:
+    - kilowatt_hour_low: 0
+      kilowatt_hour_high: null
+      rate: "28.8"

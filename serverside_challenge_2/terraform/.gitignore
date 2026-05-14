@@ -1,0 +1,16 @@
+# Terraform の実値変数ファイル（secrets を含むため git 管理しない）
+terraform.tfvars
+
+# Terraform 作業ディレクトリ
+.terraform/
+
+# tfstate（S3 で管理するため local ファイルは git 管理しない）
+*.tfstate
+*.tfstate.backup
+
+# 実行プラン
+*.tfplan
+
+# クラッシュログ
+crash.log
+crash.*.log

@@ -1,0 +1,65 @@
+# 東京電力エナジーパートナー / 従量電灯B
+- slug: tepco_001
+  rates:
+    - ampere: 10
+      rate: "286.00"
+    - ampere: 15
+      rate: "429.00"
+    - ampere: 20
+      rate: "572.00"
+    - ampere: 30
+      rate: "858.00"
+    - ampere: 40
+      rate: "1144.00"
+    - ampere: 50
+      rate: "1430.00"
+    - ampere: 60
+      rate: "1716.00"
+
+# 東京電力エナジーパートナー / スタンダードS
+- slug: tepco_002
+  rates:
+    - ampere: 10
+      rate: "311.75"
+    - ampere: 15
+      rate: "467.63"
+    - ampere: 20
+      rate: "623.50"
+    - ampere: 30
+      rate: "935.25"
+    - ampere: 40
+      rate: "1247.00"
+    - ampere: 50
+      rate: "1558.75"
+    - ampere: 60
+      rate: "1870.50"
+
+# 東京ガス / ずっとも電気1（10/15/20A は提供なし）
+- slug: tokyogas_001
+  rates:
+    - ampere: 30
+      rate: "858.00"
+    - ampere: 40
+      rate: "1144.00"
+    - ampere: 50
+      rate: "1430.00"
+    - ampere: 60
+      rate: "1716.00"
+
+# Looopでんき / おうちプラン（基本料金なし。対応アンペアをデータで明示するため 0.00 で登録）
+- slug: looop_001
+  rates:
+    - ampere: 10
+      rate: "0.00"
+    - ampere: 15
+      rate: "0.00"
+    - ampere: 20
+      rate: "0.00"
+    - ampere: 30
+      rate: "0.00"
+    - ampere: 40
+      rate: "0.00"
+    - ampere: 50
+      rate: "0.00"
+    - ampere: 60
+      rate: "0.00"

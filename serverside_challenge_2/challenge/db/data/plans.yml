@@ -1,0 +1,16 @@
+- provider_name: 東京電力エナジーパートナー
+  plans:
+    - slug: tepco_001
+      name: 従量電灯B
+    - slug: tepco_002
+      name: スタンダードS
+
+- provider_name: 東京ガス
+  plans:
+    - slug: tokyogas_001
+      name: ずっとも電気1
+
+- provider_name: Looopでんき
+  plans:
+    - slug: looop_001
+      name: おうちプラン

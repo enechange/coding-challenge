@@ -147,3 +147,13 @@ $ docker compose up
 $ docker compose exec web bash
 root@0fcf1ebe5546:/app# rails db:create
 ```
+
+## フロントエンド
+
+`serverside_challenge_2/frontend/` に Next.js フロントエンドを用意しています。
+詳細なセットアップ・起動手順は [frontend/README.md](./frontend/README.md) を参照してください。
+
+```bash
+# Rails（ポート 3000）を起動してから
+cd frontend && npm install && npm run dev  # → http://localhost:3001
+```

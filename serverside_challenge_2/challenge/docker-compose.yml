@@ -1,13 +1,19 @@
-version: '3'
 services:
   db:
-    image: postgres
+    image: postgres:18.3
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
     volumes:
-      - postgres_volume:/var/lib/postgresql/data
+      - postgres_volume:/var/lib/postgresql
+    ports:
+      - "5432:5432"
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
   web:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -22,6 +28,7 @@ services:
     tty: true
     stdin_open: true
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 volumes:
   postgres_volume:

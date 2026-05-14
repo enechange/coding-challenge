@@ -1,0 +1,18 @@
+project               = "enechange-coding-challenge"
+env                   = "prod"
+region                = "ap-northeast-1"
+rails_image           = "123456789.dkr.ecr.ap-northeast-1.amazonaws.com/enechange-coding-challenge-prod-app:latest"
+cors_allowed_origins  = "https://your-app.vercel.app"
+origin_verify_secret  = "replace-with-random-origin-secret"  # 推測困難なランダム文字列に変更すること
+
+# ── シークレット設定（2フェーズデプロイ） ───────────────────────────────────
+# Phase 1: 上の変数のみで terraform apply → インフラ構築（ECS は起動しない）
+# Phase 2: 以下を設定して re-apply → secret version 作成 + ECS 起動
+
+ecs_desired_count = 0  # シークレット設定後に 1 へ変更
+
+# terraform output db_endpoint で RDS エンドポイントを確認してから設定
+# database_url = "postgresql://postgres:PASSWORD@ENDPOINT:5432/app"
+
+# openssl rand -hex 64 で生成
+# secret_key_base = "your-secret-key-base"

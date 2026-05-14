@@ -1,0 +1,29 @@
+ja:
+  activemodel:
+    attributes:
+      electricity_bill_simulation_params:
+        ampere: "ampere"
+        kwh: "kwh"
+    errors:
+      models:
+        electricity_bill_simulation_params:
+          attributes:
+            ampere:
+              blank: "は必須です"
+              inclusion: "は 10, 15, 20, 30, 40, 50, 60 のいずれかを指定してください"
+            kwh:
+              blank: "は必須です"
+              not_a_number: "は整数で指定してください"
+              not_an_integer: "は整数で指定してください"
+              greater_than_or_equal_to: "は 0 以上の値を指定してください"
+              less_than_or_equal_to: "は 9999 以下の値を指定してください"
+  activerecord:
+    errors:
+      models:
+        usage_based_rate:
+          attributes:
+            kilowatt_hour_low:
+              must_not_exceed_high: は kilowatt_hour_high より小さくなければなりません
+  electricity_bill_simulations:
+    errors:
+      title: "Invalid Parameter"

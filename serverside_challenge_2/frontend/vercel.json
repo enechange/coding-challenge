@@ -1,0 +1,13 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "git": {
+    "deploymentEnabled": {
+      "feature/2604/en-Barry/environment-setup": false,
+      "feature/2605/en-Barry/models-yaml-setup": false,
+      "feature/2605/en-Barry/electricity-bill-simulator": false,
+      "feature/2605/en-Barry/api-endpoint": false,
+      "feature/2605/en-Barry/db-migration": false,
+      "feature/2605/en-Barry/rails-production-ready": false
+    }
+  }
+}

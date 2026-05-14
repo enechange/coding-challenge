@@ -1,0 +1,43 @@
+# Multi-stage build: builder stage
+FROM ruby:3.1.2-slim-bullseye AS builder
+
+RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+  build-essential \
+  git \
+  libpq-dev
+
+WORKDIR /app
+
+COPY Gemfile Gemfile.lock ./
+
+RUN bundle config set --local without 'development test' && \
+  bundle config set --local path '/usr/local/bundle' && \
+  bundle install --frozen
+
+# Multi-stage build: runtime stage
+FROM ruby:3.1.2-slim-bullseye
+
+RUN apt-get update -qq && apt-get install -y --no-install-recommends \
+  libpq5 && \
+  rm -rf /var/lib/apt/lists/*
+
+RUN useradd -m -u 1000 rails
+
+WORKDIR /app
+
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+COPY . .
+
+RUN mkdir -p tmp/pids tmp/cache tmp/sockets log && \
+  chown -R rails:rails /app
+
+USER rails
+
+ENV RAILS_ENV=production \
+  BUNDLE_PATH=/usr/local/bundle \
+  BUNDLE_DEPLOYMENT=1 \
+  BUNDLE_WITHOUT='development:test'
+
+EXPOSE 3000
+
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb", "-p", "3000"]
