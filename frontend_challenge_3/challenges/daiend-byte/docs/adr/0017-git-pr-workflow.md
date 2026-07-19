@@ -8,7 +8,7 @@ Accepted
 
 コード・コミット履歴・PRの内容そのものが提出物であり、レビューしやすさを意図的に設計する必要がある。
 
-一方で提出形式（README）は「Forkして `/challenges/<account>/` にファイルを作成し、本リポジトリへPull Requestを作成する」という単一PR形式であり、「レビュー可能な単位にPRを分割する」という目的と一見矛盾する。また、設計判断の記録は当初Linear（個人的な設計管理ツール）に閉じており、ENECHANGE側のレビュアーはアクセスできない。
+一方で提出形式（README）は「Forkして `frontend_challenge_3/challenges/<account>/` にファイルを作成し、本リポジトリへPull Requestを作成する」という単一PR形式であり、「レビュー可能な単位にPRを分割する」という目的と一見矛盾する。また、設計判断の記録は当初Linear（個人的な設計管理ツール）に閉じており、ENECHANGE側のレビュアーはアクセスできない。
 
 ## Decision
 

@@ -13,7 +13,7 @@
         "lint": "eslint",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
-        "prepare": "sh -c 'cd \"$(git rev-parse --show-toplevel)\" && git config core.hooksPath challenges/daiend-byte/.husky'"
+        "prepare": "sh -c 'cd \"$(git rev-parse --show-toplevel)\" && git config core.hooksPath frontend_challenge_3/challenges/daiend-byte/.husky'"
     },
     "dependencies": {
         "next": "16.2.10",
