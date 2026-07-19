@@ -1,0 +1,1 @@
+export const MIN_ELECTRICITY_BILL = 1000;
