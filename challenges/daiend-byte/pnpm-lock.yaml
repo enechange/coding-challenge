@@ -36,12 +36,24 @@ importers:
       eslint-config-next:
         specifier: 16.2.10
         version: 16.2.10(@typescript-eslint/parser@8.64.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
+      eslint-plugin-check-file:
+        specifier: ^3.3.2
+        version: 3.3.2(eslint@9.39.5(jiti@2.7.0))
+      eslint-plugin-import:
+        specifier: ^2.32.0
+        version: 2.32.0(@typescript-eslint/parser@8.64.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5(jiti@2.7.0))
+      eslint-plugin-jsx-a11y:
+        specifier: ^6.10.2
+        version: 6.10.2(eslint@9.39.5(jiti@2.7.0))
       tailwindcss:
         specifier: ^4
         version: 4.3.3
       typescript:
         specifier: ^5
         version: 5.9.3
+      typescript-eslint:
+        specifier: ^8.64.0
+        version: 8.64.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3)
 
 packages:
 
@@ -1038,6 +1050,12 @@ packages:
         optional: true
       eslint-import-resolver-webpack:
         optional: true
+
+  eslint-plugin-check-file@3.3.2:
+    resolution: {integrity: sha512-X0yVi4vbV7pSxu00oAJiE8wcwAvIoU2YQKrkvRRLq+88i/cZNooOgAgjk2gOS03lKMsFMVusJLlqHNuAwduX2g==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      eslint: '>=9.0.0'
 
   eslint-plugin-import@2.32.0:
     resolution: {integrity: sha512-whOE1HFo/qJDyX4SnXzP4N6zOWn79WhnCUY/iDR0mPfQZO8wcYE4JClzI2oZrhBnnMUCBCHZhO6VQyoBU95mZA==}
@@ -3003,6 +3021,12 @@ snapshots:
       eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.5(jiti@2.7.0))
     transitivePeerDependencies:
       - supports-color
+
+  eslint-plugin-check-file@3.3.2(eslint@9.39.5(jiti@2.7.0)):
+    dependencies:
+      eslint: 9.39.5(jiti@2.7.0)
+      is-glob: 4.0.3
+      micromatch: 4.0.8
 
   eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.64.0(eslint@9.39.5(jiti@2.7.0))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.5(jiti@2.7.0)):
     dependencies:
