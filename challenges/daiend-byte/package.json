@@ -1,0 +1,41 @@
+{
+    "name": "daiend-byte",
+    "version": "0.1.0",
+    "private": true,
+    "engines": {
+        "node": ">=24.18.0",
+        "pnpm": ">=11.5.0"
+    },
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "eslint",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "prepare": "sh -c 'cd \"$(git rev-parse --show-toplevel)\" && git config core.hooksPath challenges/daiend-byte/.husky'"
+    },
+    "dependencies": {
+        "next": "16.2.10",
+        "react": "19.2.4",
+        "react-dom": "19.2.4"
+    },
+    "devDependencies": {
+        "@tailwindcss/postcss": "^4",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "eslint": "^9",
+        "eslint-config-next": "16.2.10",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-check-file": "^3.3.2",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-jsx-a11y": "^6.10.2",
+        "husky": "^9.1.7",
+        "lint-staged": "^17.0.8",
+        "prettier": "^3.9.5",
+        "tailwindcss": "^4",
+        "typescript": "^5",
+        "typescript-eslint": "^8.64.0"
+    }
+}
