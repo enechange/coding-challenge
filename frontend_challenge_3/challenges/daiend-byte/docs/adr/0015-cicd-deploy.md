@@ -26,7 +26,7 @@ Accepted
 
 ### デプロイ構成
 
-- Vercel の GitHub 連携機能を使い、フォークリポジトリの Root Directory に `challenges/<name>` を指定してプロジェクトを作成する
+- Vercel の GitHub 連携機能を使い、フォークリポジトリの Root Directory に `frontend_challenge_3/challenges/<name>` を指定してプロジェクトを作成する
 - push/PRごとのプレビューデプロイ・PRへのコメント自動投稿はVercel標準機能に委譲し、GitHub Actions側でデプロイ処理を自前実装しない（[ADR-0007](./0007-toolchain.md)の「Root Directory指定のみ」という方針と一致）
 - Lighthouse CI 等でデプロイ済みURLに対する処理が必要な場合も、`vercel deploy`をCLIで自前実行するのではなく、Vercelのデプロイステータス（`deployment_status`イベント）や `wait-for-vercel-preview` 等のActionでデプロイ完了とURLを検知する軽量な待機ステップを追加する形で対応する（デプロイの実行主体はVercel標準連携のまま変えない）
 
@@ -37,7 +37,7 @@ Accepted
 
 ### README掲載
 
-- CI（GitHub Actions）のステータスバッジ、VercelのデプロイURL、Storybook（GitHub Pages）のURLを `challenges/<name>/README.md` の冒頭にまとめて掲載する
+- CI（GitHub Actions）のステータスバッジ、VercelのデプロイURL、Storybook（GitHub Pages）のURLを `frontend_challenge_3/challenges/<name>/README.md` の冒頭にまとめて掲載する
 - README はリポジトリで最初に開かれるファイルであり、動作確認用リンクとCI健全性を一目で示せる。[ADR-0017](./0017-git-pr-workflow.md)（Git/PR運用）のPR説明文とも連動させる
 
 ### Lighthouse CI の組み込み

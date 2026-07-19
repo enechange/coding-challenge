@@ -2,6 +2,6 @@
 # gitはcore.hooksPathをリポジトリルートからの相対パスとして解決し、
 # フックはリポジトリルートをcwdとして実行される。そのためこのフックは
 # プロジェクトディレクトリへcdしてからlint-stagedを実行する必要がある
-# （このNext.jsアプリはリポジトリルートではなくchallenges/daiend-byte/配下にある。ADR-0007参照）。
-cd "$(git rev-parse --show-toplevel)/challenges/daiend-byte" || exit 1
+# （このNext.jsアプリはリポジトリルートではなくfrontend_challenge_3/challenges/daiend-byte/配下にある。ADR-0007参照）。
+cd "$(git rev-parse --show-toplevel)/frontend_challenge_3/challenges/daiend-byte" || exit 1
 pnpm exec lint-staged
