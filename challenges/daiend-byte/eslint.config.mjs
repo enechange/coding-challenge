@@ -1,6 +1,7 @@
 import { defineConfig, globalIgnores } from 'eslint/config';
 import nextVitals from 'eslint-config-next/core-web-vitals';
 import nextTs from 'eslint-config-next/typescript';
+import prettierConfig from 'eslint-config-prettier';
 import checkFile from 'eslint-plugin-check-file';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -120,6 +121,8 @@ const eslintConfig = defineConfig([
             'check-file/folder-naming-convention': 'off',
         },
     },
+    // 必ず最後に置く: Prettierと競合するESLintの整形ルールを無効化する。
+    prettierConfig,
     // Override default ignores of eslint-config-next.
     globalIgnores([
         // Default ignores of eslint-config-next:
