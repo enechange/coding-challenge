@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# storybook（ADR-0017: CIでビルドしGitHub Pagesにデプロイ、コミットはしない）
+/storybook-static
+
+# テスト成果物（ADR-0017）
+/playwright-report
+/test-results
