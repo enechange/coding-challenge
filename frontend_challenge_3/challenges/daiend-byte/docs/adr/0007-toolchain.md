@@ -22,6 +22,7 @@ Accepted
 - `.node-version` と `package.json` の `engines` を併用
 - `.node-version`: エディタ・ローカル開発・Vercel のランタイムバージョンを揃える
 - `engines` + pnpm の `engine-strict`: `pnpm install` 時のバージョンミスマッチを検知する安全弁
+- `package.json` の `packageManager`（corepack）: Vercel は `pnpm-lock.yaml` のフォーマットバージョンからpnpmの実行バージョンを推測するため、`packageManager` が無いと `engines.pnpm` の下限（`>=11.5.0`）と噛み合わないバージョン（pnpm 10.x）が使われビルドが失敗した。`packageManager` でcorepackを有効化し、実行バージョンを一意に固定することで解消した
 
 ### TypeScript strict 設定
 
