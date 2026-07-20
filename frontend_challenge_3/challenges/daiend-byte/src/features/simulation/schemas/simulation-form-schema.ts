@@ -1,6 +1,9 @@
 import * as z from 'zod';
 
-import { MIN_ELECTRICITY_BILL } from '../data/constants';
+import {
+    MIN_ELECTRICITY_BILL,
+    SIMULATION_NOT_SUPPORTED_MESSAGE,
+} from '../data/constants';
 import { getPlan, getProvider } from '../data/selectors';
 
 export const simulationFormSchema = z
@@ -64,7 +67,7 @@ export const simulationFormSchema = z
         if (provider.plans === null) {
             ctx.addIssue({
                 code: 'custom',
-                message: 'シミュレーション対象外です。',
+                message: SIMULATION_NOT_SUPPORTED_MESSAGE,
                 path: ['providerId'],
             });
             return;

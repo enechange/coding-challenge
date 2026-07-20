@@ -56,12 +56,9 @@ bundlephobia の実測値（gzip後）:
 ### 画像/アセットの最適化方針
 
 - photographicな画像は使用しない（design.png にも存在しない）ため `next/image` の検討は不要
-- アイコンは4種類（ドロップダウン矢印/エラー注意マーク/submitボタンの右矢印/郵便番号エリア判定中のスピナー）を手書きのインラインSVGコンポーネントとして `components/ui/icons/` にまとめる
-- 新規アイコンライブラリ（react-icons, Font Awesome等）は導入しない
-    - react-icons はツリーシェイクにより1アイコンあたりの追加コストは小さいが、4種類程度なら手書きで十分見通せる規模であり、新規依存追加による選定理由の説明コストも発生しない
-    - 各アイコンは `currentColor` で実装し、[ADR-0008](./0008-styling-tokens.md) の色トークン（`accent`/`danger`/`text`）を Tailwind の `text-*` クラスからそのまま継承する
-    - スピナーは `animate-spin`（Tailwind組み込み）と組み合わせる
-- 再検討の目安: アイコン種類が6〜8を超える、または複雑な形状が必要になった時点でライブラリ導入を再検討する
+- アイコン戦略は[ADR-0009](./0009-ui-components.md)の決定に従い、`react-icons/fa` を使用する。ドロップダウン矢印（`FaChevronDown`）/エラー注意マーク（`FaExclamationTriangle`）/submitボタンの右矢印（`FaChevronRight`）/郵便番号エリア判定中のスピナー（`FaSpinner`）の4種類で、ツリーシェイクにより使用する4種類分のみバンドルされる
+    - 各アイコンは `currentColor` で実装され、[ADR-0008](./0008-styling-tokens.md) の色トークン（`accent`/`danger`/`text`）を Tailwind の `text-*` クラスからそのまま継承する
+    - スピナー（`FaSpinner`）は `animate-spin`（Tailwind組み込み）と組み合わせる。郵便番号入力欄の右端に`position: absolute`でoverlay表示し、判定完了後は何も表示しない（チェックマーク等の完了表示は行わない）。box自体の幅・高さはoverlayの影響を受けないためレイアウトシフトが発生しない。スクリーンリーダー向けには`role="status"`の視覚非表示テキストで判定中であることを別途通知する
 
 ### 計測手段
 

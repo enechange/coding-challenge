@@ -41,10 +41,10 @@ export function SimulationPage() {
         formState: { errors, isValid, touchedFields },
     } = form;
 
-    const areaId = useWatch({ control, name: 'areaId' });
-    const providerId = useWatch({ control, name: 'providerId' });
-    const planId = useWatch({ control, name: 'planId' });
-    const capacityValue = useWatch({ control, name: 'capacityValue' });
+    const [areaId, providerId, planId, capacityValue] = useWatch({
+        control,
+        name: ['areaId', 'providerId', 'planId', 'capacityValue'],
+    });
 
     const provider =
         areaId && providerId ? getProvider(areaId, providerId) : undefined;
@@ -57,10 +57,8 @@ export function SimulationPage() {
             (capacityValue !== null &&
                 plan.capacities.includes(capacityValue)));
 
-    // 結果ページ（/simulation/electricity/result）は本課題のスコープ外（ADR-0003）。
-    // 現時点ではvalidな入力値をそのまま出力する。
-    function onSubmit(values: SimulationFormOutput) {
-        console.log(values);
+    function onSubmit() {
+        // noop
     }
 
     return (

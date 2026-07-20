@@ -19,8 +19,17 @@ function resolveAreaId(zipCode: string): AreaId | null {
 }
 
 export async function POST(request: Request) {
-    const body: unknown = await request.json();
-    const { zipCode } = requestSchema.parse(body);
+    const body: unknown = await request.json().catch(() => null);
+    const parsed = requestSchema.safeParse(body);
 
-    return NextResponse.json({ areaId: resolveAreaId(zipCode) });
+    if (!parsed.success) {
+        return NextResponse.json(
+            { error: 'リクエスト形式が正しくありません。' },
+            { status: 400 },
+        );
+    }
+
+    return NextResponse.json({
+        areaId: resolveAreaId(parsed.data.zipCode),
+    });
 }

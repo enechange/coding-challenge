@@ -5,6 +5,7 @@ import { useController, useFormContext, useWatch } from 'react-hook-form';
 
 import { Select } from '@/components/ui/form';
 
+import { SIMULATION_NOT_SUPPORTED_MESSAGE } from '../data/constants';
 import { getProvider, getProviders } from '../data/selectors';
 import type { SimulationFormInput } from '../schemas/simulation-form-schema';
 
@@ -48,7 +49,7 @@ export function ProviderSelect() {
                 // 値が選択済みかどうかでエラー表示を判定する
                 value !== null
                     ? selectedProvider?.plans === null
-                        ? 'シミュレーション対象外です。'
+                        ? SIMULATION_NOT_SUPPORTED_MESSAGE
                         : errors.providerId?.message
                     : undefined
             }
