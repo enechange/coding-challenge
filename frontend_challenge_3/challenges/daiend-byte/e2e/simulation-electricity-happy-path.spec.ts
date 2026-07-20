@@ -23,7 +23,8 @@ test('郵便番号入力から最後まで正しく入力するとsubmitボタ�
 
     await page.getByLabel(/先月の電気代は？/).fill('5000');
     await page.getByLabel('メールアドレス').fill('test@example.com');
-    // mode: 'onBlur'（ADR-0005）のため、isValidの確定にはblurが必要
+    // mode: 'onChange'（ADR-0005）のためblur前でもisValidは確定するが、
+    // フォーカスが外れた後も活性状態が保たれることを合わせて確認する
     await page.getByLabel('メールアドレス').press('Tab');
 
     await expect(

@@ -14,7 +14,7 @@ Accepted
 
 - `Input`/`Select` に `aria-invalid={!!error}` を常時付与
 - `aria-describedby` は `helpText` と `error` のidをスペース区切りで連結し、存在するもののみ含める
-- `ErrorMessage` コンポーネントに `role="alert"` を付与し、DOM追加時にスクリーンリーダーへ自動通知する（`mode: 'onBlur'`、[ADR-0005](./0005-form-validation.md)と整合）
+- `ErrorMessage` コンポーネントに `role="alert"` を付与し、DOM追加時にスクリーンリーダーへ自動通知する（[ADR-0005](./0005-form-validation.md)の `touchedFields` によるエラー表示抑制と整合しており、入力途中で都度アラートが鳴ることはない）
 - `RequiredBadge`/`ErrorMessage` の背景色は `danger`（[ADR-0008](./0008-styling-tokens.md)、design.png実測色）を使用する。白文字とのコントラスト比は約3.40:1でWCAG AAの4.5:1（通常テキスト）を満たさないが、design.pngの見た目を優先する判断とする。両コンポーネントは短い定型文言のバッジ/バナーであり`role="alert"`による音声的な伝達を主経路とするため、視覚コントラスト未達の影響は限定的と評価している
 
 ### 2. 必須項目の伝達

@@ -71,6 +71,9 @@ src/
         providers.ts
         plans.ts
         capacities.ts
+      hooks/
+        use-zip-code-area-check.ts      # 郵便番号分割入力・エリア判定の状態管理
+        use-cascade-resolution.ts       # カスケードの解決状況判定
       schemas/
         simulation-form-schema.ts       # ADR-0005: zodスキーマ
   hooks/
@@ -80,7 +83,7 @@ src/
   utils/
 ```
 
-feature 内の `data/` `schemas/` は本家実例（`api/` `components/` のみ）には無い拡張。[ADR-0004](./0004-domain-model.md)（マスタデータ・出し分けロジック）・[ADR-0005](./0005-form-validation.md)（zodスキーマ）の置き場所として本課題のドメイン特性上必要なため追加した。
+feature 内の `data/` `schemas/` `hooks/` は本家実例（`api/` `components/` のみ）には無い拡張。`data/`・`schemas/` は [ADR-0004](./0004-domain-model.md)（マスタデータ・出し分けロジック）・[ADR-0005](./0005-form-validation.md)（zodスキーマ）の置き場所として、`hooks/` はコンポーネントから状態管理・副作用ロジックを分離するために、本課題のドメイン特性上必要なため追加した。
 
 feature 名は `simulation` を採用（README の「シミュレーション」に対応し、電気・ガス等のエネルギー種別を横断する汎用的な命名）。エネルギー種別はドメインモデル上のパラメータとして扱い、feature を分割する粒度ではない。
 

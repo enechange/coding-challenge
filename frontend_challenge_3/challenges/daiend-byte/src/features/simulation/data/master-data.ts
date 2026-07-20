@@ -1,3 +1,4 @@
+import { MAX_KVA, MIN_KVA } from './constants';
 import type { Area, AreaId } from './types';
 
 export function generateKvaRange(from: number, to: number): string[] {
@@ -36,7 +37,7 @@ export const masterData: Record<AreaId, Area> = {
                         name: '従量電灯C',
                         description:
                             '高使用量世帯・小規模事業者向けのプラン。6〜49kVAで契約し、基本料金は契約kVAごとに設定されます。季節や時間帯による単価変動はなく通年で安定した料金設計です。',
-                        capacities: generateKvaRange(6, 49),
+                        capacities: generateKvaRange(MIN_KVA, MAX_KVA),
                     },
                 ],
             },
@@ -67,7 +68,7 @@ export const masterData: Record<AreaId, Area> = {
                         name: '従量電灯B',
                         description:
                             '高使用量世帯・業務利用向けのプラン。6〜49kVAで契約し、基本料金＋従量料金で構成されます。昼間の使用が多い場合に有利になるケースがあります。',
-                        capacities: generateKvaRange(6, 49),
+                        capacities: generateKvaRange(MIN_KVA, MAX_KVA),
                     },
                 ],
             },
