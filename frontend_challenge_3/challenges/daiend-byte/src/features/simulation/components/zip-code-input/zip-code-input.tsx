@@ -1,11 +1,23 @@
 'use client';
 
-import { useId } from 'react';
+import { useId, useRef } from 'react';
 
 import {
     FieldWrapper,
     type FieldWrapperPassThroughProps,
 } from '@/components/ui/form';
+
+type ZipCodeInputProps = FieldWrapperPassThroughProps & {
+    prefixValue: string;
+    suffixValue: string;
+    onPrefixChange: (value: string) => void;
+    onSuffixChange: (value: string) => void;
+    onBlur?: () => void;
+};
+
+function onlyDigits(value: string, maxLength: number): string {
+    return value.replace(/\D/g, '').slice(0, maxLength);
+}
 
 // design.pngでは郵便番号のみ「130」「-」「0012」の3セルが1つの枠に収まる
 // 構造で、他のInput/Select（64px）とは異なりボーダー込み48pxのコンパクトな
@@ -16,12 +28,33 @@ export function ZipCodeInput({
     required,
     error,
     helpText,
-}: FieldWrapperPassThroughProps) {
+    prefixValue,
+    suffixValue,
+    onPrefixChange,
+    onSuffixChange,
+    onBlur,
+}: ZipCodeInputProps) {
     const id = useId();
     const helpTextId = helpText ? `${id}-help-text` : undefined;
     const errorId = error ? `${id}-error` : undefined;
     const describedBy =
         [helpTextId, errorId].filter(Boolean).join(' ') || undefined;
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // prefix⇔suffix間のフォーカス移動を「フィールド全体からの離脱」と誤検知
+    // しないよう、blurは外側のdivでまとめて受け、フォーカスが本当にコンテナ外
+    // へ出た場合のみonBlurを呼ぶ。relatedTargetはモバイルでnullになることが
+    // あるため使わず、次フレームでのactiveElementで判定する。
+    function handleContainerBlur() {
+        requestAnimationFrame(() => {
+            if (
+                containerRef.current &&
+                !containerRef.current.contains(document.activeElement)
+            ) {
+                onBlur?.();
+            }
+        });
+    }
 
     return (
         <FieldWrapper
@@ -33,13 +66,25 @@ export function ZipCodeInput({
             helpText={helpText}
             helpTextId={helpTextId}
         >
-            <div className="flex overflow-hidden rounded-sm border-4 border-border bg-surface">
+            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions --
+                このdiv自体は対話要素にならない。ネイティブでフォーカス可能な子要素
+                （下の2つのinput）だけが操作対象で、blurはその間のフォーカス移動を
+                束ねて観測しているだけなので、キーボード操作の代替は不要。 */}
+            <div
+                ref={containerRef}
+                onBlur={handleContainerBlur}
+                className="flex overflow-hidden rounded-sm border-4 border-border bg-surface"
+            >
                 <input
                     id={id}
                     required={required}
                     inputMode="numeric"
                     maxLength={3}
                     placeholder="130"
+                    value={prefixValue}
+                    onChange={(event) => {
+                        onPrefixChange(onlyDigits(event.target.value, 3));
+                    }}
                     aria-invalid={!!error}
                     aria-describedby={describedBy}
                     className="w-0 flex-1 bg-transparent px-3 py-2 text-center text-base text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/50"
@@ -53,6 +98,10 @@ export function ZipCodeInput({
                     inputMode="numeric"
                     maxLength={4}
                     placeholder="0012"
+                    value={suffixValue}
+                    onChange={(event) => {
+                        onSuffixChange(onlyDigits(event.target.value, 4));
+                    }}
                     aria-label={`${label}（下4桁）`}
                     aria-invalid={!!error}
                     aria-describedby={describedBy}
