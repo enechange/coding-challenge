@@ -15,7 +15,13 @@ on:
 
 jobs:
   lighthouse:
-    if: github.event.deployment_status.state == 'success'
+    # deploy-pages（Storybookのデプロイ、.github/workflows/storybook.yml）も
+    # 独自のdeployment_status（environment: github-pages）を発火させるため、
+    # Vercelのデプロイ（Production/Preview）に限定する。絞らないとStorybookの
+    # URLに/simulation/electricityを付与した存在しないパスへアクセスして404になる
+    if: |
+      github.event.deployment_status.state == 'success' &&
+      contains(fromJSON('["Production", "Preview"]'), github.event.deployment_status.environment)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
