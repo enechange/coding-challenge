@@ -13,6 +13,7 @@ import {
 type InputProps = FieldWrapperPassThroughProps &
     Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> & {
         registration?: Partial<UseFormRegisterReturn>;
+        unit?: string;
     };
 
 export function Input({
@@ -22,6 +23,7 @@ export function Input({
     helpText,
     className,
     registration,
+    unit,
     ...props
 }: InputProps) {
     const id = useId();
@@ -29,6 +31,22 @@ export function Input({
     const errorId = error ? `${id}-error` : undefined;
     const describedBy =
         [helpTextId, errorId].filter(Boolean).join(' ') || undefined;
+
+    const inputElement = (
+        <input
+            id={id}
+            required={required}
+            aria-invalid={!!error}
+            aria-describedby={describedBy}
+            className={cn(
+                'w-full border-4 border-border bg-surface px-3 py-4 text-base text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/50',
+                helpText ? 'rounded-t-sm' : 'rounded-sm',
+                className,
+            )}
+            {...registration}
+            {...props}
+        />
+    );
 
     return (
         <FieldWrapper
@@ -40,19 +58,14 @@ export function Input({
             helpText={helpText}
             helpTextId={helpTextId}
         >
-            <input
-                id={id}
-                required={required}
-                aria-invalid={!!error}
-                aria-describedby={describedBy}
-                className={cn(
-                    'w-full border-4 border-border bg-surface px-3 py-4 text-base text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/50',
-                    helpText ? 'rounded-t-sm' : 'rounded-sm',
-                    className,
-                )}
-                {...registration}
-                {...props}
-            />
+            {unit ? (
+                <div className="flex items-center gap-2">
+                    {inputElement}
+                    <span className="text-base text-text">{unit}</span>
+                </div>
+            ) : (
+                inputElement
+            )}
         </FieldWrapper>
     );
 }

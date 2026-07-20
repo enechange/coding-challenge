@@ -19,7 +19,8 @@ export const masterData: Record<AreaId, Area> = {
                     {
                         id: 'tepco-juryou-b',
                         name: '従量電灯B',
-                        description: null,
+                        description:
+                            '高使用量世帯・業務利用向けのプラン。10〜60Aで契約し、基本料金＋従量料金で構成されます。昼間の使用が多い場合に有利になるケースがあります。',
                         capacities: [
                             '10A',
                             '15A',
@@ -33,7 +34,8 @@ export const masterData: Record<AreaId, Area> = {
                     {
                         id: 'tepco-juryou-c',
                         name: '従量電灯C',
-                        description: null,
+                        description:
+                            '高使用量世帯・小規模事業者向けのプラン。6〜49kVAで契約し、基本料金は契約kVAごとに設定されます。季節や時間帯による単価変動はなく通年で安定した料金設計です。',
                         capacities: generateKvaRange(6, 49),
                     },
                 ],
@@ -56,13 +58,15 @@ export const masterData: Record<AreaId, Area> = {
                     {
                         id: 'kepco-juryou-a',
                         name: '従量電灯A',
-                        description: null,
+                        description:
+                            '契約容量の設定が不要な標準プラン。使用量に応じて段階的に単価が変わります。ワンルームや電力使用が少なめの世帯に適しています。',
                         capacities: null,
                     },
                     {
                         id: 'kepco-juryou-b',
                         name: '従量電灯B',
-                        description: null,
+                        description:
+                            '高使用量世帯・業務利用向けのプラン。6〜49kVAで契約し、基本料金＋従量料金で構成されます。昼間の使用が多い場合に有利になるケースがあります。',
                         capacities: generateKvaRange(6, 49),
                     },
                 ],

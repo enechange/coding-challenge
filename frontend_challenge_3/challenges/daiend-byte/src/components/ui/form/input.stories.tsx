@@ -29,3 +29,12 @@ export const WithError: Story = {
 export const Disabled: Story = {
     args: { disabled: true },
 };
+
+export const WithUnit: Story = {
+    args: {
+        label: '先月の電気代は？',
+        placeholder: '5000',
+        required: true,
+        unit: '円',
+    },
+};
