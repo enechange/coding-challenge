@@ -7,8 +7,6 @@ import {
     type FieldWrapperPassThroughProps,
 } from '@/components/ui/form';
 
-type ZipCodeInputProps = FieldWrapperPassThroughProps;
-
 // design.pngでは郵便番号のみ「130」「-」「0012」の3セルが1つの枠に収まる
 // 構造で、他のInput/Select（64px）とは異なりボーダー込み48pxのコンパクトな
 // サイズになっている（実測）。枠線は外側のflex containerが1つだけ持ち、
@@ -18,7 +16,7 @@ export function ZipCodeInput({
     required,
     error,
     helpText,
-}: ZipCodeInputProps) {
+}: FieldWrapperPassThroughProps) {
     const id = useId();
     const helpTextId = helpText ? `${id}-help-text` : undefined;
     const errorId = error ? `${id}-error` : undefined;
@@ -38,6 +36,7 @@ export function ZipCodeInput({
             <div className="flex overflow-hidden rounded-sm border-4 border-border bg-surface">
                 <input
                     id={id}
+                    required={required}
                     inputMode="numeric"
                     maxLength={3}
                     placeholder="130"
@@ -49,9 +48,12 @@ export function ZipCodeInput({
                     -
                 </div>
                 <input
+                    id={`${id}-suffix`}
+                    required={required}
                     inputMode="numeric"
                     maxLength={4}
                     placeholder="0012"
+                    aria-label={`${label}（下4桁）`}
                     aria-invalid={!!error}
                     aria-describedby={describedBy}
                     className="w-0 flex-1 bg-transparent px-3 py-2 text-center text-base text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/50"

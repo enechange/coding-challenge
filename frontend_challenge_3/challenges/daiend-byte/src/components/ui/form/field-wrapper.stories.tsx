@@ -10,7 +10,7 @@ const meta: Meta<typeof FieldWrapper> = {
         children: (
             <input
                 id="field-wrapper-story-input"
-                className="w-full rounded-sm border-3 border-border bg-surface px-3 py-2 text-sm text-text"
+                className="w-full rounded-sm border-4 border-border bg-surface px-3 py-4 text-base text-text"
                 placeholder="プレースホルダー"
             />
         ),
@@ -39,7 +39,7 @@ export const WithHelpText: Story = {
         children: (
             <input
                 id="field-wrapper-story-input"
-                className="w-full rounded-t-sm border-3 border-border bg-surface px-3 py-2 text-sm text-text"
+                className="w-full rounded-t-sm border-4 border-border bg-surface px-3 py-4 text-base text-text"
                 placeholder="プレースホルダー"
             />
         ),

@@ -9,7 +9,7 @@ const meta: Meta<typeof HelpText> = {
     },
     render: (args) => (
         <div>
-            <div className="w-full rounded-t-sm border-3 border-border bg-surface px-3 py-2 text-sm text-text">
+            <div className="w-full rounded-t-sm border-4 border-border bg-surface px-3 py-3.5 text-lg text-text">
                 入力欄（例）
             </div>
             <HelpText {...args} />
