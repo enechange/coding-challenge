@@ -3,12 +3,13 @@ import * as z from 'zod';
 import {
     MIN_ELECTRICITY_BILL,
     SIMULATION_NOT_SUPPORTED_MESSAGE,
+    ZIP_CODE_REGEX,
 } from '../data/constants';
 import { getPlan, getProvider } from '../data/selectors';
 
 export const simulationFormSchema = z
     .object({
-        zipCode: z.string().regex(/^\d{7}$/, {
+        zipCode: z.string().regex(ZIP_CODE_REGEX, {
             message: '郵便番号を正しく入力してください。',
         }),
         // zip-code-field.tsx の onBlur で checkServiceArea の結果をセットする（ADR-0006）
@@ -40,7 +41,7 @@ export const simulationFormSchema = z
     .superRefine((data, ctx) => {
         // zipCode自体の形式エラーはフィールドレベルのregexが担当するため、
         // ここでは形式が正しい場合のみカスケード整合性を検証する
-        if (!/^\d{7}$/.test(data.zipCode)) {
+        if (!ZIP_CODE_REGEX.test(data.zipCode)) {
             return;
         }
 

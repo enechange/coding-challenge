@@ -8,6 +8,11 @@ import {
     type FieldWrapperPassThroughProps,
 } from '@/components/ui/form';
 
+import {
+    ZIP_CODE_PREFIX_LENGTH,
+    ZIP_CODE_SUFFIX_LENGTH,
+} from '../../data/constants';
+
 type ZipCodeInputProps = FieldWrapperPassThroughProps & {
     prefixValue: string;
     suffixValue: string;
@@ -43,6 +48,7 @@ export function ZipCodeInput({
     const describedBy =
         [helpTextId, errorId].filter(Boolean).join(' ') || undefined;
     const containerRef = useRef<HTMLDivElement>(null);
+    const suffixInputRef = useRef<HTMLInputElement>(null);
 
     // prefix⇔suffix間のフォーカス移動を「フィールド全体からの離脱」と誤検知
     // しないよう、blurは外側のdivでまとめて受け、フォーカスが本当にコンテナ外
@@ -83,11 +89,33 @@ export function ZipCodeInput({
                         id={id}
                         required={required}
                         inputMode="numeric"
-                        maxLength={3}
+                        maxLength={ZIP_CODE_PREFIX_LENGTH}
                         placeholder="130"
                         value={prefixValue}
                         onChange={(event) => {
-                            onPrefixChange(onlyDigits(event.target.value, 3));
+                            const digits = onlyDigits(
+                                event.target.value,
+                                ZIP_CODE_PREFIX_LENGTH,
+                            );
+                            const wasComplete =
+                                prefixValue.length === ZIP_CODE_PREFIX_LENGTH;
+                            // 末尾に追記して3桁目が埋まった場合のみフォーカス移動の対象と
+                            // する。先頭・中間の桁を削除して打ち直す訂正入力では、削除と
+                            // 入力が別々のonChangeに分かれてlengthだけでは判定できないため、
+                            // カーソルが値の末尾にあるかどうかも合わせて見る。ただし末尾の
+                            // 1桁だけを消して打ち直すケースは、新規入力時と同一のイベント列
+                            // になり判別不能なため、この場合はフォーカスが移動する
+                            const cursorAtEnd =
+                                event.target.selectionStart ===
+                                event.target.value.length;
+                            onPrefixChange(digits);
+                            if (
+                                !wasComplete &&
+                                digits.length === ZIP_CODE_PREFIX_LENGTH &&
+                                cursorAtEnd
+                            ) {
+                                suffixInputRef.current?.focus();
+                            }
                         }}
                         aria-invalid={!!error}
                         aria-describedby={describedBy}
@@ -97,14 +125,20 @@ export function ZipCodeInput({
                         -
                     </div>
                     <input
+                        ref={suffixInputRef}
                         id={`${id}-suffix`}
                         required={required}
                         inputMode="numeric"
-                        maxLength={4}
+                        maxLength={ZIP_CODE_SUFFIX_LENGTH}
                         placeholder="0012"
                         value={suffixValue}
                         onChange={(event) => {
-                            onSuffixChange(onlyDigits(event.target.value, 4));
+                            onSuffixChange(
+                                onlyDigits(
+                                    event.target.value,
+                                    ZIP_CODE_SUFFIX_LENGTH,
+                                ),
+                            );
                         }}
                         aria-label={`${label}（下4桁）`}
                         aria-invalid={!!error}
