@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useController, useFormContext, useWatch } from 'react-hook-form';
 
 import { Select } from '@/components/ui/form';
+import { Reveal } from '@/components/ui/reveal';
 
 import { getPlan, getProvider } from '../data/selectors';
 import type { SimulationFormInput } from '../schemas/simulation-form-schema';
@@ -42,21 +43,23 @@ export function PlanSelect() {
     const selectedPlan = value ? getPlan(provider, value) : undefined;
 
     return (
-        <Select
-            label="プラン"
-            required
-            name={name}
-            value={value ?? ''}
-            onChange={(event) => {
-                onChange(event.target.value || null);
-            }}
-            onBlur={onBlur}
-            error={value !== null ? errors.planId?.message : undefined}
-            helpText={selectedPlan?.description ?? undefined}
-            options={provider.plans.map((plan) => ({
-                label: plan.name,
-                value: plan.id,
-            }))}
-        />
+        <Reveal>
+            <Select
+                label="プラン"
+                required
+                name={name}
+                value={value ?? ''}
+                onChange={(event) => {
+                    onChange(event.target.value || null);
+                }}
+                onBlur={onBlur}
+                error={value !== null ? errors.planId?.message : undefined}
+                helpText={selectedPlan?.description ?? undefined}
+                options={provider.plans.map((plan) => ({
+                    label: plan.name,
+                    value: plan.id,
+                }))}
+            />
+        </Reveal>
     );
 }

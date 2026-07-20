@@ -3,6 +3,7 @@
 import { useController, useFormContext, useWatch } from 'react-hook-form';
 
 import { Select } from '@/components/ui/form';
+import { Reveal } from '@/components/ui/reveal';
 
 import { getPlan, getProvider } from '../data/selectors';
 import type { SimulationFormInput } from '../schemas/simulation-form-schema';
@@ -28,20 +29,24 @@ export function CapacitySelect() {
     }
 
     return (
-        <Select
-            label="契約容量"
-            required
-            name={name}
-            value={value ?? ''}
-            onChange={(event) => {
-                onChange(event.target.value || null);
-            }}
-            onBlur={onBlur}
-            error={value !== null ? errors.capacityValue?.message : undefined}
-            options={plan.capacities.map((capacity) => ({
-                label: capacity,
-                value: capacity,
-            }))}
-        />
+        <Reveal>
+            <Select
+                label="契約容量"
+                required
+                name={name}
+                value={value ?? ''}
+                onChange={(event) => {
+                    onChange(event.target.value || null);
+                }}
+                onBlur={onBlur}
+                error={
+                    value !== null ? errors.capacityValue?.message : undefined
+                }
+                options={plan.capacities.map((capacity) => ({
+                    label: capacity,
+                    value: capacity,
+                }))}
+            />
+        </Reveal>
     );
 }
