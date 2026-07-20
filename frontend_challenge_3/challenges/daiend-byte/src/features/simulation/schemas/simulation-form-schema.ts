@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import * as z from 'zod';
 
 import { MIN_ELECTRICITY_BILL } from '../data/constants';
 import { getPlan, getProvider } from '../data/selectors';
