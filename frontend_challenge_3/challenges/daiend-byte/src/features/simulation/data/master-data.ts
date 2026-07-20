@@ -1,6 +1,6 @@
 import type { Area, AreaId } from './types';
 
-function generateKvaRange(from: number, to: number): string[] {
+export function generateKvaRange(from: number, to: number): string[] {
     return Array.from(
         { length: to - from + 1 },
         (_, i) => `${(from + i).toString()}kVA`,
