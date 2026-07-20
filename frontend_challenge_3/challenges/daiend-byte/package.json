@@ -11,6 +11,10 @@
         "build": "next build",
         "start": "next start",
         "lint": "eslint",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "coverage": "vitest run --coverage",
+        "e2e": "playwright test",
         "format": "prettier --write .",
         "format:check": "prettier --check .",
         "prepare": "sh -c 'cd \"$(git rev-parse --show-toplevel)\" && git config core.hooksPath frontend_challenge_3/challenges/daiend-byte/.husky'",
@@ -29,12 +33,18 @@
         "zod": "^4.4.3"
     },
     "devDependencies": {
+        "@playwright/test": "^1.61.1",
         "@storybook/addon-a11y": "^10.5.2",
         "@storybook/nextjs": "10.5.2",
         "@tailwindcss/postcss": "^4",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
+        "@testing-library/user-event": "^14.6.1",
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
+        "@vitejs/plugin-react": "^6.0.3",
+        "@vitest/coverage-v8": "^4.1.10",
         "eslint": "^9",
         "eslint-config-next": "16.2.10",
         "eslint-config-prettier": "^10.1.8",
@@ -42,11 +52,14 @@
         "eslint-plugin-import": "^2.32.0",
         "eslint-plugin-jsx-a11y": "^6.10.2",
         "husky": "^9.1.7",
+        "jsdom": "^29.1.1",
         "lint-staged": "^17.0.8",
+        "msw": "^2.15.0",
         "prettier": "^3.9.5",
         "storybook": "^10.5.2",
         "tailwindcss": "^4",
         "typescript": "^5",
-        "typescript-eslint": "^8.64.0"
+        "typescript-eslint": "^8.64.0",
+        "vitest": "^4.1.10"
     }
 }
