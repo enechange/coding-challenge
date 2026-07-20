@@ -1,0 +1,28 @@
+@import 'tailwindcss';
+
+/*
+ * デザイントークン（ADR-0008）
+ * 色は design.png からの実測値。primary の hover/active は
+ * HSL明度調整（hover: -10pt、active: -15pt）で機械的に導出。
+ */
+@theme {
+    --color-primary: #3d5b97;
+    --color-primary-hover: hsl(220 42.45% 31.57%);
+    --color-primary-active: hsl(220 42.45% 26.57%);
+    --color-accent: #ed9b38;
+    --color-danger: #e66059;
+    --color-border: #dddddd;
+    --color-disabled: #dddddd;
+    --color-background: #f8f8f8;
+    --color-surface: #ffffff;
+    --color-text: #222222;
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+    --text-2xs: 0.625rem; /* 10px, RequiredBadge用（design.png実測） */
+    --tracking-widest: 0.4em; /* RequiredBadge用（design.png実測） */
+}
+
+body {
+    background: var(--color-background);
+    color: var(--color-text);
+}

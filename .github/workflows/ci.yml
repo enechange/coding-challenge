@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'frontend_challenge_3/challenges/daiend-byte/**'
+      - '.github/workflows/ci.yml'
+  pull_request:
+    paths:
+      - 'frontend_challenge_3/challenges/daiend-byte/**'
+      - '.github/workflows/ci.yml'
+
+defaults:
+  run:
+    working-directory: frontend_challenge_3/challenges/daiend-byte
+
+env:
+  APP_DIR: frontend_challenge_3/challenges/daiend-byte
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-app
+      - run: pnpm lint
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-app
+      - run: pnpm exec tsc --noEmit
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-app
+      - run: pnpm test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-app
+      - run: pnpm build
+
+  e2e:
+    # ブラウザインストールのセットアップが重いため、他のジョブと分離する（ADR-0015）
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-app
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles(format('{0}/pnpm-lock.yaml', env.APP_DIR)) }}
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install --with-deps chromium webkit
+      - name: Install Playwright system dependencies
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: pnpm exec playwright install-deps chromium webkit
+      - run: pnpm e2e

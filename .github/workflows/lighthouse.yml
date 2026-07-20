@@ -1,0 +1,47 @@
+name: Lighthouse CI
+
+# Vercelのデプロイステータス（deployment_statusイベント）を検知してから実行する。
+# vercel deployをActions側で自前実行せず、Vercel標準連携のデプロイ完了を
+# 待機するだけの軽量な構成にする（ADR-0015）。
+#
+# deployment_statusのstateが'success'になった時点でVercel側のデプロイは
+# 完了済みのため、URLへのHTTP到達性を別途ポーリングする必要はない。デプロイURL
+# はVercel Deployment Protectionで保護されており、素のHTTP GETには401が
+# 返り続けるため、ポーリング型のアクション（wait-for-vercel-preview等）は
+# 自身の疎通確認自体が失敗しタイムアウトしてしまう。そのためURLはイベント
+# ペイロード（environment_url）から直接取得する。
+on:
+  deployment_status:
+
+jobs:
+  lighthouse:
+    # deploy-pages（Storybookのデプロイ、.github/workflows/storybook.yml）も
+    # 独自のdeployment_status（environment: github-pages）を発火させるため、
+    # Vercelのデプロイ（Production/Preview）に限定する。絞らないとStorybookの
+    # URLに/simulation/electricityを付与した存在しないパスへアクセスして404になる
+    if: |
+      github.event.deployment_status.state == 'success' &&
+      contains(fromJSON('["Production", "Preview"]'), github.event.deployment_status.environment)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate Lighthouse CI config with bypass header
+        # treosh/lighthouse-ci-actionにはヘッダーを渡す入力が無いため、
+        # lighthouserc.jsonのcollect.settings.extraHeadersに実行時にマージする。
+        # クエリパラメータ方式はtemporaryPublicStorageでレポートが公開URLに
+        # アップロードされる際に監査対象URL経由でsecretが漏洩するため避ける。
+        run: |
+          jq --arg bypass "$VERCEL_BYPASS_SECRET" \
+            '.ci.collect.settings.extraHeaders = {"x-vercel-protection-bypass": $bypass}' \
+            frontend_challenge_3/challenges/daiend-byte/lighthouserc.json \
+            > /tmp/lighthouserc.json
+        env:
+          VERCEL_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            ${{ github.event.deployment_status.environment_url }}/simulation/electricity
+          configPath: /tmp/lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true

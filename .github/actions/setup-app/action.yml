@@ -1,0 +1,18 @@
+name: Setup app
+description: pnpm/Node.jsをセットアップし、frontend_challenge_3/challenges/daiend-byteの依存関係をインストールする
+
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 11
+    - uses: actions/setup-node@v4
+      with:
+        node-version-file: frontend_challenge_3/challenges/daiend-byte/.node-version
+        cache: pnpm
+        cache-dependency-path: frontend_challenge_3/challenges/daiend-byte/pnpm-lock.yaml
+    - name: Install dependencies
+      shell: bash
+      working-directory: frontend_challenge_3/challenges/daiend-byte
+      run: pnpm install --frozen-lockfile
