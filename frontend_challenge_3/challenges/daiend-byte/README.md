@@ -2,8 +2,8 @@
 
 [![CI](https://github.com/daiend-byte/coding-challenge/actions/workflows/ci.yml/badge.svg)](https://github.com/daiend-byte/coding-challenge/actions/workflows/ci.yml)
 
-- **デモ（Vercel）**: TODO
-- **Storybook（GitHub Pages）**: TODO
+- **デモ（Vercel）**: https://coding-challenge-rose-six.vercel.app/simulation/electricity
+- **Storybook（GitHub Pages）**: https://daiend-byte.github.io/coding-challenge/
 
 ## 1. 概要
 
@@ -11,10 +11,10 @@ ENECHANGEフロントエンド課題（[frontend_challenge_3](../../README.md)�
 
 ## 2. デプロイURL
 
-| 項目           | URL  |
-| -------------- | ---- |
-| 本番（Vercel） | TODO |
-| Storybook      | TODO |
+| 項目           | URL                                                                                                                                        |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| 本番（Vercel） | [https://coding-challenge-rose-six.vercel.app/simulation/electricity](https://coding-challenge-rose-six.vercel.app/simulation/electricity) |
+| Storybook      | [https://daiend-byte.github.io/coding-challenge/](https://daiend-byte.github.io/coding-challenge/)                                         |
 
 ## 3. 技術選定
 
