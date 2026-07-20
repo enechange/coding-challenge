@@ -2,8 +2,8 @@
 
 [![CI](https://github.com/daiend-byte/coding-challenge/actions/workflows/ci.yml/badge.svg)](https://github.com/daiend-byte/coding-challenge/actions/workflows/ci.yml)
 
-- **デモ（Vercel）**: https://coding-challenge-rose-six.vercel.app/simulation/electricity
-- **Storybook（GitHub Pages）**: https://daiend-byte.github.io/coding-challenge/
+- **デモ（Vercel）**: [https://coding-challenge-rose-six.vercel.app/simulation/electricity](https://coding-challenge-rose-six.vercel.app/simulation/electricity)
+- **Storybook（GitHub Pages）**: [https://daiend-byte.github.io/coding-challenge/](https://daiend-byte.github.io/coding-challenge/)
 
 ## 1. 概要
 
@@ -20,7 +20,7 @@ ENECHANGEフロントエンド課題（[frontend_challenge_3](../../README.md)�
 
 フレームワークにはReactを採用しました。要件面（段階的な出し分けフォーム、リアルタイムバリデーション、型安全）はReact/Vueどちらでも実現可能なため、決め手にはせず、採用市場での人材確保のしやすさ・スケール時の保守性・エコシステムの持続性といった長期的な組織ドライバーを判断基準としています。詳細は[ADR-0001](./docs/adr/0001-react-selection.md)を参照してください。
 
-レンダリング戦略にはNext.js（App Router）を採用しました。提出物（フォーム1画面）だけでなく、事業ドメインの成長軌道（今後のSEOランディング化、ガス等のエネルギー種別拡張）を踏まえた妥当性を基準にしています。詳細は[ADR-0002](./docs/adr/0002-nextjs-app-router.md)を参照してください。
+レンダリング戦略にはNext.js（App Router）を採用しました。今後のアプリケーションの拡張を踏まえた妥当性を基準にしています。詳細は[ADR-0002](./docs/adr/0002-nextjs-app-router.md)を参照してください。
 
 ## 4. 起動手順
 
@@ -31,7 +31,7 @@ pnpm install
 pnpm dev
 ```
 
-[http://localhost:3000](http://localhost:3000) を開いてください（`/` は `/simulation/electricity` へリダイレクトします）。
+[http://localhost:3000](http://localhost:3000) を開いてください。
 
 Storybookを起動する場合:
 
@@ -66,8 +66,7 @@ pnpm storybook
 
 ## 6. スコープ外・既知の制約
 
-- IE11は対応対象外です。依頼元（株式会社A）確認済みの前提です（[ADR-0016](./docs/adr/0016-browser-support.md)）
-- 結果ページ（`/simulation/electricity/result`）・ガス料金シミュレーション（`/simulation/gas`）は本課題のスコープ外です（[ADR-0003](./docs/adr/0003-directory-structure.md)）
+- IE11は対応対象外です（[ADR-0016](./docs/adr/0016-browser-support.md)）
 - サービスエリア判定は郵便番号の上1桁による仮実装です。サーバーサイドの本実装が完了次第、Route Handler（`src/app/api/check-service-area/`）を差し替える想定です（[ADR-0006](./docs/adr/0006-api-abstraction.md)）
 
 ## 7. テスト実行方法
