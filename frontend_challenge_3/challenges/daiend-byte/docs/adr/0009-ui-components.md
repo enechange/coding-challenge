@@ -71,9 +71,9 @@ features/simulation/components/
 
 ### アイコン
 
-- `react-icons` を採用し、`react-icons/hi2`（Heroicons v2）に統一する
+- `react-icons` を採用し、`react-icons/fa`（Font Awesome）に統一する
 - 自前でSVGパスを書き起こすと座標の書き写しミスで形状が崩れるリスクがあるため、実績のあるアイコンセットをパッケージ経由で使う
-- `ErrorMessage` の警告アイコン（`HiMiniExclamationTriangle`）、`Select` の矢印（`HiMiniChevronDown`）、`Button` の矢印（`HiMiniChevronRight`）をすべて同一アイコンセット（20pxのmini/solidバリアント）で揃え、視覚的な一貫性を持たせる
+- `ErrorMessage` の警告アイコン（`FaExclamationTriangle`）、`Select` の矢印（`FaChevronDown`）、`Button` の矢印（`FaChevronRight`）をすべて同一アイコンセットで揃え、視覚的な一貫性を持たせる
 
 ### Storybook 導入
 
