@@ -34,7 +34,9 @@ Accepted
 
 - `components/ui/form/` に横断的な presentational コンポーネント（`Input`, `Select`, `FieldWrapper`, `RequiredBadge`, `ErrorMessage`, `HelpText`）を配置。RHFの型（`UseFormRegisterReturn`等）は知るが `useFormContext` 等のフックには依存しない
 - `components/ui/button/` に汎用 `Button`（用途限定の `SubmitButton` ではなく、`type="submit"` を呼び出し側が指定する設計）
+- `components/ui/section-card/` に `SectionCard`（白背景・レイアウトを担う）と `SectionHeading`（アクセントボーダー付き見出し）を分離して配置する。design.png ではアクセントボーダーが見出し行の高さ分のみ描画され、入力欄やエラーメッセージを含むセクション全体には及ばないため、ボーダーの責務を `SectionCard` から切り出した
 - `features/simulation/components/` に `ZipCodeInput`/`ProviderSelect`/`PlanSelect`/`CapacitySelect` 等の container 側コンポーネントを配置。`watch`/`setValue`/カスケードリセットロジック（[ADR-0005](./0005-form-validation.md)）はここに閉じ込める
+- `ZipCodeInput` は他のcontainerコンポーネントと異なり、見た目（presentational）とカスケードロジックを分離して段階的に実装する。design.png実測で郵便番号は「130」「-」「0012」の3セルが1つの枠に収まる構造で、他のInput/Select（64px、[ADR-0008](./0008-styling-tokens.md)）とは異なりボーダー込み48pxのコンパクトなサイズになっており、汎用`Input`（1つの`<input>`に1つの枠線という設計）では表現できないため専用コンポーネントとする。カスケードロジック・分割値の状態管理（`registration`等のRHF連携）は[ADR-0005](./0005-form-validation.md)のバリデーション実装と合わせて追加する
 - [ADR-0003](./0003-directory-structure.md) の import 境界ルール（`components` → `features` への参照禁止）と整合
 
 ### ディレクトリ粒度
@@ -58,8 +60,20 @@ components/ui/
 │   └── index.ts
 └── section-card/
     ├── section-card.tsx
+    ├── section-heading.tsx
+    └── index.ts
+
+features/simulation/components/
+└── zip-code-input/
+    ├── zip-code-input.tsx
     └── index.ts
 ```
+
+### アイコン
+
+- `react-icons` を採用し、`react-icons/fa`（Font Awesome）に統一する
+- 自前でSVGパスを書き起こすと座標の書き写しミスで形状が崩れるリスクがあるため、実績のあるアイコンセットをパッケージ経由で使う
+- `ErrorMessage` の警告アイコン（`FaExclamationTriangle`）、`Select` の矢印（`FaChevronDown`）、`Button` の矢印（`FaChevronRight`）をすべて同一アイコンセットで揃え、視覚的な一貫性を持たせる
 
 ### Storybook 導入
 
