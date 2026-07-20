@@ -32,6 +32,7 @@ export function Select({
     options,
     placeholder = '選択してください',
     registration,
+    value,
     ...props
 }: SelectProps) {
     const id = useId();
@@ -60,7 +61,11 @@ export function Select({
                     required={required}
                     aria-invalid={!!error}
                     aria-describedby={describedBy}
-                    defaultValue=""
+                    // カスケードセレクト（RHFのuseController）はvalueで制御するため、
+                    // defaultValueと同時指定にならないようどちらか一方のみ渡す
+                    {...(value === undefined
+                        ? { defaultValue: '' }
+                        : { value })}
                     className={cn(
                         'w-full appearance-none border-4 border-border bg-surface py-3.5 pr-3 pl-10 text-lg text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/50',
                         helpText ? 'rounded-t-sm' : 'rounded-sm',
