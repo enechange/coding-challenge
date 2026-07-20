@@ -96,6 +96,7 @@ export function ZipCodeField() {
             }}
             onBlur={handleBlur}
             error={errorMessage}
+            isChecking={isChecking}
         />
     );
 }

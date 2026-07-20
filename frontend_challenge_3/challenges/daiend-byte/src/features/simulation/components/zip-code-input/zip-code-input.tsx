@@ -1,6 +1,7 @@
 'use client';
 
 import { useId, useRef } from 'react';
+import { FaSpinner } from 'react-icons/fa';
 
 import {
     FieldWrapper,
@@ -13,6 +14,7 @@ type ZipCodeInputProps = FieldWrapperPassThroughProps & {
     onPrefixChange: (value: string) => void;
     onSuffixChange: (value: string) => void;
     onBlur?: () => void;
+    isChecking?: boolean;
 };
 
 function onlyDigits(value: string, maxLength: number): string {
@@ -33,6 +35,7 @@ export function ZipCodeInput({
     onPrefixChange,
     onSuffixChange,
     onBlur,
+    isChecking = false,
 }: ZipCodeInputProps) {
     const id = useId();
     const helpTextId = helpText ? `${id}-help-text` : undefined;
@@ -66,48 +69,61 @@ export function ZipCodeInput({
             helpText={helpText}
             helpTextId={helpTextId}
         >
-            {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions --
-                このdiv自体は対話要素にならない。ネイティブでフォーカス可能な子要素
-                （下の2つのinput）だけが操作対象で、blurはその間のフォーカス移動を
-                束ねて観測しているだけなので、キーボード操作の代替は不要。 */}
-            <div
-                ref={containerRef}
-                onBlur={handleContainerBlur}
-                className="flex overflow-hidden rounded-sm border-4 border-border bg-surface"
-            >
-                <input
-                    id={id}
-                    required={required}
-                    inputMode="numeric"
-                    maxLength={3}
-                    placeholder="130"
-                    value={prefixValue}
-                    onChange={(event) => {
-                        onPrefixChange(onlyDigits(event.target.value, 3));
-                    }}
-                    aria-invalid={!!error}
-                    aria-describedby={describedBy}
-                    className="w-0 flex-1 bg-transparent px-3 py-2 text-center text-base text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/50"
-                />
-                <div className="flex w-8 items-center justify-center bg-border text-base text-text">
-                    -
+            <div className="relative">
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions --
+                    このdiv自体は対話要素にならない。ネイティブでフォーカス可能な子要素
+                    （下の2つのinput）だけが操作対象で、blurはその間のフォーカス移動を
+                    束ねて観測しているだけなので、キーボード操作の代替は不要。 */}
+                <div
+                    ref={containerRef}
+                    onBlur={handleContainerBlur}
+                    className="flex overflow-hidden rounded-sm border-4 border-border bg-surface"
+                >
+                    <input
+                        id={id}
+                        required={required}
+                        inputMode="numeric"
+                        maxLength={3}
+                        placeholder="130"
+                        value={prefixValue}
+                        onChange={(event) => {
+                            onPrefixChange(onlyDigits(event.target.value, 3));
+                        }}
+                        aria-invalid={!!error}
+                        aria-describedby={describedBy}
+                        className="w-0 flex-1 bg-transparent px-3 py-2 text-center text-base text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/50"
+                    />
+                    <div className="flex w-8 items-center justify-center bg-border text-base text-text">
+                        -
+                    </div>
+                    <input
+                        id={`${id}-suffix`}
+                        required={required}
+                        inputMode="numeric"
+                        maxLength={4}
+                        placeholder="0012"
+                        value={suffixValue}
+                        onChange={(event) => {
+                            onSuffixChange(onlyDigits(event.target.value, 4));
+                        }}
+                        aria-label={`${label}（下4桁）`}
+                        aria-invalid={!!error}
+                        aria-describedby={describedBy}
+                        className="w-0 flex-1 bg-transparent px-3 py-2 text-center text-base text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/50"
+                    />
                 </div>
-                <input
-                    id={`${id}-suffix`}
-                    required={required}
-                    inputMode="numeric"
-                    maxLength={4}
-                    placeholder="0012"
-                    value={suffixValue}
-                    onChange={(event) => {
-                        onSuffixChange(onlyDigits(event.target.value, 4));
-                    }}
-                    aria-label={`${label}（下4桁）`}
-                    aria-invalid={!!error}
-                    aria-describedby={describedBy}
-                    className="w-0 flex-1 bg-transparent px-3 py-2 text-center text-base text-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/50"
-                />
+                {isChecking && (
+                    <FaSpinner
+                        aria-hidden="true"
+                        className="pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2 animate-spin text-accent"
+                    />
+                )}
             </div>
+            {isChecking && (
+                <span role="status" className="sr-only">
+                    サービスエリアを判定しています。
+                </span>
+            )}
         </FieldWrapper>
     );
 }
