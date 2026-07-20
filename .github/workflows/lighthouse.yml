@@ -3,6 +3,13 @@ name: Lighthouse CI
 # Vercelのデプロイステータス（deployment_statusイベント）を検知してから実行する。
 # vercel deployをActions側で自前実行せず、Vercel標準連携のデプロイ完了を
 # 待機するだけの軽量な構成にする（ADR-0015）。
+#
+# deployment_statusのstateが'success'になった時点でVercel側のデプロイは
+# 完了済みのため、URLへのHTTP到達性を別途ポーリングする必要はない。デプロイURL
+# はVercel Deployment Protectionで保護されており、素のHTTP GETには401が
+# 返り続けるため、ポーリング型のアクション（wait-for-vercel-preview等）は
+# 自身の疎通確認自体が失敗しタイムアウトしてしまう。そのためURLはイベント
+# ペイロード（environment_url）から直接取得する。
 on:
   deployment_status:
 
@@ -12,21 +19,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Wait for Vercel preview
-        id: vercel-preview
-        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          max_timeout: 300
+      - name: Generate Lighthouse CI config with bypass header
+        # treosh/lighthouse-ci-actionにはヘッダーを渡す入力が無いため、
+        # lighthouserc.jsonのcollect.settings.extraHeadersに実行時にマージする。
+        # クエリパラメータ方式はtemporaryPublicStorageでレポートが公開URLに
+        # アップロードされる際に監査対象URL経由でsecretが漏洩するため避ける。
+        run: |
+          jq --arg bypass "$VERCEL_BYPASS_SECRET" \
+            '.ci.collect.settings.extraHeaders = {"x-vercel-protection-bypass": $bypass}' \
+            frontend_challenge_3/challenges/daiend-byte/lighthouserc.json \
+            > /tmp/lighthouserc.json
+        env:
+          VERCEL_BYPASS_SECRET: ${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}
       - name: Run Lighthouse CI
         uses: treosh/lighthouse-ci-action@v12
         with:
           urls: |
-            ${{ steps.vercel-preview.outputs.url }}/simulation/electricity
-          configPath: ./frontend_challenge_3/challenges/daiend-byte/lighthouserc.json
+            ${{ github.event.deployment_status.environment_url }}/simulation/electricity
+          configPath: /tmp/lighthouserc.json
           uploadArtifacts: true
           temporaryPublicStorage: true
-          # デプロイURLはVercel Deployment Protection（Vercel Authentication）で
-          # 保護されているため、Protection Bypass for Automationのsecretを
-          # ヘッダーで渡してLighthouseからのアクセスのみ許可する
-          extraHeaders: '{"x-vercel-protection-bypass":"${{ secrets.VERCEL_AUTOMATION_BYPASS_SECRET }}"}'
