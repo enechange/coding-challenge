@@ -1,0 +1,28 @@
+name: Lighthouse CI
+
+# Vercelのデプロイステータス（deployment_statusイベント）を検知してから実行する。
+# vercel deployをActions側で自前実行せず、Vercel標準連携のデプロイ完了を
+# 待機するだけの軽量な構成にする（ADR-0015）。
+on:
+  deployment_status:
+
+jobs:
+  lighthouse:
+    if: github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for Vercel preview
+        id: vercel-preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 300
+      - name: Run Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          urls: |
+            ${{ steps.vercel-preview.outputs.url }}/simulation/electricity
+          configPath: ./frontend_challenge_3/challenges/daiend-byte/lighthouserc.json
+          uploadArtifacts: true
+          temporaryPublicStorage: true
